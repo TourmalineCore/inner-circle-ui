@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# this command launches the npm package, which checks that your commits follow the conventional commits standards
+npx commitlint  --edit
