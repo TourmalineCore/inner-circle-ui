@@ -1,0 +1,176 @@
+.sidebar-item {
+  $this: &;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  width: 100%;
+  min-height: 24px;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 16px;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease-out;
+
+  &__icon {
+    flex: none;
+    font-size: 24px;
+  }
+
+  &__icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: none;
+    justify-content: center;
+    margin-right: 16px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+  }
+
+  &__counter {
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    z-index: $sidebar-item;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    box-shadow: none;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--color-white);
+    background-color: #fd5d93;
+  }
+
+  &__mini-container {
+    display: none;
+    flex: none;
+    width: 24px;
+    height: 18px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &__icon-mini {
+    display: block;
+    margin: 0 auto;
+  }
+
+  &__mini-container + #{$this}__icon-container {
+    display: none;
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  }
+
+  &__content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__drop-arrow {
+    margin-right: 4px;
+    margin-left: auto;
+    font-size: 12px;
+  }
+
+  &__nested #{$this} {
+    padding-left: 52px;
+    min-height: 18px;
+    font-size: 14px;
+    transition: padding-left 0.3s ease, background-color 0.15s ease-out;
+    will-change: padding-left;
+
+    @include tablet {
+      font-size: 16px;
+    }
+  }
+
+  &__nested #{$this}__icon {
+    font-size: 14px;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background-color: var(--color-white);
+  }
+
+  &:active {
+    background-color: rgb(255 255 255 / 60%);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &--active {
+    position: relative;
+    background-color: var(--color-white);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -16px;
+      top: 8px;
+      bottom: 8px;
+      display: block;
+      width: 2px;
+      background-color: currentColor;
+    }
+  }
+
+  @include tablet {
+    font-size: 18px;
+  }
+}
+
+.sidebar--collapsed .sidebar-item__mini-container {
+  @include desktop {
+    display: block;
+  }
+}
+
+.sidebar--collapsed .sidebar-item__box {
+  @include desktop {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+}
+
+.sidebar--collapsed .sidebar-item__mini-container + .sidebar-item__box {
+  @include desktop {
+    display: none;
+  }
+}
+
+.sidebar--collapsed .sidebar-item__nested .sidebar-item {
+  @include desktop {
+    padding-left: 10px;
+  }
+}
+
+.sidebar--collapsed .sidebar-item__nested .bex-sidebar-item {
+  @include desktop {
+    padding-left: 0;
+  }
+}

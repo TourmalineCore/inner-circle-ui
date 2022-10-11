@@ -1,0 +1,101 @@
+{
+  "ignorePatterns": [
+    "sw-*.js"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "jest"
+  ],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "tsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "parser": "@typescript-eslint/parser",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["node_modules", "src"],
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
+      }
+    },
+  "rules": {
+    // https://eslint.org/docs/rules/indent here you can read about SwitchCase
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "linebreak-style": [
+        "error",
+        "unix"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 180,
+        "comments": 200
+      }
+    ],
+    "react/sort-comp": [1, {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "everything-else"
+      ]
+    }],
+    "object-property-newline": "error",
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0,
+    "no-underscore-dangle": 0,
+    "func-names": 0,
+    "no-plusplus": 0,
+    "no-return-assign": 0,
+    "no-param-reassign": 0,
+    "no-restricted-syntax": ["error", "BinaryExpression[operator='in']"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "class-methods-use-this": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/no-did-update-set-state": 0,
+    "react/function-component-definition": "off",
+    "no-prototype-builtins": "off",
+    "import/no-default-export": 0,
+    "react/destructuring-assignment": "off",
+    "no-use-before-define": [
+      "error",
+      { "functions": false, "classes": true, "variables": true }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      { "functions": false, "classes": true, "variables": true, "typedefs": true }
+    ],
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-array-for-each": "off",
+    "default-param-last": "off"
+  }
+}

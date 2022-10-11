@@ -1,0 +1,40 @@
+.auth-page {
+  display: flex;
+  overflow-x: hidden;
+  padding: 40px 0;
+  height: 100vh; /* ie11 fallback */
+  height: calc(var(--vh, 1vh) * 100);
+  font-size: 16px;
+  line-height: 1.15;
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--accent-gradient-color-1) 0%,
+      var(--accent-gradient-color-2) 52%,
+      var(--accent-gradient-color-3) 100%
+    );
+
+  &__input {
+    margin-bottom: 30px;
+  }
+
+  @include tablet-xl {
+    background-image: none;
+  }
+}
+
+.svg-fill-accent-first {
+  fill: var(--auth-bg-accent-color-first);
+}
+
+.svg-stroke-accent-first {
+  stroke: var(--auth-bg-accent-color-first);
+}
+
+.svg-fill-accent-last {
+  fill: var(--auth-bg-accent-color-last);
+}
+
+.svg-stroke-accent-last {
+  stroke: var(--auth-bg-accent-color-last);
+}

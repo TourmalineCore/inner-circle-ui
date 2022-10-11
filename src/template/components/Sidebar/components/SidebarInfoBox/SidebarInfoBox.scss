@@ -1,0 +1,54 @@
+.sidebar-infobox {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 20px 28px;
+  font-size: 18px;
+  white-space: nowrap;
+
+  &__image {
+    display: flex;
+    align-items: center;
+    flex: none;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-weight: 700;
+    background-color: var(--color-white);
+
+    img {
+      display: block;
+      flex: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__col {
+    overflow: hidden;
+    margin-left: 20px;
+    transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  }
+
+  &__name {
+    overflow: hidden;
+    font-weight: 400;
+    text-overflow: ellipsis;
+  }
+
+  &__email {
+    overflow: hidden;
+    margin-top: 3px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+  }
+}
+
+.sidebar--collapsed .sidebar-infobox__col {
+  @include desktop {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+}

@@ -1,0 +1,26 @@
+.sidebar-tooltip {
+  position: absolute;
+  left: calc(100% + 8px);
+  z-index: $sidebar-tooltip;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 4px 12px;
+  box-shadow: 1px 2px 10px rgb(34 49 59 / 10%);
+  font-size: 14px;
+  white-space: nowrap;
+  background-color: var(--color-white);
+  animation: sidebar-tooltip-slide 0.15s ease-out;
+}
+
+@keyframes sidebar-tooltip-slide {
+  0% {
+    opacity: 0;
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

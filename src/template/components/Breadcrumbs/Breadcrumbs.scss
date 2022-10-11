@@ -1,0 +1,33 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+
+  &__item {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+
+    &:not(:last-child) {
+      flex: none;
+
+      &::after {
+        content: "/";
+        margin: 0 8px;
+      }
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-link);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
