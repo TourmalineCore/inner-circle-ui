@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import LoginForm from './components/LoginForm/LoginForm';
 
-import { AuthContext } from '../../routes/authStateProvider/authContext';
+import { login, authService } from '../../common/authService';
 
 function LoginPage() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  // @ts-ignore
+  const [isAuthenticated] = useContext(authService.AuthContext);
+
   const history = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -56,7 +58,7 @@ function LoginPage() {
     </div>
   );
 
-  function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     const {
       email,
       password,
@@ -67,7 +69,12 @@ function LoginPage() {
     setTriedToSubmit(true);
 
     if (email && password) {
-      setIsAuthenticated(true);
+      try {
+        await login({ username: email, password });
+      } catch (e) {
+        console.log(e);
+        setFormData({ email: '', password: '' });
+      }
     }
   }
 }

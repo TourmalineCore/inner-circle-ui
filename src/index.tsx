@@ -15,16 +15,16 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 
-import { AuthProvider } from './routes/authStateProvider/authContext';
 import { ThemeProvider } from './theme/themeContext';
+import { authService } from './common/authService';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
+    <authService.AuthProvider>
       <ThemeProvider>
         <App />
       </ThemeProvider>
-    </AuthProvider>
+    </authService.AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
