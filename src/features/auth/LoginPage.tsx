@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import LoginForm from './components/LoginForm/LoginForm';
 
-import { login, authService } from '../../common/authService';
+import { authService, setLogin } from '../../common/authService';
 
 function LoginPage() {
   // @ts-ignore
@@ -15,7 +15,7 @@ function LoginPage() {
   const history = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: '',
+    login: '',
     password: '',
   });
   const [triedToSubmit, setTriedToSubmit] = useState(false);
@@ -36,11 +36,11 @@ function LoginPage() {
           className="auth-page__input"
           type="text"
           label="Login"
-          value={formData.email}
-          isInvalid={!formData.email && triedToSubmit}
-          validationMessages={['Login should be filled']}
+          value={formData.login}
+          isInvalid={!formData.login && triedToSubmit}
+          validationMessages={['Неправильный логин']}
           isMessagesAbsolute
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: event.target.value })}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, login: event.target.value })}
         />
 
         <Input
@@ -50,7 +50,7 @@ function LoginPage() {
           label="Password"
           value={formData.password}
           isInvalid={!formData.password && triedToSubmit}
-          validationMessages={['Password should be filled']}
+          validationMessages={['Неправильный пароль']}
           isMessagesAbsolute
           onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: event.target.value })}
         />
@@ -60,7 +60,7 @@ function LoginPage() {
 
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     const {
-      email,
+      login,
       password,
     } = formData;
 
@@ -68,12 +68,11 @@ function LoginPage() {
 
     setTriedToSubmit(true);
 
-    if (email && password) {
+    if (login && password) {
       try {
-        await login({ username: email, password });
+        await setLogin({ login, password });
       } catch (e) {
-        console.log(e);
-        setFormData({ email: '', password: '' });
+        setFormData({ login: '', password: '' });
       }
     }
   }

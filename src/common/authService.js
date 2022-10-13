@@ -1,7 +1,8 @@
 import { createAuthService } from '@tourmalinecore/react-tc-auth';
+import { API_ROOT } from './config/config';
 
 export const authService = createAuthService({
-  authApiRoot: 'http://localhost:5000',
+  authApiRoot: API_ROOT,
   authType: 'ls',
   tokenAccessor: 'accessToken',
   refreshTokenAccessor: 'refreshToken',
@@ -9,7 +10,8 @@ export const authService = createAuthService({
   tokenExpireAccessor: 'expiresInUtc',
 });
 
-export async function login(payLog) {
-  const { data } = await authService.loginCall(payLog);
+export async function setLogin(payload) {
+  const { data } = await authService.loginCall(payload);
+
   authService.setLoggedIn(data);
 }
