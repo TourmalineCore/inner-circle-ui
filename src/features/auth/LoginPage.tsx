@@ -72,7 +72,7 @@ function LoginPage() {
       try {
         await setLogin({ login, password });
       } catch (e) {
-        setFormData({ login: '', password: '' });
+        setFormData({ ...formData, password: '' });
       }
     }
   }
