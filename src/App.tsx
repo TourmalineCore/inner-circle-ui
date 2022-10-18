@@ -6,10 +6,10 @@ import {
 
 import LoginPage from './features/auth/LoginPage';
 import LogoutPage from './features/logout/LogoutPage';
-import { withPrivateRoute } from './routes/authStateProvider/withPrivateRoute';
 import Template from './template/Template';
+import { authService } from './common/authService';
 
-const WithPrivateRoute = withPrivateRoute(Template);
+const WithPrivateRoute = authService.withPrivateRoute(Template);
 
 export default function App() {
   return (

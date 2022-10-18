@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import LoginForm from './components/LoginForm/LoginForm';
 
-import { AuthContext } from '../../routes/authStateProvider/authContext';
+import { authService, setLogin } from '../../common/authService';
 
 function LoginPage() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  // @ts-ignore
+  const [isAuthenticated] = useContext(authService.AuthContext);
+
   const history = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: '',
+    login: '',
     password: '',
   });
   const [triedToSubmit, setTriedToSubmit] = useState(false);
@@ -34,11 +36,11 @@ function LoginPage() {
           className="auth-page__input"
           type="text"
           label="Login"
-          value={formData.email}
-          isInvalid={!formData.email && triedToSubmit}
-          validationMessages={['Login should be filled']}
+          value={formData.login}
+          isInvalid={!formData.login && triedToSubmit}
+          validationMessages={['Поле должно быть заполнено']}
           isMessagesAbsolute
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: event.target.value })}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, login: event.target.value })}
         />
 
         <Input
@@ -48,7 +50,7 @@ function LoginPage() {
           label="Password"
           value={formData.password}
           isInvalid={!formData.password && triedToSubmit}
-          validationMessages={['Password should be filled']}
+          validationMessages={['Поле должно быть заполнено']}
           isMessagesAbsolute
           onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: event.target.value })}
         />
@@ -56,9 +58,9 @@ function LoginPage() {
     </div>
   );
 
-  function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     const {
-      email,
+      login,
       password,
     } = formData;
 
@@ -66,8 +68,12 @@ function LoginPage() {
 
     setTriedToSubmit(true);
 
-    if (email && password) {
-      setIsAuthenticated(true);
+    if (login && password) {
+      try {
+        await setLogin({ login, password });
+      } catch (e) {
+        setFormData({ ...formData, password: '' });
+      }
     }
   }
 }
