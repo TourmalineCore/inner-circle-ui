@@ -38,7 +38,7 @@ function LoginPage() {
           label="Login"
           value={formData.login}
           isInvalid={!formData.login && triedToSubmit}
-          validationMessages={['Неправильный логин']}
+          validationMessages={['Поле должно быть заполнено']}
           isMessagesAbsolute
           onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, login: event.target.value })}
         />
@@ -50,7 +50,7 @@ function LoginPage() {
           label="Password"
           value={formData.password}
           isInvalid={!formData.password && triedToSubmit}
-          validationMessages={['Неправильный пароль']}
+          validationMessages={['Поле должно быть заполнено']}
           isMessagesAbsolute
           onChange={(event: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: event.target.value })}
         />
