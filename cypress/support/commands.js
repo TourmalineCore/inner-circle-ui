@@ -1,6 +1,7 @@
-/// <reference types="cypress" />
+import { existUser } from '../e2e/constants/index';
+import AuthView from '../e2e/pages/AuthView';
 // ***********************************************
-// This example commands.ts shows you how to
+// This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
 //
@@ -11,7 +12,16 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('auth', () => {
+  const { login } = existUser;
+  const { password } = existUser;
+
+  AuthView.enterLogin(login);
+  AuthView.enterPassword(password);
+
+  AuthView.tapLogIn();
+});
+
 //
 //
 // -- This is a child command --
@@ -24,14 +34,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
