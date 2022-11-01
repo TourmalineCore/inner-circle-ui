@@ -37,6 +37,7 @@
     "@types/react-dom": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "cypress": "^10.11.0",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
@@ -69,7 +70,9 @@
     "lint:css:fix": "npx stylelint ./src/**/*.{css,scss} --fix",
     "create-config:dev": "node local-config-builder dev",
     "create-config:local": "node local-config-builder local",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run"
   },
   "browserslist": {
     "production": [
