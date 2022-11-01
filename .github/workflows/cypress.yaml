@@ -25,12 +25,6 @@ jobs:
               continue-on-error: true
               run: node ./helpers/qase-pre-script.js && QASE_REPORT=1, QASE_API_TOKEN=${{ secrets.QASE_API_TOKEN }} npx cypress run --env userLogin=${{ secrets.USER_LOGIN }},userPassword=${{ secrets.USER_PASSWORD }} --browser chrome && node ./helpers/qase-post-script.js
 
-            # - name: Copy test report
-            #   continue-on-error: true
-            #   run: |
-            #     mkdir public
-            #     ./cypress/reports/html/.
-
             - name: Deploy report to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
               with:
