@@ -5,7 +5,8 @@
   "plugins": [
     "@typescript-eslint",
     "react",
-    "jest"
+    "jest",
+    "cypress"
   ],
   "env": {
     "browser": true,
@@ -15,9 +16,11 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:jest/recommended",
+    "plugin:cypress/recommended",
     "airbnb",
     "airbnb-typescript"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
     "ecmaFeatures": {
@@ -26,7 +29,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "parser": "@typescript-eslint/parser",
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
