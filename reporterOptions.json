@@ -1,0 +1,10 @@
+{
+  "reporterEnabled": "cypress-mochawesome-reporter, cypress-qase-reporter",
+  "cypressMochawesomeReporterReporterOptions": {
+    "charts": true
+  },
+  "cypressQaseReporterReporterOptions": {
+    "projectCode": "INNCIRCLE",
+    "logging": true
+  }
+}

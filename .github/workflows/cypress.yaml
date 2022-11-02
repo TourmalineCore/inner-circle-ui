@@ -1,0 +1,32 @@
+name: cypress test run report
+
+on:
+    push:
+        branches:
+            - feature/*
+            - develop
+jobs:
+    cypress-test:
+        name: Run on Chrome 106
+        runs-on: ubuntu-latest
+        container: 
+          image: cypress/browsers:node16.17.0-chrome106
+          options: --user 1001
+        environment: DEV
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Download Cypress
+              continue-on-error: true
+              run: |
+                npm ci
+
+            - name: Start react app and run cypress tests
+              continue-on-error: true
+              run: node ./helpers/qase-pre-script.js && QASE_REPORT=1, QASE_API_TOKEN=${{ secrets.QASE_API_TOKEN }} npx cypress run --env userLogin=${{ secrets.USER_LOGIN }},userPassword=${{ secrets.USER_PASSWORD }} --browser chrome && node ./helpers/qase-post-script.js
+
+            - name: Deploy report to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./cypress/reports/html/.
