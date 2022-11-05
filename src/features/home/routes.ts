@@ -5,7 +5,7 @@ import HomePage from './HomePage';
 export const homeRoutes = [
   {
     path: '/',
-    breadcrumb: 'Home',
+    breadcrumb: 'Главная страница',
     Component: HomePage,
   },
 ];
@@ -13,7 +13,7 @@ export const homeRoutes = [
 export const homeSidebarRoutes = [
   {
     path: '/',
-    label: 'Home',
+    label: 'Домашняя страница',
     icon: faHome,
   },
 ];
