@@ -1,19 +1,19 @@
 import { faTable } from '@fortawesome/free-solid-svg-icons';
 
-import TablePage from './TablePage';
+import TablePage from './StaffPage';
 
 export const tableRoutes = [
   {
-    path: '/table',
-    breadcrumb: 'Table',
+    path: '/staff',
+    breadcrumb: 'Staff',
     Component: TablePage,
   },
 ];
 
 export const tableSidebarRoutes = [
   {
-    path: '/table',
-    label: 'Table',
+    path: '/staff',
+    label: 'Staff',
     icon: faTable,
   },
 ];
