@@ -1,34 +1,21 @@
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faEdit } from '@fortawesome/free-solid-svg-icons';
-
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 
 import {
   data,
-} from './staffData';
+} from './employeesData';
 
 type Row<Type> = {
   original: Type
 };
 
-function TablePage() {
-  // const actions = [
-  //   {
-  //     name: 'edit-row-action',
-  //     show: () => true,
-  //     renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
-  //     renderText: () => 'Edit Row',
-  //   },
-  // ];
-
+function EmployeesPage() {
   return (
     <ContentCard
       isStickyHead
       headerContent={(
-        <DefaultCardHeader>Staffers Table</DefaultCardHeader>
+        <DefaultCardHeader>Employees Table</DefaultCardHeader>
       )}
     >
       <div style={{ paddingTop: 4 }}>
@@ -46,15 +33,21 @@ function TablePage() {
           columns={[
             {
               Header: 'Employee',
-              accessor: 'employee',
+              accessor: 'fullName',
               // Use our custom `fuzzyText` filter on this column
               filter: 'fuzzyText',
               nonMobileColumn: true,
               principalFilterableColumn: true,
             },
             {
+              Header: 'Work Email',
+              accessor: 'workEmail',
+              disableFilters: true,
+              disableSortBy: true,
+            },
+            {
               Header: 'Email',
-              accessor: 'email',
+              accessor: 'personalEmail',
               disableFilters: true,
               disableSortBy: true,
             },
@@ -66,13 +59,13 @@ function TablePage() {
             },
             {
               Header: 'Skype',
-              accessor: 'skypeId',
+              accessor: 'skype',
               disableFilters: true,
               disableSortBy: true,
             },
             {
               Header: 'Telegram',
-              accessor: 'telegramId',
+              accessor: 'telegram',
               disableFilters: true,
               disableSortBy: true,
             },
@@ -83,4 +76,4 @@ function TablePage() {
   );
 }
 
-export default TablePage;
+export default EmployeesPage;
