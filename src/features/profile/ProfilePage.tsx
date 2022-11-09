@@ -1,6 +1,6 @@
 import ContentCard from '../../components/ContentCard/ContentCard';
 
-import printData from './utils/printData';
+import { formatMoney } from '../../common/utils/formatMoney';
 
 import { infoData } from './mockData/infoData';
 
@@ -8,74 +8,72 @@ function ProfilePage() {
   const locale = 'ru-RU';
 
   return (
-    <ContentCard
-      style={{ height: 2000, backgroundColor: '#f8fcff', paddingTop: 5 }}
-    >
+    <ContentCard className="profile-page__card">
       <ul className="profile-page__data">
         <li>
-          <b>Имя:</b>
-          {printData(infoData.name)}
+          <b>Имя: </b>
+          {infoData.name}
         </li>
         <li>
-          <b>Фамилия:</b>
-          {printData(infoData.surname)}
+          <b>Фамилия: </b>
+          {infoData.surname}
         </li>
         <li>
-          <b>Электронная почта:</b>
-          {printData(infoData.email)}
+          <b>Электронная почта: </b>
+          {infoData.email}
         </li>
         <li>
-          <b>Ставка в час:</b>
-          {printData(infoData.ratePerHour, locale, true)}
+          <b>Ставка в час: </b>
+          {formatMoney(infoData.ratePerHour, locale)}
         </li>
         <li>
-          <b>Полный оклад:</b>
-          {printData(infoData.fullSalary, locale, true)}
+          <b>Полный оклад: </b>
+          {formatMoney(infoData.fullSalary, locale)}
         </li>
         <li>
-          <b>Ставка:</b>
-          {printData(infoData.employmentType, locale, true)}
+          <b>Ставка: </b>
+          {formatMoney(infoData.employmentType, locale)}
         </li>
         <li>
-          <b>Оклад:</b>
-          {printData(infoData.salary, locale, true)}
+          <b>Оклад: </b>
+          {formatMoney(infoData.salary, locale)}
         </li>
         <li>
-          <b>Фактическая стоимость часа:</b>
-          {printData(infoData.hourCostFact, locale, true)}
+          <b>Фактическая стоимость часа: </b>
+          {formatMoney(infoData.hourCostFact, locale)}
         </li>
         <li>
-          <b>Стоимость часа на руки:</b>
-          {printData(infoData.hourCostForHands, locale, true)}
+          <b>Стоимость часа на руки: </b>
+          {formatMoney(infoData.hourCostForHands, locale)}
         </li>
         <li>
-          <b>Аванс:</b>
-          {printData(infoData.advancePayment, locale, true)}
+          <b>Аванс: </b>
+          {formatMoney(infoData.advancePayment, locale)}
         </li>
         <li>
-          <b>Доход:</b>
-          {printData(infoData.income, locale, true)}
+          <b>Доход: </b>
+          {formatMoney(infoData.income, locale)}
         </li>
         <li>
-          <b>Расход:</b>
-          {printData(infoData.expenses, locale, true)}
+          <b>Расход: </b>
+          {formatMoney(infoData.expenses, locale)}
         </li>
         <li>
-          <b>Прибыль:</b>
-          {printData(infoData.profit, locale, true)}
+          <b>Прибыль: </b>
+          {formatMoney(infoData.profit, locale)}
         </li>
         <li>
-          <b>Рентабельность:</b>
-          {printData(infoData.profitability)}
+          <b>Рентабельность: </b>
+          {infoData.profitability}
           %
         </li>
         <li>
-          <b>Зарплата до вычета НДФЛ:</b>
-          {printData(infoData.salaryBeforeTax, locale, true)}
+          <b>Зарплата до вычета НДФЛ: </b>
+          {formatMoney(infoData.salaryBeforeTax, locale)}
         </li>
         <li>
-          <b>Зарплата с вычетом НДФЛ:</b>
-          {printData(infoData.salaryAfterTax, locale, true)}
+          <b>Зарплата с вычетом НДФЛ: </b>
+          {formatMoney(infoData.salaryAfterTax, locale)}
         </li>
       </ul>
     </ContentCard>
