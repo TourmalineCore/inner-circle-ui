@@ -1,4 +1,4 @@
-import { faTable } from '@fortawesome/free-solid-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 import EmployeesPage from './EmployeesPage';
 
@@ -14,6 +14,6 @@ export const employeesSidebarRoutes = [
   {
     path: '/employees',
     label: 'Employees',
-    icon: faTable,
+    icon: faUsers,
   },
 ];
