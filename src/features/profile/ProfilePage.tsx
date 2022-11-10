@@ -5,8 +5,6 @@ import { formatMoney } from '../../common/utils/formatMoney';
 import { infoData } from './mockData/infoData';
 
 function ProfilePage() {
-  const locale = 'ru-RU';
-
   return (
     <ContentCard className="profile-page__card">
       <ul className="profile-page__data">
@@ -24,11 +22,11 @@ function ProfilePage() {
         </li>
         <li>
           <b>Ставка в час: </b>
-          {formatMoney(infoData.ratePerHour, locale)}
+          {formatMoney(infoData.ratePerHour)}
         </li>
         <li>
           <b>Полный оклад: </b>
-          {formatMoney(infoData.fullSalary, locale)}
+          {formatMoney(infoData.fullSalary)}
         </li>
         <li>
           <b>Ставка: </b>
@@ -36,31 +34,31 @@ function ProfilePage() {
         </li>
         <li>
           <b>Оклад: </b>
-          {formatMoney(infoData.salary, locale)}
+          {formatMoney(infoData.salary)}
         </li>
         <li>
           <b>Фактическая стоимость часа: </b>
-          {formatMoney(infoData.hourCostFact, locale)}
+          {formatMoney(infoData.hourCostFact)}
         </li>
         <li>
           <b>Стоимость часа на руки: </b>
-          {formatMoney(infoData.hourCostForHands, locale)}
+          {formatMoney(infoData.hourCostForHands)}
         </li>
         <li>
           <b>Аванс: </b>
-          {formatMoney(infoData.advancePayment, locale)}
+          {formatMoney(infoData.advancePayment)}
         </li>
         <li>
           <b>Доход: </b>
-          {formatMoney(infoData.income, locale)}
+          {formatMoney(infoData.income)}
         </li>
         <li>
           <b>Расход: </b>
-          {formatMoney(infoData.expenses, locale)}
+          {formatMoney(infoData.expenses)}
         </li>
         <li>
           <b>Прибыль: </b>
-          {formatMoney(infoData.profit, locale)}
+          {formatMoney(infoData.profit)}
         </li>
         <li>
           <b>Рентабельность: </b>
@@ -69,11 +67,11 @@ function ProfilePage() {
         </li>
         <li>
           <b>Зарплата до вычета НДФЛ: </b>
-          {formatMoney(infoData.salaryBeforeTax, locale)}
+          {formatMoney(infoData.salaryBeforeTax)}
         </li>
         <li>
           <b>Зарплата с вычетом НДФЛ: </b>
-          {formatMoney(infoData.salaryAfterTax, locale)}
+          {formatMoney(infoData.salaryAfterTax)}
         </li>
       </ul>
     </ContentCard>
