@@ -2,7 +2,7 @@ import { faTable } from '@fortawesome/free-solid-svg-icons';
 
 import EmployeesPage from './EmployeesPage';
 
-export const tableRoutes = [
+export const employeesRoutes = [
   {
     path: '/employees',
     breadcrumb: 'Employees',
@@ -10,7 +10,7 @@ export const tableRoutes = [
   },
 ];
 
-export const tableSidebarRoutes = [
+export const employeesSidebarRoutes = [
   {
     path: '/employees',
     label: 'Employees',
