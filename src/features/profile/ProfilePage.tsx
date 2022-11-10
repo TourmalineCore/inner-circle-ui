@@ -32,7 +32,7 @@ function ProfilePage() {
         </li>
         <li>
           <b>Ставка: </b>
-          {formatMoney(infoData.employmentType, locale)}
+          {infoData.employmentType}
         </li>
         <li>
           <b>Оклад: </b>
