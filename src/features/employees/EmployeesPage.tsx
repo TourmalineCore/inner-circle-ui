@@ -16,26 +16,15 @@ type Row<Type> = {
 
 function EmployeesPage() {
   const [employees, employeesState] = useState<EmployeeProps[]>([]);
-  function fetchQuotes() {
-    axios.get<EmployeeProps[]>(QUOTE_SERVICE_URL, {
-      method: 'GET',
-    }).then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        response.data[i].fullname = `${response.data[i].name} ${response.data[i].surname}`;
-        if (!response.data[i].telegram || response.data[i].telegram?.length === 0) {
-          response.data[i].telegram = 'Not specified';
-        }
-      }
-      employeesState(response.data);
-    });
+  async function fetchQuotes() {
+    const { data } = await axios.get<EmployeeProps[]>(QUOTE_SERVICE_URL);
+    data.map((el) => el.fullname = `${el.name} ${el.surname}`);
+    data.map((el) => el.telegram = ((el.telegram?.length === 0 || !el.telegram) ? el.telegram = 'Not specified' : el.telegram));
+    employeesState(data);
   }
   useEffect(() => {
-    try {
-      fetchQuotes();
-    } catch (err) {
-      console.log(err);
-    }
-  }, [employeesState]);
+    fetchQuotes();
+  }, []);
   return (
     <ContentCard
       isStickyHead
