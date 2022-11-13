@@ -8,22 +8,26 @@ type ProfileNavItems = {
   active?: boolean;
 };
 
-type InfoData = {
+type Employee = {
   id: number;
   name: string;
   surname: string;
-  email: string;
+  workEmail: string;
+  personalEmail: string;
+  phone: string;
+  skype: string;
+  telegram: string;
+  pay: number;
   ratePerHour: number;
-  fullSalary: number;
   employmentType: number;
-  salary: number;
-  hourCostFact: number;
-  hourCostForHands: number;
-  advancePayment: number;
-  income: number;
+  hasParking: boolean;
+  hourlyCostFact: number;
+  hourlyCostHand: number;
+  earnings: number;
   expenses: number;
   profit: number;
-  profitability: number;
-  salaryBeforeTax: number;
-  salaryAfterTax: number;
+  profitAbility: number;
+  grossSalary: number;
+  retainer: number;
+  netSalary: number;
 };

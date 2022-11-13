@@ -6,7 +6,7 @@ import ProfilePage from './ProfilePage';
 export const profileRoutes = [
   {
     path: '/profile',
-    breadcrumb: 'Информация о зарплате',
+    breadcrumb: 'Salary information',
     Component: ProfilePage,
   },
   {
@@ -19,7 +19,7 @@ export const profileRoutes = [
 export const profileSidebarRoutes = [
   {
     path: '/profile',
-    label: 'Зарплата',
+    label: 'Salary',
     icon: faUser,
   },
 ];

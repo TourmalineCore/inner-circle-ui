@@ -1,79 +1,89 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import ContentCard from '../../components/ContentCard/ContentCard';
-
 import { formatMoney } from '../../common/utils/formatMoney';
+import { Employee } from './types/Profile';
 
-import { infoData } from './mockData/infoData';
+const QUOTE_SERVICE_URL = 'http://localhost:5000/api/employees/get-full-employee-info/1';
 
 function ProfilePage() {
+  const [employee, setEmployee] = useState<Employee>();
+  async function loadEmployeesAsync() {
+    const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL);
+    setEmployee(data);
+  }
+  useEffect(() => { loadEmployeesAsync(); }, []);
+
   return (
-    <ContentCard className="profile-page__card">
-      <ul className="profile-page__data">
-        <li>
-          <b>Имя: </b>
-          {infoData.name}
-        </li>
-        <li>
-          <b>Фамилия: </b>
-          {infoData.surname}
-        </li>
-        <li>
-          <b>Электронная почта: </b>
-          {infoData.email}
-        </li>
-        <li>
-          <b>Ставка в час: </b>
-          {formatMoney(infoData.ratePerHour)}
-        </li>
-        <li>
-          <b>Полный оклад: </b>
-          {formatMoney(infoData.fullSalary)}
-        </li>
-        <li>
-          <b>Ставка: </b>
-          {infoData.employmentType}
-        </li>
-        <li>
-          <b>Оклад: </b>
-          {formatMoney(infoData.salary)}
-        </li>
-        <li>
-          <b>Фактическая стоимость часа: </b>
-          {formatMoney(infoData.hourCostFact)}
-        </li>
-        <li>
-          <b>Стоимость часа на руки: </b>
-          {formatMoney(infoData.hourCostForHands)}
-        </li>
-        <li>
-          <b>Аванс: </b>
-          {formatMoney(infoData.advancePayment)}
-        </li>
-        <li>
-          <b>Доход: </b>
-          {formatMoney(infoData.income)}
-        </li>
-        <li>
-          <b>Расход: </b>
-          {formatMoney(infoData.expenses)}
-        </li>
-        <li>
-          <b>Прибыль: </b>
-          {formatMoney(infoData.profit)}
-        </li>
-        <li>
-          <b>Рентабельность: </b>
-          {infoData.profitability}
-          %
-        </li>
-        <li>
-          <b>Зарплата до вычета НДФЛ: </b>
-          {formatMoney(infoData.salaryBeforeTax)}
-        </li>
-        <li>
-          <b>Зарплата с вычетом НДФЛ: </b>
-          {formatMoney(infoData.salaryAfterTax)}
-        </li>
-      </ul>
+    <ContentCard
+      className="profile-page__card"
+      isStickyHead
+    >
+      {employee && (
+        <ul className="profile-page__data">
+          <li>
+            <b>Name: </b>
+            {employee.name}
+            {' '}
+            {employee.surname}
+          </li>
+          <li>
+            <b>Rate per Hour: </b>
+            {formatMoney(employee.ratePerHour)}
+          </li>
+          <li>
+            <b>Pay: </b>
+            {formatMoney(employee.pay)}
+          </li>
+          <li>
+            <b>Employment Type: </b>
+            {employee.employmentType}
+          </li>
+          <li>
+            <b>Salary: </b>
+            {formatMoney(employee.pay * employee.employmentType)}
+          </li>
+          <li>
+            <b>Hourly Cost (By Fact): </b>
+            {formatMoney(employee.hourlyCostFact)}
+          </li>
+          <li>
+            <b>Hourly Cost (On Hand): </b>
+            {formatMoney(employee.hourlyCostHand)}
+          </li>
+          <li>
+            <b>Retainer: </b>
+            {formatMoney(employee.retainer)}
+          </li>
+          <li>
+            <b>Earnings: </b>
+            {formatMoney(employee.earnings)}
+          </li>
+          <li>
+            <b>Expenses: </b>
+            {formatMoney(employee.expenses)}
+          </li>
+          <li>
+            <b>Profit: </b>
+            {formatMoney(employee.profit)}
+          </li>
+          <li>
+            <b>Profitability: </b>
+            {employee.profitAbility}
+            %
+          </li>
+          <li>
+            <b>Gross Salary: </b>
+            {formatMoney(employee.grossSalary)}
+          </li>
+          <li>
+            <b>Net Salary: </b>
+            {formatMoney(employee.netSalary)}
+          </li>
+        </ul>
+      )}
+      {!employee && <h1>TODO: Loader</h1>}
     </ContentCard>
   );
 }
