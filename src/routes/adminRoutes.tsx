@@ -1,6 +1,6 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs';
-import { employeesSalaryRoutes, employeesSalarySidebarRoutes } from '../features/employeesSalary/routes';
-
+import { homeRoutes, homeSidebarRoutes } from '../features/home/routes';
+import { profileRoutes, profileSidebarRoutes } from '../features/profile/routes';
 import { SidebarRoutesProps } from '../types';
 
 export const adminRoutes: {
@@ -8,9 +8,11 @@ export const adminRoutes: {
   breadcrumb: string | ((props: BreadcrumbComponentProps) => string | undefined);
   Component: () => JSX.Element;
 }[] = [
-  ...employeesSalaryRoutes,
+  ...homeRoutes,
+  ...profileRoutes,
 ];
 
 export const sidebarRoutes: SidebarRoutesProps[] = [
-  ...employeesSalarySidebarRoutes,
+  ...homeSidebarRoutes,
+  ...profileSidebarRoutes,
 ];
