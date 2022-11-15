@@ -1,0 +1,6 @@
+.payslipspage {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  width: calc(100% - 100px);
+}

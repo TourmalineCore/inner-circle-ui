@@ -1,0 +1,10 @@
+.searchbar {
+  margin-bottom: 5px;
+  height: 35px;
+  background-color: #fff;
+}
+
+.searchbar-input {
+  width: 100%;
+  height: 100%;
+}
