@@ -1,5 +1,4 @@
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import axios from 'axios';
 import {
   useState,
   useEffect,
@@ -7,8 +6,7 @@ import {
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import { EmployeeProps } from './employeesData';
-
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/employees/get-general-information';
+import { api } from '../../common/api';
 
 type Row<Type> = {
   original: Type
@@ -117,7 +115,7 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await axios.get<EmployeeProps[]>(QUOTE_SERVICE_URL);
+    const { data } = await api.get<EmployeeProps[]>('/employees/get-general-information');
     setEmployees(data);
   }
 }
