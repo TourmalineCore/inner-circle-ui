@@ -1,10 +1,10 @@
-export default interface EmployeeProps {
-  fullname? : string;
+export type EmployeeProps = {
   name: string;
   surname: string;
-  phone: string;
+  middleName: string;
+  phone?: string;
   workEmail: string;
-  personalEmail: string;
-  skype: string;
+  personalEmail?: string;
+  skype?: string;
   telegram?: string;
-}
+};
