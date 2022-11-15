@@ -6,25 +6,27 @@ import {
 } from 'react';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
-import EmployeeProps from './employeesData';
+import { EmployeeProps } from './employeesData';
 
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/employees/list';
+const QUOTE_SERVICE_URL = 'http://localhost:5000/api/employees/get-general-information';
 
 type Row<Type> = {
   original: Type
 };
+type Table<TypeProps> = {
+  row: {
+    original: TypeProps;
+  }
+};
 
 function EmployeesPage() {
-  const [employees, employeesState] = useState<EmployeeProps[]>([]);
-  async function fetchQuotes() {
-    const { data } = await axios.get<EmployeeProps[]>(QUOTE_SERVICE_URL);
-    data.map((el) => el.fullname = `${el.name} ${el.surname}`);
-    data.map((el) => el.telegram = ((el.telegram?.length === 0 || !el.telegram) ? el.telegram = 'Not specified' : el.telegram));
-    employeesState(data);
-  }
+  const [employees, setEmployees] = useState<EmployeeProps[]>([]);
   useEffect(() => {
-    fetchQuotes();
+    loadEmployeesAsync();
   }, []);
+  function getChangeField(field?: string) {
+    return (<div>{field}</div>);
+  }
   return (
     <ContentCard
       isStickyHead
@@ -40,18 +42,22 @@ function EmployeesPage() {
             id: 'weightForSorting',
             desc: true,
           }}
-          renderMobileTitle={(row : Row<{ fullname: string }>) => row.original.fullname}
+          renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
           enableTableStatePersistance
           maxStillMobileBreakpoint={1200}
           isStriped
           columns={[
             {
               Header: 'Employee',
-              accessor: 'fullname',
+              accessor: 'surname',
               // Use our custom `fuzzyText` filter on this column
               filter: 'fuzzyText',
               nonMobileColumn: true,
               principalFilterableColumn: true,
+              Cell: ({ row }: Table<EmployeeProps>) => {
+                const { surname, name, middleName } = row.original;
+                return getChangeField(`${surname} ${name} ${middleName}`);
+              },
             },
             {
               Header: 'Work Email',
@@ -65,30 +71,55 @@ function EmployeesPage() {
               accessor: 'personalEmail',
               disableFilters: true,
               disableSortBy: true,
+              Cell: ({ row }: Table<EmployeeProps>) => {
+                const { personalEmail } = row.original;
+                const personalEmailChange = personalEmail || 'Not specified';
+                return getChangeField(personalEmailChange);
+              },
             },
             {
               Header: 'Phone',
               accessor: 'phone',
               disableFilters: true,
               disableSortBy: true,
+              Cell: ({ row }: Table<EmployeeProps>) => {
+                const { phone } = row.original;
+                const phoneChange = phone || 'Not specified';
+                return getChangeField(phoneChange);
+              },
             },
             {
               Header: 'Skype',
               accessor: 'skype',
               disableFilters: true,
               disableSortBy: true,
+              Cell: ({ row }: Table<EmployeeProps>) => {
+                const { skype } = row.original;
+                const skypeChange = skype || 'Not specified';
+                return getChangeField(skypeChange);
+              },
             },
             {
               Header: 'Telegram',
               accessor: 'telegram',
               disableFilters: true,
               disableSortBy: true,
+              Cell: ({ row }: Table<EmployeeProps>) => {
+                const { telegram } = row.original;
+                const telegramChange = telegram || 'Not specified';
+                return getChangeField(telegramChange);
+              },
             },
           ]}
         />
       </div>
     </ContentCard>
   );
+
+  async function loadEmployeesAsync() {
+    const { data } = await axios.get<EmployeeProps[]>(QUOTE_SERVICE_URL);
+    setEmployees(data);
+  }
 }
 
 export default EmployeesPage;
