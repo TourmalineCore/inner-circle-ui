@@ -10,7 +10,7 @@ type Employee = {
   pay: number;
   ratePerHour: number;
   employmentType: number;
-  hasParking: boolean;
+  parkingCostPerMonth: number;
   hourlyCostFact: number;
   hourlyCostHand: number;
   earnings: number;
