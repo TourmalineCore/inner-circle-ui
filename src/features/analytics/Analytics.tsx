@@ -17,7 +17,7 @@ type Table<TypeProps> = {
   }
 };
 
-function EmployeesSalaryPage() {
+function Analytics() {
   const employees = EmployeesMock;
   return (
     <ContentCard
@@ -41,7 +41,8 @@ function EmployeesSalaryPage() {
           columns={[
             {
               Header: 'Employee',
-              accessor: 'fullname',
+              accessor: 'surname',
+              filter: 'fuzzyText',
               nonMobileColumn: true,
               principalFilterableColumn: true,
               Cell: ({ row }: Table<Employee>) => {
@@ -52,8 +53,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Pay',
               accessor: 'pay',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { pay } = row.original;
                 return (<div>{formatMoney(pay)}</div>);
@@ -62,8 +61,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Rate/h',
               accessor: 'ratePerHour',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { ratePerHour } = row.original;
                 return (<div>{formatMoney(ratePerHour)}</div>);
@@ -72,14 +69,10 @@ function EmployeesSalaryPage() {
             {
               Header: 'Employment type',
               accessor: 'employmentType',
-              disableFilters: true,
-              disableSortBy: true,
             },
             {
               Header: 'Hourly Cost (By Fact)',
               accessor: 'hourlyCostFact',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { hourlyCostFact } = row.original;
                 return (<div>{formatMoney(hourlyCostFact)}</div>);
@@ -88,8 +81,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Hourly Cost (On Hand)',
               accessor: 'hourlyCostHand',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { hourlyCostHand } = row.original;
                 return (<div>{formatMoney(hourlyCostHand)}</div>);
@@ -98,8 +89,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Earnings',
               accessor: 'earnings',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { earnings } = row.original;
                 return (<div>{formatMoney(earnings)}</div>);
@@ -108,8 +97,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Expenses',
               accessor: 'expenses',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { expenses } = row.original;
                 return (<div>{formatMoney(expenses)}</div>);
@@ -118,8 +105,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Profit',
               accessor: 'profit',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { profit } = row.original;
                 return (<div>{formatMoney(profit)}</div>);
@@ -128,8 +113,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Profitability',
               accessor: 'profitAbility',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { profitAbility } = row.original;
                 return (<div>{`${profitAbility}%`}</div>);
@@ -138,8 +121,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Gross Salary',
               accessor: 'grossSalary',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { grossSalary } = row.original;
                 return (<div>{formatMoney(grossSalary)}</div>);
@@ -148,8 +129,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Net Salary',
               accessor: 'netSalary',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { netSalary } = row.original;
                 return (<div>{formatMoney(netSalary)}</div>);
@@ -158,8 +137,6 @@ function EmployeesSalaryPage() {
             {
               Header: 'Retainer',
               accessor: 'retainer',
-              disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: Table<Employee>) => {
                 const { retainer } = row.original;
                 return (<div>{formatMoney(retainer)}</div>);
@@ -168,9 +145,8 @@ function EmployeesSalaryPage() {
           ]}
         />
       </div>
-      ass.
     </ContentCard>
   );
 }
 
-export default EmployeesSalaryPage;
+export default Analytics;
