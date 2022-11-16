@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-type ProfileNavItems = {
+export type ProfileNavItems = {
   text?: string;
   icon?: ReactNode;
   href: string;
@@ -8,26 +8,15 @@ type ProfileNavItems = {
   active?: boolean;
 };
 
-type Employee = {
+export type Employee = {
   id: number;
   name: string;
   surname: string;
+  middleName: string;
   workEmail: string;
-  personalEmail: string;
-  phone: string;
-  skype: string;
-  telegram: string;
-  pay: number;
-  ratePerHour: number;
-  employmentType: number;
-  hasParking: boolean;
-  hourlyCostFact: number;
-  hourlyCostHand: number;
-  earnings: number;
-  expenses: number;
-  profit: number;
-  profitAbility: number;
-  grossSalary: number;
-  retainer: number;
+  personalEmail?: string | null;
+  phone?: string | null;
+  skype?: string | null;
+  telegram?: string | null;
   netSalary: number;
 };
