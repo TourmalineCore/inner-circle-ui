@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   useState,
@@ -19,12 +20,11 @@ type Table<TypeProps> = {
 
 function EmployeesPage() {
   const [employees, setEmployees] = useState<EmployeeProps[]>([]);
+
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
-  function getChangeField(field?: string) {
-    return (<div>{field}</div>);
-  }
+
   return (
     <ContentCard
       isStickyHead
@@ -54,7 +54,7 @@ function EmployeesPage() {
               principalFilterableColumn: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { surname, name, middleName } = row.original;
-                return getChangeField(`${surname} ${name} ${middleName}`);
+                return (<div>{`${surname} ${name} ${middleName}`}</div>);
               },
             },
             {
@@ -72,7 +72,7 @@ function EmployeesPage() {
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { personalEmail } = row.original;
                 const personalEmailChange = personalEmail || 'Not specified';
-                return getChangeField(personalEmailChange);
+                return (<div>{personalEmailChange}</div>);
               },
             },
             {
@@ -83,7 +83,7 @@ function EmployeesPage() {
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { phone } = row.original;
                 const phoneChange = phone || 'Not specified';
-                return getChangeField(phoneChange);
+                return (<div>{phoneChange}</div>);
               },
             },
             {
@@ -94,7 +94,7 @@ function EmployeesPage() {
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { skype } = row.original;
                 const skypeChange = skype || 'Not specified';
-                return getChangeField(skypeChange);
+                return (<div>{skypeChange}</div>);
               },
             },
             {
@@ -105,7 +105,7 @@ function EmployeesPage() {
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { telegram } = row.original;
                 const telegramChange = telegram || 'Not specified';
-                return getChangeField(telegramChange);
+                return (<div>{telegramChange}</div>);
               },
             },
           ]}

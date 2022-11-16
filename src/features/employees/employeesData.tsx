@@ -2,9 +2,9 @@ export type EmployeeProps = {
   name: string;
   surname: string;
   middleName: string;
-  phone?: string;
+  phone?: string | null;
   workEmail: string;
-  personalEmail?: string;
-  skype?: string;
-  telegram?: string;
+  personalEmail?: string | null;
+  skype?: string | null;
+  telegram?: string | null;
 };
