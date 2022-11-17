@@ -14,9 +14,9 @@ export type Employee = {
   surname: string;
   middleName: string;
   workEmail: string;
-  personalEmail?: string | null;
-  phone?: string | null;
-  skype?: string | null;
-  telegram?: string | null;
+  personalEmail: string | null;
+  phone: string | null;
+  skype: string | null;
+  telegram: string | null;
   netSalary: number;
 };
