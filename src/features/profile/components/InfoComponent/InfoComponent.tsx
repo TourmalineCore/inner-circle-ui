@@ -1,18 +1,29 @@
 import './InfoComponent.css';
+import { Input } from '@tourmalinecore/react-tc-ui-kit';
 
-function InfoComponent({ value, isRedact } : { value : string, isRedact: boolean }) {
+function InfoComponent({
+  value,
+  isRedact = false,
+  label,
+  onChange,
+} :
+{ value: string,
+  isRedact?: boolean,
+  label? : string,
+  onChange? : (e: React.ChangeEvent<HTMLInputElement>)=>void
+}) {
   return (
-    isRedact
-      ? (
-        <div className="info-component">
-          <input className="info-component-input" value={value} />
-        </div>
-      )
-      : (
-        <div className="profile-info-component">
-          <label>{value}</label>
-        </div>
-      )
+    <div className="info-component">
+      {isRedact
+        ? (
+          <Input
+            className="info-component-input"
+            value={value}
+            label={label}
+            onChange={onChange}
+          />
+        ) : <label>{value}</label>}
+    </div>
   );
 }
 
