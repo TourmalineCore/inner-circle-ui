@@ -1,9 +1,15 @@
 import './ProfileButton.css';
+import { Button } from '@tourmalinecore/react-tc-ui-kit';
 
 function ProfileButton({ value, onClick }:{ value : string, onClick: ()=>void }) {
   return (
     <div className="profile-bt">
-      <button type="button" onClick={onClick}>{value}</button>
+      <Button
+        type="button"
+        onClick={onClick}
+      >
+        {value}
+      </Button>
     </div>
   );
 }
