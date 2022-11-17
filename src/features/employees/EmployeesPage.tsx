@@ -115,7 +115,7 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<EmployeeProps[]>('/employees/get-general-information');
+    const { data } = await api.get<EmployeeProps[]>('finances/get-contact-information');
     setEmployees(data);
   }
 }
