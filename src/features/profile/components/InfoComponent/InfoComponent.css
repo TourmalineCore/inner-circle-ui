@@ -7,3 +7,41 @@
   /* width: 300px;
   height: 30px; */
 }
+
+.info-component-label {
+  display: flex;
+  padding-top: 10px;
+}
+
+.component-label-faicon {
+  margin-right: 16px;
+}
+
+.component-label-icon {
+  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+}
+
+.component-label-value {
+  padding-top: 3px;
+}
+
+.component-label-skype {
+  background: url("../../../../common/img/faSkype.svg");
+  background-position: center;
+  background-size: 31px;
+  background-repeat: no-repeat;
+}
+
+.component-label-telegram {
+  background: url("../../../../common/img/faTelegram.svg");
+  background-position: center;
+  background-size: 35px;
+  background-repeat: no-repeat;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 24px;
+}

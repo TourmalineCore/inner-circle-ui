@@ -1,16 +1,26 @@
 import './InfoComponent.css';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition, IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
 
 function InfoComponent({
   value,
-  isRedact = false,
+  name,
   label,
+  isRedact = false,
   onChange,
+  faIcon,
+  icon,
+  text,
 } :
 { value: string,
-  isRedact?: boolean,
+  name?: string
   label? : string,
-  onChange? : (e: React.ChangeEvent<HTMLInputElement>)=>void
+  isRedact?: boolean,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  faIcon? : IconDefinition,
+  icon? : string
+  text? : string
 }) {
   return (
     <div className="info-component">
@@ -21,8 +31,22 @@ function InfoComponent({
             value={value}
             label={label}
             onChange={onChange}
+            name={name}
           />
-        ) : <label>{value}</label>}
+        ) : (
+          <div className="info-component-label">
+            {faIcon
+              ? (
+                <div className="component-label-faicon">
+                  <FontAwesomeIcon size={'xl' as SizeProp} icon={faIcon as IconProp} />
+                </div>
+              ) : (
+                <div className={icon ? `component-label-icon ${icon}` : undefined} />
+              )}
+
+            <div className={`component-label-value ${text}`}>{value}</div>
+          </div>
+        )}
     </div>
   );
 }
