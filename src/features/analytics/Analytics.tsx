@@ -35,7 +35,7 @@ function Analytics() {
     <ContentCard
       isStickyHead
       headerContent={(
-        <DefaultCardHeader>Employees Table</DefaultCardHeader>
+        <DefaultCardHeader>Analytics</DefaultCardHeader>
       )}
     >
       {employees && (
@@ -63,6 +63,7 @@ function Analytics() {
 
                   return (<div>{`${surname} ${name}`}</div>);
                 },
+                Footer: () => 'Total',
               },
               {
                 Header: 'Pay',
@@ -115,6 +116,7 @@ function Analytics() {
                 Header: 'Earnings',
                 accessor: 'earnings',
                 disableFilters: true,
+                minWidth: 160,
                 Cell: ({ row }: CellTable<Employee>) => {
                   const { earnings } = row.original;
 
@@ -126,6 +128,7 @@ function Analytics() {
                 Header: 'Expenses',
                 accessor: 'expenses',
                 disableFilters: true,
+                minWidth: 160,
                 Cell: ({ row }: CellTable<Employee>) => {
                   const { expenses } = row.original;
 
@@ -152,7 +155,12 @@ function Analytics() {
                   return (<div>{`${profitAbility}%`}</div>);
                 },
                 Footer: (row: FooterTable<Employee>) => (
-                  <div>{`${row.filteredRows.map((elem) => elem.values.profitAbility).reduce((pre: number, current: number) => pre + current) / row.filteredRows.length}%`}</div>
+                  <div>
+                    {`${(row.filteredRows
+                      .map((elem) => elem.values.profitAbility)
+                      .reduce((pre: number, current: number) => pre + current) / row.filteredRows.length)
+                      .toFixed(2)}%`}
+                  </div>
                 ),
               },
               {
