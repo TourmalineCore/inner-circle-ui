@@ -2,14 +2,17 @@ type Employee = {
   id: number;
   name: string;
   surname: string;
+  middleName: string;
   workEmail: string;
   personalEmail: string;
   phone: string;
   skype: string;
   telegram: string;
+  employmentDate: string;
   pay: number;
   ratePerHour: number;
   employmentType: number;
+  hasParking: boolean;
   parkingCostPerMonth: number;
   hourlyCostFact: number;
   hourlyCostHand: number;

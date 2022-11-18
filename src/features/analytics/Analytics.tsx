@@ -1,25 +1,35 @@
 /* eslint-disable react/no-unstable-nested-components */
 
 import { ClientTable, SelectColumnFilter } from '@tourmalinecore/react-table-responsive';
+import { useEffect, useState } from 'react';
+import { api } from '../../common/api';
 
 import { formatMoney, formatNumber } from '../../common/utils/formatMoney';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 
-import { EmployeesMock } from './mockData/mockData';
-
 type Row<Type> = {
   original: Type
 };
 
-type Table<TypeProps> = {
+type CellTable<TypeProps> = {
   row: {
     original: TypeProps;
   }
 };
 
+type FooterTable<TypeProps> = {
+  filteredRows: Array<{
+    values: TypeProps;
+  }>;
+};
+
 function Analytics() {
-  const employees = EmployeesMock;
+  const [employees, setEmployees] = useState<Employee[]>();
+
+  useEffect(() => {
+    loadEmployeesAsync();
+  }, []);
 
   return (
     <ContentCard
@@ -28,161 +38,185 @@ function Analytics() {
         <DefaultCardHeader>Employees Table</DefaultCardHeader>
       )}
     >
-      <div style={{ paddingTop: 4 }}>
-        <ClientTable
-          tableId="employees-salary-table"
-          data={employees}
-          order={{
-            id: 'weightForSorting',
-            desc: true,
-          }}
-          renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
-          enableTableStatePersistance
-          maxStillMobileBreakpoint={1200}
-          isStriped
-          columns={[
-            {
-              Header: 'Employee',
-              accessor: 'surname',
-              filter: 'fuzzyText',
-              nonMobileColumn: true,
-              principalFilterableColumn: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { surname, name } = row.original;
-                return (<div>{`${surname} ${name}`}</div>);
+      {employees && (
+        <div style={{ paddingTop: 4 }}>
+          <ClientTable
+            tableId="employees-salary-table"
+            data={employees}
+            order={{
+              id: 'weightForSorting',
+              desc: true,
+            }}
+            renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
+            enableTableStatePersistance
+            maxStillMobileBreakpoint={1200}
+            isStriped
+            columns={[
+              {
+                Header: 'Employee',
+                accessor: 'surname',
+                filter: 'fuzzyText',
+                nonMobileColumn: true,
+                principalFilterableColumn: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { surname, name } = row.original;
+
+                  return (<div>{`${surname} ${name}`}</div>);
+                },
               },
-            },
-            {
-              Header: 'Pay',
-              accessor: 'pay',
-              ...getSelectFilterOptions('pay', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { pay } = row.original;
-                return (<div>{formatMoney(pay)}</div>);
+              {
+                Header: 'Pay',
+                accessor: 'pay',
+                ...getSelectFilterOptions('pay', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { pay } = row.original;
+
+                  return (<div>{formatMoney(pay)}</div>);
+                },
               },
-            },
-            {
-              Header: 'Rate/h',
-              accessor: 'ratePerHour',
-              ...getSelectFilterOptions('ratePerHour', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { ratePerHour } = row.original;
-                return (<div>{formatMoney(ratePerHour)}</div>);
+              {
+                Header: 'Rate/h',
+                accessor: 'ratePerHour',
+                ...getSelectFilterOptions('ratePerHour', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { ratePerHour } = row.original;
+
+                  return (<div>{formatMoney(ratePerHour)}</div>);
+                },
               },
-            },
-            {
-              Header: 'Employment type',
-              accessor: 'employmentType',
-              ...getSelectFilterOptions('employmentType'),
-            },
-            {
-              Header: 'Hourly Cost (By Fact)',
-              accessor: 'hourlyCostFact',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { hourlyCostFact } = row.original;
-                return (<div>{formatMoney(hourlyCostFact)}</div>);
+              {
+                Header: 'Employment type',
+                accessor: 'employmentType',
+                ...getSelectFilterOptions('employmentType'),
               },
-            },
-            {
-              Header: 'Hourly Cost (On Hand)',
-              accessor: 'hourlyCostHand',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { hourlyCostHand } = row.original;
-                return (<div>{formatMoney(hourlyCostHand)}</div>);
+              {
+                Header: 'Hourly Cost (By Fact)',
+                accessor: 'hourlyCostFact',
+                disableFilters: true,
+                disableSortBy: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { hourlyCostFact } = row.original;
+
+                  return (<div>{formatMoney(hourlyCostFact)}</div>);
+                },
               },
-            },
-            {
-              Header: 'Earnings',
-              accessor: 'earnings',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { earnings } = row.original;
-                return (<div>{formatMoney(earnings)}</div>);
+              {
+                Header: 'Hourly Cost (On Hand)',
+                accessor: 'hourlyCostHand',
+                disableFilters: true,
+                disableSortBy: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { hourlyCostHand } = row.original;
+
+                  return (<div>{formatMoney(hourlyCostHand)}</div>);
+                },
               },
-              Footer: (row: any) => getTotalCost(row, 'earnings'),
-            },
-            {
-              Header: 'Expenses',
-              accessor: 'expenses',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { expenses } = row.original;
-                return (<div>{formatMoney(expenses)}</div>);
+              {
+                Header: 'Earnings',
+                accessor: 'earnings',
+                disableFilters: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { earnings } = row.original;
+
+                  return (<div>{formatMoney(earnings)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'earnings'),
               },
-              Footer: (row: any) => getTotalCost(row, 'expenses'),
-            },
-            {
-              Header: 'Profit',
-              accessor: 'profit',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { profit } = row.original;
-                return (<div>{formatMoney(profit)}</div>);
+              {
+                Header: 'Expenses',
+                accessor: 'expenses',
+                disableFilters: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { expenses } = row.original;
+
+                  return (<div>{formatMoney(expenses)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'expenses'),
               },
-              Footer: (row: any) => getTotalCost(row, 'profit'),
-            },
-            {
-              Header: 'Profitability',
-              accessor: 'profitAbility',
-              disableFilters: true,
-              Cell: ({ row }: Table<Employee>) => {
-                const { profitAbility } = row.original;
-                return (<div>{`${profitAbility}%`}</div>);
+              {
+                Header: 'Profit',
+                accessor: 'profit',
+                disableFilters: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { profit } = row.original;
+                  return (<div>{formatMoney(profit)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'profit'),
               },
-              Footer: (row: any) => (
-                <div>{`${row.filteredRows.map((elem: any) => elem.values.profitAbility).reduce((pre: any, current: any) => pre + current) / row.filteredRows.length}%`}</div>
-              ),
-            },
-            {
-              Header: 'Gross Salary',
-              accessor: 'grossSalary',
-              ...getSelectFilterOptions('grossSalary', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { grossSalary } = row.original;
-                return (<div>{formatMoney(grossSalary)}</div>);
+              {
+                Header: 'Profitability',
+                accessor: 'profitAbility',
+                disableFilters: true,
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { profitAbility } = row.original;
+                  return (<div>{`${profitAbility}%`}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => (
+                  <div>{`${row.filteredRows.map((elem) => elem.values.profitAbility).reduce((pre: number, current: number) => pre + current) / row.filteredRows.length}%`}</div>
+                ),
               },
-              Footer: (row: any) => getTotalCost(row, 'grossSalary'),
-            },
-            {
-              Header: 'Net Salary',
-              accessor: 'netSalary',
-              ...getSelectFilterOptions('netSalary', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { netSalary } = row.original;
-                return (<div>{formatMoney(netSalary)}</div>);
+              {
+                Header: 'Gross Salary',
+                accessor: 'grossSalary',
+                disableSortBy: true,
+                ...getSelectFilterOptions('grossSalary', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { grossSalary } = row.original;
+                  return (<div>{formatMoney(grossSalary)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'grossSalary'),
               },
-              Footer: (row: any) => getTotalCost(row, 'netSalary'),
-            },
-            {
-              Header: 'Retainer',
-              accessor: 'retainer',
-              ...getSelectFilterOptions('retainer', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { retainer } = row.original;
-                return (<div>{formatMoney(retainer)}</div>);
+              {
+                Header: 'Net Salary',
+                accessor: 'netSalary',
+                disableSortBy: true,
+                ...getSelectFilterOptions('netSalary', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { netSalary } = row.original;
+                  return (<div>{formatMoney(netSalary)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'netSalary'),
               },
-              Footer: (row: any) => getTotalCost(row, 'retainer'),
-            },
-            {
-              Header: 'Parking Cost (per Month)',
-              accessor: 'parkingCostPerMonth',
-              ...getSelectFilterOptions('parkingCostPerMonth', true),
-              Cell: ({ row }: Table<Employee>) => {
-                const { parkingCostPerMonth } = row.original;
-                return (<div>{formatMoney(parkingCostPerMonth)}</div>);
+              {
+                Header: 'Retainer',
+                accessor: 'retainer',
+                disableSortBy: true,
+                ...getSelectFilterOptions('retainer', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { retainer } = row.original;
+                  return (<div>{formatMoney(retainer)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'retainer'),
               },
-              Footer: (row: any) => getTotalCost(row, 'parkingCostPerMonth'),
-            },
-          ]}
-        />
-      </div>
+              {
+                Header: 'Parking Cost (per Month)',
+                accessor: 'parkingCostPerMonth',
+                disableSortBy: true,
+                ...getSelectFilterOptions('parkingCostPerMonth', true),
+                Cell: ({ row }: CellTable<Employee>) => {
+                  const { parkingCostPerMonth } = row.original;
+                  return (<div>{formatMoney(parkingCostPerMonth)}</div>);
+                },
+                Footer: (row: FooterTable<Employee>) => getTotalCost(row, 'parkingCostPerMonth'),
+              },
+            ]}
+          />
+        </div>
+      )}
+      {!employees && <h1>TODO: Loader</h1>}
     </ContentCard>
   );
 
-  function getTotalCost(row: any, keyOfEmployee: string) {
-    const sumOfEmployeesValues = row.filteredRows.map((elem: any) => elem.values[keyOfEmployee]).reduce((pre: any, current: any) => pre + current);
+  async function loadEmployeesAsync() {
+    const { data } = await api.get<Employee[]>('/finances/get-finance-data');
+
+    setEmployees(data);
+  }
+
+  function getTotalCost(row: FooterTable<Employee>, keyOfEmployee: string) {
+    const { filteredRows } = row;
+
+    const sumOfEmployeesValues = filteredRows.map((elem) => elem.values[keyOfEmployee as keyof Employee] as number).reduce((pre: number, current: number) => pre + current);
 
     return (
       <div>{formatMoney(sumOfEmployeesValues)}</div>
@@ -191,6 +225,13 @@ function Analytics() {
 
   function getSelectFilterOptions(keyOfEmployee: string, isFormatNumber: boolean = false) {
     const all = { label: 'All', value: '' };
+    if (!employees) {
+      return ({
+        Filter: SelectColumnFilter,
+        selectFilterOptions: [all],
+      });
+    }
+
     const selectFO = Array.from(new Set(employees.map((employee) => employee[keyOfEmployee as keyof Employee]))).map((valueOfKey) => ({
       label: isFormatNumber ? formatNumber(Number(valueOfKey)) : valueOfKey,
       value: valueOfKey,
