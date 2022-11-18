@@ -1,26 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { Button } from '@tourmalinecore/react-tc-ui-kit';
+import { faPhoneFlip, faEnvelope, faCoins } from '@fortawesome/free-solid-svg-icons';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import ProfileInfo from './components/ProfileInfo/ProfileInfo';
 import { Employee } from './types/Profile';
 import InfoComponent from './components/InfoComponent/InfoComponent';
-import ProfileButton from './components/ProfileButton/ProfileButton';
 
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/employees/get-personal-information/1';
+const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information/1';
+const POST_SERVICE_URL = '*';
 
 function ProfilePage() {
-  const [employee, setEmployee] = useState<Employee>();
   const [isRedact, serIsRedact] = useState(false);
+  const [employee, setEmployee] = useState<Employee>();
 
-  useEffect(() => {
-    loadEmployeesAsync();
-  }, []);
+  const [form, setForm] = useState({
+    personalEmail: employee?.personalEmail,
+    phone: employee?.phone,
+    skype: employee?.skype,
+    telegram: employee?.telegram,
+  });
+
+  useEffect(() => { loadEmployeesAsync(); }, []);
+
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const updatedForm = {
+      ...form,
+      [name]: value,
+    };
+    setForm(updatedForm);
+  };
+
+  function handleOnRedact() {
+    setForm({
+      personalEmail: employee?.personalEmail,
+      phone: employee?.phone,
+      skype: employee?.skype,
+      telegram: employee?.telegram,
+    });
+  }
+
+  function handleSave() {
+    const updateEmp : Employee = {
+      id: employee ? employee.id : undefined,
+      name: employee ? employee.name : undefined,
+      surname: employee ? employee.surname : undefined,
+      middleName: employee ? employee.middleName : undefined,
+      workEmail: employee ? employee.workEmail : undefined,
+      personalEmail: form.personalEmail,
+      phone: form.phone,
+      skype: form.skype,
+      telegram: form.telegram,
+      netSalary: employee ? employee.netSalary : undefined,
+    };
+    setEmployee(updateEmp);
+    updateEmployeesAsync();
+  }
 
   return (
-    <ContentCard
-      isStickyHead
-    >
+    <ContentCard>
       {
         employee
           ? (
@@ -51,37 +91,54 @@ function ProfilePage() {
                       : (
                         <InfoComponent
                           value={`${employee.surname} ${employee.name} ${employee.middleName}`}
+                          text="name"
                         />
                       ),
                     <InfoComponent
-                      value={`${employee.phone}`}
-                      isRedact={isRedact}
+                      name="phone"
+                      value={`${isRedact ? form.phone : employee.phone}`}
                       label={isRedact ? 'Phone' : undefined}
+                      isRedact={isRedact}
+                      onChange={handleFormChange}
+                      faIcon={faPhoneFlip}
                     />,
                     <InfoComponent
+                      name="workEmail"
                       value={`${employee.workEmail}`}
-                      isRedact={isRedact}
                       label={isRedact ? 'Work Email' : undefined}
+                      isRedact={isRedact}
+                      faIcon={faEnvelope}
                     />,
                     <InfoComponent
-                      value={`${employee.personalEmail}`}
-                      isRedact={isRedact}
+                      name="personalEmail"
+                      value={`${isRedact ? form.personalEmail : employee.personalEmail}`}
                       label={isRedact ? 'Email' : undefined}
+                      isRedact={isRedact}
+                      onChange={handleFormChange}
+                      faIcon={faEnvelope}
                     />,
                     <InfoComponent
-                      value={`${employee.telegram}`}
-                      isRedact={isRedact}
+                      name="telegram"
+                      value={`${isRedact ? form.telegram : employee.telegram}`}
                       label={isRedact ? 'Telegram' : undefined}
+                      isRedact={isRedact}
+                      onChange={handleFormChange}
+                      icon="component-label-telegram"
                     />,
                     <InfoComponent
-                      value={`${employee.skype}`}
-                      isRedact={isRedact}
+                      name="skype"
+                      value={`${isRedact ? form.skype : employee.skype}`}
                       label={isRedact ? 'Skype' : undefined}
+                      isRedact={isRedact}
+                      onChange={handleFormChange}
+                      icon="component-label-skype"
                     />,
                     <InfoComponent
+                      name="netSalary"
                       value={`${employee.netSalary}`}
-                      isRedact={isRedact}
                       label={isRedact ? 'Salary' : undefined}
+                      isRedact={isRedact}
+                      faIcon={faCoins}
                     />,
                   ]
                 }
@@ -90,20 +147,29 @@ function ProfilePage() {
                     isRedact
                       ? (
                         <>
-                          <ProfileButton
-                            value="Cancel"
+                          <Button
+                            type="button"
                             onClick={() => serIsRedact(!isRedact)}
-                          />
-                          <ProfileButton
-                            value="Send a reqiest to edit"
-                            onClick={() => serIsRedact(!isRedact)}
-                          />
+                            className="profile-bt"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => { handleSave(); serIsRedact(!isRedact); }}
+                            className="profile-bt"
+                          >
+                            Send a reqiest to edit
+                          </Button>
                         </>
                       ) : (
-                        <ProfileButton
-                          value="Request to edit"
-                          onClick={() => serIsRedact(!isRedact)}
-                        />
+                        <Button
+                          type="button"
+                          onClick={() => { serIsRedact(!isRedact); handleOnRedact(); }}
+                          className="profile-bt"
+                        >
+                          Request to edit
+                        </Button>
                       ),
                   ]
                 }
@@ -134,6 +200,9 @@ function ProfilePage() {
       };
       setEmployee(datae);
     }
+  }
+  async function updateEmployeesAsync() {
+    await axios.post(POST_SERVICE_URL, employee);
   }
 }
 

@@ -9,14 +9,14 @@ export type ProfileNavItems = {
 };
 
 export type Employee = {
-  id: number;
-  name: string;
-  surname: string;
-  middleName: string;
-  workEmail: string;
-  personalEmail: string | null;
-  phone: string | null;
-  skype: string | null;
-  telegram: string | null;
-  netSalary: number;
+  id: number | undefined;
+  name: string | undefined;
+  surname: string | undefined;
+  middleName: string | undefined;
+  workEmail: string | undefined;
+  personalEmail: string | null | undefined;
+  phone: string | null | undefined;
+  skype: string | null | undefined;
+  telegram: string | null | undefined;
+  netSalary: number | undefined;
 };
