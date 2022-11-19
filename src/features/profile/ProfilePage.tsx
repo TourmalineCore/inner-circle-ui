@@ -3,17 +3,19 @@ import axios from 'axios';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { faPhoneFlip, faEnvelope, faCoins } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import ProfileInfo from './components/ProfileInfo/ProfileInfo';
 import { Employee } from './types/Profile';
 import InfoComponent from './components/InfoComponent/InfoComponent';
 
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information/1';
+const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information/';
 const POST_SERVICE_URL = '*';
 
 function ProfilePage() {
   const [isRedact, serIsRedact] = useState(false);
   const [employee, setEmployee] = useState<Employee>();
+  const { id } = useParams();
 
   const [form, setForm] = useState({
     personalEmail: employee?.personalEmail,
@@ -96,7 +98,7 @@ function ProfilePage() {
                       ),
                     <InfoComponent
                       name="phone"
-                      value={`${isRedact ? form.phone : employee.phone}`}
+                      value={`${isRedact ? form.phone : employee.phone || 'Not specified'}`}
                       label={isRedact ? 'Phone' : undefined}
                       isRedact={isRedact}
                       onChange={handleFormChange}
@@ -111,7 +113,7 @@ function ProfilePage() {
                     />,
                     <InfoComponent
                       name="personalEmail"
-                      value={`${isRedact ? form.personalEmail : employee.personalEmail}`}
+                      value={`${isRedact ? form.personalEmail : employee.personalEmail || 'Not specified'}`}
                       label={isRedact ? 'Email' : undefined}
                       isRedact={isRedact}
                       onChange={handleFormChange}
@@ -119,7 +121,7 @@ function ProfilePage() {
                     />,
                     <InfoComponent
                       name="telegram"
-                      value={`${isRedact ? form.telegram : employee.telegram}`}
+                      value={`${isRedact ? form.telegram : employee.telegram || 'Not specified'}`}
                       label={isRedact ? 'Telegram' : undefined}
                       isRedact={isRedact}
                       onChange={handleFormChange}
@@ -127,7 +129,7 @@ function ProfilePage() {
                     />,
                     <InfoComponent
                       name="skype"
-                      value={`${isRedact ? form.skype : employee.skype}`}
+                      value={`${isRedact ? form.skype : employee.skype || 'Not specified'}`}
                       label={isRedact ? 'Skype' : undefined}
                       isRedact={isRedact}
                       onChange={handleFormChange}
@@ -183,22 +185,33 @@ function ProfilePage() {
 
   async function loadEmployeesAsync() {
     try {
-      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL);
+      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL + id);
       setEmployee(data);
     } catch {
-      const datae : Employee = {
+      const datae : Employee[] = [{
         id: 1,
         name: 'Антон',
         surname: 'Антонов',
         middleName: 'Антонович',
         workEmail: 'anton@tourmaline.com',
         personalEmail: 'anton@mail.ru',
-        phone: '+79128093630',
+        phone: '+79568897630',
         skype: '@anton.skype',
         telegram: '@anton.telegram',
         netSalary: 50000,
-      };
-      setEmployee(datae);
+      }, {
+        id: 2,
+        name: 'Павел',
+        surname: 'Павлов',
+        middleName: 'Павелович',
+        workEmail: 'pavel@tourmaline.com',
+        personalEmail: null,
+        phone: null,
+        skype: null,
+        telegram: '@pavel.telegram',
+        netSalary: 50000,
+      }];
+      setEmployee(datae[Number(id) - 1]);
     }
   }
   async function updateEmployeesAsync() {

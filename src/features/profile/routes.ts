@@ -10,8 +10,8 @@ export const profileRoutes = [
     Component: ProfilePage,
   },
   {
-    path: '/profile/:tabId',
-    breadcrumb: (props: BreadcrumbComponentProps) => props.match.params.tabId,
+    path: '/profile/:id',
+    breadcrumb: (props: BreadcrumbComponentProps) => props.match.params.id,
     Component: ProfilePage,
   },
 ];
