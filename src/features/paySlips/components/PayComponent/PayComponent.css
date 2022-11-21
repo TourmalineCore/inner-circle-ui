@@ -1,0 +1,15 @@
+.pay-component {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: #fff;
+}
+
+.component-name {
+  margin: 0 10px;
+}
+
+.component-download {
+}
