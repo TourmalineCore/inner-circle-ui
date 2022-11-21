@@ -1,7 +1,7 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs';
 import { homeRoutes, homeSidebarRoutes } from '../features/home/routes';
 import { profileRoutes, profileSidebarRoutes } from '../features/profile/routes';
-import { paySlipsRoutes, paySlipsSidebarRoutes } from '../features/paySlips/routes';
+import { paySlipsRoutes, paySlipsSidebarRoutes } from '../features/payslips/routes';
 import { SidebarRoutesProps } from '../types';
 
 export const adminRoutes: {
