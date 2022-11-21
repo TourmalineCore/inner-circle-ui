@@ -1,19 +1,9 @@
-import PayColumn from '../PayColumn/PayColumn';
 import './PaySlips.css';
 
-function PaySlips(
-  {
-    columns,
-  }:
-  {
-    columns: [string, string][]
-  },
-) {
+function PaySlips({ columns } : { columns: any[] }) {
   return (
-    <div className="payslips">
-      {columns.map((el) => (
-        <PayColumn name={el[1]} />
-      ))}
+    <div className="pay-slips">
+      {columns}
     </div>
   );
 }

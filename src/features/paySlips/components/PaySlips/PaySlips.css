@@ -1,8 +1,4 @@
-.payslips {
+.pay-slips {
   display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-  padding: 10px;
-  height: 35px;
-  background-color: #fff;
+  flex-direction: column;
 }
