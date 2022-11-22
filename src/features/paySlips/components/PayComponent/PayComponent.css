@@ -3,13 +3,32 @@
   align-items: center;
   flex-direction: row;
   margin-bottom: 10px;
+  width: 100%;
   height: 40px;
   background-color: #fff;
 }
 
 .component-name {
   margin: 0 10px;
+  pointer-events: none;
+}
+
+.component-date {
+  min-width: 110px;
+  pointer-events: none;
 }
 
 .component-download {
+  align-items: center;
+  outline: none;
+  border: none;
+  padding: 0;
+  background-color: inherit;
+}
+
+.component-download :hover {
+  box-shadow: 0 0 0 -100px rgb(34 60 80 / 100%);
+  box-shadow: 0 0 0 -100px rgb(34 60 80 / 100%);
+  box-shadow: 0 0 0 -100px rgb(34 60 80 / 100%);
+  cursor: pointer;
 }
