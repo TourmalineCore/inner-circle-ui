@@ -1,11 +1,25 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { authService } from './authService';
+import { API_ROOT } from './config/config';
 
-const token = authService.getAuthToken();
+const createAPI = (): AxiosInstance => {
+  const apiConfig = axios.create({
+    baseURL: API_ROOT,
+  });
 
-export const api = axios.create({
-  baseURL: 'http://localhost:5000/api/',
-  headers: {
-    Authorization: token ? `Bearer ${token}` : '',
-  },
-});
+  apiConfig.interceptors.request.use(
+    (config: AxiosRequestConfig) => {
+      const token = authService.getAuthToken();
+
+      if (config.headers) {
+        config.headers.Authorization = token ? `Bearer ${token}` : '';
+      }
+
+      return config;
+    },
+  );
+
+  return apiConfig;
+};
+
+export const api = createAPI();
