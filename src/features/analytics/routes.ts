@@ -1,12 +1,12 @@
 import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
-import Analytics from './Analytics';
+import AnalyticsPage from './AnalyticsPage';
 
 export const analyticsRoutes = [
   {
     path: '/analytics',
     breadcrumb: 'Analytics',
-    Component: Analytics,
+    Component: AnalyticsPage,
   },
 ];
 

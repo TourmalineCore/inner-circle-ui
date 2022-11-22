@@ -24,7 +24,7 @@ type FooterTable<TypeProps> = {
   }>;
 };
 
-function Analytics() {
+function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [employees, setEmployees] = useState<AnalyticsSalaryForSeo[]>([]);
 
@@ -260,4 +260,4 @@ function Analytics() {
   }
 }
 
-export default Analytics;
+export default AnalyticsPage;
