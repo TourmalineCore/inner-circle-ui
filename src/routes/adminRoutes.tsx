@@ -10,15 +10,15 @@ export const adminRoutes: {
   breadcrumb: string | ((props: BreadcrumbComponentProps) => string | undefined);
   Component: () => JSX.Element;
 }[] = [
-  ...analyticsRoutes,
   ...homeRoutes,
   ...profileRoutes,
   ...employeesRoutes,
+  ...analyticsRoutes,
 ];
 
 export const sidebarRoutes: SidebarRoutesProps[] = [
-  ...analyticsSidebarRoutes,
   ...homeSidebarRoutes,
   ...profileSidebarRoutes,
   ...employeesSidebarRoutes,
+  ...analyticsSidebarRoutes,
 ];
