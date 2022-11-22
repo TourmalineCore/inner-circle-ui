@@ -1,11 +1,8 @@
 .payslipspage {
   display: flex;
-  display: flex;
   align-items: center;
   flex-direction: column;
-  flex-direction: column;
   margin: 50px;
-  width: calc(100% - 100px);
 }
 
 div.react-datepicker__input-container {
@@ -13,7 +10,7 @@ div.react-datepicker__input-container {
 }
 
 div.react-datepicker-wrapper {
-  width: 80%;
+  width: 100%;
 }
 
 .react-datepicker__input-container input {
