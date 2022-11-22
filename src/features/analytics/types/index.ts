@@ -1,4 +1,4 @@
-type Employee = {
+export type AnalyticsSalaryForSeo = {
   id: number;
   name: string;
   surname: string;
