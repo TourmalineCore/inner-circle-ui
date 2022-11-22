@@ -1,0 +1,21 @@
+export type AnalyticsSalaryForSeo = {
+  id: number;
+  name: string;
+  surname: string;
+  middleName: string;
+  employmentDate: string;
+  pay: number;
+  ratePerHour: number;
+  employmentType: number;
+  hasParking: boolean;
+  parkingCostPerMonth: number;
+  hourlyCostFact: number;
+  hourlyCostHand: number;
+  earnings: number;
+  expenses: number;
+  profit: number;
+  profitAbility: number;
+  grossSalary: number;
+  retainer: number;
+  netSalary: number;
+};
