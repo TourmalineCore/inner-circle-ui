@@ -230,7 +230,7 @@ function Analytics() {
       setIsLoading(false);
     } catch {
       // todo: #344qg6j
-      setIsLoading(true);
+      setIsLoading(false);
     }
   }
 
