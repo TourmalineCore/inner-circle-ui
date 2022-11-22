@@ -1,0 +1,9 @@
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+.search-bar-icon {
+  margin-right: 10px;
+}
