@@ -13,6 +13,8 @@
 // Features
 
 // profile
+@import "../features/profile/components/ProfileHeader/ProfileHeader";
+@import "../features/profile/components/ProfileNav/ProfileNav";
 
 // Template
 @import "../template/components/Breadcrumbs/Breadcrumbs";
