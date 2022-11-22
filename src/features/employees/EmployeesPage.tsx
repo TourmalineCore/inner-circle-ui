@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import {
-  useState,
-  useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
+
+import { api } from '../../common/api';
+import { EmployeeProps } from './types';
+
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
-import { EmployeeProps } from './employeesData';
-import { api } from '../../common/api';
 
 type Row<Type> = {
   original: Type
 };
+
 type Table<TypeProps> = {
   row: {
     original: TypeProps;
@@ -42,18 +42,16 @@ function EmployeesPage() {
           }}
           renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
           enableTableStatePersistance
-          maxStillMobileBreakpoint={1200}
+          maxStillMobileBreakpoint={800}
           isStriped
           columns={[
             {
               Header: 'Employee',
               accessor: 'surname',
-              // Use our custom `fuzzyText` filter on this column
-              filter: 'fuzzyText',
-              nonMobileColumn: true,
               principalFilterableColumn: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { surname, name, middleName } = row.original;
+
                 return (<div>{`${surname} ${name} ${middleName}`}</div>);
               },
             },
@@ -71,8 +69,8 @@ function EmployeesPage() {
               disableSortBy: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { personalEmail } = row.original;
-                const personalEmailChange = personalEmail || 'Not specified';
-                return (<div>{personalEmailChange}</div>);
+
+                return (<div>{checkSpecifiedData(personalEmail)}</div>);
               },
             },
             {
@@ -82,8 +80,8 @@ function EmployeesPage() {
               disableSortBy: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { phone } = row.original;
-                const phoneChange = phone || 'Not specified';
-                return (<div>{phoneChange}</div>);
+
+                return (<div>{checkSpecifiedData(phone)}</div>);
               },
             },
             {
@@ -93,8 +91,8 @@ function EmployeesPage() {
               disableSortBy: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { skype } = row.original;
-                const skypeChange = skype || 'Not specified';
-                return (<div>{skypeChange}</div>);
+
+                return (<div>{checkSpecifiedData(skype)}</div>);
               },
             },
             {
@@ -104,8 +102,8 @@ function EmployeesPage() {
               disableSortBy: true,
               Cell: ({ row }: Table<EmployeeProps>) => {
                 const { telegram } = row.original;
-                const telegramChange = telegram || 'Not specified';
-                return (<div>{telegramChange}</div>);
+
+                return (<div>{checkSpecifiedData(telegram)}</div>);
               },
             },
           ]}
@@ -114,8 +112,13 @@ function EmployeesPage() {
     </ContentCard>
   );
 
+  function checkSpecifiedData(value: string | null) {
+    return value || 'Not specified';
+  }
+
   async function loadEmployeesAsync() {
     const { data } = await api.get<EmployeeProps[]>('finances/get-contact-information');
+
     setEmployees(data);
   }
 }
