@@ -41,6 +41,20 @@
   background-repeat: no-repeat;
 }
 
+.component-label-github {
+  background: url("../../../../common/img/faGithub.svg");
+  background-position: center;
+  background-size: 36px;
+  background-repeat: no-repeat;
+}
+
+.component-label-gitlub {
+  background: url("../../../../common/img/faGitlab.svg");
+  background-position: center;
+  background-size: 32px;
+  background-repeat: no-repeat;
+}
+
 .name {
   font-weight: 400;
   font-size: 24px;
