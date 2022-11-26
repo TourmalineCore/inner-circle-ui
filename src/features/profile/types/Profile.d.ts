@@ -14,9 +14,8 @@ export type Employee = {
   surname: string | undefined;
   middleName: string | undefined;
   workEmail: string | undefined;
-  personalEmail: string | null | undefined;
-  phone: string | null | undefined;
-  skype: string | null | undefined;
-  telegram: string | null | undefined;
-  netSalary: number | undefined;
+  personalEmail: string | undefined;
+  phone: string | undefined;
+  github: string | undefined;
+  gitlub: string | undefined;
 };

@@ -2,220 +2,85 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
-import { faPhoneFlip, faEnvelope, faCoins } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
-import ContentCard from '../../components/ContentCard/ContentCard';
+import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import ProfileInfo from './components/ProfileInfo/ProfileInfo';
 import { Employee } from './types/Profile';
 import InfoComponent from './components/InfoComponent/InfoComponent';
+import { datae } from './EmployData';
 
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information/';
-const POST_SERVICE_URL = '*';
+const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information';
 
 function ProfilePage() {
-  const [isRedact, serIsRedact] = useState(false);
   const [employee, setEmployee] = useState<Employee>();
-  const { id } = useParams();
 
-  const [form, setForm] = useState({
-    personalEmail: employee?.personalEmail,
-    phone: employee?.phone,
-    skype: employee?.skype,
-    telegram: employee?.telegram,
-  });
+  const history = useNavigate();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
 
-  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    const updatedForm = {
-      ...form,
-      [name]: value,
-    };
-    setForm(updatedForm);
-  };
-
-  function handleOnRedact() {
-    setForm({
-      personalEmail: employee?.personalEmail,
-      phone: employee?.phone,
-      skype: employee?.skype,
-      telegram: employee?.telegram,
-    });
-  }
-
-  function handleSave() {
-    const updateEmp : Employee = {
-      id: employee ? employee.id : undefined,
-      name: employee ? employee.name : undefined,
-      surname: employee ? employee.surname : undefined,
-      middleName: employee ? employee.middleName : undefined,
-      workEmail: employee ? employee.workEmail : undefined,
-      personalEmail: form.personalEmail,
-      phone: form.phone,
-      skype: form.skype,
-      telegram: form.telegram,
-      netSalary: employee ? employee.netSalary : undefined,
-    };
-    setEmployee(updateEmp);
-    updateEmployeesAsync();
-  }
-
   return (
-    <ContentCard>
-      {
-        employee
-          ? (
-            <div className="profile">
-              <ProfileInfo
-                rows={
-                  [
-                    isRedact
-                      ? (
-                        <>
-                          <InfoComponent
-                            value={`${employee.surname}`}
-                            isRedact={isRedact}
-                            label="Last Name"
-                          />
-                          <InfoComponent
-                            value={`${employee.name}`}
-                            isRedact={isRedact}
-                            label="First Name"
-                          />
-                          <InfoComponent
-                            value={`${employee.middleName}`}
-                            isRedact={isRedact}
-                            label="Middle Name"
-                          />
-                        </>
-                      )
-                      : (
-                        <InfoComponent
-                          value={`${employee.surname} ${employee.name} ${employee.middleName}`}
-                          text="name"
-                        />
-                      ),
-                    <InfoComponent
-                      name="phone"
-                      value={`${isRedact ? form.phone : employee.phone || 'Not specified'}`}
-                      label={isRedact ? 'Phone' : undefined}
-                      isRedact={isRedact}
-                      onChange={handleFormChange}
-                      faIcon={faPhoneFlip}
-                    />,
-                    <InfoComponent
-                      name="workEmail"
-                      value={`${employee.workEmail}`}
-                      label={isRedact ? 'Work Email' : undefined}
-                      isRedact={isRedact}
-                      faIcon={faEnvelope}
-                    />,
-                    <InfoComponent
-                      name="personalEmail"
-                      value={`${isRedact ? form.personalEmail : employee.personalEmail || 'Not specified'}`}
-                      label={isRedact ? 'Email' : undefined}
-                      isRedact={isRedact}
-                      onChange={handleFormChange}
-                      faIcon={faEnvelope}
-                    />,
-                    <InfoComponent
-                      name="telegram"
-                      value={`${isRedact ? form.telegram : employee.telegram || 'Not specified'}`}
-                      label={isRedact ? 'Telegram' : undefined}
-                      isRedact={isRedact}
-                      onChange={handleFormChange}
-                      icon="component-label-telegram"
-                    />,
-                    <InfoComponent
-                      name="skype"
-                      value={`${isRedact ? form.skype : employee.skype || 'Not specified'}`}
-                      label={isRedact ? 'Skype' : undefined}
-                      isRedact={isRedact}
-                      onChange={handleFormChange}
-                      icon="component-label-skype"
-                    />,
-                    <InfoComponent
-                      name="netSalary"
-                      value={`${employee.netSalary}`}
-                      label={isRedact ? 'Salary' : undefined}
-                      isRedact={isRedact}
-                      faIcon={faCoins}
-                    />,
-                  ]
-                }
-                buttons={
-                  [
-                    isRedact
-                      ? (
-                        <>
-                          <Button
-                            type="button"
-                            onClick={() => serIsRedact(!isRedact)}
-                            className="profile-bt"
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            type="button"
-                            onClick={() => { handleSave(); serIsRedact(!isRedact); }}
-                            className="profile-bt"
-                          >
-                            Send a reqiest to edit
-                          </Button>
-                        </>
-                      ) : (
-                        <Button
-                          type="button"
-                          onClick={() => { serIsRedact(!isRedact); handleOnRedact(); }}
-                          className="profile-bt"
-                        >
-                          Request to edit
-                        </Button>
-                      ),
-                  ]
-                }
-              />
-            </div>
-          )
-          : null
-      }
-    </ContentCard>
+    <div className="profile">
+      <ProfileInfo
+        rows={
+          [
+            <InfoComponent
+              value={`${employee?.surname} ${employee?.name} ${employee?.middleName}`}
+              text="name"
+            />,
+            <InfoComponent
+              name="workEmail"
+              value={`${employee?.workEmail}`}
+              isRedact={false}
+              faIcon={faEnvelope}
+            />,
+            <InfoComponent
+              name="personalEmail"
+              value={`${employee?.personalEmail || 'Not specified'}`}
+              isRedact={false}
+              faIcon={faEnvelope}
+            />,
+            <InfoComponent
+              name="phone"
+              value={`${employee?.phone || 'Not specified'}`}
+              isRedact={false}
+              faIcon={faPhoneFlip}
+            />,
+            <InfoComponent
+              name="github"
+              value={`${employee?.github || 'Not specified'}`}
+              isRedact={false}
+              icon="component-label-github"
+            />,
+            <InfoComponent
+              name="gitlub"
+              value={`${employee?.gitlub || 'Not specified'}`}
+              isRedact={false}
+              icon="component-label-gitlub"
+            />,
+          ]
+        }
+        buttons={
+          [
+            <Button
+              type="button"
+              className="profile-bt"
+              onClick={() => { history('/profile/edit'); }}
+            >
+              Edit
+            </Button>,
+          ]
+        }
+      />
+    </div>
   );
 
   async function loadEmployeesAsync() {
     try {
-      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL + id);
+      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL);
       setEmployee(data);
     } catch {
-      const datae : Employee[] = [{
-        id: 1,
-        name: 'Антон',
-        surname: 'Антонов',
-        middleName: 'Антонович',
-        workEmail: 'anton@tourmaline.com',
-        personalEmail: 'anton@mail.ru',
-        phone: '+79568897630',
-        skype: '@anton.skype',
-        telegram: '@anton.telegram',
-        netSalary: 50000,
-      }, {
-        id: 2,
-        name: 'Павел',
-        surname: 'Павлов',
-        middleName: 'Павелович',
-        workEmail: 'pavel@tourmaline.com',
-        personalEmail: null,
-        phone: null,
-        skype: null,
-        telegram: '@pavel.telegram',
-        netSalary: 50000,
-      }];
-      setEmployee(datae[Number(id) - 1]);
+      setEmployee(datae);
     }
-  }
-  async function updateEmployeesAsync() {
-    await axios.post(POST_SERVICE_URL, employee);
   }
 }
 
