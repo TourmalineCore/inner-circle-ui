@@ -27,7 +27,6 @@ type Table<TypeProps> = {
 function EmployeesPage() {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState<EmployeeProps[]>([]);
-
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
@@ -59,7 +58,7 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: () => { navigate('/employees/edit-contact'); },
+                onClick: () => { navigate('/employees/edit-contact&'); },
               },
             ]}
             columns={[
@@ -157,7 +156,7 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: () => { navigate('/employees/edit-salary'); },
+                onClick: () => { navigate('/employees/edit-salary&'); },
               },
             ]}
             columns={[
