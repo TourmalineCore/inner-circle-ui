@@ -40,7 +40,7 @@ export const dataEmployeees: EmployeeProps[] = [
     workEmail: 'pavel@tourmaline.com',
     personalEmail: 'pavel@mail.com',
     phone: '+79126781234',
-    github: null,
+    github: '@pavel',
     gitlab: null,
     rateHour: 400,
     pay: 20000,
