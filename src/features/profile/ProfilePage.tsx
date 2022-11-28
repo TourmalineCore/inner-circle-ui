@@ -52,8 +52,8 @@ function ProfilePage() {
               icon="component-label-github"
             />,
             <InfoComponent
-              name="gitlub"
-              value={`${employee?.gitlub || 'Not specified'}`}
+              name="gitlab"
+              value={`${employee?.gitlab || 'Not specified'}`}
               isRedact={false}
               icon="component-label-gitlub"
             />,

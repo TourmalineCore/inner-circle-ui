@@ -9,7 +9,7 @@ export const datae : Employee = {
   personalEmail: 'anton@mail.ru',
   phone: '+79568897630',
   github: '@antonov',
-  gitlub: '@antonov',
+  gitlab: '@antonov',
 };
 
 export default function setData(newemp : Employee | undefined) {
@@ -21,5 +21,5 @@ export default function setData(newemp : Employee | undefined) {
   datae.personalEmail = newemp?.personalEmail;
   datae.phone = newemp?.phone;
   datae.github = newemp?.github;
-  datae.gitlub = newemp?.gitlub;
+  datae.gitlab = newemp?.gitlab;
 }

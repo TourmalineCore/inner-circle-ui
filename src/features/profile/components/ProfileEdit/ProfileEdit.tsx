@@ -66,8 +66,8 @@ function ProfileEdit() {
             />,
             <InfoComponent
               label="GitLab"
-              name="gitlub"
-              value={`${employee?.gitlub || ''}`}
+              name="gitlab"
+              value={`${employee?.gitlab || ''}`}
               isRedact
               onChange={handleFormChange}
             />,

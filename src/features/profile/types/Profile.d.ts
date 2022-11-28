@@ -17,5 +17,5 @@ export type Employee = {
   personalEmail: string | undefined;
   phone: string | undefined;
   github: string | undefined;
-  gitlub: string | undefined;
+  gitlab: string | undefined;
 };
