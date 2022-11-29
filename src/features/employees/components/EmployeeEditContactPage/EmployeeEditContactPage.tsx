@@ -1,14 +1,15 @@
 import {
   Button, Input,
 } from '@tourmalinecore/react-tc-ui-kit';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import setDataEmployeees, { dataEmployeees, EmployeeProps, updatePropse } from '../../employeesData';
+import { api } from '../../../../common/api';
+import { ColleaguesType, EmployeeContactUpdateType } from '../../employeesData';
 
 function EmployeeEditContactPage() {
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState<EmployeeProps>();
+  const [employee, setEmployee] = useState<EmployeeContactUpdateType>();
+  const [coporateEmail, setCoporateEmail] = useState<string>();
   const { id } = useParams();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
@@ -16,7 +17,7 @@ function EmployeeEditContactPage() {
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeProps | undefined = employee ? {
+    const updatedForm: EmployeeContactUpdateType | undefined = employee ? {
       ...employee,
       [name]: value,
     } : undefined;
@@ -49,10 +50,9 @@ function EmployeeEditContactPage() {
         </div>
         <div className="data-columns">
           <Input
-            name="workEmail"
-            value={employee?.workEmail}
+            name="corporateEmail"
+            value={coporateEmail}
             label="Corporate Email*"
-            onChange={handleFormChange}
           />
           <Input
             name="personalEmail"
@@ -67,14 +67,14 @@ function EmployeeEditContactPage() {
             onChange={handleFormChange}
           />
           <Input
-            name="github"
-            value={employee?.github}
+            name="gitHub"
+            value={employee?.gitHub}
             label="GitHub"
             onChange={handleFormChange}
           />
           <Input
-            name="gitlab"
-            value={employee?.gitlab}
+            name="gitLab"
+            value={employee?.gitLab}
             label="GitLab"
             onChange={handleFormChange}
           />
@@ -83,7 +83,7 @@ function EmployeeEditContactPage() {
       <div className="employee-data--btns">
         <Button
           type="button"
-          onClick={() => { navigate(-1); }}
+          onClick={() => { navigate('/employees'); }}
         >
           Cancel
         </Button>
@@ -98,21 +98,27 @@ function EmployeeEditContactPage() {
   );
 
   async function loadEmployeesAsync() {
-    try {
-      const { data } = await axios.get<EmployeeProps>('*');
-      setEmployee(data);
-    } catch {
-      setEmployee(dataEmployeees[Number(id) - 1]);
-    }
+    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
+    const newemployee = data.colleagueContacts.find((el) => el.id === Number(id));
+    const fullName = newemployee?.fullName.split(' ');
+    setEmployee(newemployee && fullName ? {
+      ...employee,
+      employeeId: newemployee.id,
+      name: fullName[0],
+      surname: fullName[1],
+      middleName: fullName[2],
+      personalEmail: newemployee.personalEmail,
+      phone: newemployee.phone,
+      gitHub: newemployee.gitHub,
+      gitLab: newemployee.gitLab,
+    } : undefined);
+    setCoporateEmail(newemployee?.corporateEmail);
   }
 
   async function updateEmployeesAsync() {
-    try {
-      await axios.post('*', employee);
-    } catch {
-      setDataEmployeees(Number(id) - 1, employee, updatePropse.update);
-    }
-    navigate(-1);
+    api.put<EmployeeContactUpdateType>('employees/update-employee-contacts', employee);
+
+    navigate('/employees');
   }
 }
 

@@ -1,35 +1,35 @@
 /* eslint-disable import/order */
 import { useState } from 'react';
 import {
-  Input, Button,
+  Input, Button, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import setDataEmployeees, { EmployeeProps, updatePropse } from '../../employeesData';
+import { EmployeeType, EmployeeTypeSwitch } from '../../employeesData';
 import './EmployeeAddPage.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../../../../common/api';
 
 function EmployeeAddPage() {
-  const [employee, setEmployee] = useState<EmployeeProps | undefined>({
+  const [employee, setEmployee] = useState<EmployeeType | undefined>({
     name: '',
     surname: '',
     middleName: '',
-    workEmail: '',
+    corporateEmail: '',
     personalEmail: '',
     phone: '',
-    github: '',
-    gitlab: '',
-    rateHour: 0,
+    gitHub: '',
+    gitLab: '',
+    ratePerHour: 0,
     pay: 0,
-    employmentType: '',
-    parking: 0,
-    netSalary: 0,
+    employmentType: 0,
+    hasParking: true,
   });
+
   const navigate = useNavigate();
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeProps | undefined = employee ? {
+    const updatedForm: EmployeeType | undefined = employee ? {
       ...employee,
       [name]: value,
     } : undefined;
@@ -65,8 +65,8 @@ function EmployeeAddPage() {
         </div>
         <div className="data-columns">
           <Input
-            name="workEmail"
-            value={employee?.workEmail}
+            name="corporateEmail"
+            value={employee?.corporateEmail}
             label="Corporate Email*"
             onChange={handleFormChange}
           />
@@ -86,14 +86,14 @@ function EmployeeAddPage() {
         <div className="data-columns">
           <div className="data-rows">
             <Input
-              name="github"
-              value={employee?.github}
+              name="gitHub"
+              value={employee?.gitHub}
               label="GitHub"
               onChange={handleFormChange}
             />
             <Input
-              name="rateHour"
-              value={employee?.rateHour}
+              name="ratePerHour"
+              value={employee?.ratePerHour}
               label="Rate per hour*"
               onChange={handleFormChange}
             />
@@ -107,21 +107,28 @@ function EmployeeAddPage() {
           </div>
           <div className="data-rows">
             <Input
-              name="gitlab"
-              value={employee?.gitlab}
+              name="gitLab"
+              value={employee?.gitLab}
               label="GitLab"
               onChange={handleFormChange}
             />
-
-            <Input
+            <NativeSelect
+              options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
+              label="Employment Type*"
               name="employmentType"
               value={employee?.employmentType}
-              label="Employment Type*"
-              onChange={handleFormChange}
+              onChange={(option: { label: EmployeeTypeSwitch; value: number }) => {
+                setEmployee(employee
+                  ? {
+                    ...employee,
+                    employmentType: option.value,
+                  } : undefined);
+              }}
+              style={{ maxWidth: 300, width: 250, marginTop: 0 }}
             />
             <Input
-              name="parking"
-              value={employee?.parking}
+              name="hasParking"
+              value={employee?.hasParking}
               label="Parking*"
               onChange={handleFormChange}
             />
@@ -132,7 +139,7 @@ function EmployeeAddPage() {
       <div className="employee-data--btns">
         <Button
           type="button"
-          onClick={() => { navigate(-1); }}
+          onClick={() => { navigate('/employees'); }}
         >
           Cancel
         </Button>
@@ -146,12 +153,9 @@ function EmployeeAddPage() {
     </div>
   );
   async function updateEmployeesAsync() {
-    try {
-      await axios.post('*', employee);
-    } catch {
-      setDataEmployeees(0, employee, updatePropse.add);
-    }
-    navigate(-1);
+    console.log(employee);
+    api.post<EmployeeType>('employees/create', employee);
+    navigate('/employees');
   }
 }
 

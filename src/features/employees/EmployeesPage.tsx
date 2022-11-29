@@ -12,7 +12,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
-import { EmployeeProps, dataEmployeees } from './employeesData';
+import {
+  ColleagueContactsType, ColleagueFinancesColumnsType, ColleaguesType, EmployeeTypeSwitch,
+} from './employeesData';
 import { api } from '../../common/api';
 
 type Row<Type> = {
@@ -26,7 +28,9 @@ type Table<TypeProps> = {
 
 function EmployeesPage() {
   const navigate = useNavigate();
-  const [employees, setEmployees] = useState<EmployeeProps[]>([]);
+  const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
+  const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesColumnsType[]>([]);
+
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
@@ -43,12 +47,12 @@ function EmployeesPage() {
         <div style={{ paddingTop: 4 }}>
           <ClientTable
             tableId="tc-story-bonus-table"
-            data={employees}
+            data={employeesContact}
             order={{
               id: 'weightForSorting',
               desc: true,
             }}
-            renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
+            renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
             isStriped
@@ -58,25 +62,23 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: () => { navigate('/employees/edit-contact&'); },
+                onClick: (e: any, row: any) => {
+                  navigate(`/employees/edit-contact&${Number(row.id) + 1}`);
+                },
               },
             ]}
             columns={[
               {
                 Header: 'Employee',
-                accessor: 'surname',
+                accessor: 'fullName',
                 // Use our custom `fuzzyText` filter on this column
                 filter: 'fuzzyText',
                 nonMobileColumn: true,
                 principalFilterableColumn: true,
-                Cell: ({ row }: Table<EmployeeProps>) => {
-                  const { surname, name, middleName } = row.original;
-                  return (<div>{`${name} ${surname} ${middleName}`}</div>);
-                },
               },
               {
                 Header: 'Corporate Email',
-                accessor: 'workEmail',
+                accessor: 'corporateEmail',
                 disableFilters: true,
                 disableSortBy: true,
                 minWidth: 250,
@@ -92,7 +94,7 @@ function EmployeesPage() {
                 accessor: 'phone',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<EmployeeProps>) => {
+                Cell: ({ row }: Table<ColleagueContactsType>) => {
                   const { phone } = row.original;
                   const phoneChange = phone || 'Not specified';
                   return (<div>{phoneChange}</div>);
@@ -100,24 +102,24 @@ function EmployeesPage() {
               },
               {
                 Header: 'GitHub',
-                accessor: 'github',
+                accessor: 'gitHub',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<EmployeeProps>) => {
-                  const { github } = row.original;
-                  const githubChange = github || 'Not specified';
-                  return (<div>{githubChange}</div>);
+                Cell: ({ row }: Table<ColleagueContactsType>) => {
+                  const { gitHub } = row.original;
+                  const gitHubChange = gitHub || 'Not specified';
+                  return (<div>{gitHubChange}</div>);
                 },
               },
               {
                 Header: 'GitLab',
-                accessor: 'gitlab',
+                accessor: 'gitLab',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<EmployeeProps>) => {
-                  const { gitlab } = row.original;
-                  const gitlabChange = gitlab || 'Not specified';
-                  return (<div>{gitlabChange}</div>);
+                Cell: ({ row }: Table<ColleagueContactsType>) => {
+                  const { gitLab } = row.original;
+                  const gitLabChange = gitLab || 'Not specified';
+                  return (<div>{gitLabChange}</div>);
                 },
               },
             ]}
@@ -141,12 +143,12 @@ function EmployeesPage() {
         <div className="table" style={{ paddingTop: 4 }}>
           <ClientTable
             tableId="tc-story-bonus-table"
-            data={employees}
+            data={employeesSalary}
             order={{
               id: 'weightForSorting',
               desc: true,
             }}
-            renderMobileTitle={(row : Row<{ surname: string }>) => row.original.surname}
+            renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
             isStriped
@@ -156,26 +158,23 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: () => { navigate('/employees/edit-salary&'); },
+                onClick: (e: any, row: any) => {
+                  navigate(`/employees/edit-salary&${Number(row.id) + 1}`);
+                },
               },
             ]}
             columns={[
               {
                 Header: 'Employee',
-                accessor: 'surname',
+                accessor: 'fullName',
                 // Use our custom `fuzzyText` filter on this column
                 filter: 'fuzzyText',
                 nonMobileColumn: true,
                 principalFilterableColumn: true,
-                Cell: ({ row }: Table<EmployeeProps>) => {
-                  const { surname, name, middleName } = row.original;
-                  return (<div>{`${name} ${surname} ${middleName}`}</div>);
-                },
-
               },
               {
                 Header: 'Rate per hour',
-                accessor: 'rateHour',
+                accessor: 'ratePerHour',
                 disableFilters: true,
                 disableSortBy: true,
               },
@@ -190,6 +189,10 @@ function EmployeesPage() {
                 accessor: 'employmentType',
                 disableFilters: true,
                 disableSortBy: true,
+                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                  const { employmentType } = row.original;
+                  return (<div>{EmployeeTypeSwitch[employmentType]}</div>);
+                },
               },
               {
                 Header: 'Net Salary',
@@ -211,13 +214,23 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
-    try {
-      const { data } = await api.get<EmployeeProps[]>('finances/get-contact-information');
+    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
+    setEmployeesContact(data.colleagueContacts);
 
-      setEmployees(data);
-    } catch {
-      setEmployees(dataEmployeees);
+    const update : ColleagueFinancesColumnsType[] = [];
+    for (let i = 0; i < data.colleagueContacts.length; i++) {
+      const el : ColleagueFinancesColumnsType = {
+        id: data.colleagueContacts[i].id,
+        fullName: data.colleagueContacts[i].fullName,
+        ratePerHour: data.colleagueFinancesDto[i].ratePerHour,
+        pay: data.colleagueFinancesDto[i].pay,
+        employmentType: data.colleagueFinancesDto[i].employmentType,
+        netSalary: data.colleagueFinancesDto[i].netSalary,
+        parking: data.colleagueFinancesDto[i].parking,
+      };
+      update.push(el);
     }
+    setEmployeesSalary(update);
   }
 }
 

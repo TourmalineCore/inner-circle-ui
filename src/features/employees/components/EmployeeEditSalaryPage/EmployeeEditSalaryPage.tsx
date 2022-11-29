@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -7,11 +6,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SizeProp, IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import setDataEmployeees, { dataEmployeees, EmployeeProps, updatePropse } from '../../employeesData';
+import { ColleaguesType, EmployeeSalaryUpdateType } from '../../employeesData';
+import { api } from '../../../../common/api';
 
 function EmployeeEditSalaryPage() {
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState<EmployeeProps>();
+  const [employee, setEmployee] = useState<EmployeeSalaryUpdateType>();
+  const [employeeName, setEmployeeName] = useState<string>();
+  const [employeeEmail, setEmployeeEmail] = useState<string>();
   const { id } = useParams();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
@@ -19,7 +21,7 @@ function EmployeeEditSalaryPage() {
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeProps | undefined = employee ? {
+    const updatedForm: EmployeeSalaryUpdateType | undefined = employee ? {
       ...employee,
       [name]: value,
     } : undefined;
@@ -30,17 +32,17 @@ function EmployeeEditSalaryPage() {
   return (
     <div className="employee-data">
       <div className="employee-data--info">
-        <h3>{`${employee?.name} ${employee?.surname} ${employee?.middleName}`}</h3>
+        <h3>{employeeName}</h3>
         <div>
           <span style={{ marginRight: 10 }}><FontAwesomeIcon size={'xl' as SizeProp} icon={faEnvelope as IconProp} /></span>
-          {employee?.workEmail}
+          {employeeEmail}
         </div>
       </div>
       <div className="employee-data--inputs">
         <div className="data-columns">
           <Input
-            name="rateHour"
-            value={employee?.rateHour}
+            name="ratePerHour"
+            value={employee?.ratePerHour}
             label="Rate per hour*"
             onChange={handleFormChange}
           />
@@ -58,7 +60,7 @@ function EmployeeEditSalaryPage() {
           />
           <Input
             name="parking"
-            value={employee?.parking}
+            value={employee?.hasParking}
             label="Parking*"
             onChange={handleFormChange}
           />
@@ -67,7 +69,7 @@ function EmployeeEditSalaryPage() {
       <div className="employee-data--btns">
         <Button
           type="button"
-          onClick={() => { navigate(-1); }}
+          onClick={() => { navigate('/employees'); }}
         >
           Cancel
         </Button>
@@ -82,21 +84,25 @@ function EmployeeEditSalaryPage() {
   );
 
   async function loadEmployeesAsync() {
-    try {
-      const { data } = await axios.get<EmployeeProps>('*');
-      setEmployee(data);
-    } catch {
-      setEmployee(dataEmployeees[Number(id) - 1]);
-    }
+    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
+    const employeeContact = data.colleagueContacts.find((el) => el.id === Number(id));
+    const getEmployee = data.colleagueFinancesDto.find((el) => el.id === Number(id));
+
+    setEmployee(getEmployee ? {
+      ...employee,
+      employeeId: getEmployee.id,
+      ratePerHour: getEmployee.ratePerHour,
+      pay: getEmployee.pay,
+      employmentType: getEmployee.employmentType,
+      hasParking: !!getEmployee.parking,
+    } : undefined);
+    setEmployeeName(employeeContact?.fullName);
+    setEmployeeEmail(employeeContact?.corporateEmail);
   }
 
   async function updateEmployeesAsync() {
-    try {
-      await axios.post('*', employee);
-    } catch {
-      setDataEmployeees(Number(id) - 1, employee, updatePropse.update);
-    }
-    navigate(-1);
+    await api.put<EmployeeSalaryUpdateType>('employees/update-employee-finances', employee);
+    navigate('/employees');
   }
 }
 
