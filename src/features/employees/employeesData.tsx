@@ -43,7 +43,7 @@ export type EmployeeType = {
   ratePerHour: number;
   pay: number;
   employmentType: number;
-  hasParking: boolean;
+  parkingCostPerMonth: number;
 };
 
 export type EmployeeContactUpdateType = {
@@ -51,6 +51,7 @@ export type EmployeeContactUpdateType = {
   name: string,
   surname: string,
   middleName: string,
+  corporateEmail: string,
   personalEmail: string,
   phone: string | null,
   gitHub: string | null,
@@ -62,7 +63,7 @@ export type EmployeeSalaryUpdateType = {
   ratePerHour: number,
   pay: number,
   employmentType: number,
-  hasParking: boolean
+  parkingCostPerMonth: number
 };
 
 export enum EmployeeTypeSwitch {

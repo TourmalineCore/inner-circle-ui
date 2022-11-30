@@ -1,6 +1,5 @@
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
-// import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs';
 import EmployeesPage from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
 import EmployeeEditContactPage from './components/EmployeeEditContactPage/EmployeeEditContactPage';

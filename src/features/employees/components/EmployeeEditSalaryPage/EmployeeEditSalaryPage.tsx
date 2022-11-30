@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  Button, Input,
+  Button, Input, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SizeProp, IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ColleaguesType, EmployeeSalaryUpdateType } from '../../employeesData';
+import { ColleaguesType, EmployeeSalaryUpdateType, EmployeeTypeSwitch } from '../../employeesData';
 import { api } from '../../../../common/api';
 
 function EmployeeEditSalaryPage() {
@@ -52,15 +52,23 @@ function EmployeeEditSalaryPage() {
             label="Pay*"
             onChange={handleFormChange}
           />
-          <Input
+          <NativeSelect
+            options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
+            label="Employment Type*"
             name="employmentType"
             value={employee?.employmentType}
-            label="Employment type*"
-            onChange={handleFormChange}
+            onChange={(option: { label: EmployeeTypeSwitch; value: number }) => {
+              setEmployee(employee
+                ? {
+                  ...employee,
+                  employmentType: option.value,
+                } : undefined);
+            }}
+            style={{ maxWidth: 300, width: 250, marginTop: 0 }}
           />
           <Input
-            name="parking"
-            value={employee?.hasParking}
+            name="parkingCostPerMonth"
+            value={employee?.parkingCostPerMonth}
             label="Parking*"
             onChange={handleFormChange}
           />
@@ -94,7 +102,7 @@ function EmployeeEditSalaryPage() {
       ratePerHour: getEmployee.ratePerHour,
       pay: getEmployee.pay,
       employmentType: getEmployee.employmentType,
-      hasParking: !!getEmployee.parking,
+      parkingCostPerMonth: getEmployee.parking,
     } : undefined);
     setEmployeeName(employeeContact?.fullName);
     setEmployeeEmail(employeeContact?.corporateEmail);

@@ -9,7 +9,6 @@ import { ColleaguesType, EmployeeContactUpdateType } from '../../employeesData';
 function EmployeeEditContactPage() {
   const navigate = useNavigate();
   const [employee, setEmployee] = useState<EmployeeContactUpdateType>();
-  const [coporateEmail, setCoporateEmail] = useState<string>();
   const { id } = useParams();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
@@ -51,7 +50,7 @@ function EmployeeEditContactPage() {
         <div className="data-columns">
           <Input
             name="corporateEmail"
-            value={coporateEmail}
+            value={employee?.corporateEmail}
             label="Corporate Email*"
           />
           <Input
@@ -108,15 +107,15 @@ function EmployeeEditContactPage() {
       surname: fullName[1],
       middleName: fullName[2],
       personalEmail: newemployee.personalEmail,
+      corporateEmail: newemployee.corporateEmail,
       phone: newemployee.phone,
       gitHub: newemployee.gitHub,
       gitLab: newemployee.gitLab,
     } : undefined);
-    setCoporateEmail(newemployee?.corporateEmail);
   }
 
   async function updateEmployeesAsync() {
-    api.put<EmployeeContactUpdateType>('employees/update-employee-contacts', employee);
+    await api.put<EmployeeContactUpdateType>('employees/update-employee-contacts', employee);
 
     navigate('/employees');
   }

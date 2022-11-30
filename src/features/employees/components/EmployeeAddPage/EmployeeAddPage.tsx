@@ -21,7 +21,7 @@ function EmployeeAddPage() {
     ratePerHour: 0,
     pay: 0,
     employmentType: 0,
-    hasParking: true,
+    parkingCostPerMonth: 0,
   });
 
   const navigate = useNavigate();
@@ -103,7 +103,6 @@ function EmployeeAddPage() {
               label="Pay*"
               onChange={handleFormChange}
             />
-
           </div>
           <div className="data-rows">
             <Input
@@ -127,14 +126,13 @@ function EmployeeAddPage() {
               style={{ maxWidth: 300, width: 250, marginTop: 0 }}
             />
             <Input
-              name="hasParking"
-              value={employee?.hasParking}
+              name="parkingCostPerMonth"
+              value={employee?.parkingCostPerMonth}
               label="Parking*"
               onChange={handleFormChange}
             />
           </div>
         </div>
-
       </div>
       <div className="employee-data--btns">
         <Button
@@ -154,7 +152,7 @@ function EmployeeAddPage() {
   );
   async function updateEmployeesAsync() {
     console.log(employee);
-    api.post<EmployeeType>('employees/create', employee);
+    await api.post<EmployeeType>('employees/create', employee);
     navigate('/employees');
   }
 }
