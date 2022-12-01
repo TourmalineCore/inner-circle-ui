@@ -151,8 +151,15 @@ function EmployeeAddPage() {
     </div>
   );
   async function updateEmployeesAsync() {
-    console.log(employee);
-    await api.post<EmployeeType>('employees/create', employee);
+    await api.post<EmployeeType>(
+      'employees/create',
+      {
+        ...employee,
+        phone: employee && employee.phone && employee?.phone?.length > 0 ? employee.phone : null,
+        gitHub: employee && employee.gitHub && employee?.gitHub?.length > 0 ? employee.gitHub : null,
+        gitLab: employee && employee.gitLab && employee?.gitLab?.length > 0 ? employee.gitLab : null,
+      },
+    );
     navigate('/employees');
   }
 }

@@ -115,7 +115,15 @@ function EmployeeEditContactPage() {
   }
 
   async function updateEmployeesAsync() {
-    await api.put<EmployeeContactUpdateType>('employees/update-employee-contacts', employee);
+    await api.put<EmployeeContactUpdateType>(
+      'employees/update-employee-contacts',
+      {
+        ...employee,
+        phone: employee && employee.phone && employee?.phone?.length > 0 ? employee.phone : null,
+        gitHub: employee && employee.gitHub && employee?.gitHub?.length > 0 ? employee.gitHub : null,
+        gitLab: employee && employee.gitLab && employee?.gitLab?.length > 0 ? employee.gitLab : null,
+      },
+    );
 
     navigate('/employees');
   }
