@@ -61,6 +61,14 @@ function AnalyticsPage() {
           enableTableStatePersistance
           maxStillMobileBreakpoint={800}
           isStriped
+          actions={[
+            {
+              name: 'edit-row-action',
+              show: () => true,
+              renderText: () => 'Dublicate',
+              onClick: (e: any, row: any) => { dublicateEmployee(row.original.id); },
+            },
+          ]}
           columns={[
             {
               Header: 'Employee',
@@ -214,6 +222,13 @@ function AnalyticsPage() {
 
     </ContentCard>
   );
+
+  function dublicateEmployee(idEmployee: number) {
+    const copyEmployee = employees.find((el) => el.id === idEmployee);
+    if (copyEmployee) {
+      setEmployees([...employees, copyEmployee]);
+    }
+  }
 
   async function loadTotalFinance() {
     const { data: dataTotalFinance } = await api.get<TotalFinance>('finance/get-total-finance');
