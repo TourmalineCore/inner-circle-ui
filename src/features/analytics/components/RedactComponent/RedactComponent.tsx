@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './RedactComponent.css';
 import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
 
-function RedactComponent({ value } : { value : string }) {
+function RedactComponent({ value, valueDelta, onChange } : { value : string, valueDelta?: number, onChange?: (number: number) => void }) {
   const [redValue, setRedValue] = useState(value);
   const [isPercent, setisPercent] = useState(false);
 
@@ -23,6 +23,9 @@ function RedactComponent({ value } : { value : string }) {
 
   function onBlur() {
     onCheckPercent(redValue.replace(',', '.'));
+    if (onChange && (Number(reformatMoney(value)) !== Number(reformatMoney(redValue)))) {
+      onChange(Number(redValue));
+    }
   }
 
   return (
@@ -35,6 +38,8 @@ function RedactComponent({ value } : { value : string }) {
         onFocus={onFocus}
         onBlur={onBlur}
       />
+      {valueDelta
+        && <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>{valueDelta}</div>}
     </div>
   );
 }

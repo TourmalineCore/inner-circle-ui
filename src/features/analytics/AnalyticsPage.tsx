@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable, SelectColumnFilter } from '@tourmalinecore/react-table-responsive';
 import { useEffect, useState } from 'react';
 import { api } from '../../common/api';
 import { formatMoney, formatNumber } from '../../common/utils/formatMoney';
-import { AnalyticsSalaryType } from './types';
+import {
+  AnalyticsSalaryType,
+  GetPreviewType,
+  PutPreviewType,
+  // PutPreviewType,
+  TotalFinance,
+} from './types';
 
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
@@ -27,7 +34,8 @@ type FooterTable<TypeProps> = {
 
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [employees, setEmployees] = useState<AnalyticsSalaryType[]>([]);
+  const [employees, setEmployees] = useState<(AnalyticsSalaryType | GetPreviewType)[]>([]);
+  const [totalFinance, setTotalFinance] = useState<TotalFinance>();
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -64,20 +72,48 @@ function AnalyticsPage() {
               Header: 'Rate/h',
               accessor: 'ratePerHour',
               ...getSelectFilterOptions('ratePerHour', true),
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { ratePerHour } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const {
+                  id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, ratePerHourDelta,
+                } = row.original;
 
-                return (<RedactComponent value={formatMoney(ratePerHour)} />);
+                const employmentType = employentCof === 1 ? 0 : 1;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(ratePerHour)}
+                    valueDelta={ratePerHourDelta}
+                    onChange={(ratePerHour: number) => {
+                      updateEmployeesAsync({
+                        employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+                      });
+                    }}
+                  />
+                );
               },
             },
             {
               Header: 'Pay',
               accessor: 'pay',
               ...getSelectFilterOptions('pay', true),
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { pay } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const {
+                  id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, payDelta,
+                } = row.original;
 
-                return (<RedactComponent value={formatMoney(pay)} />);
+                const employmentType = employentCof === 1 ? 0 : 1;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(pay)}
+                    valueDelta={payDelta}
+                    onChange={(pay: number) => {
+                      updateEmployeesAsync({
+                        employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+                      });
+                    }}
+                  />
+                );
               },
             },
             {
@@ -93,7 +129,7 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { netSalary } = row.original;
 
-                return (<RedactComponent value={formatMoney(netSalary)} />);
+                return (<div>{formatMoney(netSalary)}</div>);
               },
               Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'netSalary'),
             },
@@ -105,7 +141,7 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { hourlyCostFact } = row.original;
 
-                return (<RedactComponent value={formatMoney(hourlyCostFact)} />);
+                return (<div>{formatMoney(hourlyCostFact)}</div>);
               },
             },
             {
@@ -116,7 +152,7 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { hourlyCostHand } = row.original;
 
-                return (<RedactComponent value={formatMoney(hourlyCostHand)} />);
+                return (<div>{formatMoney(hourlyCostHand)}</div>);
               },
             },
             {
@@ -127,9 +163,9 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { earnings } = row.original;
 
-                return (<RedactComponent value={formatMoney(earnings)} />);
+                return (<div>{formatMoney(earnings)}</div>);
               },
-              Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'earnings'),
+              Footer: () => (totalFinance ? totalFinance.desiredMetrics.desiredIncome : ''),
             },
             {
               Header: 'Expenses',
@@ -139,9 +175,9 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { expenses } = row.original;
 
-                return (<RedactComponent value={formatMoney(expenses)} />);
+                return (<div>{formatMoney(expenses)}</div>);
               },
-              Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'expenses'),
+              Footer: () => (totalFinance ? totalFinance.totalExpenses.payrollExpense : ''),
             },
             {
               Header: 'Profit',
@@ -150,7 +186,7 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { profit } = row.original;
 
-                return (<RedactComponent value={formatMoney(profit)} />);
+                return (<div>{formatMoney(profit)}</div>);
               },
               Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'profit'),
             },
@@ -161,7 +197,7 @@ function AnalyticsPage() {
               Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
                 const { profitAbility } = row.original;
 
-                return (<RedactComponent value={`${profitAbility}%`} />);
+                return (<div>{`${profitAbility}%`}</div>);
               },
               Footer: (row: FooterTable<AnalyticsSalaryType>) => (
                 <div>
@@ -179,6 +215,11 @@ function AnalyticsPage() {
     </ContentCard>
   );
 
+  async function loadTotalFinance() {
+    const { data: dataTotalFinance } = await api.get<TotalFinance>('finance/get-total-finance');
+    setTotalFinance(dataTotalFinance);
+  }
+
   async function loadEmployeesAsync() {
     setIsLoading(true);
 
@@ -187,10 +228,24 @@ function AnalyticsPage() {
 
       setEmployees(data);
 
+      await loadTotalFinance();
+
       setIsLoading(false);
     } catch {
-      // todo: #344qg6j
       setIsLoading(false);
+    }
+  }
+
+  async function updateEmployeesAsync(employee: PutPreviewType) {
+    const { data } = await api.post<GetPreviewType>('finance/get-preview', employee);
+
+    const index = employees.find((el) => el.id === employee.employeeId);
+
+    if (index) {
+      const newemp = employees.slice();
+      newemp[newemp.indexOf(index)] = data;
+      setEmployees(newemp);
+      await loadTotalFinance();
     }
   }
 
