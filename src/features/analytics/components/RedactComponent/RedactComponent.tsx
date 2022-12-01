@@ -2,7 +2,9 @@ import { useState } from 'react';
 import './RedactComponent.css';
 import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
 
-function RedactComponent({ value, valueDelta, onChange } : { value : string, valueDelta?: number, onChange?: (number: number) => void }) {
+function RedactComponent({
+  value, valueDelta, onChange,
+} : { value : string, valueDelta?: number, onChange?: (number: number) => void }) {
   const [redValue, setRedValue] = useState(value);
   const [isPercent, setisPercent] = useState(false);
 
@@ -30,16 +32,18 @@ function RedactComponent({ value, valueDelta, onChange } : { value : string, val
 
   return (
     <div className="redact-cmpnt">
-      <input
-        className="input-data"
-        type="text"
-        value={redValue}
-        onChange={(e : any) => setRedValue(e.target.value)}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      />
-      {valueDelta
-        && <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>{valueDelta}</div>}
+      {onChange
+        ? (
+          <input
+            className="input-data"
+            type="text"
+            value={redValue}
+            onChange={(e : any) => setRedValue(e.target.value)}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        ) : <div>{value}</div>}
+      {valueDelta && valueDelta !== 0 ? <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>{valueDelta === 0 ? '' : valueDelta}</div> : ''}
     </div>
   );
 }

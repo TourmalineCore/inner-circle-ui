@@ -5,10 +5,8 @@ import { useEffect, useState } from 'react';
 import { api } from '../../common/api';
 import { formatMoney, formatNumber } from '../../common/utils/formatMoney';
 import {
-  AnalyticsSalaryType,
   GetPreviewType,
   PutPreviewType,
-  // PutPreviewType,
   TotalFinance,
 } from './types/index';
 
@@ -34,7 +32,7 @@ type FooterTable<TypeProps> = {
 
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [employees, setEmployees] = useState<(AnalyticsSalaryType | GetPreviewType)[]>([]);
+  const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
   const [totalFinance, setTotalFinance] = useState<TotalFinance>();
 
   useEffect(() => {
@@ -134,22 +132,31 @@ function AnalyticsPage() {
               accessor: 'netSalary',
               disableSortBy: true,
               ...getSelectFilterOptions('netSalary', true),
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { netSalary } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { netSalary, netSalaryDelta } = row.original;
 
-                return (<div>{formatMoney(netSalary)}</div>);
+                return (
+                  <RedactComponent
+                    value={formatMoney(netSalary)}
+                    valueDelta={netSalaryDelta}
+                  />
+                );
               },
-              Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'netSalary'),
             },
             {
               Header: 'Hourly Cost (By Fact)',
               accessor: 'hourlyCostFact',
               disableFilters: true,
               disableSortBy: true,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { hourlyCostFact } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { hourlyCostFact, hourlyCostFactDelta } = row.original;
 
-                return (<div>{formatMoney(hourlyCostFact)}</div>);
+                return (
+                  <RedactComponent
+                    value={formatMoney(hourlyCostFact)}
+                    valueDelta={hourlyCostFactDelta}
+                  />
+                );
               },
             },
             {
@@ -157,10 +164,14 @@ function AnalyticsPage() {
               accessor: 'hourlyCostHand',
               disableFilters: true,
               disableSortBy: true,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { hourlyCostHand } = row.original;
-
-                return (<div>{formatMoney(hourlyCostHand)}</div>);
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { hourlyCostHand, hourlyCostHandDelta } = row.original;
+                return (
+                  <RedactComponent
+                    value={formatMoney(hourlyCostHand)}
+                    valueDelta={hourlyCostHandDelta}
+                  />
+                );
               },
             },
             {
@@ -168,10 +179,15 @@ function AnalyticsPage() {
               accessor: 'earnings',
               disableFilters: true,
               minWidth: 160,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { earnings } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { earnings, earningsDelta } = row.original;
 
-                return (<div>{formatMoney(earnings)}</div>);
+                return (
+                  <RedactComponent
+                    value={formatMoney(earnings)}
+                    valueDelta={earningsDelta}
+                  />
+                );
               },
               Footer: () => (totalFinance ? totalFinance.desiredMetrics.desiredIncome : ''),
             },
@@ -180,41 +196,50 @@ function AnalyticsPage() {
               accessor: 'expenses',
               disableFilters: true,
               minWidth: 160,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { expenses } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { expenses, expensesDelta } = row.original;
 
-                return (<div>{formatMoney(expenses)}</div>);
+                return (
+                  <RedactComponent
+                    value={formatMoney(expenses)}
+                    valueDelta={expensesDelta}
+                  />
+                );
               },
-              Footer: () => (totalFinance ? totalFinance.totalExpenses.payrollExpense : ''),
+              Footer: () => (totalFinance
+                ? formatMoney(Number(totalFinance.totalExpenses.payrollExpense.toFixed(2))) : ''),
             },
             {
               Header: 'Profit',
               accessor: 'profit',
               disableFilters: true,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { profit } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { profit, profitDelta } = row.original;
 
-                return (<div>{formatMoney(profit)}</div>);
+                return (
+                  <RedactComponent
+                    value={formatMoney(profit)}
+                    valueDelta={profitDelta}
+                  />
+                );
               },
-              Footer: (row: FooterTable<AnalyticsSalaryType>) => getTotalCost(row, 'profit'),
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(row, 'profit'),
             },
             {
               Header: 'Profitability',
               accessor: 'profitAbility',
               disableFilters: true,
-              Cell: ({ row }: CellTable<AnalyticsSalaryType>) => {
-                const { profitAbility } = row.original;
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { profitAbility, profitAbilityDelta } = row.original;
 
-                return (<div>{`${profitAbility}%`}</div>);
+                return (
+                  <RedactComponent
+                    value={`${profitAbility}%`}
+                    valueDelta={profitAbilityDelta}
+                  />
+                );
               },
-              Footer: (row: FooterTable<AnalyticsSalaryType>) => (
-                <div>
-                  {`${(row.filteredRows
-                    .map((elem) => elem.values.profitAbility)
-                    .reduce((pre: number, current: number) => pre + current) / row.filteredRows.length)
-                    .toFixed(2)}%`}
-                </div>
-              ),
+              Footer: () => `${(totalFinance ? totalFinance.desiredMetrics.desiredProfitability : '')}%`,
             },
           ]}
         />
@@ -239,7 +264,7 @@ function AnalyticsPage() {
     setIsLoading(true);
 
     try {
-      const { data } = await api.get<AnalyticsSalaryType[]>('finance/get-analytic');
+      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
 
       setEmployees(data);
 
@@ -260,14 +285,13 @@ function AnalyticsPage() {
       const newemp = employees.slice();
       newemp[newemp.indexOf(index)] = data;
       setEmployees(newemp);
-      await loadTotalFinance();
     }
   }
 
-  function getTotalCost(row: FooterTable<AnalyticsSalaryType>, keyOfEmployee: string) {
+  function getTotalCost(row: FooterTable<GetPreviewType>, keyOfEmployee: string) {
     const { filteredRows } = row;
 
-    const sumOfEmployeesValues = filteredRows.map((elem) => elem.values[keyOfEmployee as keyof AnalyticsSalaryType] as number)
+    const sumOfEmployeesValues = filteredRows.map((elem) => elem.values[keyOfEmployee as keyof GetPreviewType] as number)
       .reduce((pre: number, current: number) => pre + current);
 
     return (
@@ -278,7 +302,7 @@ function AnalyticsPage() {
   function getSelectFilterOptions(keyOfEmployee: string, isFormatNumber: boolean = false) {
     const all = { label: 'All', value: '' };
 
-    const selectFO = Array.from(new Set(employees.map((employee) => employee[keyOfEmployee as keyof AnalyticsSalaryType]))).map((valueOfKey) => ({
+    const selectFO = Array.from(new Set(employees.map((employee) => employee[keyOfEmployee as keyof GetPreviewType]))).map((valueOfKey) => ({
       label: isFormatNumber ? formatNumber(Number(valueOfKey)) : valueOfKey,
       value: valueOfKey,
     }));
