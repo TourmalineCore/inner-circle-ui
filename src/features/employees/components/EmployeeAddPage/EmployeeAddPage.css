@@ -1,0 +1,33 @@
+.employee-data {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.employee-data--inputs :nth-child(n) {
+  margin-top: 5px;
+}
+
+.data-columns {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-rows {
+  display: flex;
+  flex-direction: row;
+}
+
+.data-rows :nth-child(n) {
+  margin-right: 10px;
+}
+
+.data-rows :last-child {
+  margin-right: 0;
+}
+
+.employee-data--btns {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+}
