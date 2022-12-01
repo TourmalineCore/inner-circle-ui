@@ -10,7 +10,7 @@ import {
   PutPreviewType,
   // PutPreviewType,
   TotalFinance,
-} from './types';
+} from './types/index';
 
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
