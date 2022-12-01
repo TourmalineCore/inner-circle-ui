@@ -63,7 +63,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: any, row: any) => {
-                  navigate(`/employees/edit-contact&${Number(row.id) + 1}`);
+                  navigate(`/employees/edit-contact&${Number(row.original.id)}`);
                 },
               },
             ]}
@@ -159,7 +159,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: any, row: any) => {
-                  navigate(`/employees/edit-salary&${Number(row.id) + 1}`);
+                  navigate(`/employees/edit-salary&${Number(row.original.id)}`);
                 },
               },
             ]}
