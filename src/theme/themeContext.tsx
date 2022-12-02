@@ -3,6 +3,7 @@ import {
 } from 'react';
 
 import { themeColors } from './themeColors';
+import { ThemeElement } from './types/Theme';
 
 type ThemProviderStateProps = {
   themeColor: string
