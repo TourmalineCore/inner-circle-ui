@@ -2,6 +2,9 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import { useEffect, useState } from 'react';
+import {
+  Button,
+} from '@tourmalinecore/react-tc-ui-kit';
 import { api } from '../../common/api';
 import { formatMoney } from '../../common/utils/formatMoney';
 import {
@@ -13,6 +16,8 @@ import {
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import RedactComponent from './components/RedactComponent/RedactComponent';
+
+import './AnalyticsPage.css';
 
 type Row<Type> = {
   original: Type
@@ -46,6 +51,9 @@ function AnalyticsPage() {
         <DefaultCardHeader>Analytics</DefaultCardHeader>
       )}
     >
+      <div className="analitycs-page--btns">
+        <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
+      </div>
       <div style={{ paddingTop: 4 }}>
         <ClientTable
           tableId="analytics-salary-table"
