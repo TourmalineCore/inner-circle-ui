@@ -64,7 +64,8 @@ function RedactComponent({
 
   function getTotal() {
     if (valueDelta) {
-      return isPercent ? `${valueDelta}%` : formatMoney(valueDelta);
+      const plus = valueDelta >= 1 ? '+' : '';
+      return `${plus}${isPercent ? `${valueDelta}%` : formatMoney(valueDelta)}`;
     }
     return '';
   }
