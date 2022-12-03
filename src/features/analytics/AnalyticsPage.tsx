@@ -29,20 +29,22 @@ type CellTable<TypeProps> = {
   }
 };
 
-type FooterTable<TypeProps> = {
-  filteredRows: Array<{
-    values: TypeProps;
-  }>;
-};
-
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
-  const [totalFinance, setTotalFinance] = useState<TotalFinance>();
+  const [total, setTotal] = useState<TotalFinance>();
 
   useEffect(() => {
+    loadTotals();
     loadEmployeesAsync();
   }, []);
+
+  function getSum(key: string) {
+    const sum = employees.map((el) => el[key as keyof GetPreviewType] as number)
+      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+
+    return sum;
+  }
 
   return (
     <ContentCard
@@ -200,7 +202,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => (totalFinance ? totalFinance.desiredMetrics.desiredIncome : ''),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).earningsTotal,
+                getSum('earnings'),
+              ),
             },
             {
               Header: 'Expenses',
@@ -217,8 +222,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => (totalFinance
-                ? formatMoney(Number(totalFinance.totalExpenses.payrollExpense.toFixed(2))) : ''),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).expensesTotal,
+                getSum('expenses'),
+              ),
             },
             {
               Header: 'Profit',
@@ -234,7 +241,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(row, 'profit'),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).profitTotal,
+                getSum('profit'),
+              ),
             },
             {
               Header: 'Profitability',
@@ -250,7 +260,11 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => `${(totalFinance ? totalFinance.desiredMetrics.desiredProfitability : '')}%`,
+              Footer: () => getTotalCost(
+                (total as TotalFinance).profitabilityTotal,
+                (getSum('profit') / getSum('earnings')) * 100,
+                true,
+              ),
             },
           ]}
         />
@@ -259,6 +273,19 @@ function AnalyticsPage() {
     </ContentCard>
   );
 
+  function getTotalCost(total: number, sumTotal: number, isPrecent: boolean = false) {
+    sumTotal = Number(sumTotal.toFixed(2));
+    total = Number(total.toFixed(2));
+    return (
+      <div>
+        <RedactComponent
+          value={(isPrecent ? `${sumTotal}%` : formatMoney(sumTotal))}
+          valueDelta={Number((sumTotal - total).toFixed(2))}
+        />
+      </div>
+    );
+  }
+
   function dublicateEmployee(idEmployee: number) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
@@ -266,34 +293,13 @@ function AnalyticsPage() {
     }
   }
 
-  function deleteEmployee(idEmployee: number) {
+  async function deleteEmployee(idEmployee: number) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
       const index = employees.indexOf(copyEmployee);
       const newEmployees = employees.slice();
       newEmployees.splice(index, 1);
       setEmployees(newEmployees);
-    }
-  }
-
-  async function loadTotalFinance() {
-    const { data: dataTotalFinance } = await api.get<TotalFinance>('finance/get-total-finance');
-    setTotalFinance(dataTotalFinance);
-  }
-
-  async function loadEmployeesAsync() {
-    setIsLoading(true);
-
-    try {
-      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
-
-      setEmployees(data);
-
-      await loadTotalFinance();
-
-      setIsLoading(false);
-    } catch {
-      setIsLoading(false);
     }
   }
 
@@ -309,15 +315,29 @@ function AnalyticsPage() {
     }
   }
 
-  function getTotalCost(row: FooterTable<GetPreviewType>, keyOfEmployee: string) {
-    const { filteredRows } = row;
+  async function loadTotals() {
+    const totals : TotalFinance = {
+      earningsTotal: getSum('earnings'),
+      expensesTotal: getSum('expenses'),
+      profitTotal: getSum('profit'),
+      profitabilityTotal: (getSum('profit') / getSum('earnings')) * 100,
+    };
 
-    const sumOfEmployeesValues = filteredRows.map((elem) => elem.values[keyOfEmployee as keyof GetPreviewType] as number)
-      .reduce((pre: number, current: number) => pre + current);
+    setTotal(totals);
+  }
 
-    return (
-      <div>{formatMoney(sumOfEmployeesValues)}</div>
-    );
+  async function loadEmployeesAsync() {
+    setIsLoading(true);
+
+    try {
+      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
+
+      setEmployees(data);
+
+      setIsLoading(false);
+    } catch {
+      setIsLoading(false);
+    }
   }
 }
 
