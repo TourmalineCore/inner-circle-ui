@@ -1,9 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { authService } from './authService';
+import { API_ROOT } from './config/config';
 
 const createAPI = (): AxiosInstance => {
   const apiConfig = axios.create({
-    baseURL: 'http://localhost:5000/api/',
+    baseURL: API_ROOT,
   });
 
   apiConfig.interceptors.request.use(
