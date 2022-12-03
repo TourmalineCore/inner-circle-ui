@@ -66,6 +66,12 @@ function AnalyticsPage() {
               renderText: () => 'Dublicate',
               onClick: (e: any, row: any) => { dublicateEmployee(row.original.id); },
             },
+            {
+              name: 'edit-row-action',
+              show: () => true,
+              renderText: () => 'Delete',
+              onClick: (e: any, row: any) => { deleteEmployee(row.original.id); },
+            },
           ]}
           columns={[
             {
@@ -252,6 +258,16 @@ function AnalyticsPage() {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
       setEmployees([...employees, copyEmployee]);
+    }
+  }
+
+  function deleteEmployee(idEmployee: number) {
+    const copyEmployee = employees.find((el) => el.id === idEmployee);
+    if (copyEmployee) {
+      const index = employees.indexOf(copyEmployee);
+      const newEmployees = employees.slice();
+      newEmployees.splice(index, 1);
+      setEmployees(newEmployees);
     }
   }
 
