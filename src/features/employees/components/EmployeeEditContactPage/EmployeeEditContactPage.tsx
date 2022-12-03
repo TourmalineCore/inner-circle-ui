@@ -52,6 +52,7 @@ function EmployeeEditContactPage() {
             name="corporateEmail"
             value={employee?.corporateEmail}
             label="Corporate Email*"
+            onChange={handleFormChange}
           />
           <Input
             name="personalEmail"
