@@ -91,7 +91,7 @@ function EmployeeEditContactPage() {
           type="button"
           onClick={() => { updateEmployeesAsync(); }}
         >
-          Create
+          Edit
         </Button>
       </div>
     </div>
