@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
-import { ClientTable, SelectColumnFilter } from '@tourmalinecore/react-table-responsive';
+import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import { useEffect, useState } from 'react';
 import { api } from '../../common/api';
-import { formatMoney, formatNumber } from '../../common/utils/formatMoney';
+import { formatMoney } from '../../common/utils/formatMoney';
 import {
   GetPreviewType,
   PutPreviewType,
@@ -83,7 +83,7 @@ function AnalyticsPage() {
             {
               Header: 'Rate/h',
               accessor: 'ratePerHour',
-              ...getSelectFilterOptions('ratePerHour', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const {
                   id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, ratePerHourDelta,
@@ -107,7 +107,7 @@ function AnalyticsPage() {
             {
               Header: 'Pay',
               accessor: 'pay',
-              ...getSelectFilterOptions('pay', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const {
                   id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, payDelta,
@@ -131,13 +131,12 @@ function AnalyticsPage() {
             {
               Header: 'Employment type',
               accessor: 'employmentType',
-              ...getSelectFilterOptions('employmentType'),
+              disableFilters: true,
             },
             {
               Header: 'Net Salary',
               accessor: 'netSalary',
-              disableSortBy: true,
-              ...getSelectFilterOptions('netSalary', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { netSalary, netSalaryDelta } = row.original;
 
@@ -153,7 +152,6 @@ function AnalyticsPage() {
               Header: 'Hourly Cost (By Fact)',
               accessor: 'hourlyCostFact',
               disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { hourlyCostFact, hourlyCostFactDelta } = row.original;
 
@@ -169,7 +167,6 @@ function AnalyticsPage() {
               Header: 'Hourly Cost (On Hand)',
               accessor: 'hourlyCostHand',
               disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { hourlyCostHand, hourlyCostHandDelta } = row.original;
                 return (
@@ -313,20 +310,6 @@ function AnalyticsPage() {
     return (
       <div>{formatMoney(sumOfEmployeesValues)}</div>
     );
-  }
-
-  function getSelectFilterOptions(keyOfEmployee: string, isFormatNumber: boolean = false) {
-    const all = { label: 'All', value: '' };
-
-    const selectFO = Array.from(new Set(employees.map((employee) => employee[keyOfEmployee as keyof GetPreviewType]))).map((valueOfKey) => ({
-      label: isFormatNumber ? formatNumber(Number(valueOfKey)) : valueOfKey,
-      value: valueOfKey,
-    }));
-
-    return ({
-      Filter: SelectColumnFilter,
-      selectFilterOptions: [all, ...selectFO],
-    });
   }
 }
 
