@@ -85,7 +85,7 @@ function EmployeeEditSalaryPage() {
           type="button"
           onClick={() => { updateEmployeesAsync(); }}
         >
-          Create
+          Edit
         </Button>
       </div>
     </div>

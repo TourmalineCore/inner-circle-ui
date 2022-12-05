@@ -16,6 +16,7 @@ import {
   ColleagueContactsType, ColleagueFinancesColumnsType, ColleaguesType, EmployeeTypeSwitch,
 } from './employeesData';
 import { api } from '../../common/api';
+import { formatMoney } from '../../common/utils/formatMoney';
 
 type Row<Type> = {
   original: Type
@@ -177,12 +178,20 @@ function EmployeesPage() {
                 accessor: 'ratePerHour',
                 disableFilters: true,
                 disableSortBy: true,
+                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                  const { ratePerHour } = row.original;
+                  return (<div>{formatMoney(ratePerHour)}</div>);
+                },
               },
               {
                 Header: 'Pay',
                 accessor: 'pay',
                 disableFilters: true,
                 disableSortBy: true,
+                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                  const { pay } = row.original;
+                  return (<div>{formatMoney(pay)}</div>);
+                },
               },
               {
                 Header: 'Employment Type',
@@ -199,12 +208,20 @@ function EmployeesPage() {
                 accessor: 'netSalary',
                 disableFilters: true,
                 disableSortBy: true,
+                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                  const { netSalary } = row.original;
+                  return (<div>{formatMoney(netSalary)}</div>);
+                },
               },
               {
                 Header: 'Parking',
                 accessor: 'parking',
                 disableFilters: true,
                 disableSortBy: true,
+                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                  const { parking } = row.original;
+                  return (<div>{formatMoney(parking)}</div>);
+                },
               },
             ]}
           />

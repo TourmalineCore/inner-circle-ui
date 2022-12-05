@@ -52,6 +52,7 @@ function EmployeeEditContactPage() {
             name="corporateEmail"
             value={employee?.corporateEmail}
             label="Corporate Email*"
+            onChange={handleFormChange}
           />
           <Input
             name="personalEmail"
@@ -90,7 +91,7 @@ function EmployeeEditContactPage() {
           type="button"
           onClick={() => { updateEmployeesAsync(); }}
         >
-          Create
+          Edit
         </Button>
       </div>
     </div>
