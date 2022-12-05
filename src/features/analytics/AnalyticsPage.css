@@ -1,0 +1,6 @@
+.analitycs-page--btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-bottom: 10px;
+}

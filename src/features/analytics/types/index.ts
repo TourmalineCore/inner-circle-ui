@@ -21,28 +21,11 @@ export type AnalyticsSalaryType = {
   netSalary: number
 };
 
-export type TotalExpensesType = {
-  payrollExpense: number,
-  officeExpense: number,
-  totalExpense: number,
-};
-
-export type DesiredMetricsType = {
-  desiredIncome: number,
-  desiredProfit: number,
-  desiredProfitability: number,
-};
-
-export type ReserveFinanceType = {
-  reserveForQuarter: number,
-  reserveForHalfYear: number,
-  reserveForYear: number,
-};
-
 export type TotalFinance = {
-  totalExpenses: TotalExpensesType,
-  desiredMetrics: DesiredMetricsType,
-  reserveFinance: ReserveFinanceType,
+  earningsTotal: number,
+  expensesTotal: number,
+  profitTotal: number,
+  profitabilityTotal: number,
 };
 
 export type PutPreviewType = {

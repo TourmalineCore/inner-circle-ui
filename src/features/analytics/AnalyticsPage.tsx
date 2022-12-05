@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
-import { ClientTable, SelectColumnFilter } from '@tourmalinecore/react-table-responsive';
+import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import { useEffect, useState } from 'react';
+import {
+  Button,
+} from '@tourmalinecore/react-tc-ui-kit';
 import { api } from '../../common/api';
-import { formatMoney, formatNumber } from '../../common/utils/formatMoney';
+import { formatMoney } from '../../common/utils/formatMoney';
 import {
   GetPreviewType,
   PutPreviewType,
@@ -13,6 +16,8 @@ import {
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import RedactComponent from './components/RedactComponent/RedactComponent';
+
+import './AnalyticsPage.css';
 
 type Row<Type> = {
   original: Type
@@ -24,20 +29,22 @@ type CellTable<TypeProps> = {
   }
 };
 
-type FooterTable<TypeProps> = {
-  filteredRows: Array<{
-    values: TypeProps;
-  }>;
-};
-
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
-  const [totalFinance, setTotalFinance] = useState<TotalFinance>();
+  const [total, setTotal] = useState<TotalFinance>();
 
   useEffect(() => {
+    loadTotals();
     loadEmployeesAsync();
   }, []);
+
+  function getSum(key: string) {
+    const sum = employees.map((el) => el[key as keyof GetPreviewType] as number)
+      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+
+    return sum;
+  }
 
   return (
     <ContentCard
@@ -46,6 +53,9 @@ function AnalyticsPage() {
         <DefaultCardHeader>Analytics</DefaultCardHeader>
       )}
     >
+      <div className="analitycs-page--btns">
+        <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
+      </div>
       <div style={{ paddingTop: 4 }}>
         <ClientTable
           tableId="analytics-salary-table"
@@ -66,6 +76,12 @@ function AnalyticsPage() {
               renderText: () => 'Dublicate',
               onClick: (e: any, row: any) => { dublicateEmployee(row.original.id); },
             },
+            {
+              name: 'edit-row-action',
+              show: () => true,
+              renderText: () => 'Delete',
+              onClick: (e: any, row: any) => { deleteEmployee(row.original.id); },
+            },
           ]}
           columns={[
             {
@@ -77,7 +93,7 @@ function AnalyticsPage() {
             {
               Header: 'Rate/h',
               accessor: 'ratePerHour',
-              ...getSelectFilterOptions('ratePerHour', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const {
                   id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, ratePerHourDelta,
@@ -101,7 +117,7 @@ function AnalyticsPage() {
             {
               Header: 'Pay',
               accessor: 'pay',
-              ...getSelectFilterOptions('pay', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const {
                   id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, payDelta,
@@ -125,13 +141,12 @@ function AnalyticsPage() {
             {
               Header: 'Employment type',
               accessor: 'employmentType',
-              ...getSelectFilterOptions('employmentType'),
+              disableFilters: true,
             },
             {
               Header: 'Net Salary',
               accessor: 'netSalary',
-              disableSortBy: true,
-              ...getSelectFilterOptions('netSalary', true),
+              disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { netSalary, netSalaryDelta } = row.original;
 
@@ -147,7 +162,6 @@ function AnalyticsPage() {
               Header: 'Hourly Cost (By Fact)',
               accessor: 'hourlyCostFact',
               disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { hourlyCostFact, hourlyCostFactDelta } = row.original;
 
@@ -163,7 +177,6 @@ function AnalyticsPage() {
               Header: 'Hourly Cost (On Hand)',
               accessor: 'hourlyCostHand',
               disableFilters: true,
-              disableSortBy: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
                 const { hourlyCostHand, hourlyCostHandDelta } = row.original;
                 return (
@@ -189,7 +202,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => (totalFinance ? totalFinance.desiredMetrics.desiredIncome : ''),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).earningsTotal,
+                getSum('earnings'),
+              ),
             },
             {
               Header: 'Expenses',
@@ -206,8 +222,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => (totalFinance
-                ? formatMoney(Number(totalFinance.totalExpenses.payrollExpense.toFixed(2))) : ''),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).expensesTotal,
+                getSum('expenses'),
+              ),
             },
             {
               Header: 'Profit',
@@ -223,7 +241,10 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(row, 'profit'),
+              Footer: () => getTotalCost(
+                (total as TotalFinance).profitTotal,
+                getSum('profit'),
+              ),
             },
             {
               Header: 'Profitability',
@@ -239,7 +260,11 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => `${(totalFinance ? totalFinance.desiredMetrics.desiredProfitability : '')}%`,
+              Footer: () => getTotalCost(
+                (total as TotalFinance).profitabilityTotal,
+                (getSum('profit') / getSum('earnings')) * 100,
+                true,
+              ),
             },
           ]}
         />
@@ -248,6 +273,19 @@ function AnalyticsPage() {
     </ContentCard>
   );
 
+  function getTotalCost(total: number, sumTotal: number, isPrecent: boolean = false) {
+    sumTotal = Number(sumTotal.toFixed(2));
+    total = Number(total.toFixed(2));
+    return (
+      <div>
+        <RedactComponent
+          value={(isPrecent ? `${sumTotal}%` : formatMoney(sumTotal))}
+          valueDelta={Number((sumTotal - total).toFixed(2))}
+        />
+      </div>
+    );
+  }
+
   function dublicateEmployee(idEmployee: number) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
@@ -255,24 +293,13 @@ function AnalyticsPage() {
     }
   }
 
-  async function loadTotalFinance() {
-    const { data: dataTotalFinance } = await api.get<TotalFinance>('finance/get-total-finance');
-    setTotalFinance(dataTotalFinance);
-  }
-
-  async function loadEmployeesAsync() {
-    setIsLoading(true);
-
-    try {
-      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
-
-      setEmployees(data);
-
-      await loadTotalFinance();
-
-      setIsLoading(false);
-    } catch {
-      setIsLoading(false);
+  async function deleteEmployee(idEmployee: number) {
+    const copyEmployee = employees.find((el) => el.id === idEmployee);
+    if (copyEmployee) {
+      const index = employees.indexOf(copyEmployee);
+      const newEmployees = employees.slice();
+      newEmployees.splice(index, 1);
+      setEmployees(newEmployees);
     }
   }
 
@@ -288,29 +315,29 @@ function AnalyticsPage() {
     }
   }
 
-  function getTotalCost(row: FooterTable<GetPreviewType>, keyOfEmployee: string) {
-    const { filteredRows } = row;
+  async function loadTotals() {
+    const totals : TotalFinance = {
+      earningsTotal: getSum('earnings'),
+      expensesTotal: getSum('expenses'),
+      profitTotal: getSum('profit'),
+      profitabilityTotal: (getSum('profit') / getSum('earnings')) * 100,
+    };
 
-    const sumOfEmployeesValues = filteredRows.map((elem) => elem.values[keyOfEmployee as keyof GetPreviewType] as number)
-      .reduce((pre: number, current: number) => pre + current);
-
-    return (
-      <div>{formatMoney(sumOfEmployeesValues)}</div>
-    );
+    setTotal(totals);
   }
 
-  function getSelectFilterOptions(keyOfEmployee: string, isFormatNumber: boolean = false) {
-    const all = { label: 'All', value: '' };
+  async function loadEmployeesAsync() {
+    setIsLoading(true);
 
-    const selectFO = Array.from(new Set(employees.map((employee) => employee[keyOfEmployee as keyof GetPreviewType]))).map((valueOfKey) => ({
-      label: isFormatNumber ? formatNumber(Number(valueOfKey)) : valueOfKey,
-      value: valueOfKey,
-    }));
+    try {
+      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
 
-    return ({
-      Filter: SelectColumnFilter,
-      selectFilterOptions: [all, ...selectFO],
-    });
+      setEmployees(data);
+
+      setIsLoading(false);
+    } catch {
+      setIsLoading(false);
+    }
   }
 }
 
