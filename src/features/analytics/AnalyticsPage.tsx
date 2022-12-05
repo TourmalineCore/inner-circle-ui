@@ -282,6 +282,196 @@ function AnalyticsPage() {
                 );
               },
             },
+            {
+              Header: 'District coefficient',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { employmentType, pay, payDelta } = row.original;
+
+                const salary = pay * employmentType * 0.15;
+                const salaryDelta = payDelta * employmentType * 0.15;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(salary)}
+                    valueDelta={salaryDelta}
+                  />
+                );
+              },
+            },
+            {
+              Header: 'Gross salary',
+              accessor: 'grossSalary',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { grossSalary, grossSalaryDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(grossSalary)}
+                    valueDelta={grossSalaryDelta}
+                  />
+                );
+              },
+            },
+            {
+              Header: 'Prepayment',
+              accessor: 'prepayment',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { prepayment, prepaymentDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(prepayment)}
+                    valueDelta={prepaymentDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('prepayment', row.page.map((el) => el.values)),
+                getSumForTotal('prepaymentDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Income tax',
+              accessor: 'incomeTaxContributions',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { incomeTaxContributions, incomeTaxContributionsDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(incomeTaxContributions)}
+                    valueDelta={incomeTaxContributionsDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('incomeTaxContributions', row.page.map((el) => el.values)),
+                getSumForTotal('incomeTaxContributionsDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Net Salary',
+              accessor: 'netSalary',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { netSalary, netSalaryDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(netSalary)}
+                    valueDelta={netSalaryDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('netSalary', row.page.map((el) => el.values)),
+                getSumForTotal('netSalaryDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Pension contributions',
+              accessor: 'pensionContributions',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { pensionContributions, pensionContributionsDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(pensionContributions)}
+                    valueDelta={pensionContributionsDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('pensionContributions', row.page.map((el) => el.values)),
+                getSumForTotal('pensionContributionsDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Medical contributions',
+              accessor: 'medicalContributions',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { medicalContributions, medicalContributionsDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(medicalContributions)}
+                    valueDelta={medicalContributionsDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('medicalContributions', row.page.map((el) => el.values)),
+                getSumForTotal('medicalContributionsDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Social insurance contributions',
+              accessor: 'socialInsuranceContributions',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { socialInsuranceContributions } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(socialInsuranceContributions)}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('socialInsuranceContributions', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Injury contributions',
+              accessor: 'injuriesContributions',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { injuriesContributions, injuriesContributionsDelta } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(injuriesContributions)}
+                    valueDelta={injuriesContributionsDelta}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('injuriesContributions', row.page.map((el) => el.values)),
+                getSumForTotal('injuriesContributionsDelta', row.page.map((el) => el.original)),
+              ),
+            },
+            {
+              Header: 'Accounting',
+              disableFilters: true,
+              Cell: () => (
+
+                <RedactComponent
+                  value={formatMoney(600)}
+                />
+              ),
+            },
+            {
+              Header: 'Parking',
+              accessor: 'parkingCostPerMonth',
+              disableFilters: true,
+              Cell: ({ row }: CellTable<GetPreviewType>) => {
+                const { parkingCostPerMonth } = row.original;
+
+                return (
+                  <RedactComponent
+                    value={formatMoney(parkingCostPerMonth)}
+                  />
+                );
+              },
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('parkingCostPerMonth', row.page.map((el) => el.original)),
+              ),
+            },
           ]}
         />
       </div>
@@ -296,15 +486,15 @@ function AnalyticsPage() {
     return sum;
   }
 
-  function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta: number = 0, isPercent: boolean = false) {
+  function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta?: number, isPercent: boolean = false) {
     if (isPercent) {
       sumOfEmployeesValues *= 100;
-      sumOfEmployeesValuesDelta *= 100;
+      sumOfEmployeesValuesDelta = sumOfEmployeesValuesDelta ? sumOfEmployeesValuesDelta * 100 : undefined;
     }
     return (
       <RedactComponent
         value={isPercent ? `${Number(sumOfEmployeesValues.toFixed(2))}%` : formatMoney(Number(sumOfEmployeesValues.toFixed(2)))}
-        valueDelta={Number(sumOfEmployeesValuesDelta.toFixed(2))}
+        valueDelta={sumOfEmployeesValuesDelta ? Number(sumOfEmployeesValuesDelta.toFixed(2)) : undefined}
       />
     );
   }
