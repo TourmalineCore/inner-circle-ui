@@ -10,7 +10,6 @@ import { formatMoney } from '../../common/utils/formatMoney';
 import {
   GetPreviewType,
   PutPreviewType,
-  TotalFinance,
 } from './types/index';
 
 import ContentCard from '../../components/ContentCard/ContentCard';
@@ -29,22 +28,30 @@ type CellTable<TypeProps> = {
   }
 };
 
+type FooterTable<TypeProps> = {
+  page: Array<{
+    values: TypeProps;
+    original: TypeProps;
+  }>;
+  filteredRows: Array<{
+    values: TypeProps;
+    original: TypeProps;
+  }>;
+};
+
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
-  const [total, setTotal] = useState<TotalFinance>();
-
   useEffect(() => {
-    loadTotals();
     loadEmployeesAsync();
   }, []);
 
-  function getSum(key: string) {
-    const sum = employees.map((el) => el[key as keyof GetPreviewType] as number)
-      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+  // function getSum(key: string) {
+  //   const sum = employees.map((el) => el[key as keyof GetPreviewType] as number)
+  //     .reduce((pre: number, current: number) => pre += (current || 0), 0);
 
-    return sum;
-  }
+  //   return sum;
+  // }
 
   return (
     <ContentCard
@@ -144,16 +151,18 @@ function AnalyticsPage() {
               disableFilters: true,
             },
             {
-              Header: 'Net Salary',
-              accessor: 'netSalary',
+              Header: 'Salary',
               disableFilters: true,
               Cell: ({ row }: CellTable<GetPreviewType>) => {
-                const { netSalary, netSalaryDelta } = row.original;
+                const { employmentType, pay, payDelta } = row.original;
+
+                const salary = pay * employmentType;
+                const salaryDelta = payDelta * employmentType;
 
                 return (
                   <RedactComponent
-                    value={formatMoney(netSalary)}
-                    valueDelta={netSalaryDelta}
+                    value={formatMoney(salary)}
+                    valueDelta={salaryDelta}
                   />
                 );
               },
@@ -202,9 +211,9 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => getTotalCost(
-                (total as TotalFinance).earningsTotal,
-                getSum('earnings'),
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('earnings', row.page.map((el) => el.values)),
+                getSumForTotal('earningsDelta', row.page.map((el) => el.original)),
               ),
             },
             {
@@ -222,9 +231,9 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => getTotalCost(
-                (total as TotalFinance).expensesTotal,
-                getSum('expenses'),
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('expenses', row.page.map((el) => el.values)),
+                getSumForTotal('expensesDelta', row.page.map((el) => el.original)),
               ),
             },
             {
@@ -241,9 +250,9 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => getTotalCost(
-                (total as TotalFinance).profitTotal,
-                getSum('profit'),
+              Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+                getSumForTotal('profit', row.page.map((el) => el.values)),
+                getSumForTotal('profitDelta', row.page.map((el) => el.original)),
               ),
             },
             {
@@ -260,11 +269,18 @@ function AnalyticsPage() {
                   />
                 );
               },
-              Footer: () => getTotalCost(
-                (total as TotalFinance).profitabilityTotal,
-                (getSum('profit') / getSum('earnings')) * 100,
-                true,
-              ),
+              Footer: (row: FooterTable<GetPreviewType>) => {
+                const sumValue = getSumForTotal('profit', row.page.map((el) => el.values)) / getSumForTotal('earnings', row.page.map((el) => el.values));
+
+                const sumDelta = sumValue - (getSumForTotal('profit', row.page.map((el) => el.values)) - getSumForTotal('profitDelta', row.page.map((el) => el.original)))
+                / (getSumForTotal('earnings', row.page.map((el) => el.values)) - getSumForTotal('earningsDelta', row.page.map((el) => el.original)));
+
+                return getTotalCost(
+                  sumValue,
+                  sumDelta,
+                  true,
+                );
+              },
             },
           ]}
         />
@@ -273,16 +289,23 @@ function AnalyticsPage() {
     </ContentCard>
   );
 
-  function getTotalCost(total: number, sumTotal: number, isPrecent: boolean = false) {
-    sumTotal = Number(sumTotal.toFixed(2));
-    total = Number(total.toFixed(2));
+  function getSumForTotal(key: string, data : GetPreviewType[]) {
+    const sum = data.map((el) => el[key as keyof GetPreviewType] as number)
+      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+
+    return sum;
+  }
+
+  function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta: number = 0, isPercent: boolean = false) {
+    if (isPercent) {
+      sumOfEmployeesValues *= 100;
+      sumOfEmployeesValuesDelta *= 100;
+    }
     return (
-      <div>
-        <RedactComponent
-          value={(isPrecent ? `${sumTotal}%` : formatMoney(sumTotal))}
-          valueDelta={Number((sumTotal - total).toFixed(2))}
-        />
-      </div>
+      <RedactComponent
+        value={isPercent ? `${Number(sumOfEmployeesValues.toFixed(2))}%` : formatMoney(Number(sumOfEmployeesValues.toFixed(2)))}
+        valueDelta={Number(sumOfEmployeesValuesDelta.toFixed(2))}
+      />
     );
   }
 
@@ -313,17 +336,6 @@ function AnalyticsPage() {
       newemp[newemp.indexOf(index)] = data;
       setEmployees(newemp);
     }
-  }
-
-  async function loadTotals() {
-    const totals : TotalFinance = {
-      earningsTotal: getSum('earnings'),
-      expensesTotal: getSum('expenses'),
-      profitTotal: getSum('profit'),
-      profitabilityTotal: (getSum('profit') / getSum('earnings')) * 100,
-    };
-
-    setTotal(totals);
   }
 
   async function loadEmployeesAsync() {
