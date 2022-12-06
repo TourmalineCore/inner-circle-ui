@@ -247,197 +247,7 @@ function AnalyticsPage() {
   ];
 
   const columnForAll: any[] = [
-    {
-      Header: 'Employee',
-      accessor: 'fullName',
-      principalFilterableColumn: true,
-      Footer: () => 'Total',
-    },
-    {
-      Header: 'Rate/h',
-      accessor: 'ratePerHour',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const {
-          id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, ratePerHourDelta,
-        } = row.original;
-
-        const employmentType = employentCof === 1 ? 0 : 1;
-
-        return (
-          <RedactComponent
-            value={formatMoney(ratePerHour)}
-            valueDelta={ratePerHourDelta}
-            onChange={(ratePerHour: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
-            }}
-          />
-        );
-      },
-    },
-    {
-      Header: 'Pay',
-      accessor: 'pay',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const {
-          id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, payDelta,
-        } = row.original;
-
-        const employmentType = employentCof === 1 ? 0 : 1;
-
-        return (
-          <RedactComponent
-            value={formatMoney(pay)}
-            valueDelta={payDelta}
-            onChange={(pay: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
-            }}
-          />
-        );
-      },
-    },
-    {
-      Header: 'Employment type',
-      accessor: 'employmentType',
-      disableFilters: true,
-    },
-    {
-      Header: 'Salary',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType, pay, payDelta } = row.original;
-
-        const salary = pay * employmentType;
-        const salaryDelta = payDelta * employmentType;
-
-        return (
-          <RedactComponent
-            value={formatMoney(salary)}
-            valueDelta={salaryDelta}
-          />
-        );
-      },
-    },
-    {
-      Header: 'Hourly Cost (By Fact)',
-      accessor: 'hourlyCostFact',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { hourlyCostFact, hourlyCostFactDelta } = row.original;
-
-        return (
-          <RedactComponent
-            value={formatMoney(hourlyCostFact)}
-            valueDelta={hourlyCostFactDelta}
-          />
-        );
-      },
-    },
-    {
-      Header: 'Hourly Cost (On Hand)',
-      accessor: 'hourlyCostHand',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { hourlyCostHand, hourlyCostHandDelta } = row.original;
-        return (
-          <RedactComponent
-            value={formatMoney(hourlyCostHand)}
-            valueDelta={hourlyCostHandDelta}
-          />
-        );
-      },
-    },
-    {
-      Header: 'Earnings',
-      accessor: 'earnings',
-      disableFilters: true,
-      minWidth: 160,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { earnings, earningsDelta } = row.original;
-
-        return (
-          <RedactComponent
-            value={formatMoney(earnings)}
-            valueDelta={earningsDelta}
-          />
-        );
-      },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('earnings', row.page.map((el) => el.values)),
-        getSumForTotal('earningsDelta', row.page.map((el) => el.original)),
-      ),
-    },
-    {
-      Header: 'Expenses',
-      accessor: 'expenses',
-      disableFilters: true,
-      minWidth: 160,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { expenses, expensesDelta } = row.original;
-
-        return (
-          <RedactComponent
-            value={formatMoney(expenses)}
-            valueDelta={expensesDelta}
-          />
-        );
-      },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('expenses', row.page.map((el) => el.values)),
-        getSumForTotal('expensesDelta', row.page.map((el) => el.original)),
-      ),
-    },
-    {
-      Header: 'Profit',
-      accessor: 'profit',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { profit, profitDelta } = row.original;
-
-        return (
-          <RedactComponent
-            value={formatMoney(profit)}
-            valueDelta={profitDelta}
-          />
-        );
-      },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('profit', row.page.map((el) => el.values)),
-        getSumForTotal('profitDelta', row.page.map((el) => el.original)),
-      ),
-    },
-    {
-      Header: 'Profitability',
-      accessor: 'profitAbility',
-      disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { profitAbility, profitAbilityDelta } = row.original;
-
-        return (
-          <RedactComponent
-            value={`${profitAbility}%`}
-            valueDelta={profitAbilityDelta}
-          />
-        );
-      },
-      Footer: (row: FooterTable<GetPreviewType>) => {
-        const sumValue = getSumForTotal('profit', row.page.map((el) => el.values)) / getSumForTotal('earnings', row.page.map((el) => el.values));
-
-        const sumDelta = sumValue - (getSumForTotal('profit', row.page.map((el) => el.values)) - getSumForTotal('profitDelta', row.page.map((el) => el.original)))
-        / (getSumForTotal('earnings', row.page.map((el) => el.values)) - getSumForTotal('earningsDelta', row.page.map((el) => el.original)));
-
-        return getTotalCost(
-          sumValue,
-          sumDelta,
-          true,
-        );
-      },
-    },
+    ...columnForMain,
     {
       Header: 'District coefficient',
       disableFilters: true,
@@ -640,23 +450,20 @@ function AnalyticsPage() {
       <div className="analitycs-page--btns">
         <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
         <div>
-          {Object.entries(checkFieldsData).map(([value, label]) => {
-            console.log(value);
-            return (
-              <CheckField
-                key={value}
-                style={{
-                  marginLeft: 16,
-                }}
-                viewType="radio"
-                label={label}
-                checked={value === selectedViewColumns}
-                onChange={() => {
-                  setSelectedViewColumns(value);
-                }}
-              />
-            );
-          })}
+          {Object.entries(checkFieldsData).map(([value, label]) => (
+            <CheckField
+              key={value}
+              style={{
+                marginLeft: 16,
+              }}
+              viewType="radio"
+              label={label}
+              checked={value === selectedViewColumns}
+              onChange={() => {
+                setSelectedViewColumns(value);
+              }}
+            />
+          ))}
         </div>
       </div>
       <div style={{ paddingTop: 4 }}>
