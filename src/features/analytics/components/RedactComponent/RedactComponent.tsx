@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import './RedactComponent.css';
 import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
+
+import './RedactComponent.css';
 
 function RedactComponent({
   value,
@@ -32,10 +33,26 @@ function RedactComponent({
     }
   }
 
-  function onBlur() {
+  function onAccept() {
     onCheckPercent(redValue.replace(',', '.'));
     if (onChange && (Number(reformatMoney(value)) !== Number(reformatMoney(redValue)))) {
       onChange(Number(redValue));
+    }
+  }
+
+  function onCancellation() {
+    setRedValue(value);
+  }
+  function handleKeyUp(event: any) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.target.blur();
+      onAccept();
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.target.blur();
+      onCancellation();
     }
   }
 
@@ -49,25 +66,22 @@ function RedactComponent({
             value={redValue}
             onChange={(e : any) => setRedValue(e.target.value)}
             onFocus={onFocus}
-            onBlur={onBlur}
+            onKeyUp={handleKeyUp}
+            onBlur={onCancellation}
           />
         ) : <div>{value}</div>}
-      {valueDelta && valueDelta !== 0
-        ? (
+      {valueDelta !== 0 && valueDelta
+        && (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
-            {valueDelta === 0 ? '' : getTotal()}
+            {valueDelta === 0 ? '' : getTotal(valueDelta)}
           </div>
-        )
-        : ''}
+        )}
     </div>
   );
 
-  function getTotal() {
-    if (valueDelta) {
-      const plus = valueDelta >= 1 ? '+' : '';
-      return `${plus}${isPercent ? `${valueDelta}%` : formatMoney(valueDelta)}`;
-    }
-    return '';
+  function getTotal(delta: number) {
+    const plus = delta >= 1 ? '+' : '';
+    return `${plus}${isPercent ? `${delta}%` : formatMoney(delta)}`;
   }
 }
 
