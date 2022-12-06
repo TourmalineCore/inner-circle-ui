@@ -25,6 +25,7 @@ type Row<Type> = {
 type CellTable<TypeProps> = {
   row: {
     original: TypeProps;
+    values: TypeProps;
   }
 };
 
@@ -39,9 +40,14 @@ type FooterTable<TypeProps> = {
   }>;
 };
 
-const checkFieldsData = {
+const checkFormatColumnsData = {
   1: 'All',
   2: 'Main parameters',
+};
+
+const employeeTypeData = {
+  1: 'Full Time',
+  2: 'Half Time',
 };
 
 function AnalyticsPage() {
@@ -111,6 +117,11 @@ function AnalyticsPage() {
       Header: 'Employment type',
       accessor: 'employmentType',
       disableFilters: true,
+      Cell: ({ row }: CellTable<GetPreviewType>) => {
+        const { employmentType } = row.original;
+
+        return <div>{employmentType === 1 ? employeeTypeData[1] : employeeTypeData[2]}</div>;
+      },
     },
     {
       Header: 'Salary',
@@ -119,7 +130,7 @@ function AnalyticsPage() {
         const { employmentType, pay, payDelta } = row.original;
 
         const salary = pay * employmentType;
-        const salaryDelta = payDelta * employmentType;
+        const salaryDelta = payDelta ? payDelta * employmentType : undefined;
 
         return (
           <RedactComponent
@@ -135,7 +146,6 @@ function AnalyticsPage() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const { hourlyCostFact, hourlyCostFactDelta } = row.original;
-
         return (
           <RedactComponent
             value={formatMoney(hourlyCostFact)}
@@ -255,7 +265,7 @@ function AnalyticsPage() {
         const { employmentType, pay, payDelta } = row.original;
 
         const salary = pay * employmentType * 0.15;
-        const salaryDelta = payDelta * employmentType * 0.15;
+        const salaryDelta = payDelta ? payDelta * employmentType * 0.15 : undefined;
 
         return (
           <RedactComponent
@@ -450,7 +460,7 @@ function AnalyticsPage() {
       <div className="analitycs-page--btns">
         <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
         <div>
-          {Object.entries(checkFieldsData).map(([value, label]) => (
+          {Object.entries(checkFormatColumnsData).map(([value, label]) => (
             <CheckField
               key={value}
               style={{
