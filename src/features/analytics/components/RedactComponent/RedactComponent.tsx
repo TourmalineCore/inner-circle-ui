@@ -52,22 +52,18 @@ function RedactComponent({
             onBlur={onBlur}
           />
         ) : <div>{value}</div>}
-      {valueDelta && valueDelta !== 0
-        ? (
+      {valueDelta !== 0 && valueDelta
+        && (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
-            {valueDelta === 0 ? '' : getTotal()}
+            {valueDelta === 0 ? '' : getTotal(valueDelta)}
           </div>
-        )
-        : ''}
+        )}
     </div>
   );
 
-  function getTotal() {
-    if (valueDelta) {
-      const plus = valueDelta >= 1 ? '+' : '';
-      return `${plus}${isPercent ? `${valueDelta}%` : formatMoney(valueDelta)}`;
-    }
-    return '';
+  function getTotal(delta: number) {
+    const plus = delta >= 1 ? '+' : '';
+    return `${plus}${isPercent ? `${delta}%` : formatMoney(delta)}`;
   }
 }
 
