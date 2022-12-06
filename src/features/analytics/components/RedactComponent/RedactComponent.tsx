@@ -33,10 +33,26 @@ function RedactComponent({
     }
   }
 
-  function onBlur() {
+  function onAccept() {
     onCheckPercent(redValue.replace(',', '.'));
     if (onChange && (Number(reformatMoney(value)) !== Number(reformatMoney(redValue)))) {
       onChange(Number(redValue));
+    }
+  }
+
+  function onCancellation() {
+    setRedValue(value);
+  }
+  function handleKeyUp(event: any) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.target.blur();
+      onAccept();
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.target.blur();
+      onCancellation();
     }
   }
 
@@ -50,7 +66,8 @@ function RedactComponent({
             value={redValue}
             onChange={(e : any) => setRedValue(e.target.value)}
             onFocus={onFocus}
-            onBlur={onBlur}
+            onKeyUp={handleKeyUp}
+            onBlur={onCancellation}
           />
         ) : <div>{value}</div>}
       {valueDelta !== 0 && valueDelta
