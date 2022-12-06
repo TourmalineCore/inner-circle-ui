@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import './RedactComponent.css';
 import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
+
+import './RedactComponent.css';
 
 function RedactComponent({
   value,
