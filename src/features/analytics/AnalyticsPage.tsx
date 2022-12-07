@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
@@ -18,15 +18,13 @@ import RedactComponent from './components/RedactComponent/RedactComponent';
 
 import './AnalyticsPage.css';
 
-type Row<Type> = {
-  original: Type
+type Row<TypeProps> = {
+  original: TypeProps
+  values: TypeProps;
 };
 
 type CellTable<TypeProps> = {
-  row: {
-    original: TypeProps;
-    values: TypeProps;
-  }
+  row: Row<TypeProps>
 };
 
 type FooterTable<TypeProps> = {
@@ -38,6 +36,16 @@ type FooterTable<TypeProps> = {
     values: TypeProps;
     original: TypeProps;
   }>;
+};
+
+type ColumnType = {
+  Header: string,
+  accessor?: string,
+  principalFilterableColumn?: boolean,
+  disableFilters?: boolean,
+  minWidth?: number,
+  Footer?: ((row: FooterTable<GetPreviewType>) => JSX.Element) | (() => string),
+  Cell?: ({ row }: CellTable<GetPreviewType>) => JSX.Element
 };
 
 const checkFormatColumnsData = {
@@ -58,7 +66,7 @@ function AnalyticsPage() {
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
-  const columnForMain: any[] = [
+  const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
       accessor: 'fullName',
@@ -256,7 +264,7 @@ function AnalyticsPage() {
     },
   ];
 
-  const columnForAll: any[] = [
+  const columnForAll: ColumnType[] = [
     ...columnForMain,
     {
       Header: 'District coefficient',
@@ -494,13 +502,13 @@ function AnalyticsPage() {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: any, row: any) => { dublicateEmployee(row.original.id); },
+              onClick: (e: ChangeEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
             },
             {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Delete',
-              onClick: (e: any, row: any) => { deleteEmployee(row.original.id); },
+              onClick: (e: ChangeEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
             },
           ]}
           columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
