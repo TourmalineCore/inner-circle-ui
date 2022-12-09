@@ -9,6 +9,7 @@ export type ColleagueContactsType = {
 };
 export type ColleagueFinancesDtoType = {
   id: number;
+  fullName: string;
   ratePerHour: number;
   pay: number;
   employmentType: number;
@@ -19,16 +20,6 @@ export type ColleagueFinancesDtoType = {
 export type ColleaguesType = {
   colleagueContacts : ColleagueContactsType[]
   colleagueFinancesDto: ColleagueFinancesDtoType[]
-};
-
-export type ColleagueFinancesColumnsType = {
-  id: number;
-  fullName: string;
-  ratePerHour: number;
-  pay: number;
-  employmentType: number;
-  netSalary: number;
-  parking: number;
 };
 
 export type EmployeeType = {
