@@ -4,7 +4,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../../../common/api';
-import { ColleaguesType, EmployeeContactUpdateType } from '../../employeesData';
+import { ColleaguesType, EmployeeContactUpdateType } from '../../types/index';
 
 function EmployeeEditContactPage() {
   const navigate = useNavigate();

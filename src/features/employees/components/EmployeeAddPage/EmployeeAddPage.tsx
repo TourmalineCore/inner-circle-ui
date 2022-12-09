@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {
   Input, Button, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { EmployeeType, EmployeeTypeSwitch } from '../../employeesData';
+import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import './EmployeeAddPage.css';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../../../common/api';

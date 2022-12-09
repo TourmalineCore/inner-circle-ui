@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SizeProp, IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ColleaguesType, EmployeeSalaryUpdateType, EmployeeTypeSwitch } from '../../employeesData';
+import { ColleaguesType, EmployeeSalaryUpdateType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
 
 function EmployeeEditSalaryPage() {

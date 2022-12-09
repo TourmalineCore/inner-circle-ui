@@ -14,7 +14,7 @@ import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import {
   ColleagueContactsType, ColleagueFinancesColumnsType, ColleaguesType, EmployeeTypeSwitch,
-} from './employeesData';
+} from './types/index';
 import { api } from '../../common/api';
 import { formatMoney } from '../../common/utils/formatMoney';
 
