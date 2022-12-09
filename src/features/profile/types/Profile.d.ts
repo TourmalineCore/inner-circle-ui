@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 export type ProfileNavItems = {
   text?: string;
   icon?: ReactNode;
@@ -10,12 +8,10 @@ export type ProfileNavItems = {
 
 export type Employee = {
   id: number | undefined;
-  name: string | undefined;
-  surname: string | undefined;
-  middleName: string | undefined;
-  workEmail: string | undefined;
+  fullName: string | undefined;
+  corporateEmail: string | undefined;
   personalEmail: string | undefined;
   phone: string | undefined;
-  github: string | undefined;
-  gitlab: string | undefined;
+  gitHub: string | undefined;
+  gitLab: string | undefined;
 };
