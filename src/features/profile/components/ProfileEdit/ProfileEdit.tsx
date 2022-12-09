@@ -1,27 +1,34 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-import { Employee } from '../../types/Profile';
+import { Employee, EmployeeUpdateType } from '../../types/Profile';
 import InfoComponent from '../InfoComponent/InfoComponent';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import { api } from '../../../../common/api';
 
 function ProfileEdit() {
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState<Employee>();
+  const [employee, setEmployee] = useState<Employee>({
+    id: 0,
+    fullName: '',
+    corporateEmail: '',
+    personalEmail: '',
+    phone: '',
+    gitHub: '',
+    gitLab: '',
+  });
 
   useEffect(() => { loadEmployeesAsync(); }, []);
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: Employee | undefined = employee ? {
+    const updatedForm: Employee = {
       ...employee,
       [name]: value,
-    } : undefined;
+    };
 
     setEmployee(updatedForm);
   };
@@ -98,7 +105,19 @@ function ProfileEdit() {
     setEmployee(data);
   }
   async function updateEmployeesAsync() {
-    await axios.post('*', employee);
+    const fullName = employee.fullName.split(' ');
+    const updateEmployee : EmployeeUpdateType = {
+      employeeId: employee.id as number,
+      name: fullName[0],
+      surname: fullName[0],
+      middleName: fullName[0],
+      corporateEmail: employee.personalEmail,
+      personalEmail: employee.personalEmail,
+      phone: employee.phone || null,
+      gitHub: employee.gitHub,
+      gitLab: employee.gitLab,
+    };
+    await api.put('employees/update-employee-contacts', updateEmployee);
     navigate('/profile');
   }
 }
