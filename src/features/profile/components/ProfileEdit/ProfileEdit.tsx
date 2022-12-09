@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Employee } from '../../types/Profile';
 import InfoComponent from '../InfoComponent/InfoComponent';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
-import setData, { datae } from '../../EmployData';
-
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information';
+import { api } from '../../../../common/api';
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -34,12 +32,12 @@ function ProfileEdit() {
         rows={
           [
             <InfoComponent
-              value={`${employee?.surname} ${employee?.name} ${employee?.middleName}`}
+              value={employee?.fullName || ''}
               text="name"
             />,
             <InfoComponent
-              name="workEmail"
-              value={`${employee?.workEmail}`}
+              name="corporateEmail"
+              value={`${employee?.corporateEmail}`}
               isRedact={false}
               faIcon={faEnvelope}
             />,
@@ -59,15 +57,15 @@ function ProfileEdit() {
             />,
             <InfoComponent
               label="GitHub"
-              name="github"
-              value={`${employee?.github || ''}`}
+              name="gitHub"
+              value={`${employee?.gitHub || ''}`}
               isRedact
               onChange={handleFormChange}
             />,
             <InfoComponent
               label="GitLab"
-              name="gitlab"
-              value={`${employee?.gitlab || ''}`}
+              name="gitLab"
+              value={`${employee?.gitLab || ''}`}
               isRedact
               onChange={handleFormChange}
             />,
@@ -78,7 +76,7 @@ function ProfileEdit() {
             <Button
               type="button"
               className="profile-bt"
-              onClick={() => { navigate(-1); }}
+              onClick={() => { navigate('/profile'); }}
 
             >
               Cancel
@@ -96,20 +94,12 @@ function ProfileEdit() {
     </div>
   );
   async function loadEmployeesAsync() {
-    try {
-      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL);
-      setEmployee(data);
-    } catch {
-      setEmployee(datae);
-    }
+    const { data } = await api.get<Employee>('employees/get-profile');
+    setEmployee(data);
   }
   async function updateEmployeesAsync() {
-    try {
-      await axios.post('*', employee);
-    } catch {
-      setData(employee);
-    }
-    navigate(-1);
+    await axios.post('*', employee);
+    navigate('/profile');
   }
 }
 

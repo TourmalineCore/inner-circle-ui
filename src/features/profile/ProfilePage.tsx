@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -7,9 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileInfo from './components/ProfileInfo/ProfileInfo';
 import { Employee } from './types/Profile';
 import InfoComponent from './components/InfoComponent/InfoComponent';
-import { datae } from './EmployData';
-
-const QUOTE_SERVICE_URL = 'http://localhost:5000/api/finances/get-profile-information';
+import { api } from '../../common/api';
 
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>();
@@ -24,12 +21,12 @@ function ProfilePage() {
         rows={
           [
             <InfoComponent
-              value={`${employee?.surname} ${employee?.name} ${employee?.middleName}`}
+              value={`${employee?.fullName}`}
               text="name"
             />,
             <InfoComponent
-              name="workEmail"
-              value={`${employee?.workEmail}`}
+              name="corporateEmail"
+              value={`${employee?.corporateEmail}`}
               isRedact={false}
               faIcon={faEnvelope}
             />,
@@ -46,14 +43,14 @@ function ProfilePage() {
               faIcon={faPhoneFlip}
             />,
             <InfoComponent
-              name="github"
-              value={`${employee?.github || 'Not specified'}`}
+              name="gitHub"
+              value={`${employee?.gitHub || 'Not specified'}`}
               isRedact={false}
               icon="component-label-github"
             />,
             <InfoComponent
-              name="gitlab"
-              value={`${employee?.gitlab || 'Not specified'}`}
+              name="gitLab"
+              value={`${employee?.gitLab || 'Not specified'}`}
               isRedact={false}
               icon="component-label-gitlub"
             />,
@@ -75,12 +72,8 @@ function ProfilePage() {
   );
 
   async function loadEmployeesAsync() {
-    try {
-      const { data } = await axios.get<Employee>(QUOTE_SERVICE_URL);
-      setEmployee(data);
-    } catch {
-      setEmployee(datae);
-    }
+    const { data } = await api.get<Employee>('employees/get-profile');
+    setEmployee(data);
   }
 }
 
