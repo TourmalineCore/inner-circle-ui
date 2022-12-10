@@ -15,7 +15,8 @@
 
 .employee-data__rows {
   display: flex;
-  flex-direction: row;
+  align-items: end;
+  justify-content: end;
 }
 
 .employee-data__rows :nth-child(n) {
@@ -30,4 +31,17 @@
   display: flex;
   flex-direction: row;
   margin-top: 60px;
+}
+
+.employee-buttons :nth-child(n) {
+  margin-right: 40px;
+}
+
+.employee-buttons :last-child {
+  margin-right: 0;
+}
+
+.input-signature {
+  padding-bottom: 10px;
+  font-size: 23px;
 }

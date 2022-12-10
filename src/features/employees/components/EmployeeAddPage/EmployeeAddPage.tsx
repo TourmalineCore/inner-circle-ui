@@ -67,14 +67,14 @@ function EmployeeAddPage() {
           />
         </div>
         <div className="employee-data__columns">
-          <div>
+          <div className="employee-data__rows">
             <Input
               name="corporateEmail"
               value={employee.corporateEmail}
               label="Corporate Email*"
               onChange={handleFormChange}
             />
-            <span>@tourmaline.com</span>
+            <div className="input-signature">@tourmalinecore.com</div>
           </div>
           <Input
             name="personalEmail"
@@ -91,6 +91,7 @@ function EmployeeAddPage() {
         </div>
         <div className="employee-data__columns">
           <div className="employee-data__rows">
+            <div className="input-signature">@</div>
             <Input
               name="gitHub"
               value={employee.gitHub}
@@ -111,6 +112,7 @@ function EmployeeAddPage() {
             />
           </div>
           <div className="employee-data__rows">
+            <div className="input-signature">@</div>
             <Input
               name="gitLab"
               value={employee.gitLab}
@@ -156,14 +158,20 @@ function EmployeeAddPage() {
     </div>
   );
   async function createEmployeesAsync() {
+    const updateForm : EmployeeType = {
+      ...employee,
+      corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
+      phone: employee.phone || null,
+      gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
+      gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
+      ratePerHour: Number(employee.ratePerHour),
+      pay: Number(employee.pay),
+      parkingCostPerMonth: Number(employee.parkingCostPerMonth),
+    };
+
     await api.post<EmployeeType>(
       'employees/create',
-      {
-        ...employee,
-        phone: employee.phone || null,
-        gitHub: employee.gitHub || null,
-        gitLab: employee.gitHub || null,
-      },
+      updateForm,
     );
     navigate('/employees');
   }
