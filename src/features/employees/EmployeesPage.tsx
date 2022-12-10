@@ -3,7 +3,7 @@ import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -70,6 +70,15 @@ function EmployeesPage() {
                 renderText: () => 'Edit',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
                   navigate(`/employees/edit-contact&${Number(row.original.id)}`);
+                },
+              },
+              {
+                name: 'edit-row-action',
+                show: () => true,
+                renderIcon: () => <FontAwesomeIcon icon={faTrash} />,
+                renderText: () => 'Delete',
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
+                  deleteEmployeesAsync(row.original.id);
                 },
               },
             ]}
@@ -239,6 +248,11 @@ function EmployeesPage() {
     const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
     setEmployeesContact(data.colleagueContacts);
     setEmployeesSalary(data.colleagueFinancesDto);
+  }
+
+  async function deleteEmployeesAsync(id: number) {
+    await api.delete(`employees/delete/${id}`);
+    await loadEmployeesAsync();
   }
 }
 
