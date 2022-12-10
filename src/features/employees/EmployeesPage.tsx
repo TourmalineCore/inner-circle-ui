@@ -251,8 +251,13 @@ function EmployeesPage() {
   }
 
   async function deleteEmployeesAsync(id: number) {
-    await api.delete(`employees/delete/${id}`);
-    await loadEmployeesAsync();
+    // eslint-disable-next-line no-restricted-globals
+    const isDelete = confirm('Удалить сотрудника?');
+
+    if (isDelete) {
+      await api.delete(`employees/delete/${id}`);
+      await loadEmployeesAsync();
+    }
   }
 }
 
