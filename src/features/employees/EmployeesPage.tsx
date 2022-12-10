@@ -1,22 +1,26 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
+  Button,
+} from '@tourmalinecore/react-tc-ui-kit';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {
   useState,
   useEffect,
 } from 'react';
-import {
-  Button,
-} from '@tourmalinecore/react-tc-ui-kit';
+
 import { useNavigate } from 'react-router-dom';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import {
   ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType, EmployeeTypeSwitch,
 } from './types/index';
-import { api } from '../../common/api';
+
 import { formatMoney } from '../../common/utils/formatMoney';
+import { api } from '../../common/api';
 
 type Row<Type> = {
   original: Type
