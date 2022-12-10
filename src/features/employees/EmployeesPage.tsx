@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   useState,
   useEffect,
+  MouseEventHandler,
 } from 'react';
 
 import { useNavigate } from 'react-router-dom';
@@ -67,7 +68,7 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: (e: any, row: any) => {
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
                   navigate(`/employees/edit-contact&${Number(row.original.id)}`);
                 },
               },
@@ -163,7 +164,7 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: (e: any, row: any) => {
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
                   navigate(`/employees/edit-salary&${Number(row.original.id)}`);
                 },
               },
