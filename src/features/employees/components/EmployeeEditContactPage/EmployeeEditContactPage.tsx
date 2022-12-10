@@ -44,54 +44,63 @@ function EmployeeEditContactPage() {
         <div className="employee-data__rows">
           <Input
             name="name"
-            value={employee?.name}
+            value={employee.name}
             label="Name*"
             onChange={handleFormChange}
           />
           <Input
             name="surname"
-            value={employee?.surname}
+            value={employee.surname}
             label="Surname*"
             onChange={handleFormChange}
           />
           <Input
             name="middleName"
-            value={employee?.middleName}
+            value={employee.middleName}
             label="Middle Name*"
             onChange={handleFormChange}
           />
         </div>
         <div className="employee-data__columns">
-          <Input
-            name="corporateEmail"
-            value={employee?.corporateEmail}
-            label="Corporate Email*"
-            onChange={handleFormChange}
-          />
+          <div className="employee-data__rows">
+            <Input
+              name="corporateEmail"
+              value={employee.corporateEmail}
+              label="Corporate Email*"
+              onChange={handleFormChange}
+            />
+            <div className="input-signature">@tourmalinecore.com</div>
+          </div>
           <Input
             name="personalEmail"
-            value={employee?.personalEmail}
+            value={employee.personalEmail}
             label="Personal Email*"
             onChange={handleFormChange}
           />
           <Input
             name="phone"
-            value={employee?.phone}
+            value={employee.phone}
             label="Phone"
             onChange={handleFormChange}
           />
-          <Input
-            name="gitHub"
-            value={employee?.gitHub}
-            label="GitHub"
-            onChange={handleFormChange}
-          />
-          <Input
-            name="gitLab"
-            value={employee?.gitLab}
-            label="GitLab"
-            onChange={handleFormChange}
-          />
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
+            <Input
+              name="gitHub"
+              value={employee.gitHub}
+              label="GitHub"
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
+            <Input
+              name="gitLab"
+              value={employee.gitLab}
+              label="GitLab"
+              onChange={handleFormChange}
+            />
+          </div>
         </div>
       </div>
       <div className="employee-buttons">
@@ -121,10 +130,10 @@ function EmployeeEditContactPage() {
       surname: fullName[1],
       middleName: fullName[2],
       personalEmail: data.personalEmail,
-      corporateEmail: data.corporateEmail,
+      corporateEmail: data.corporateEmail.split('@')[0],
       phone: data.phone,
-      gitHub: data.gitHub,
-      gitLab: data.gitLab,
+      gitHub: data.gitHub ? data.gitHub?.split('@')[1] : '',
+      gitLab: data.gitLab ? data.gitLab?.split('@')[1] : '',
     });
   }
 
@@ -133,9 +142,10 @@ function EmployeeEditContactPage() {
       'employees/update-employee-contacts',
       {
         ...employee,
+        corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
         phone: employee.phone || null,
-        gitHub: employee.gitHub || null,
-        gitLab: employee.gitHub || null,
+        gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
+        gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
       },
     );
 
