@@ -23,18 +23,18 @@ export type ColleaguesType = {
 };
 
 export type EmployeeType = {
-  name: string;
-  surname: string;
-  middleName: string;
-  corporateEmail: string;
-  personalEmail: string;
-  phone: string | null;
-  gitHub: string | null;
-  gitLab: string | null;
-  ratePerHour: number;
-  pay: number;
-  employmentType: number;
-  parkingCostPerMonth: number;
+  name: string,
+  surname: string,
+  middleName: string,
+  corporateEmail: string,
+  personalEmail: string,
+  phone: string | null,
+  gitHub: string | null,
+  gitLab: string | null,
+  ratePerHour: number,
+  pay: number,
+  employmentType: number,
+  parkingCostPerMonth: number,
 };
 
 export type EmployeeContactUpdateType = {

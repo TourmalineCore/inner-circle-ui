@@ -4,11 +4,23 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../../../common/api';
-import { ColleaguesType, EmployeeContactUpdateType } from '../../types/index';
+import { ColleagueContactsType, EmployeeContactUpdateType } from '../../types/index';
 
 function EmployeeEditContactPage() {
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState<EmployeeContactUpdateType>();
+  const [employee, setEmployee] = useState<EmployeeContactUpdateType>(
+    {
+      employeeId: 0,
+      name: '',
+      surname: '',
+      middleName: '',
+      personalEmail: '',
+      corporateEmail: '',
+      phone: '',
+      gitHub: '',
+      gitLab: '',
+    },
+  );
   const { id } = useParams();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
@@ -16,10 +28,10 @@ function EmployeeEditContactPage() {
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeContactUpdateType | undefined = employee ? {
+    const updatedForm: EmployeeContactUpdateType = {
       ...employee,
       [name]: value,
-    } : undefined;
+    };
 
     setEmployee(updatedForm);
   };
@@ -98,21 +110,20 @@ function EmployeeEditContactPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
-    const newemployee = data.colleagueContacts.find((el) => el.id === Number(id));
-    const fullName = newemployee?.fullName.split(' ');
-    setEmployee(newemployee && fullName ? {
+    const { data } = await api.get<ColleagueContactsType>(`employees/get-contact-details/${id}`);
+    const fullName = data.fullName.split(' ');
+    setEmployee({
       ...employee,
-      employeeId: newemployee.id,
+      employeeId: data.id,
       name: fullName[0],
       surname: fullName[1],
       middleName: fullName[2],
-      personalEmail: newemployee.personalEmail,
-      corporateEmail: newemployee.corporateEmail,
-      phone: newemployee.phone,
-      gitHub: newemployee.gitHub,
-      gitLab: newemployee.gitLab,
-    } : undefined);
+      personalEmail: data.personalEmail,
+      corporateEmail: data.corporateEmail,
+      phone: data.phone,
+      gitHub: data.gitHub,
+      gitLab: data.gitLab,
+    });
   }
 
   async function updateEmployeesAsync() {
@@ -120,9 +131,9 @@ function EmployeeEditContactPage() {
       'employees/update-employee-contacts',
       {
         ...employee,
-        phone: employee && employee.phone && employee?.phone?.length > 0 ? employee.phone : null,
-        gitHub: employee && employee.gitHub && employee?.gitHub?.length > 0 ? employee.gitHub : null,
-        gitLab: employee && employee.gitLab && employee?.gitLab?.length > 0 ? employee.gitLab : null,
+        phone: employee.phone || null,
+        gitHub: employee.gitHub || null,
+        gitLab: employee.gitHub || null,
       },
     );
 
