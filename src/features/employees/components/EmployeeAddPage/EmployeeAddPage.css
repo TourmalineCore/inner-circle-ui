@@ -1,32 +1,32 @@
-.employee-data {
+.employee {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.employee-data--inputs :nth-child(n) {
+.employee-data :nth-child(n) {
   margin-top: 5px;
 }
 
-.data-columns {
+.employee-data__columns {
   display: flex;
   flex-direction: column;
 }
 
-.data-rows {
+.employee-data__rows {
   display: flex;
   flex-direction: row;
 }
 
-.data-rows :nth-child(n) {
+.employee-data__rows :nth-child(n) {
   margin-right: 10px;
 }
 
-.data-rows :last-child {
+.employee-data__rows :last-child {
   margin-right: 0;
 }
 
-.employee-data--btns {
+.employee-buttons {
   display: flex;
   flex-direction: row;
   margin-top: 60px;
