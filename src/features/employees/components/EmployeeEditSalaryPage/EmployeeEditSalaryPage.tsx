@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+
 import {
   Button, Input, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import {
   ColleagueFinancesDtoType, EmployeeSalaryUpdateType, EmployeeTypeSwitch,
 } from '../../types/index';
@@ -35,12 +37,12 @@ function EmployeeEditSalaryPage() {
   };
 
   return (
-    <div className="employee-data">
-      <div className="employee-data--info">
+    <div className="employee">
+      <div className="employee-info">
         <h3>{employee.fullName}</h3>
       </div>
-      <div className="employee-data--inputs">
-        <div className="data-columns">
+      <div className="employee-data">
+        <div className="employee-data__columns">
           <Input
             name="ratePerHour"
             value={employee.ratePerHour}
@@ -74,7 +76,7 @@ function EmployeeEditSalaryPage() {
           />
         </div>
       </div>
-      <div className="employee-data--btns">
+      <div className="employee-buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}

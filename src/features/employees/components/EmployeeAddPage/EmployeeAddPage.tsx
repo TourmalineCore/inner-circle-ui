@@ -1,12 +1,15 @@
 /* eslint-disable import/order */
-import { useState } from 'react';
 import {
   Input, Button, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
-import './EmployeeAddPage.css';
 import { useNavigate } from 'react-router-dom';
+
+import { useState } from 'react';
+
+import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
+
+import './EmployeeAddPage.css';
 
 function EmployeeAddPage() {
   const [employee, setEmployee] = useState<EmployeeType>({
@@ -38,12 +41,12 @@ function EmployeeAddPage() {
   };
 
   return (
-    <div className="employee-data">
-      <div className="employee-data-name">
+    <div className="employee">
+      <div className="employee-name">
         <h3>Create a user</h3>
       </div>
-      <div className="employee-data--inputs">
-        <div className="data-rows">
+      <div className="employee-data">
+        <div className="employee-data__rows">
           <Input
             name="name"
             value={employee.name}
@@ -63,13 +66,16 @@ function EmployeeAddPage() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
-          <Input
-            name="corporateEmail"
-            value={employee.corporateEmail}
-            label="Corporate Email*"
-            onChange={handleFormChange}
-          />
+        <div className="employee-data__columns">
+          <div>
+            <Input
+              name="corporateEmail"
+              value={employee.corporateEmail}
+              label="Corporate Email*"
+              onChange={handleFormChange}
+            />
+            <span>@tourmaline.com</span>
+          </div>
           <Input
             name="personalEmail"
             value={employee.personalEmail}
@@ -83,8 +89,8 @@ function EmployeeAddPage() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
-          <div className="data-rows">
+        <div className="employee-data__columns">
+          <div className="employee-data__rows">
             <Input
               name="gitHub"
               value={employee.gitHub}
@@ -104,7 +110,7 @@ function EmployeeAddPage() {
               onChange={handleFormChange}
             />
           </div>
-          <div className="data-rows">
+          <div className="employee-data__rows">
             <Input
               name="gitLab"
               value={employee.gitLab}
@@ -133,7 +139,7 @@ function EmployeeAddPage() {
           </div>
         </div>
       </div>
-      <div className="employee-data--btns">
+      <div className="employee-buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}

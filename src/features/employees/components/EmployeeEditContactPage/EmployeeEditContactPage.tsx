@@ -1,8 +1,10 @@
 import {
   Button, Input,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { useEffect, useState } from 'react';
+
 import { api } from '../../../../common/api';
 import { ColleagueContactsType, EmployeeContactUpdateType } from '../../types/index';
 
@@ -37,9 +39,9 @@ function EmployeeEditContactPage() {
   };
 
   return (
-    <div className="employee-data">
-      <div className="employee-data--inputs">
-        <div className="data-rows">
+    <div className="employee">
+      <div className="employee-data">
+        <div className="employee-data__rows">
           <Input
             name="name"
             value={employee?.name}
@@ -59,7 +61,7 @@ function EmployeeEditContactPage() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
+        <div className="employee-data__columns">
           <Input
             name="corporateEmail"
             value={employee?.corporateEmail}
@@ -92,7 +94,7 @@ function EmployeeEditContactPage() {
           />
         </div>
       </div>
-      <div className="employee-data--btns">
+      <div className="employee-buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}
