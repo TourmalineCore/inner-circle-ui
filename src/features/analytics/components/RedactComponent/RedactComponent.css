@@ -1,4 +1,4 @@
-.input-data {
+.component-input {
   outline: none;
   outline-offset: 0;
   border-style: none;
@@ -10,6 +10,6 @@
   background-color: inherit;
 }
 
-.input-data:focus {
+.component-input:focus {
   border-bottom: 2px solid black;
 }

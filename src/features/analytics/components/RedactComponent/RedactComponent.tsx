@@ -61,20 +61,22 @@ function RedactComponent({
   }
 
   return (
-    <div className="redact-cmpnt">
-      {onChange
-        ? (
-          <input
-            ref={inputRef}
-            className="input-data"
-            type="text"
-            value={redValue}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setRedValue(e.target.value)}
-            onFocus={onFocus}
-            onKeyUp={handleKeyUp}
-            onBlur={onCancellation}
-          />
-        ) : <div>{value}</div>}
+    <div className="component">
+      {
+        onChange
+          ? (
+            <input
+              ref={inputRef}
+              className="component-input"
+              type="text"
+              value={redValue}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setRedValue(e.target.value)}
+              onFocus={onFocus}
+              onKeyUp={handleKeyUp}
+              onBlur={onCancellation}
+            />
+          ) : <div>{value}</div>
+      }
       {valueDelta !== 0 && valueDelta
         && (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
