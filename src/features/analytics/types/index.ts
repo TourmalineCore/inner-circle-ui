@@ -1,10 +1,3 @@
-export type TotalFinance = {
-  earningsTotal: number,
-  expensesTotal: number,
-  profitTotal: number,
-  profitabilityTotal: number,
-};
-
 export type PutPreviewType = {
   employeeId: number,
   ratePerHour: number,
@@ -21,7 +14,12 @@ export type GetPreviewType = {
   ratePerHour: number,
   ratePerHourDelta: number,
   employmentType: number,
+  salary: number,
+  salaryDelta: number,
   parkingCostPerMonth: number,
+  parkingCostPerMonthDelta: number,
+  accountingPerMonth: number,
+  accountingPerMonthDelta: number,
   hourlyCostFact: number,
   hourlyCostFactDelta: number,
   hourlyCostHand: number,
@@ -30,11 +28,14 @@ export type GetPreviewType = {
   earningsDelta: number,
   incomeTaxContributions: number,
   incomeTaxContributionsDelta: number,
+  districtCoefficient: number,
+  districtCoefficientDelta: number,
   pensionContributions: number,
   pensionContributionsDelta: number,
   medicalContributions: number,
   medicalContributionsDelta: number,
   socialInsuranceContributions: number,
+  socialInsuranceContributionsDelta: number,
   injuriesContributions: number,
   injuriesContributionsDelta: number,
   expenses: number,
