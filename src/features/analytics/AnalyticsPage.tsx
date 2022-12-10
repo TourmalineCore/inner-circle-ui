@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import {
+  MouseEventHandler, useEffect, useState,
+} from 'react';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
@@ -502,13 +504,13 @@ function AnalyticsPage() {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: ChangeEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
             },
             {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Delete',
-              onClick: (e: ChangeEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
             },
           ]}
           columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
