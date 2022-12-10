@@ -135,12 +135,10 @@ function AnalyticsPage() {
     },
     {
       Header: 'Salary',
+      accessor: 'salary',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType, pay, payDelta } = row.original;
-
-        const salary = pay * employmentType;
-        const salaryDelta = payDelta ? payDelta * employmentType : undefined;
+        const { salary, salaryDelta } = row.original;
 
         return (
           <RedactComponent
@@ -270,17 +268,15 @@ function AnalyticsPage() {
     ...columnForMain,
     {
       Header: 'District coefficient',
+      accessor: 'districtCoefficient',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType, pay, payDelta } = row.original;
-
-        const salary = pay * employmentType * 0.15;
-        const salaryDelta = payDelta ? payDelta * employmentType * 0.15 : undefined;
+        const { districtCoefficient, districtCoefficientDelta } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(salary)}
-            valueDelta={salaryDelta}
+            value={formatMoney(districtCoefficient)}
+            valueDelta={districtCoefficientDelta}
           />
         );
       },
@@ -400,16 +396,18 @@ function AnalyticsPage() {
       accessor: 'socialInsuranceContributions',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { socialInsuranceContributions } = row.original;
+        const { socialInsuranceContributions, socialInsuranceContributionsDelta } = row.original;
 
         return (
           <RedactComponent
             value={formatMoney(socialInsuranceContributions)}
+            valueDelta={socialInsuranceContributionsDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
         getSumForTotal('socialInsuranceContributions', row.page.map((el) => el.original)),
+        getSumForTotal('socialInsuranceContributionsDelta', row.page.map((el) => el.original)),
       ),
     },
     {
@@ -433,12 +431,21 @@ function AnalyticsPage() {
     },
     {
       Header: 'Accounting',
+      accessor: 'accountingCostPerMonth',
       disableFilters: true,
-      Cell: () => (
+      Cell: ({ row }: CellTable<GetPreviewType>) => {
+        const { accountingCostPerMonth, accountingPerMonthDelta } = row.original;
 
-        <RedactComponent
-          value={formatMoney(600)}
-        />
+        return (
+          <RedactComponent
+            value={formatMoney(accountingCostPerMonth)}
+            valueDelta={accountingPerMonthDelta}
+          />
+        );
+      },
+      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.values)),
+        getSumForTotal('accountingPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
     {
@@ -446,16 +453,18 @@ function AnalyticsPage() {
       accessor: 'parkingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { parkingCostPerMonth } = row.original;
+        const { parkingCostPerMonth, parkingCostPerMonthDelta } = row.original;
 
         return (
           <RedactComponent
             value={formatMoney(parkingCostPerMonth)}
+            valueDelta={parkingCostPerMonthDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
         getSumForTotal('parkingCostPerMonth', row.page.map((el) => el.original)),
+        getSumForTotal('parkingCostPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
   ];
@@ -577,6 +586,7 @@ function AnalyticsPage() {
 
       setEmployees(data);
 
+      console.log(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);
