@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import { useEffect, useState } from 'react';
+import {
+  MouseEventHandler, useEffect, useState,
+} from 'react';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
@@ -18,15 +20,13 @@ import RedactComponent from './components/RedactComponent/RedactComponent';
 
 import './AnalyticsPage.css';
 
-type Row<Type> = {
-  original: Type
+type Row<TypeProps> = {
+  original: TypeProps
+  values: TypeProps;
 };
 
 type CellTable<TypeProps> = {
-  row: {
-    original: TypeProps;
-    values: TypeProps;
-  }
+  row: Row<TypeProps>
 };
 
 type FooterTable<TypeProps> = {
@@ -38,6 +38,16 @@ type FooterTable<TypeProps> = {
     values: TypeProps;
     original: TypeProps;
   }>;
+};
+
+type ColumnType = {
+  Header: string,
+  accessor?: string,
+  principalFilterableColumn?: boolean,
+  disableFilters?: boolean,
+  minWidth?: number,
+  Footer?: ((row: FooterTable<GetPreviewType>) => JSX.Element) | (() => string),
+  Cell?: ({ row }: CellTable<GetPreviewType>) => JSX.Element
 };
 
 const checkFormatColumnsData = {
@@ -58,7 +68,7 @@ function AnalyticsPage() {
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
-  const columnForMain: any[] = [
+  const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
       accessor: 'fullName',
@@ -125,12 +135,10 @@ function AnalyticsPage() {
     },
     {
       Header: 'Salary',
+      accessor: 'salary',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType, pay, payDelta } = row.original;
-
-        const salary = pay * employmentType;
-        const salaryDelta = payDelta ? payDelta * employmentType : undefined;
+        const { salary, salaryDelta } = row.original;
 
         return (
           <RedactComponent
@@ -256,21 +264,19 @@ function AnalyticsPage() {
     },
   ];
 
-  const columnForAll: any[] = [
+  const columnForAll: ColumnType[] = [
     ...columnForMain,
     {
       Header: 'District coefficient',
+      accessor: 'districtCoefficient',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType, pay, payDelta } = row.original;
-
-        const salary = pay * employmentType * 0.15;
-        const salaryDelta = payDelta ? payDelta * employmentType * 0.15 : undefined;
+        const { districtCoefficient, districtCoefficientDelta } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(salary)}
-            valueDelta={salaryDelta}
+            value={formatMoney(districtCoefficient)}
+            valueDelta={districtCoefficientDelta}
           />
         );
       },
@@ -390,16 +396,18 @@ function AnalyticsPage() {
       accessor: 'socialInsuranceContributions',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { socialInsuranceContributions } = row.original;
+        const { socialInsuranceContributions, socialInsuranceContributionsDelta } = row.original;
 
         return (
           <RedactComponent
             value={formatMoney(socialInsuranceContributions)}
+            valueDelta={socialInsuranceContributionsDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
         getSumForTotal('socialInsuranceContributions', row.page.map((el) => el.original)),
+        getSumForTotal('socialInsuranceContributionsDelta', row.page.map((el) => el.original)),
       ),
     },
     {
@@ -423,12 +431,21 @@ function AnalyticsPage() {
     },
     {
       Header: 'Accounting',
+      accessor: 'accountingCostPerMonth',
       disableFilters: true,
-      Cell: () => (
+      Cell: ({ row }: CellTable<GetPreviewType>) => {
+        const { accountingCostPerMonth, accountingPerMonthDelta } = row.original;
 
-        <RedactComponent
-          value={formatMoney(600)}
-        />
+        return (
+          <RedactComponent
+            value={formatMoney(accountingCostPerMonth)}
+            valueDelta={accountingPerMonthDelta}
+          />
+        );
+      },
+      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.values)),
+        getSumForTotal('accountingPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
     {
@@ -436,16 +453,18 @@ function AnalyticsPage() {
       accessor: 'parkingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { parkingCostPerMonth } = row.original;
+        const { parkingCostPerMonth, parkingCostPerMonthDelta } = row.original;
 
         return (
           <RedactComponent
             value={formatMoney(parkingCostPerMonth)}
+            valueDelta={parkingCostPerMonthDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
         getSumForTotal('parkingCostPerMonth', row.page.map((el) => el.original)),
+        getSumForTotal('parkingCostPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
   ];
@@ -494,13 +513,13 @@ function AnalyticsPage() {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: any, row: any) => { dublicateEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
             },
             {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Delete',
-              onClick: (e: any, row: any) => { deleteEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
             },
           ]}
           columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
@@ -567,6 +586,7 @@ function AnalyticsPage() {
 
       setEmployees(data);
 
+      console.log(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);

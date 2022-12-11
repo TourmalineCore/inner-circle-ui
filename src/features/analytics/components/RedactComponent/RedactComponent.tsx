@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useRef, useState,
+} from 'react';
 import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
 
 import './RedactComponent.css';
@@ -14,6 +16,7 @@ function RedactComponent({
 }) {
   const [redValue, setRedValue] = useState(value);
   const [isPercent, setisPercent] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (redValue.includes('%')) {
@@ -43,37 +46,41 @@ function RedactComponent({
   function onCancellation() {
     setRedValue(value);
   }
-  function handleKeyUp(event: any) {
+  function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      event.target.blur();
+      inputRef.current?.blur();
       onAccept();
     }
     if (event.key === 'Escape') {
       event.preventDefault();
-      event.target.blur();
+      inputRef.current?.blur();
+
       onCancellation();
     }
   }
 
   return (
-    <div className="redact-cmpnt">
-      {onChange
-        ? (
-          <input
-            className="input-data"
-            type="text"
-            value={redValue}
-            onChange={(e : any) => setRedValue(e.target.value)}
-            onFocus={onFocus}
-            onKeyUp={handleKeyUp}
-            onBlur={onCancellation}
-          />
-        ) : <div>{value}</div>}
+    <div className="component">
+      {
+        onChange
+          ? (
+            <input
+              ref={inputRef}
+              className="component-input"
+              type="text"
+              value={redValue}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setRedValue(e.target.value)}
+              onFocus={onFocus}
+              onKeyUp={handleKeyUp}
+              onBlur={onCancellation}
+            />
+          ) : <div>{value}</div>
+      }
       {valueDelta !== 0 && valueDelta
         && (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
-            {valueDelta === 0 ? '' : getTotal(valueDelta)}
+            {getTotal(valueDelta)}
           </div>
         )}
     </div>
