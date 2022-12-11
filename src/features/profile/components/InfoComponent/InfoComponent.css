@@ -1,0 +1,27 @@
+.component {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.component-info {
+  display: flex;
+  padding-top: 10px;
+  max-height: 40px;
+}
+
+.component-info__faicon {
+  margin-right: 16px;
+}
+
+.component-info__icon {
+  margin-right: 9px;
+}
+
+.component-info__value {
+  padding-top: 3px;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 24px;
+}
