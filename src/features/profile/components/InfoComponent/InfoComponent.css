@@ -1,58 +1,24 @@
-.info-component {
+.component {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.info-component-input {
-  /* width: 300px;
-  height: 30px; */
-}
-
-.info-component-label {
+.component-info {
   display: flex;
   padding-top: 10px;
+  max-height: 40px;
 }
 
-.component-label-faicon {
+.component-info__faicon {
   margin-right: 16px;
 }
 
-.component-label-icon {
-  margin-right: 10px;
-  width: 32px;
-  height: 32px;
+.component-info__icon {
+  margin-right: 9px;
 }
 
-.component-label-value {
+.component-info__value {
   padding-top: 3px;
-}
-
-.component-label-skype {
-  background: url("../../../../common/img/faSkype.svg");
-  background-position: center;
-  background-size: 31px;
-  background-repeat: no-repeat;
-}
-
-.component-label-telegram {
-  background: url("../../../../common/img/faTelegram.svg");
-  background-position: center;
-  background-size: 35px;
-  background-repeat: no-repeat;
-}
-
-.component-label-github {
-  background: url("../../../../common/img/faGithub.svg");
-  background-position: center;
-  background-size: 36px;
-  background-repeat: no-repeat;
-}
-
-.component-label-gitlub {
-  background: url("../../../../common/img/faGitlab.svg");
-  background-position: center;
-  background-size: 32px;
-  background-repeat: no-repeat;
 }
 
 .name {
