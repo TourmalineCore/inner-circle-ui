@@ -38,42 +38,34 @@ function ProfileEdit() {
       <ProfileInfo
         rows={
           [
-            <InfoComponent
-              value={employee?.fullName || ''}
-              text="name"
-            />,
+            <h2>{employee.fullName}</h2>,
             <InfoComponent
               name="corporateEmail"
-              value={`${employee?.corporateEmail}`}
-              isRedact={false}
+              value={`${employee.corporateEmail}`}
               faIcon={faEnvelope}
             />,
             <InfoComponent
               label="Personal Email*"
               name="personalEmail"
-              value={`${employee?.personalEmail || ''}`}
-              isRedact
+              value={`${employee.personalEmail || ''}`}
               onChange={handleFormChange}
             />,
             <InfoComponent
               label="Phone"
               name="phone"
-              value={`${employee?.phone || ''}`}
-              isRedact
+              value={`${employee.phone || ''}`}
               onChange={handleFormChange}
             />,
             <InfoComponent
               label="GitHub"
               name="gitHub"
-              value={`${employee?.gitHub || ''}`}
-              isRedact
+              value={`${employee.gitHub || ''}`}
               onChange={handleFormChange}
             />,
             <InfoComponent
               label="GitLab"
               name="gitLab"
-              value={`${employee?.gitLab || ''}`}
-              isRedact
+              value={`${employee.gitLab || ''}`}
               onChange={handleFormChange}
             />,
           ]
@@ -109,9 +101,9 @@ function ProfileEdit() {
     const updateEmployee : EmployeeUpdateType = {
       employeeId: employee.id as number,
       name: fullName[0],
-      surname: fullName[0],
-      middleName: fullName[0],
-      corporateEmail: employee.personalEmail,
+      surname: fullName[1],
+      middleName: fullName[2],
+      corporateEmail: employee.corporateEmail,
       personalEmail: employee.personalEmail,
       phone: employee.phone || null,
       gitHub: employee.gitHub,
