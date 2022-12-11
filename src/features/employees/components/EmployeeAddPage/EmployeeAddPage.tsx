@@ -1,15 +1,18 @@
 /* eslint-disable import/order */
-import { useState } from 'react';
 import {
   Input, Button, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { EmployeeType, EmployeeTypeSwitch } from '../../employeesData';
-import './EmployeeAddPage.css';
 import { useNavigate } from 'react-router-dom';
+
+import { useState } from 'react';
+
+import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
 
+import './EmployeeAddPage.css';
+
 function EmployeeAddPage() {
-  const [employee, setEmployee] = useState<EmployeeType | undefined>({
+  const [employee, setEmployee] = useState<EmployeeType>({
     name: '',
     surname: '',
     middleName: '',
@@ -29,85 +32,90 @@ function EmployeeAddPage() {
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeType | undefined = employee ? {
+    const updatedForm: EmployeeType = {
       ...employee,
       [name]: value,
-    } : undefined;
+    };
 
     setEmployee(updatedForm);
   };
 
   return (
-    <div className="employee-data">
-      <div className="employee-data-name">
+    <div className="employee">
+      <div className="employee-name">
         <h3>Create a user</h3>
       </div>
-      <div className="employee-data--inputs">
-        <div className="data-rows">
+      <div className="employee-data">
+        <div className="employee-data__rows">
           <Input
             name="name"
-            value={employee?.name}
+            value={employee.name}
             label="Name*"
             onChange={handleFormChange}
           />
           <Input
             name="surname"
-            value={employee?.surname}
+            value={employee.surname}
             label="Surname*"
             onChange={handleFormChange}
           />
           <Input
             name="middleName"
-            value={employee?.middleName}
+            value={employee.middleName}
             label="Middle Name*"
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
-          <Input
-            name="corporateEmail"
-            value={employee?.corporateEmail}
-            label="Corporate Email*"
-            onChange={handleFormChange}
-          />
+        <div className="employee-data__columns">
+          <div className="employee-data__rows">
+            <Input
+              name="corporateEmail"
+              value={employee.corporateEmail}
+              label="Corporate Email*"
+              onChange={handleFormChange}
+            />
+            <div className="input-signature">@tourmalinecore.com</div>
+          </div>
           <Input
             name="personalEmail"
-            value={employee?.personalEmail}
+            value={employee.personalEmail}
             label="Personal Email*"
             onChange={handleFormChange}
           />
           <Input
             name="phone"
-            value={employee?.phone}
+            value={employee.phone}
             label="Phone"
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
-          <div className="data-rows">
+        <div className="employee-data__columns">
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
             <Input
               name="gitHub"
-              value={employee?.gitHub}
+              value={employee.gitHub}
               label="GitHub"
               onChange={handleFormChange}
             />
             <Input
               name="ratePerHour"
-              value={employee?.ratePerHour}
+              value={employee.ratePerHour}
               label="Rate per hour*"
               onChange={handleFormChange}
             />
             <Input
               name="pay"
-              value={employee?.pay}
+              value={employee.pay}
               label="Pay*"
               onChange={handleFormChange}
             />
           </div>
-          <div className="data-rows">
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
             <Input
               name="gitLab"
-              value={employee?.gitLab}
+              value={employee.gitLab}
               label="GitLab"
               onChange={handleFormChange}
             />
@@ -115,26 +123,25 @@ function EmployeeAddPage() {
               options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
               label="Employment Type*"
               name="employmentType"
-              value={employee?.employmentType}
+              value={employee.employmentType}
               onChange={(option: { label: EmployeeTypeSwitch; value: number }) => {
-                setEmployee(employee
-                  ? {
-                    ...employee,
-                    employmentType: option.value,
-                  } : undefined);
+                setEmployee({
+                  ...employee,
+                  employmentType: option.value,
+                });
               }}
               style={{ maxWidth: 300, width: 250, marginTop: 0 }}
             />
             <Input
               name="parkingCostPerMonth"
-              value={employee?.parkingCostPerMonth}
+              value={employee.parkingCostPerMonth}
               label="Parking*"
               onChange={handleFormChange}
             />
           </div>
         </div>
       </div>
-      <div className="employee-data--btns">
+      <div className="employee-buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}
@@ -143,22 +150,28 @@ function EmployeeAddPage() {
         </Button>
         <Button
           type="button"
-          onClick={() => { updateEmployeesAsync(); }}
+          onClick={() => { createEmployeesAsync(); }}
         >
           Create
         </Button>
       </div>
     </div>
   );
-  async function updateEmployeesAsync() {
+  async function createEmployeesAsync() {
+    const updateForm : EmployeeType = {
+      ...employee,
+      corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
+      phone: employee.phone || null,
+      gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
+      gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
+      ratePerHour: Number(employee.ratePerHour),
+      pay: Number(employee.pay),
+      parkingCostPerMonth: Number(employee.parkingCostPerMonth),
+    };
+
     await api.post<EmployeeType>(
       'employees/create',
-      {
-        ...employee,
-        phone: employee && employee.phone && employee?.phone?.length > 0 ? employee.phone : null,
-        gitHub: employee && employee.gitHub && employee?.gitHub?.length > 0 ? employee.gitHub : null,
-        gitLab: employee && employee.gitLab && employee?.gitLab?.length > 0 ? employee.gitLab : null,
-      },
+      updateForm,
     );
     navigate('/employees');
   }

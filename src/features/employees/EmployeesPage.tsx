@@ -1,22 +1,27 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
-  useState,
-  useEffect,
-} from 'react';
-import {
   Button,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useNavigate } from 'react-router-dom';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {
+  useState,
+  useEffect,
+  MouseEventHandler,
+} from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import {
-  ColleagueContactsType, ColleagueFinancesColumnsType, ColleaguesType, EmployeeTypeSwitch,
-} from './employeesData';
-import { api } from '../../common/api';
+  ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType, EmployeeTypeSwitch,
+} from './types/index';
+
 import { formatMoney } from '../../common/utils/formatMoney';
+import { api } from '../../common/api';
 
 type Row<Type> = {
   original: Type
@@ -30,7 +35,7 @@ type Table<TypeProps> = {
 function EmployeesPage() {
   const navigate = useNavigate();
   const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
-  const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesColumnsType[]>([]);
+  const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesDtoType[]>([]);
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -63,8 +68,17 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: (e: any, row: any) => {
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
                   navigate(`/employees/edit-contact&${Number(row.original.id)}`);
+                },
+              },
+              {
+                name: 'edit-row-action',
+                show: () => true,
+                renderIcon: () => <FontAwesomeIcon icon={faTrash} />,
+                renderText: () => 'Delete',
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
+                  deleteEmployeesAsync(row.original.id);
                 },
               },
             ]}
@@ -159,7 +173,7 @@ function EmployeesPage() {
                 show: () => true,
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
-                onClick: (e: any, row: any) => {
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
                   navigate(`/employees/edit-salary&${Number(row.original.id)}`);
                 },
               },
@@ -178,7 +192,7 @@ function EmployeesPage() {
                 accessor: 'ratePerHour',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
                   const { ratePerHour } = row.original;
                   return (<div>{formatMoney(ratePerHour)}</div>);
                 },
@@ -188,7 +202,7 @@ function EmployeesPage() {
                 accessor: 'pay',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
                   const { pay } = row.original;
                   return (<div>{formatMoney(pay)}</div>);
                 },
@@ -198,7 +212,7 @@ function EmployeesPage() {
                 accessor: 'employmentType',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
                   const { employmentType } = row.original;
                   return (<div>{EmployeeTypeSwitch[employmentType]}</div>);
                 },
@@ -208,7 +222,7 @@ function EmployeesPage() {
                 accessor: 'netSalary',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
                   const { netSalary } = row.original;
                   return (<div>{formatMoney(netSalary)}</div>);
                 },
@@ -218,7 +232,7 @@ function EmployeesPage() {
                 accessor: 'parking',
                 disableFilters: true,
                 disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesColumnsType>) => {
+                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
                   const { parking } = row.original;
                   return (<div>{formatMoney(parking)}</div>);
                 },
@@ -233,21 +247,17 @@ function EmployeesPage() {
   async function loadEmployeesAsync() {
     const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
     setEmployeesContact(data.colleagueContacts);
+    setEmployeesSalary(data.colleagueFinancesDto);
+  }
 
-    const update : ColleagueFinancesColumnsType[] = [];
-    for (let i = 0; i < data.colleagueContacts.length; i++) {
-      const el : ColleagueFinancesColumnsType = {
-        id: data.colleagueContacts[i].id,
-        fullName: data.colleagueContacts[i].fullName,
-        ratePerHour: data.colleagueFinancesDto[i].ratePerHour,
-        pay: data.colleagueFinancesDto[i].pay,
-        employmentType: data.colleagueFinancesDto[i].employmentType,
-        netSalary: data.colleagueFinancesDto[i].netSalary,
-        parking: data.colleagueFinancesDto[i].parking,
-      };
-      update.push(el);
+  async function deleteEmployeesAsync(id: number) {
+    // eslint-disable-next-line no-restricted-globals
+    const isDelete = confirm('Удалить сотрудника?');
+
+    if (isDelete) {
+      await api.delete(`employees/delete/${id}`);
+      await loadEmployeesAsync();
     }
-    setEmployeesSalary(update);
   }
 }
 

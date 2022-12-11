@@ -1,14 +1,28 @@
 import {
   Button, Input,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { useEffect, useState } from 'react';
+
 import { api } from '../../../../common/api';
-import { ColleaguesType, EmployeeContactUpdateType } from '../../employeesData';
+import { ColleagueContactsType, EmployeeContactUpdateType } from '../../types/index';
 
 function EmployeeEditContactPage() {
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState<EmployeeContactUpdateType>();
+  const [employee, setEmployee] = useState<EmployeeContactUpdateType>(
+    {
+      employeeId: 0,
+      name: '',
+      surname: '',
+      middleName: '',
+      personalEmail: '',
+      corporateEmail: '',
+      phone: '',
+      gitHub: '',
+      gitLab: '',
+    },
+  );
   const { id } = useParams();
 
   useEffect(() => { loadEmployeesAsync(); }, []);
@@ -16,71 +30,80 @@ function EmployeeEditContactPage() {
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: EmployeeContactUpdateType | undefined = employee ? {
+    const updatedForm: EmployeeContactUpdateType = {
       ...employee,
       [name]: value,
-    } : undefined;
+    };
 
     setEmployee(updatedForm);
   };
 
   return (
-    <div className="employee-data">
-      <div className="employee-data--inputs">
-        <div className="data-rows">
+    <div className="employee">
+      <div className="employee-data">
+        <div className="employee-data__rows">
           <Input
             name="name"
-            value={employee?.name}
+            value={employee.name}
             label="Name*"
             onChange={handleFormChange}
           />
           <Input
             name="surname"
-            value={employee?.surname}
+            value={employee.surname}
             label="Surname*"
             onChange={handleFormChange}
           />
           <Input
             name="middleName"
-            value={employee?.middleName}
+            value={employee.middleName}
             label="Middle Name*"
             onChange={handleFormChange}
           />
         </div>
-        <div className="data-columns">
-          <Input
-            name="corporateEmail"
-            value={employee?.corporateEmail}
-            label="Corporate Email*"
-            onChange={handleFormChange}
-          />
+        <div className="employee-data__columns">
+          <div className="employee-data__rows">
+            <Input
+              name="corporateEmail"
+              value={employee.corporateEmail}
+              label="Corporate Email*"
+              onChange={handleFormChange}
+            />
+            <div className="input-signature">@tourmalinecore.com</div>
+          </div>
           <Input
             name="personalEmail"
-            value={employee?.personalEmail}
+            value={employee.personalEmail}
             label="Personal Email*"
             onChange={handleFormChange}
           />
           <Input
             name="phone"
-            value={employee?.phone}
+            value={employee.phone}
             label="Phone"
             onChange={handleFormChange}
           />
-          <Input
-            name="gitHub"
-            value={employee?.gitHub}
-            label="GitHub"
-            onChange={handleFormChange}
-          />
-          <Input
-            name="gitLab"
-            value={employee?.gitLab}
-            label="GitLab"
-            onChange={handleFormChange}
-          />
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
+            <Input
+              name="gitHub"
+              value={employee.gitHub}
+              label="GitHub"
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="employee-data__rows">
+            <div className="input-signature">@</div>
+            <Input
+              name="gitLab"
+              value={employee.gitLab}
+              label="GitLab"
+              onChange={handleFormChange}
+            />
+          </div>
         </div>
       </div>
-      <div className="employee-data--btns">
+      <div className="employee-buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}
@@ -98,21 +121,20 @@ function EmployeeEditContactPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
-    const newemployee = data.colleagueContacts.find((el) => el.id === Number(id));
-    const fullName = newemployee?.fullName.split(' ');
-    setEmployee(newemployee && fullName ? {
+    const { data } = await api.get<ColleagueContactsType>(`employees/get-contact-details/${id}`);
+    const fullName = data.fullName.split(' ');
+    setEmployee({
       ...employee,
-      employeeId: newemployee.id,
+      employeeId: data.id,
       name: fullName[0],
       surname: fullName[1],
       middleName: fullName[2],
-      personalEmail: newemployee.personalEmail,
-      corporateEmail: newemployee.corporateEmail,
-      phone: newemployee.phone,
-      gitHub: newemployee.gitHub,
-      gitLab: newemployee.gitLab,
-    } : undefined);
+      personalEmail: data.personalEmail,
+      corporateEmail: data.corporateEmail.split('@')[0],
+      phone: data.phone,
+      gitHub: data.gitHub ? data.gitHub?.split('@')[1] : '',
+      gitLab: data.gitLab ? data.gitLab?.split('@')[1] : '',
+    });
   }
 
   async function updateEmployeesAsync() {
@@ -120,9 +142,10 @@ function EmployeeEditContactPage() {
       'employees/update-employee-contacts',
       {
         ...employee,
-        phone: employee && employee.phone && employee?.phone?.length > 0 ? employee.phone : null,
-        gitHub: employee && employee.gitHub && employee?.gitHub?.length > 0 ? employee.gitHub : null,
-        gitLab: employee && employee.gitLab && employee?.gitLab?.length > 0 ? employee.gitLab : null,
+        corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
+        phone: employee.phone || null,
+        gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
+        gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
       },
     );
 
