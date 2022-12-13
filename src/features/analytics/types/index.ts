@@ -1,21 +1,53 @@
-export type AnalyticsSalaryForSeo = {
-  id: number;
-  name: string;
-  surname: string;
-  middleName: string;
-  employmentDate: string;
-  pay: number;
-  ratePerHour: number;
-  employmentType: number;
-  hasParking: boolean;
-  parkingCostPerMonth: number;
-  hourlyCostFact: number;
-  hourlyCostHand: number;
-  earnings: number;
-  expenses: number;
-  profit: number;
-  profitAbility: number;
-  grossSalary: number;
-  retainer: number;
-  netSalary: number;
+export type PutPreviewType = {
+  employeeId: number,
+  ratePerHour: number,
+  pay: number,
+  employmentType: number,
+  parkingCostPerMonth: number,
+};
+
+export type GetPreviewType = {
+  id: number,
+  fullName: string,
+  pay: number,
+  payDelta: number,
+  ratePerHour: number,
+  ratePerHourDelta: number,
+  employmentType: number,
+  salary: number,
+  salaryDelta: number,
+  parkingCostPerMonth: number,
+  parkingCostPerMonthDelta: number,
+  accountingPerMonth: number,
+  accountingPerMonthDelta: number,
+  hourlyCostFact: number,
+  hourlyCostFactDelta: number,
+  hourlyCostHand: number,
+  hourlyCostHandDelta: number,
+  earnings: number,
+  earningsDelta: number,
+  incomeTaxContributions: number,
+  incomeTaxContributionsDelta: number,
+  districtCoefficient: number,
+  districtCoefficientDelta: number,
+  pensionContributions: number,
+  pensionContributionsDelta: number,
+  medicalContributions: number,
+  medicalContributionsDelta: number,
+  socialInsuranceContributions: number,
+  socialInsuranceContributionsDelta: number,
+  injuriesContributions: number,
+  injuriesContributionsDelta: number,
+  expenses: number,
+  expensesDelta: number,
+  profit: number,
+  profitDelta: number,
+  profitAbility: number,
+  profitAbilityDelta: number,
+  grossSalary: number,
+  grossSalaryDelta: number,
+  prepayment: number,
+  prepaymentDelta: number,
+  netSalary: number,
+  netSalaryDelta: number
 };
