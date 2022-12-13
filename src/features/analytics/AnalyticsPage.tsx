@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import {
+import React, {
   MouseEventHandler, useEffect, useState,
 } from 'react';
 import {
@@ -128,9 +128,30 @@ function AnalyticsPage() {
       accessor: 'employmentType',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType } = row.original;
+        const {
+          employmentType: employentCof, id: employeeId, ratePerHour, pay, parkingCostPerMonth,
+        } = row.original;
 
-        return <div>{employmentType === 1 ? employeeTypeData[1] : employeeTypeData[2]}</div>;
+        const employmentType = employentCof === 1 ? 0 : 1;
+
+        return (
+          <div className="cell-component">
+            <select
+              value={employmentType}
+              className="cell-component__select"
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                event.preventDefault();
+                const employmentType = Number(event.target.value);
+                return updateEmployeesAsync({
+                  employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+                });
+              }}
+            >
+              <option value={0}>{employeeTypeData[1]}</option>
+              <option value={1}>{employeeTypeData[2]}</option>
+            </select>
+          </div>
+        );
       },
     },
     {
