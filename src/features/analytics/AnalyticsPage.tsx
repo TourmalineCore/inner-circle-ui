@@ -455,17 +455,16 @@ function AnalyticsPage() {
       accessor: 'accountingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { accountingCostPerMonth, accountingPerMonth, accountingPerMonthDelta } = row.original;
-        const accouting = accountingCostPerMonth || accountingPerMonth;
+        const { accountingPerMonth, accountingPerMonthDelta } = row.original;
         return (
           <RedactComponent
-            value={formatMoney(accouting)}
+            value={formatMoney(accountingPerMonth)}
             valueDelta={accountingPerMonthDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.original)) || getSumForTotal('accountingPerMonth', row.page.map((el) => el.original)),
+        getSumForTotal('accountingPerMonth', row.page.map((el) => el.original)),
         getSumForTotal('accountingPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
