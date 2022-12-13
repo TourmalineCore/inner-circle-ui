@@ -581,49 +581,42 @@ function AnalyticsPage() {
   }
 
   function dublicateEmployee(data: GetPreviewType) {
-    const update: GetPreviewType = {
-      ...data,
+    // const update = Object.keys(data).map((el) => {
+    //   if (el.toLowerCase().includes('delta')) {
+    //     return {
+    //       ...data,
+    //       [el.replace('Delta', '')]: Number(data[el.replace('Delta', '') as keyof GetPreviewType])
+    //       + Number(data[el as keyof GetPreviewType]),
+    //       [el]: 0,
+    //     };
+    //   }
+
+    //   return {
+    //     ...data,
+    //     [el]: data[el as keyof GetPreviewType],
+    //   };
+    // });
+
+    let update: GetPreviewType = data;
+    for (const el of Object.keys(data)) {
+      if (el.toLowerCase().includes('delta')) {
+        update = {
+          ...update,
+          [el.replace('Delta', '')]: Number(data[el.replace('Delta', '') as keyof GetPreviewType])
+          + Number(data[el as keyof GetPreviewType]),
+          [el]: 0,
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: data[el as keyof GetPreviewType],
+        };
+      }
+    }
+
+    update = {
+      ...update,
       id: `${data.id}_dublicate`,
-      pay: data.pay + data.payDelta,
-      payDelta: 0,
-      ratePerHour: data.ratePerHour + data.ratePerHourDelta,
-      ratePerHourDelta: 0,
-      salary: data.salary + data.salaryDelta,
-      salaryDelta: 0,
-      parkingCostPerMonth: data.parkingCostPerMonth + data.parkingCostPerMonthDelta,
-      parkingCostPerMonthDelta: 0,
-      accountingPerMonth: data.accountingPerMonth + data.accountingPerMonthDelta,
-      accountingPerMonthDelta: 0,
-      hourlyCostFact: data.hourlyCostFact + data.hourlyCostFactDelta,
-      hourlyCostFactDelta: 0,
-      hourlyCostHand: data.hourlyCostHand + data.hourlyCostHandDelta,
-      hourlyCostHandDelta: 0,
-      earnings: data.earnings + data.earningsDelta,
-      earningsDelta: 0,
-      incomeTaxContributions: data.incomeTaxContributions + data.incomeTaxContributionsDelta,
-      incomeTaxContributionsDelta: 0,
-      districtCoefficient: data.districtCoefficient + data.districtCoefficientDelta,
-      districtCoefficientDelta: 0,
-      pensionContributions: data.pensionContributions + data.pensionContributionsDelta,
-      pensionContributionsDelta: 0,
-      medicalContributions: data.medicalContributions + data.medicalContributionsDelta,
-      medicalContributionsDelta: 0,
-      socialInsuranceContributions: data.socialInsuranceContributions + data.socialInsuranceContributionsDelta,
-      socialInsuranceContributionsDelta: 0,
-      injuriesContributions: data.injuriesContributions + data.injuriesContributionsDelta,
-      injuriesContributionsDelta: 0,
-      expenses: data.expenses + data.expensesDelta,
-      expensesDelta: 0,
-      profit: data.profit + data.profitDelta,
-      profitDelta: 0,
-      profitAbility: data.profitAbility + data.profitAbilityDelta,
-      profitAbilityDelta: 0,
-      grossSalary: data.grossSalary + data.grossSalaryDelta,
-      grossSalaryDelta: 0,
-      prepayment: data.prepayment + data.prepaymentDelta,
-      prepaymentDelta: 0,
-      netSalary: data.netSalary + data.netSalaryDelta,
-      netSalaryDelta: 0,
     };
 
     setEmployees([...employees, update]);
@@ -658,8 +651,6 @@ function AnalyticsPage() {
       const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
 
       setEmployees(data);
-
-      console.log(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);
