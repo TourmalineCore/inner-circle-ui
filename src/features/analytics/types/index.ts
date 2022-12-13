@@ -19,6 +19,7 @@ export type GetPreviewType = {
   parkingCostPerMonth: number,
   parkingCostPerMonthDelta: number,
   accountingCostPerMonth: number,
+  accountingPerMonth: number,
   accountingPerMonthDelta: number,
   hourlyCostFact: number,
   hourlyCostFactDelta: number,

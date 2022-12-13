@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import { ClientTable } from '@tourmalinecore/react-table-responsive';
-import {
+import React, {
   MouseEventHandler, useEffect, useState,
 } from 'react';
 import {
@@ -128,9 +128,30 @@ function AnalyticsPage() {
       accessor: 'employmentType',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { employmentType } = row.original;
+        const {
+          employmentType: employentCof, id: employeeId, ratePerHour, pay, parkingCostPerMonth,
+        } = row.original;
 
-        return <div>{employmentType === 1 ? employeeTypeData[1] : employeeTypeData[2]}</div>;
+        const employmentType = employentCof === 1 ? 0 : 1;
+
+        return (
+          <div className="cell-component">
+            <select
+              value={employmentType}
+              className="cell-component__select"
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                event.preventDefault();
+                const employmentType = Number(event.target.value);
+                return updateEmployeesAsync({
+                  employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+                });
+              }}
+            >
+              <option value={0}>{employeeTypeData[1]}</option>
+              <option value={1}>{employeeTypeData[2]}</option>
+            </select>
+          </div>
+        );
       },
     },
     {
@@ -434,17 +455,17 @@ function AnalyticsPage() {
       accessor: 'accountingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { accountingCostPerMonth, accountingPerMonthDelta } = row.original;
-
+        const { accountingCostPerMonth, accountingPerMonth, accountingPerMonthDelta } = row.original;
+        const accouting = accountingCostPerMonth || accountingPerMonth;
         return (
           <RedactComponent
-            value={formatMoney(accountingCostPerMonth)}
+            value={formatMoney(accouting)}
             valueDelta={accountingPerMonthDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.values)),
+        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.original)) || getSumForTotal('accountingPerMonth', row.page.map((el) => el.original)),
         getSumForTotal('accountingPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
@@ -453,12 +474,20 @@ function AnalyticsPage() {
       accessor: 'parkingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { parkingCostPerMonth, parkingCostPerMonthDelta } = row.original;
+        const {
+          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType: employentCof, ratePerHour, pay,
+        } = row.original;
 
+        const employmentType = employentCof === 1 ? 0 : 1;
         return (
           <RedactComponent
             value={formatMoney(parkingCostPerMonth)}
             valueDelta={parkingCostPerMonthDelta}
+            onChange={(parkingCostPerMonth: number) => {
+              updateEmployeesAsync({
+                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+              });
+            }}
           />
         );
       },

@@ -4,3 +4,13 @@
   justify-content: end;
   margin-bottom: 10px;
 }
+
+.cell-component__select {
+  outline: none;
+  border: none;
+  width: 100%;
+  font-family: Rubik, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  background-color: transparent;
+}
