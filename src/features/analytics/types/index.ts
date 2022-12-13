@@ -1,5 +1,5 @@
 export type PutPreviewType = {
-  employeeId: number,
+  employeeId: number | string,
   ratePerHour: number,
   pay: number,
   employmentType: number,
@@ -7,7 +7,7 @@ export type PutPreviewType = {
 };
 
 export type GetPreviewType = {
-  id: number,
+  id: number | string,
   fullName: string,
   pay: number,
   payDelta: number,

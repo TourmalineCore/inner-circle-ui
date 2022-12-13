@@ -541,7 +541,10 @@ function AnalyticsPage() {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
+                const { original } = row;
+                dublicateEmployee(original);
+              },
             },
             {
               name: 'edit-row-action',
@@ -577,14 +580,56 @@ function AnalyticsPage() {
     );
   }
 
-  function dublicateEmployee(idEmployee: number) {
-    const copyEmployee = employees.find((el) => el.id === idEmployee);
-    if (copyEmployee) {
-      setEmployees([...employees, copyEmployee]);
-    }
+  function dublicateEmployee(data: GetPreviewType) {
+    const update: GetPreviewType = {
+      ...data,
+      id: `${data.id}_dublicate`,
+      pay: data.pay + data.payDelta,
+      payDelta: 0,
+      ratePerHour: data.ratePerHour + data.ratePerHourDelta,
+      ratePerHourDelta: 0,
+      salary: data.salary + data.salaryDelta,
+      salaryDelta: 0,
+      parkingCostPerMonth: data.parkingCostPerMonth + data.parkingCostPerMonthDelta,
+      parkingCostPerMonthDelta: 0,
+      accountingPerMonth: data.accountingPerMonth + data.accountingPerMonthDelta,
+      accountingPerMonthDelta: 0,
+      hourlyCostFact: data.hourlyCostFact + data.hourlyCostFactDelta,
+      hourlyCostFactDelta: 0,
+      hourlyCostHand: data.hourlyCostHand + data.hourlyCostHandDelta,
+      hourlyCostHandDelta: 0,
+      earnings: data.earnings + data.earningsDelta,
+      earningsDelta: 0,
+      incomeTaxContributions: data.incomeTaxContributions + data.incomeTaxContributionsDelta,
+      incomeTaxContributionsDelta: 0,
+      districtCoefficient: data.districtCoefficient + data.districtCoefficientDelta,
+      districtCoefficientDelta: 0,
+      pensionContributions: data.pensionContributions + data.pensionContributionsDelta,
+      pensionContributionsDelta: 0,
+      medicalContributions: data.medicalContributions + data.medicalContributionsDelta,
+      medicalContributionsDelta: 0,
+      socialInsuranceContributions: data.socialInsuranceContributions + data.socialInsuranceContributionsDelta,
+      socialInsuranceContributionsDelta: 0,
+      injuriesContributions: data.injuriesContributions + data.injuriesContributionsDelta,
+      injuriesContributionsDelta: 0,
+      expenses: data.expenses + data.expensesDelta,
+      expensesDelta: 0,
+      profit: data.profit + data.profitDelta,
+      profitDelta: 0,
+      profitAbility: data.profitAbility + data.profitAbilityDelta,
+      profitAbilityDelta: 0,
+      grossSalary: data.grossSalary + data.grossSalaryDelta,
+      grossSalaryDelta: 0,
+      prepayment: data.prepayment + data.prepaymentDelta,
+      prepaymentDelta: 0,
+      netSalary: data.netSalary + data.netSalaryDelta,
+      netSalaryDelta: 0,
+    };
+
+    setEmployees([...employees, update]);
   }
 
-  async function deleteEmployee(idEmployee: number) {
+  async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
       const index = employees.indexOf(copyEmployee);
