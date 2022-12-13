@@ -453,12 +453,20 @@ function AnalyticsPage() {
       accessor: 'parkingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { parkingCostPerMonth, parkingCostPerMonthDelta } = row.original;
+        const {
+          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType: employentCof, ratePerHour, pay,
+        } = row.original;
 
+        const employmentType = employentCof === 1 ? 0 : 1;
         return (
           <RedactComponent
             value={formatMoney(parkingCostPerMonth)}
             valueDelta={parkingCostPerMonthDelta}
+            onChange={(parkingCostPerMonth: number) => {
+              updateEmployeesAsync({
+                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+              });
+            }}
           />
         );
       },
