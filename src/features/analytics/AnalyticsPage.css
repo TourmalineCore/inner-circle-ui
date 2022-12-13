@@ -6,6 +6,7 @@
 }
 
 .cell-component__select {
+  outline: none;
   border: none;
   width: 100%;
   font-family: Rubik, sans-serif;
