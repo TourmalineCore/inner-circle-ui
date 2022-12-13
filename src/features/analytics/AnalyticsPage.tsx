@@ -434,17 +434,17 @@ function AnalyticsPage() {
       accessor: 'accountingCostPerMonth',
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { accountingCostPerMonth, accountingPerMonthDelta } = row.original;
-
+        const { accountingCostPerMonth, accountingPerMonth, accountingPerMonthDelta } = row.original;
+        const accouting = accountingCostPerMonth || accountingPerMonth;
         return (
           <RedactComponent
-            value={formatMoney(accountingCostPerMonth)}
+            value={formatMoney(accouting)}
             valueDelta={accountingPerMonthDelta}
           />
         );
       },
       Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.values)),
+        getSumForTotal('accountingCostPerMonth', row.page.map((el) => el.original)) || getSumForTotal('accountingPerMonth', row.page.map((el) => el.original)),
         getSumForTotal('accountingPerMonthDelta', row.page.map((el) => el.original)),
       ),
     },
