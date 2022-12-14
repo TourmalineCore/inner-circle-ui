@@ -1,0 +1,15 @@
+domain:
+
+deploySecrets: true
+
+envKey: Production
+apiRoot: /api
+imageTag:
+ReCaptchaOptions:
+  SiteKey: # secret
+  Enabled: true
+
+imageCredentials:
+  registry: ghcr.io
+  username: # secret
+  password: # secret

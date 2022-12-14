@@ -1,0 +1,8 @@
+.git/
+.gitignore
+.vscode/
+
+env.sh
+nginx.conf
+
+values-*.yaml

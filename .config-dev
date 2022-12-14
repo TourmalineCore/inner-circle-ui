@@ -1,2 +1,2 @@
 ENV_KEY:dev
-API_ROOT:http://localhost:5000
+API_ROOT:http://localhost:5000/api
