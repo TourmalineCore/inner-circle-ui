@@ -3,10 +3,10 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { withPrivateRoute } from './routes/authStateProvider/withPrivateRoute';
+import { authService } from './common/authService';
 import Template from './template/Template';
 
-const WithPrivateRoute = withPrivateRoute(Template);
+const WithPrivateRoute = authService.withPrivateRoute(Template);
 
 export default function App() {
   return (

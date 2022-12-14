@@ -1,0 +1,45 @@
+  name: deploy service to prod k8s
+
+  on:
+    push:
+      branches:
+        - master
+
+      tags:
+        - v*
+
+    pull_request:
+
+  env:
+    GUTHUB_REGISTRY: ghcr.io
+
+  jobs:
+    deploy-to-dev-k8s:
+      name: Deploy service to k8s for production environment
+      if: github.event_name == 'push'
+      runs-on: ubuntu-20.04
+
+      steps:
+        - name: checkout 
+          uses: actions/checkout@v1
+        - name: Build and push image
+          run: |
+              docker login ${{ env.GUTHUB_REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GH_REGISTRY_TOKEN }}
+              docker build -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/auth:latest -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/auth:${{ github.sha }} -f InnerCircle.Authentication.Service/Dockerfile .
+              docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/auth:latest
+              docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/auth:${{ github.sha }}
+        - name: Deploy
+          uses: WyriHaximus/github-action-helm3@v2
+          with:
+            exec: helm upgrade --namespace prod-inner-circle --create-namespace --install prod-auth-api 
+                    --set "aspnetcoreEnvironment=Production"
+                    --set "ingress.host"=${{ secrets.PROD_HOST }}
+                    --set "deployment.appsettings.ConnectionStrings.DefaultConnection=${{ secrets.PROD_POSTGRESQLCONNECTIONSTRING }}"
+                    --set "deployment.appsettings.AuthenticationOptions.PublicSigningKey=${{ secrets.PROD_AUTHPUBLICSIGNINGKEY }}"
+                    --set "deployment.appsettings.AuthenticationOptions.PrivateSigningKey=${{ secrets.PROD_AUTHPRIVATESIGNINGKEY }}"
+                    --set "imageCredentials.username=${{ github.actor }}" 
+                    --set "imageCredentials.password=${{ secrets.GH_REGISTRY_TOKEN }}" 
+                    --set "image.tag=${{ github.sha }}"
+                    --set "image.pullPolicy=Always"
+                    ./InnerCircle.Authentication.Service/ci/chart
+            kubeconfig: '${{ secrets.PROD_KUBECONFIG }}'
