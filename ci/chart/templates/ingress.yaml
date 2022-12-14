@@ -5,6 +5,7 @@ metadata:
   annotations:
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   # tls:
@@ -15,7 +16,7 @@ spec:
   - host: {{ required "domain must be defined!" .Values.domain }}
     http:
       paths:
-      - path: /
+      - path: /auth(/|$)(.*)
         pathType: Prefix
         backend:
           service:
