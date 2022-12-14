@@ -13,10 +13,12 @@ export const adminRoutes: {
   ...homeRoutes,
   ...profileRoutes,
   ...analyticsRoutes,
+  ...employeesRoutes,
 ];
 
 export const sidebarRoutes: SidebarRoutesProps[] = [
   ...homeSidebarRoutes,
   ...profileSidebarRoutes,
   ...analyticsSidebarRoutes,
+  ...employeesSidebarRoutes,
 ];
