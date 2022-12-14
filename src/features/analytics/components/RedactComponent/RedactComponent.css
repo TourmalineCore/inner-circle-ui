@@ -1,0 +1,15 @@
+.component-input {
+  outline: none;
+  outline-offset: 0;
+  border-style: none;
+  width: 100%;
+  font-family: Rubik, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.15;
+  background-color: inherit;
+}
+
+.component-input:focus {
+  border-bottom: 2px solid black;
+}

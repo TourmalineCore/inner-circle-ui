@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "chart.fullname" . }}-env
+data:
+  ENV_KEY: {{ required "envKey must be defined!" .Values.envKey | squote | quote }}
+  API_ROOT: {{ required "apiRoot must be defined!" .Values.apiRoot | squote | quote }}
