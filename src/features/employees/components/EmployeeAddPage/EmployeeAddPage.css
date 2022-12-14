@@ -1,0 +1,47 @@
+.employee {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.employee-data :nth-child(n) {
+  margin-top: 5px;
+}
+
+.employee-data__columns {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-data__rows {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.employee-data__rows :nth-child(n) {
+  margin-right: 10px;
+}
+
+.employee-data__rows :last-child {
+  margin-right: 0;
+}
+
+.employee-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+}
+
+.employee-buttons :nth-child(n) {
+  margin-right: 40px;
+}
+
+.employee-buttons :last-child {
+  margin-right: 0;
+}
+
+.input-signature {
+  padding-bottom: 10px;
+  font-size: 23px;
+}

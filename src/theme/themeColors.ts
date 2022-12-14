@@ -1,4 +1,4 @@
-import { ThemeElement } from "./types/Theme";
+import { ThemeElement } from './types/Theme';
 
 export const themeColors: ThemeElement[] = [
   {
