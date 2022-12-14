@@ -5,10 +5,11 @@ import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import faGithub from '../../assets/icons/faGithub.svg';
 import faGitlab from '../../assets/icons/faGitlab.svg';
-import ProfileInfo from './components/ProfileInfo/ProfileInfo';
 import { Employee } from './types/Profile';
-import InfoComponent from './components/InfoComponent/InfoComponent';
 import { api } from '../../common/api';
+import InfoComponent from './components/InfoComponent/InfoComponent';
+
+import './ProfilePage.css';
 
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>(
@@ -29,49 +30,38 @@ function ProfilePage() {
 
   return (
     <div className="profile">
-      <ProfileInfo
-        rows={
-          [
-            <h2>{employee.fullName}</h2>,
-            <InfoComponent
-              name="corporateEmail"
-              value={`${employee.corporateEmail}`}
-              faIcon={faEnvelope}
-            />,
-            <InfoComponent
-              name="personalEmail"
-              value={`${employee.personalEmail || 'Not specified'}`}
-              faIcon={faEnvelope}
-            />,
-            <InfoComponent
-              name="phone"
-              value={`${employee.phone || 'Not specified'}`}
-              faIcon={faPhoneFlip}
-            />,
-            <InfoComponent
-              name="gitHub"
-              value={`${employee.gitHub || 'Not specified'}`}
-              icon={faGithub}
-            />,
-            <InfoComponent
-              name="gitLab"
-              value={`${employee.gitLab || 'Not specified'}`}
-              icon={faGitlab}
-            />,
-          ]
-        }
-        buttons={
-          [
-            <Button
-              type="button"
-              className="profile-bt"
-              onClick={() => { history('/profile/edit'); }}
-            >
-              Edit
-            </Button>,
-          ]
-        }
-      />
+      <div className="profile-info">
+        <h2>{employee.fullName}</h2>
+        <InfoComponent
+          value={employee.corporateEmail}
+          icon={faEnvelope}
+        />
+        <InfoComponent
+          value={employee.personalEmail}
+          icon={faEnvelope}
+        />
+        <InfoComponent
+          value={employee.phone || 'Not specified'}
+          icon={faPhoneFlip}
+        />
+        <InfoComponent
+          value={employee.gitHub || 'Not specified'}
+          icon={faGithub}
+        />
+        <InfoComponent
+          value={employee.gitLab || 'Not specified'}
+          icon={faGitlab}
+        />
+        <div className="profile-info__buttons">
+          <Button
+            type="button"
+            className="profile-bt"
+            onClick={() => { history('/profile/edit'); }}
+          >
+            Edit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 
