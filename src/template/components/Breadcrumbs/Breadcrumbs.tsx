@@ -7,7 +7,7 @@ function Breadcrumbs({
   list: BreadcrumbData[];
 }) {
   return !list.length
-    ? <span>Homepage</span>
+    ? <span>Домашняя страница</span>
     : (
       <ul className="breadcrumbs">
         {list.map(({ breadcrumb, key }, i) => (

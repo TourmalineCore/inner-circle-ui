@@ -1,8 +1,8 @@
 {
-  "name": "react-admin-template",
-  "version": "0.2.10",
+  "name": "inner-circle-ui",
+  "version": "0.0.1",
   "private": true,
-  "homepage": ".",
+  "homepage": "",
   "dependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
