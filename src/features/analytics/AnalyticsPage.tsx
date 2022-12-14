@@ -581,29 +581,11 @@ function AnalyticsPage() {
   }
 
   function dublicateEmployee(data: GetPreviewType) {
-    // const update = Object.keys(data).map((el) => {
-    //   if (el.toLowerCase().includes('delta')) {
-    //     return {
-    //       ...data,
-    //       [el.replace('Delta', '')]: Number(data[el.replace('Delta', '') as keyof GetPreviewType])
-    //       + Number(data[el as keyof GetPreviewType]),
-    //       [el]: 0,
-    //     };
-    //   }
-
-    //   return {
-    //     ...data,
-    //     [el]: data[el as keyof GetPreviewType],
-    //   };
-    // });
-
     let update: GetPreviewType = data;
     for (const el of Object.keys(data)) {
       if (el.toLowerCase().includes('delta')) {
         update = {
           ...update,
-          [el.replace('Delta', '')]: Number(data[el.replace('Delta', '') as keyof GetPreviewType])
-          + Number(data[el as keyof GetPreviewType]),
           [el]: 0,
         };
       } else {
