@@ -33,6 +33,9 @@
           with:
             exec: helm upgrade --namespace dev-inner-circle --create-namespace --install dev-inner-circle-ui 
                     --set "domain=${{ secrets.DEV_HOST }}"
+                    --set "apiLinks.LINK_TO_SALARY_SERVICE=${{ secrets.LINK_TO_SALARY_SERVICE }}"
+                    --set "apiLinks.LINK_TO_ACCOUNT_SERVICE=${{ secrets.LINK_TO_ACCOUNT_SERVICE }}"
+                    --set "apiLinks.LINK_TO_AUTH_SERVICE=${{ secrets.LINK_TO_AUTH_SERVICE }}"
                     --set "imageCredentials.username=${{ github.actor }}" 
                     --set "imageCredentials.password=${{ secrets.GH_REGISTRY_TOKEN }}" 
                     --set "image.tag=${{ github.sha }}"
