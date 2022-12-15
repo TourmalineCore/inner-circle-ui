@@ -7,6 +7,7 @@ import logo from '../../assets/img/logo.svg';
 import AuthorizationButton from './components/AuthorizationButton/AuthorizationButton';
 
 import './AuthorizationPage.css';
+import AuthorizationEllipsis from './components/AuthorizationEllipsis/AuthorizationEllipsis';
 
 function AuthorizationPage() {
   return (
@@ -40,6 +41,9 @@ function AuthorizationPage() {
           <AuthorizationButton value="Login" />
         </div>
       </div>
+      <AuthorizationEllipsis x="-10%" y="-69%" />
+      <AuthorizationEllipsis x="35%" y="-96%" />
+      <AuthorizationEllipsis x="78%" y="31%" />
     </div>
   );
 }

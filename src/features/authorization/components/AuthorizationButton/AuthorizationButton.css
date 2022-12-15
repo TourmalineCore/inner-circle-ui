@@ -16,3 +16,10 @@
   font-size: 26px;
   background: #fff;
 }
+
+@media screen and (max-width: 400px) {
+  .authorization-button__submit {
+    padding: 10px 134px;
+    font-size: 20px;
+  }
+}

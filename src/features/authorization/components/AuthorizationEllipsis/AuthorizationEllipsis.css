@@ -1,0 +1,15 @@
+.authorization-ellipsis {
+  position: fixed;
+  z-index: 2;
+  border-radius: 50%;
+  width: 1316px;
+  height: 1316px;
+  background: linear-gradient(270deg, #ff3384 -16.07%, #a68cde 43.99%, #00ede8 106.25%);
+}
+
+@media screen and (max-width: 400px) {
+  .authorization-ellipsis {
+    width: 400px;
+    height: 400px;
+  }
+}
