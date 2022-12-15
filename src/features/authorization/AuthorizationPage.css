@@ -1,0 +1,55 @@
+.authorization {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.authorization-window {
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 40px;
+  padding: 72px 130px 176px;
+  box-shadow: 0 0 43px rgb(24 14 54 / 10%);
+}
+
+.authorization-window__text {
+  margin-top: 42px;
+}
+
+.authorization-window__text-welcome {
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 45px;
+}
+
+.authorization-window__text-desc {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 26px;
+  color: #838383;
+}
+
+.authorization-window__inputs {
+  margin-top: 48px;
+}
+
+.authorization-window__inputs div.authorization-input:first-child {
+  margin-bottom: 24px;
+}
+
+.authorization-window__button {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: end;
+  margin-top: 20px;
+  color: #838383;
+}
+
+.authorization-window__button-forgot {
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 20px;
+}

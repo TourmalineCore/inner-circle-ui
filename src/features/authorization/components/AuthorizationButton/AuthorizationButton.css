@@ -1,0 +1,18 @@
+.authorization-button {
+  border: 3px solid transparent; /* 2 */
+  border-radius: 56px; /* 1 */
+  background: linear-gradient(rgb(255 51 132 / 100%), rgb(166 140 222 / 100%), rgb(0 237 232 / 100%)) border-box;
+  mask-composite: xor; /* 5' */
+  mask-composite: exclude; /* 5 */
+}
+
+.authorization-button__submit {
+  z-index: 9999;
+  outline: none;
+  border: 0;
+  border-radius: 9999px;
+  padding: 16px 86px;
+  font-weight: 500;
+  font-size: 26px;
+  background: #fff;
+}
