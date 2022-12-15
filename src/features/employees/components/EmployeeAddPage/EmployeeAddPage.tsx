@@ -10,6 +10,7 @@ import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
 
 import './EmployeeAddPage.css';
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function EmployeeAddPage() {
   const [employee, setEmployee] = useState<EmployeeType>({
@@ -170,7 +171,7 @@ function EmployeeAddPage() {
     };
 
     await api.post<EmployeeType>(
-      'employees/create',
+      `${LINK_TO_SALARY_SERVICE}employees/create`,
       updateForm,
     );
     navigate('/employees');

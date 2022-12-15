@@ -15,6 +15,5 @@ imageCredentials:
   password: # secret
 
 apiLinks:
-  LINK_TO_SALARY_SERVICE: /salary
-  LINK_TO_ACCOUNT_SERVICE: /account
-  LINK_TO_AUTH_SERVICE: /auth
+  LINK_TO_SALARY_SERVICE: /salary/
+  LINK_TO_ACCOUNT_SERVICE: /account/
