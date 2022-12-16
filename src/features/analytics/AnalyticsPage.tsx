@@ -613,8 +613,6 @@ function AnalyticsPage() {
       const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
 
       setEmployees(data);
-
-      console.log(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);
