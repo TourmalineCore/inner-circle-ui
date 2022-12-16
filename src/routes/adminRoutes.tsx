@@ -15,6 +15,7 @@ export const adminRoutes: {
   ...profileRoutes,
   ...employeesRoutes,
   ...analyticsRoutes,
+  ...employeesRoutes,
 ];
 
 export const sidebarRoutes: SidebarRoutesProps[] = [
@@ -22,4 +23,5 @@ export const sidebarRoutes: SidebarRoutesProps[] = [
   ...profileSidebarRoutes,
   ...employeesSidebarRoutes,
   ...analyticsSidebarRoutes,
+  ...employeesSidebarRoutes,
 ];

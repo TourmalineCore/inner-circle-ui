@@ -541,7 +541,10 @@ function AnalyticsPage() {
               name: 'edit-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
+                const { original } = row;
+                dublicateEmployee(original);
+              },
             },
             {
               name: 'edit-row-action',
@@ -577,14 +580,31 @@ function AnalyticsPage() {
     );
   }
 
-  function dublicateEmployee(idEmployee: number) {
-    const copyEmployee = employees.find((el) => el.id === idEmployee);
-    if (copyEmployee) {
-      setEmployees([...employees, copyEmployee]);
+  function dublicateEmployee(data: GetPreviewType) {
+    let update: GetPreviewType = data;
+    for (const el of Object.keys(data)) {
+      if (el.toLowerCase().includes('delta')) {
+        update = {
+          ...update,
+          [el]: 0,
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: data[el as keyof GetPreviewType],
+        };
+      }
     }
+
+    update = {
+      ...update,
+      id: `${data.id}_dublicate`,
+    };
+
+    setEmployees([...employees, update]);
   }
 
-  async function deleteEmployee(idEmployee: number) {
+  async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
       const index = employees.indexOf(copyEmployee);
