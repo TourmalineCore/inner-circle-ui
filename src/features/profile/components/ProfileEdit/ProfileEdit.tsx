@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button } from '@tourmalinecore/react-tc-ui-kit';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { Button, Input } from '@tourmalinecore/react-tc-ui-kit';
 import { useNavigate } from 'react-router-dom';
 
+import { ReactComponent as IconEmail } from '../../../../assets/icons/icon-email.svg';
 import { Employee, EmployeeUpdateType } from '../../types/Profile';
-import InfoComponent from '../InfoComponent/InfoComponent';
-import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import { api } from '../../../../common/api';
+import InfoComponent from '../InfoComponent/InfoComponent';
+
+import './ProfileEdit.css';
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -35,81 +36,87 @@ function ProfileEdit() {
 
   return (
     <div className="profile">
-      <ProfileInfo
-        rows={
-          [
-            <h2>{employee.fullName}</h2>,
-            <InfoComponent
-              name="corporateEmail"
-              value={`${employee.corporateEmail}`}
-              faIcon={faEnvelope}
-            />,
-            <InfoComponent
-              label="Personal Email*"
-              name="personalEmail"
-              value={`${employee.personalEmail || ''}`}
-              onChange={handleFormChange}
-            />,
-            <InfoComponent
-              label="Phone"
-              name="phone"
-              value={`${employee.phone || ''}`}
-              onChange={handleFormChange}
-            />,
-            <InfoComponent
-              label="GitHub"
-              name="gitHub"
-              value={`${employee.gitHub || ''}`}
-              onChange={handleFormChange}
-            />,
-            <InfoComponent
-              label="GitLab"
-              name="gitLab"
-              value={`${employee.gitLab || ''}`}
-              onChange={handleFormChange}
-            />,
-          ]
-        }
-        buttons={
-          [
-            <Button
-              type="button"
-              className="profile-bt"
-              onClick={() => { navigate('/profile'); }}
+      <div className="profile-info">
+        <h2>{employee.fullName}</h2>
+        <InfoComponent
+          value={employee.corporateEmail}
+          icon={(
+            <IconEmail
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
 
-            >
-              Cancel
-            </Button>,
-            <Button
-              type="button"
-              className="profile-bt"
-              onClick={() => { updateEmployeesAsync(); }}
-            >
-              Save changes
-            </Button>,
-          ]
-        }
-      />
+              }}
+            />
+          )}
+        />
+        <Input
+          value={employee.personalEmail}
+          label="Personal Email*"
+          onChange={handleFormChange}
+          name="personalEmail"
+        />
+        <Input
+          value={employee.phone}
+          label="Phone"
+          onChange={handleFormChange}
+          name="phone"
+        />
+        <Input
+          value={employee.gitHub}
+          label="GitHub"
+          onChange={handleFormChange}
+          name="gitHub"
+        />
+        <Input
+          value={employee.gitLab}
+          label="GitLab"
+          onChange={handleFormChange}
+          name="gitLab"
+        />
+        <div className="profile-info__buttons">
+          <Button
+            type="button"
+            onClick={() => { navigate('/profile'); }}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            onClick={() => { updateEmployeesAsync(); }}
+          >
+            Save changes
+          </Button>
+        </div>
+      </div>
+
     </div>
   );
   async function loadEmployeesAsync() {
     const { data } = await api.get<Employee>('employees/get-profile');
     setEmployee(data);
   }
+
+  function validation(param: string) {
+    if (!param) { return false; }
+
+    return true;
+  }
+
   async function updateEmployeesAsync() {
-    const fullName = employee.fullName.split(' ');
+    if (!validation(employee.personalEmail)) {
+      alert('Введите почту');
+      return;
+    }
+
     const updateEmployee : EmployeeUpdateType = {
-      employeeId: employee.id as number,
-      name: fullName[0],
-      surname: fullName[1],
-      middleName: fullName[2],
-      corporateEmail: employee.corporateEmail,
       personalEmail: employee.personalEmail,
       phone: employee.phone || null,
-      gitHub: employee.gitHub,
-      gitLab: employee.gitLab,
+      gitHub: employee.gitHub || null,
+      gitLab: employee.gitLab || null,
     };
-    await api.put('employees/update-employee-contacts', updateEmployee);
+    await api.put('employees/update-profile', updateEmployee);
     navigate('/profile');
   }
 }

@@ -1,6 +1,27 @@
 .profile {
   display: flex;
-  align-items: center;
   flex-direction: column;
   width: 100%;
+}
+
+.profile-info {
+  margin: 0 auto;
+}
+
+.profile-info > div:nth-last-child(n+2) {
+  margin-bottom: 15px;
+}
+
+.profile-info__buttons {
+  display: flex;
+  margin: 0 auto;
+}
+
+.profile-info__buttons button {
+  margin-top: 30px;
+  min-width: 200px;
+}
+
+.profile-info__buttons button:first-child {
+  margin-right: 10px;
 }

@@ -1,27 +1,15 @@
-.component {
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.component-info {
+.info-component {
   display: flex;
-  padding-top: 10px;
-  max-height: 40px;
+  align-items: center;
+  flex-direction: row;
 }
 
-.component-info__faicon {
-  margin-right: 16px;
+.info-component__icon {
+  align-items: center;
 }
 
-.component-info__icon {
-  margin-right: 9px;
-}
-
-.component-info__value {
-  padding-top: 3px;
-}
-
-.name {
-  font-weight: 400;
-  font-size: 24px;
+.info-component__value {
+  margin-left: 10px;
+  font-size: 20px;
+  text-align: center;
 }

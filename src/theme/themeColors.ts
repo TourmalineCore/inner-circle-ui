@@ -1,3 +1,5 @@
+import { ThemeElement } from './types/Theme';
+
 export const themeColors: ThemeElement[] = [
   {
     key: 'pink',

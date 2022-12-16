@@ -53,7 +53,7 @@ function Template() {
 
                 <SidebarItem
                   icon={faSignOutAlt}
-                  path="/logout"
+                  path="/auth/logout"
                   label="Sign Out"
                 />
               </>
