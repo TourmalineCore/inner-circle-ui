@@ -8,6 +8,10 @@
   margin: 0 auto;
 }
 
+.profile-info > div:nth-last-child(n+2) {
+  margin-bottom: 15px;
+}
+
 .profile-info__buttons {
   display: flex;
   margin: 0 auto;

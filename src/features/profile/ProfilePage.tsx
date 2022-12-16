@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
-import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import faGithub from '../../assets/icons/faGithub.svg';
-import faGitlab from '../../assets/icons/faGitlab.svg';
+import { ReactComponent as IconGithub } from '../../assets/icons/iconGithub.svg';
+import { ReactComponent as IconGitlab } from '../../assets/icons/iconGitlab.svg';
+import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
+import { ReactComponent as Email } from '../../assets/icons/icon-email.svg';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
 import InfoComponent from './components/InfoComponent/InfoComponent';
@@ -34,28 +35,72 @@ function ProfilePage() {
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
-          icon={faEnvelope}
+          icon={(
+            <Email
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <InfoComponent
           value={employee.personalEmail}
-          icon={faEnvelope}
+          icon={(
+            <Email
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <InfoComponent
-          value={employee.phone || 'Not specified'}
-          icon={faPhoneFlip}
+          value={employee.phone!}
+          icon={(
+            <IconPhone
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <InfoComponent
-          value={employee.gitHub || 'Not specified'}
-          icon={faGithub}
+          value={employee.gitHub!}
+          icon={(
+            <IconGithub
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <InfoComponent
-          value={employee.gitLab || 'Not specified'}
-          icon={faGitlab}
+          value={employee.gitLab!}
+          icon={(
+            <IconGitlab
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <div className="profile-info__buttons">
           <Button
             type="button"
-            className="profile-bt"
             onClick={() => { history('/profile/edit'); }}
           >
             Edit

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button, Input } from '@tourmalinecore/react-tc-ui-kit';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
+import { ReactComponent as IconEmail } from '../../../../assets/icons/icon-email.svg';
 import { Employee, EmployeeUpdateType } from '../../types/Profile';
 import { api } from '../../../../common/api';
-import '../../../analytics/components/RedactComponent/RedactComponent.css';
 import InfoComponent from '../InfoComponent/InfoComponent';
+
+import './ProfileEdit.css';
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -39,7 +40,16 @@ function ProfileEdit() {
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
-          icon={faEnvelope}
+          icon={(
+            <IconEmail
+              style={{
+                display: 'block',
+                width: 40,
+                height: 40,
+
+              }}
+            />
+          )}
         />
         <Input
           value={employee.personalEmail}
@@ -68,14 +78,12 @@ function ProfileEdit() {
         <div className="profile-info__buttons">
           <Button
             type="button"
-            className="profile-bt"
             onClick={() => { navigate('/profile'); }}
           >
             Cancel
           </Button>
           <Button
             type="button"
-            className="profile-bt"
             onClick={() => { updateEmployeesAsync(); }}
           >
             Save changes
@@ -89,20 +97,26 @@ function ProfileEdit() {
     const { data } = await api.get<Employee>('employees/get-profile');
     setEmployee(data);
   }
+
+  function validation(param: string) {
+    if (!param) { return false; }
+
+    return true;
+  }
+
   async function updateEmployeesAsync() {
-    const fullName = employee.fullName.split(' ');
+    if (!validation(employee.personalEmail)) {
+      alert('Введите почту');
+      return;
+    }
+
     const updateEmployee : EmployeeUpdateType = {
-      ...employee,
-      employeeId: employee.id,
-      name: fullName[0],
-      surname: fullName[1],
-      middleName: fullName[2],
       personalEmail: employee.personalEmail,
       phone: employee.phone || null,
       gitHub: employee.gitHub || null,
       gitLab: employee.gitLab || null,
     };
-    await api.put('employees/update-employee-contacts', updateEmployee);
+    await api.put('employees/update-profile', updateEmployee);
     navigate('/profile');
   }
 }
