@@ -1,7 +1,7 @@
 import AuthorizationInput from './components/AuthorizationInput/AuthorizationInput';
 
-import iconUser from '../../assets/icons/iconUser.svg';
-import iconPassword from '../../assets/icons/iconPassword.svg';
+import { ReactComponent as IconUser } from '../../assets/icons/iconUser.svg';
+import { ReactComponent as IconPassword } from '../../assets/icons/iconPassword.svg';
 import logo from '../../assets/img/logo.svg';
 
 import AuthorizationButton from './components/AuthorizationButton/AuthorizationButton';
@@ -24,13 +24,29 @@ function AuthorizationPage() {
           <AuthorizationInput
             type="text"
             label="Email"
-            icon={iconUser}
+            icon={(
+              <IconUser
+                style={{
+                  display: 'block',
+                  width: 56,
+                  height: 56,
+                }}
+              />
+            )}
             placeholder="email@mail.ru"
           />
           <AuthorizationInput
             type="password"
             label="Password"
-            icon={iconPassword}
+            icon={(
+              <IconPassword
+                style={{
+                  display: 'block',
+                  width: 56,
+                  height: 56,
+                }}
+              />
+            )}
             placeholder="8+ characters"
           />
         </div>
