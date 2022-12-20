@@ -19,6 +19,7 @@ import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHea
 import RedactComponent from './components/RedactComponent/RedactComponent';
 
 import './AnalyticsPage.css';
+import Indicators from './components/Indicators/Indicators';
 
 type Row<TypeProps> = {
   original: TypeProps
@@ -498,66 +499,68 @@ function AnalyticsPage() {
   ];
 
   return (
-    <ContentCard
-      isStickyHead
-      headerContent={(
-        <DefaultCardHeader>Analytics</DefaultCardHeader>
-      )}
-    >
-      <div className="analitycs-page--btns">
-        <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
-        <div>
-          {Object.entries(checkFormatColumnsData).map(([value, label]) => (
-            <CheckField
-              key={value}
-              style={{
-                marginLeft: 16,
-              }}
-              viewType="radio"
-              label={label}
-              checked={value === selectedViewColumns}
-              onChange={() => {
-                setSelectedViewColumns(value);
-              }}
-            />
-          ))}
+    <>
+      <ContentCard
+        isStickyHead
+        headerContent={(
+          <DefaultCardHeader>Analytics</DefaultCardHeader>
+        )}
+      >
+        <div className="analitycs-page--btns">
+          <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
+          <div>
+            {Object.entries(checkFormatColumnsData).map(([value, label]) => (
+              <CheckField
+                key={value}
+                style={{
+                  marginLeft: 16,
+                }}
+                viewType="radio"
+                label={label}
+                checked={value === selectedViewColumns}
+                onChange={() => {
+                  setSelectedViewColumns(value);
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div style={{ paddingTop: 4 }}>
-        <ClientTable
-          tableId="analytics-salary-table"
-          data={employees}
-          order={{
-            id: 'weightForSorting',
-            desc: true,
-          }}
-          loading={isLoading}
-          renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
-          enableTableStatePersistance
-          maxStillMobileBreakpoint={800}
-          isStriped
-          actions={[
-            {
-              name: 'edit-row-action',
-              show: () => true,
-              renderText: () => 'Dublicate',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
-                const { original } = row;
-                dublicateEmployee(original);
+        <div style={{ paddingTop: 4 }}>
+          <ClientTable
+            tableId="analytics-salary-table"
+            data={employees}
+            order={{
+              id: 'weightForSorting',
+              desc: true,
+            }}
+            loading={isLoading}
+            renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
+            enableTableStatePersistance
+            maxStillMobileBreakpoint={800}
+            isStriped
+            actions={[
+              {
+                name: 'edit-row-action',
+                show: () => true,
+                renderText: () => 'Dublicate',
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
+                  const { original } = row;
+                  dublicateEmployee(original);
+                },
               },
-            },
-            {
-              name: 'edit-row-action',
-              show: () => true,
-              renderText: () => 'Delete',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
-            },
-          ]}
-          columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
-        />
-      </div>
-
-    </ContentCard>
+              {
+                name: 'edit-row-action',
+                show: () => true,
+                renderText: () => 'Delete',
+                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
+              },
+            ]}
+            columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
+          />
+        </div>
+      </ContentCard>
+      <Indicators />
+    </>
   );
 
   function getSumForTotal(key: string, data : GetPreviewType[]) {
