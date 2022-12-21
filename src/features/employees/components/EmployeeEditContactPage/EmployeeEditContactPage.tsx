@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { api } from '../../../../common/api';
 import { ColleagueContactsType, EmployeeContactUpdateType } from '../../types/index';
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function EmployeeEditContactPage() {
   const navigate = useNavigate();
@@ -121,7 +122,7 @@ function EmployeeEditContactPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleagueContactsType>(`employees/get-contact-details/${id}`);
+    const { data } = await api.get<ColleagueContactsType>(`${LINK_TO_SALARY_SERVICE}employees/get-contact-details/${id}`);
     const fullName = data.fullName.split(' ');
     setEmployee({
       ...employee,
@@ -139,7 +140,7 @@ function EmployeeEditContactPage() {
 
   async function updateEmployeesAsync() {
     await api.put<EmployeeContactUpdateType>(
-      'employees/update-employee-contacts',
+      `${LINK_TO_SALARY_SERVICE}employees/update-employee-contacts`,
       {
         ...employee,
         corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,

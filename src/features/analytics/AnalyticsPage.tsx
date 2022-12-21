@@ -7,7 +7,9 @@ import React, {
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
+
 import { formatMoney } from '../../common/utils/formatMoney';
 import {
   GetPreviewType,
@@ -644,7 +646,8 @@ function AnalyticsPage() {
   }
 
   async function updateEmployeesAsync(employee: PutPreviewType) {
-    const { data } = await api.post<GetPreviewType>('finance/get-preview', employee);
+    const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
+
     const index = employees.find((el) => el.id === employee.employeeId);
     const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
 
@@ -659,7 +662,8 @@ function AnalyticsPage() {
     setIsLoading(true);
 
     try {
-      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
+      const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
+
       setEmployees(data);
       setInitialEmployees(data);
       setIsLoading(false);

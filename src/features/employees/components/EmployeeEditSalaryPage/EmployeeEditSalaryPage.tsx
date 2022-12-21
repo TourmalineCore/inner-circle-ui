@@ -9,6 +9,7 @@ import {
   ColleagueFinancesDtoType, EmployeeSalaryUpdateType, EmployeeTypeSwitch,
 } from '../../types/index';
 import { api } from '../../../../common/api';
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function EmployeeEditSalaryPage() {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ function EmployeeEditSalaryPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleagueFinancesDtoType>(`employees/get-finance-for-payroll/${id}`);
+    const { data } = await api.get<ColleagueFinancesDtoType>(`${LINK_TO_SALARY_SERVICE}employees/get-finance-for-payroll/${id}`);
 
     setEmployee(data);
   }
@@ -107,7 +108,7 @@ function EmployeeEditSalaryPage() {
       employmentType: employee.employmentType,
       parkingCostPerMonth: employee.parking,
     };
-    await api.put<EmployeeSalaryUpdateType>('employees/update-employee-finances', updateEmployee);
+    await api.put<EmployeeSalaryUpdateType>(`${LINK_TO_SALARY_SERVICE}employees/update-employee-finances`, updateEmployee);
     navigate('/employees');
   }
 }

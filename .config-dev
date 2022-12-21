@@ -1,2 +1,4 @@
 ENV_KEY:dev
-API_ROOT:http://localhost:5000/api
+API_ROOT:https://innercircle.dev.tourmalinecore.com/api
+LINK_TO_SALARY_SERVICE:/salary/
+LINK_TO_ACCOUNT_SERVICE:/account/

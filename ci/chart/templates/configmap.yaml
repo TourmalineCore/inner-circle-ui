@@ -5,3 +5,5 @@ metadata:
 data:
   ENV_KEY: {{ required "envKey must be defined!" .Values.envKey | squote | quote }}
   API_ROOT: {{ required "apiRoot must be defined!" .Values.apiRoot | squote | quote }}
+  LINK_TO_SALARY_SERVICE: {{ required "apiLinks.LINK_TO_SALARY_SERVICE must be defined!" .Values.apiLinks.LINK_TO_SALARY_SERVICE | squote | quote }}
+  LINK_TO_ACCOUNT_SERVICE: {{ required "apiLinks.LINK_TO_ACCOUNT_SERVICE must be defined!" .Values.apiLinks.LINK_TO_ACCOUNT_SERVICE | squote | quote }}
