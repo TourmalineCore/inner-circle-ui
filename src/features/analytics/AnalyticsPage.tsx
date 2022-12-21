@@ -62,12 +62,14 @@ const employeeTypeData = {
 
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [initialEmployees, setInitialEmployees] = useState<(GetPreviewType)[]>([]);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
+
   const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
@@ -265,7 +267,7 @@ function AnalyticsPage() {
 
         return (
           <RedactComponent
-            value={`${profitAbility}%`}
+            value={`${profitAbility.toFixed(2)}%`}
             valueDelta={profitAbilityDelta}
           />
         );
@@ -602,6 +604,7 @@ function AnalyticsPage() {
     };
 
     setEmployees([...employees, update]);
+    setInitialEmployees([...initialEmployees, update]);
   }
 
   async function deleteEmployee(idEmployee: number | string) {
@@ -614,14 +617,34 @@ function AnalyticsPage() {
     }
   }
 
+  function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
+    let update: GetPreviewType = newData;
+
+    for (const el of Object.keys(oldData)) {
+      if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
+        update = {
+          ...update,
+          [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: oldData[el as keyof GetPreviewType],
+        };
+      }
+    }
+
+    return update;
+  }
+
   async function updateEmployeesAsync(employee: PutPreviewType) {
     const { data } = await api.post<GetPreviewType>('finance/get-preview', employee);
-
     const index = employees.find((el) => el.id === employee.employeeId);
+    const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
 
     if (index) {
       const newemp = employees.slice();
-      newemp[newemp.indexOf(index)] = data;
+      newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
       setEmployees(newemp);
     }
   }
@@ -631,8 +654,8 @@ function AnalyticsPage() {
 
     try {
       const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
-
       setEmployees(data);
+      setInitialEmployees(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);
