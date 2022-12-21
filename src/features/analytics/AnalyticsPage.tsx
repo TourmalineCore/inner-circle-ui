@@ -540,7 +540,7 @@ function AnalyticsPage() {
           isStriped
           actions={[
             {
-              name: 'edit-row-action',
+              name: 'dublicate-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
               onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
@@ -549,7 +549,7 @@ function AnalyticsPage() {
               },
             },
             {
-              name: 'edit-row-action',
+              name: 'delete-row-action',
               show: () => true,
               renderText: () => 'Delete',
               onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
@@ -601,6 +601,7 @@ function AnalyticsPage() {
     update = {
       ...update,
       id: `${data.id}_dublicate`,
+      fullName: `(Copy)\n ${update.fullName}`,
     };
 
     setEmployees([...employees, update]);
@@ -634,7 +635,7 @@ function AnalyticsPage() {
       } else {
         update = {
           ...update,
-          [el]: oldData[el as keyof GetPreviewType],
+          [el]: newData[el as keyof GetPreviewType],
         };
       }
     }
