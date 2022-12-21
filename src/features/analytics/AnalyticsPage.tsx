@@ -64,12 +64,14 @@ const employeeTypeData = {
 
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [initialEmployees, setInitialEmployees] = useState<(GetPreviewType)[]>([]);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
+
   const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
@@ -267,8 +269,8 @@ function AnalyticsPage() {
 
         return (
           <RedactComponent
-            value={`${profitAbility}%`}
-            valueDelta={profitAbilityDelta}
+            value={`${profitAbility.toFixed(2)}%`}
+            valueDelta={profitAbilityDelta ? Number(profitAbilityDelta.toFixed(2)) : undefined}
           />
         );
       },
@@ -540,13 +542,16 @@ function AnalyticsPage() {
           isStriped
           actions={[
             {
-              name: 'edit-row-action',
+              name: 'dublicate-row-action',
               show: () => true,
               renderText: () => 'Dublicate',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { dublicateEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
+                const { original } = row;
+                dublicateEmployee(original);
+              },
             },
             {
-              name: 'edit-row-action',
+              name: 'delete-row-action',
               show: () => true,
               renderText: () => 'Delete',
               onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
@@ -579,31 +584,76 @@ function AnalyticsPage() {
     );
   }
 
-  function dublicateEmployee(idEmployee: number) {
+  function dublicateEmployee(data: GetPreviewType) {
+    let update: GetPreviewType = data;
+    for (const el of Object.keys(data)) {
+      if (el.toLowerCase().includes('delta')) {
+        update = {
+          ...update,
+          [el]: 0,
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: data[el as keyof GetPreviewType],
+        };
+      }
+    }
+
+    update = {
+      ...update,
+      id: `${data.id}_dublicate`,
+      fullName: `(Copy)\n ${update.fullName}`,
+    };
+
+    setEmployees([...employees, update]);
+    setInitialEmployees([...initialEmployees, update]);
+  }
+
+  async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
+    const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
-      setEmployees([...employees, copyEmployee]);
+      let newEmployees = employees.slice();
+      newEmployees.splice(employees.indexOf(copyEmployee), 1);
+      setEmployees(newEmployees);
+
+      newEmployees = initialEmployees.slice();
+      newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
+
+      setInitialEmployees(newEmployees);
     }
   }
 
-  async function deleteEmployee(idEmployee: number) {
-    const copyEmployee = employees.find((el) => el.id === idEmployee);
-    if (copyEmployee) {
-      const index = employees.indexOf(copyEmployee);
-      const newEmployees = employees.slice();
-      newEmployees.splice(index, 1);
-      setEmployees(newEmployees);
+  function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
+    let update: GetPreviewType = newData;
+
+    for (const el of Object.keys(oldData)) {
+      if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
+        update = {
+          ...update,
+          [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: newData[el as keyof GetPreviewType],
+        };
+      }
     }
+
+    return update;
   }
 
   async function updateEmployeesAsync(employee: PutPreviewType) {
     const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
 
     const index = employees.find((el) => el.id === employee.employeeId);
+    const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
 
     if (index) {
       const newemp = employees.slice();
-      newemp[newemp.indexOf(index)] = data;
+      newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
       setEmployees(newemp);
     }
   }
@@ -615,8 +665,7 @@ function AnalyticsPage() {
       const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
 
       setEmployees(data);
-
-      console.log(data);
+      setInitialEmployees(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);

@@ -1,69 +1,74 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
-import ContentCard from '../../components/ContentCard/ContentCard';
-import ActionsBlock from '../../components/ActionsBlock/ActionsBlock';
+import { Button } from '@tourmalinecore/react-tc-ui-kit';
+import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import faGithub from '../../assets/icons/faGithub.svg';
+import faGitlab from '../../assets/icons/faGitlab.svg';
+import { Employee } from './types/Profile';
+import { api } from '../../common/api';
+import InfoComponent from './components/InfoComponent/InfoComponent';
 
-import ProfileHeader from './components/ProfileHeader/ProfileHeader';
-import ProfileNav from './components/ProfileNav/ProfileNav';
-import getProfileAvailableActionButtons from './profileActionsFactory';
-
-import { profileModes } from './profileModes';
-import { profileSections, profileTabs } from './profileTabs';
+import './ProfilePage.css';
 
 function ProfilePage() {
-  const [profileMode, setProfileMode] = useState(profileModes.VIEW);
+  const [employee, setEmployee] = useState<Employee>(
+    {
+      id: 0,
+      fullName: '',
+      corporateEmail: '',
+      personalEmail: '',
+      phone: '',
+      gitHub: '',
+      gitLab: '',
+    },
+  );
 
-  const params = useParams();
+  const history = useNavigate();
 
-  const activeTabKey = params.tabId || profileSections.SUMMARY;
-
-  const ActiveTab = profileTabs[activeTabKey].component;
+  useEffect(() => { loadEmployeesAsync(); }, []);
 
   return (
-    <ContentCard
-      isStickyHead
-      headerContent={(
-        <ProfileHeader>
-          <ProfileNav
-            tabs={
-              Object.entries(profileTabs)
-                .map(([profileTabKey, profileTab]) => ({
-                  key: profileTabKey,
-                  href: profileTab.link,
-                  text: profileTab.tabLabel,
-                  icon: profileTab.tabIcon,
-                  active: profileTab.id === activeTabKey,
-                  onClick: () => {},
-                }))
-            }
-          />
-
-          {profileTabs[activeTabKey].showActions && (
-            <ActionsBlock
-              availableActions={getProfileAvailableActionButtons({
-                profileTab: profileTabs[activeTabKey],
-                profileMode,
-                setEditMode: () => setProfileMode(profileModes.EDIT),
-                exitWithoutSave: () => setProfileMode(profileModes.VIEW),
-                saveDataAndExit: () => setProfileMode(profileModes.VIEW),
-                saveDisabled: false,
-              })}
-            />
-          )}
-        </ProfileHeader>
-      )}
-    >
-      <div style={{ height: 2000, backgroundColor: '#f8fcff' }}>
-        <br />
-        <ActiveTab />
-        <br />
-        mode:
-        {' '}
-        {profileMode}
+    <div className="profile">
+      <div className="profile-info">
+        <h2>{employee.fullName}</h2>
+        <InfoComponent
+          value={employee.corporateEmail}
+          icon={faEnvelope}
+        />
+        <InfoComponent
+          value={employee.personalEmail}
+          icon={faEnvelope}
+        />
+        <InfoComponent
+          value={employee.phone || 'Not specified'}
+          icon={faPhoneFlip}
+        />
+        <InfoComponent
+          value={employee.gitHub || 'Not specified'}
+          icon={faGithub}
+        />
+        <InfoComponent
+          value={employee.gitLab || 'Not specified'}
+          icon={faGitlab}
+        />
+        <div className="profile-info__buttons">
+          <Button
+            type="button"
+            className="profile-bt"
+            onClick={() => { history('/profile/edit'); }}
+          >
+            Edit
+          </Button>
+        </div>
       </div>
-    </ContentCard>
+    </div>
   );
+
+  async function loadEmployeesAsync() {
+    const { data } = await api.get<Employee>('employees/get-profile');
+    setEmployee(data);
+  }
 }
 
 export default ProfilePage;
