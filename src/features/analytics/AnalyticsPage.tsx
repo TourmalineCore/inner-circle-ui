@@ -268,7 +268,7 @@ function AnalyticsPage() {
         return (
           <RedactComponent
             value={`${profitAbility.toFixed(2)}%`}
-            valueDelta={profitAbilityDelta}
+            valueDelta={profitAbilityDelta ? Number(profitAbilityDelta.toFixed(2)) : undefined}
           />
         );
       },
@@ -609,11 +609,16 @@ function AnalyticsPage() {
 
   async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
+    const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
-      const index = employees.indexOf(copyEmployee);
-      const newEmployees = employees.slice();
-      newEmployees.splice(index, 1);
+      let newEmployees = employees.slice();
+      newEmployees.splice(employees.indexOf(copyEmployee), 1);
       setEmployees(newEmployees);
+
+      newEmployees = initialEmployees.slice();
+      newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
+
+      setInitialEmployees(newEmployees);
     }
   }
 
