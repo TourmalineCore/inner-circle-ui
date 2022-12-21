@@ -21,6 +21,7 @@ function SidebarItem({
   icon,
   iconMini,
   label,
+  windowPath,
   path,
   isActive,
   counter,
@@ -37,6 +38,7 @@ function SidebarItem({
   icon?: IconProp;
   iconMini?: IconProp;
   label: string;
+  windowPath?: string;
   path?: string;
   isActive?: boolean;
   counter?: string;
@@ -54,8 +56,13 @@ function SidebarItem({
   const [isHovered, setIsHovered] = useState(false);
 
   const TagName = getProperTagName();
+
   const linkProps = {
     to: path,
+  };
+
+  const windowLinkProps = {
+    href: windowPath,
   };
 
   return (
@@ -70,6 +77,7 @@ function SidebarItem({
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
         {...linkProps}
+        {...windowLinkProps}
       >
         {icon && (
           <span className="sidebar-item__icon-container">
@@ -154,6 +162,10 @@ function SidebarItem({
 
     if (path) {
       resultTagName = Link;
+    }
+
+    if (windowPath) {
+      resultTagName = 'a';
     }
 
     if (hasNestedElements) {
