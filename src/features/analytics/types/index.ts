@@ -67,7 +67,17 @@ export type IndicatorsType = {
     reserveForQuarter: number,
     reserveForHalfYear: number,
     reserveForYear: number
-  }
+  },
+  workingDays: {
+    workingDaysInYear: number,
+    workingDaysInYearWithoutVacation: number,
+    workingDaysInYearWithoutVacationAndSick: number,
+    workingDaysInMonth: number,
+    workingHoursInMonth: number
+  },
+  incomeTaxPercent: number,
+  districtCoefficient: number,
+  minimumWage: number
 };
 
 export type IndicatorType = {

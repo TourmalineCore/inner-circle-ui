@@ -1,8 +1,10 @@
 .absolute-component,
-.marker-list {
+.marker-list,
+.single-component,
+.list-component {
   position: relative;
   border-radius: 10px;
-  width: 32%;
+  width: 100%;
   height: auto;
   box-shadow: 0 0 43px rgb(24 14 54 / 20%);
   background: #fff;
@@ -61,6 +63,24 @@
   margin-bottom: 32.33px;
 }
 
+.single-component {
+  border-radius: 20px;
+  padding: 25px 0 25px 32px;
+  box-shadow: 0 0 107.5px rgb(24 14 54 / 10%);
+}
+
+.list-component {
+  display: flex;
+  flex-direction: column;
+  padding: 106px 32px 49px;
+}
+
+.list-component__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
 .component-value__big {
   font-weight: 500;
   font-size: 36px;
@@ -111,14 +131,35 @@
 }
 
 .icon-calendar {
-  background-image: url("../../../../assets/icons/indicator-calendar.svg"), url("../../../../assets/icons/ellipse-right.svg");
-  background-position: right 25px top 20px, right top;
+  background-image: url("../../../../assets/icons/indicator-calendar.svg"), url("../../../../assets/icons/ellipse-left.svg");
+  background-position: left 25px top 20px, left top;
   background-size: 40px, 120px;
   background-repeat: no-repeat;
 }
 
 .icon-expense {
   background-image: url("../../../../assets/icons/indicator-expense.svg"), url("../../../../assets/icons/ellipse-right.svg");
+  background-position: right 25px top 20px, right top;
+  background-size: 40px, 120px;
+  background-repeat: no-repeat;
+}
+
+.icon-district {
+  background-image: url("../../../../assets/icons/indicator-district.svg"), url("../../../../assets/icons/ellipse-right.svg");
+  background-position: right 25px top 20px, right top;
+  background-size: 40px, 120px;
+  background-repeat: no-repeat;
+}
+
+.icon-tax {
+  background-image: url("../../../../assets/icons/indicator-tax.svg"), url("../../../../assets/icons/ellipse-right.svg");
+  background-position: right 25px top 20px, right top;
+  background-size: 40px, 120px;
+  background-repeat: no-repeat;
+}
+
+.icon-wage {
+  background-image: url("../../../../assets/icons/indicator-wage.svg"), url("../../../../assets/icons/ellipse-right.svg");
   background-position: right 25px top 20px, right top;
   background-size: 40px, 120px;
   background-repeat: no-repeat;

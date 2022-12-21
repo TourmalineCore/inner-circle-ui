@@ -8,6 +8,8 @@ import { formatMoney } from '../../../../common/utils/formatMoney';
 import MarkerListComponent from '../IndicatorComponent/MarkerListComponent';
 
 import './Indicators.css';
+import SingleComponent from '../IndicatorComponent/SingleComponent';
+import ListComponent from '../IndicatorComponent/ListComponent';
 
 function Indicators() {
   const [indicators, setIndicators] = useState<IndicatorsType>({
@@ -26,6 +28,16 @@ function Indicators() {
       reserveForHalfYear: 0,
       reserveForYear: 0,
     },
+    workingDays: {
+      workingDaysInYear: 0,
+      workingDaysInYearWithoutVacation: 0,
+      workingDaysInYearWithoutVacationAndSick: 0,
+      workingDaysInMonth: 0,
+      workingHoursInMonth: 0,
+    },
+    incomeTaxPercent: 0,
+    districtCoefficient: 0,
+    minimumWage: 0,
   });
 
   useEffect(() => {
@@ -58,11 +70,35 @@ function Indicators() {
           ]}
           icon="icon-desired"
         />
+        <ListComponent
+          values={[
+            { label: 'Working days per year:', value: indicators.workingDays.workingDaysInYear.toString() },
+            { label: 'Vacation (days):', value: indicators.workingDays.workingDaysInYearWithoutVacation.toString() },
+            { label: 'Sick leave (days):', value: indicators.workingDays.workingDaysInYearWithoutVacationAndSick.toString() },
+            { label: 'Working days per month (avg.):', value: indicators.workingDays.workingDaysInMonth.toString() },
+            { label: 'Hours per month (avg.):', value: indicators.workingDays.workingHoursInMonth.toString() },
+          ]}
+          icon="icon-calendar"
+        />
         <AbsoluteDuoComponent
           sumValue={{ label: 'Total expense (month)', value: formatMoney(indicators.totalExpenses.totalExpense) }}
           leftValue={{ label: 'Salary', value: formatMoney(indicators.totalExpenses.payrollExpense) }}
           rightValue={{ label: 'Office', value: formatMoney(indicators.totalExpenses.officeExpense) }}
           icon="icon-expense"
+        />
+        <div className="indicators-double__components">
+          <SingleComponent
+            value={{ label: 'District coefficient', value: `${indicators.districtCoefficient} %` }}
+            icon="icon-district"
+          />
+          <SingleComponent
+            value={{ label: 'Income tax', value: `${indicators.incomeTaxPercent} %` }}
+            icon="icon-tax"
+          />
+        </div>
+        <SingleComponent
+          value={{ label: 'Minimum Wage', value: formatMoney(indicators.minimumWage) }}
+          icon="icon-wage"
         />
       </div>
     </ContentCard>
@@ -70,7 +106,6 @@ function Indicators() {
 
   async function getTotalIndicatorsAsync() {
     const { data } = await api.get<IndicatorsType>('finance/get-total-finance');
-
     setIndicators(data);
   }
 }
