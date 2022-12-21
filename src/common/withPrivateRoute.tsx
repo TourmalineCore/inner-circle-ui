@@ -2,7 +2,7 @@ import {
   FunctionComponent, useContext, useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../common/authService';
+import { authService } from './authService';
 
 export const withPrivateRoute = <Type extends Record<string, unknown>>(ComposedComponent: FunctionComponent<Type>) => {
   return function RequireAuthentication(props: Type) {
