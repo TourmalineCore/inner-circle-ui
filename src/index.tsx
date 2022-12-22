@@ -17,18 +17,24 @@ import App from './App';
 
 import { ThemeProvider } from './theme/themeContext';
 import { authService } from './common/authService';
+import { refreshTokenAndSubscribe } from './common/api/refreshByInterval';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <authService.AuthProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </authService.AuthProvider>
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+async function initApp() {
+  await refreshTokenAndSubscribe();
 
+  ReactDOM.render(
+    <React.StrictMode>
+      <authService.AuthProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </authService.AuthProvider>
+    </React.StrictMode>,
+    document.getElementById('root'),
+  );
+}
+
+initApp();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
