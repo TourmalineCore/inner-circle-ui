@@ -20,8 +20,8 @@ spec:
         {{- end }}
     spec:
       containers:
-      - image: {{ template "inner-circle-ui.image-url" . }}
-        imagePullPolicy: Always
+      - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ template "chart.fullname" . }}
         envFrom:
         - configMapRef:
