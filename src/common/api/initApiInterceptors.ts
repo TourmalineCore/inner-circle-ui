@@ -22,8 +22,11 @@ export function initApiInterceptors(api: any) {
       response: { status } = {},
     } = error;
 
+    if (status === 401) {
+      return authService.setLoggedOut();
+    }
+
     if (status !== 401) {
-      authService.setLoggedOut();
       return Promise.reject(error);
     }
 
