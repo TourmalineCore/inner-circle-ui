@@ -539,7 +539,6 @@ function AnalyticsPage() {
           renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
           enableTableStatePersistance
           maxStillMobileBreakpoint={800}
-          isStriped
           actions={[
             {
               name: 'dublicate-row-action',

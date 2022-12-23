@@ -63,7 +63,6 @@ function EmployeesPage() {
             renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
-            isStriped
             actions={[
               {
                 name: 'edit-row-action',
@@ -168,7 +167,6 @@ function EmployeesPage() {
             renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
-            isStriped
             actions={[
               {
                 name: 'edit-row-action',
