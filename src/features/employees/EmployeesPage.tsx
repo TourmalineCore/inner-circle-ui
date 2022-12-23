@@ -34,9 +34,10 @@ type Table<TypeProps> = {
 };
 
 function EmployeesPage() {
-  const navigate = useNavigate();
   const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
   const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesDtoType[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -70,7 +71,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
-                  navigate(`/employees/edit-contact&${Number(row.original.id)}`);
+                  navigate(`/employees/edit-contact/${row.original.id}`);
                 },
               },
               {
@@ -175,7 +176,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
-                  navigate(`/employees/edit-salary&${Number(row.original.id)}`);
+                  navigate(`/employees/edit-salary/${Number(row.original.id)}`);
                 },
               },
             ]}
