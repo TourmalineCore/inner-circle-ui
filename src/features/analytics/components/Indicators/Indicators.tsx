@@ -3,13 +3,12 @@ import { api } from '../../../../common/api';
 import ContentCard from '../../../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
 import { IndicatorsType } from '../../types';
-import AbsoluteDuoComponent from '../IndicatorComponent/AbsoluteDuoComponent';
 import { formatMoney } from '../../../../common/utils/formatMoney';
-import MarkerListComponent from '../IndicatorComponent/MarkerListComponent';
+
+import IndicatorComponent from '../IndicatorComponent/IndicatorComponent';
+import IndicatorValue from '../IndicatorValue/IndicatorValue';
 
 import './Indicators.css';
-import SingleComponent from '../IndicatorComponent/SingleComponent';
-import ListComponent from '../IndicatorComponent/ListComponent';
 
 function Indicators() {
   const [indicators, setIndicators] = useState<IndicatorsType>({
@@ -52,54 +51,48 @@ function Indicators() {
       )}
     >
       <div className="indicators">
-        <MarkerListComponent
-          header="Reserve for the"
-          valuse={[
-            { label: 'Quarter', value: formatMoney(indicators.reserveFinance.reserveForQuarter) },
-            { label: 'Half a year', value: formatMoney(indicators.reserveFinance.reserveForHalfYear) },
-            { label: 'Year', value: formatMoney(indicators.reserveFinance.reserveForYear) },
-          ]}
-          icon="icon-reverse"
-        />
-        <MarkerListComponent
-          header="Desired"
-          valuse={[
-            { label: 'Income', value: formatMoney(indicators.desiredFinancialMetrics.desiredIncome) },
-            { label: 'Profit', value: formatMoney(indicators.desiredFinancialMetrics.desiredProfit) },
-            { label: 'Profitability', value: formatMoney(indicators.desiredFinancialMetrics.desiredProfitability) },
-          ]}
-          icon="icon-desired"
-        />
-        <ListComponent
-          values={[
-            { label: 'Working days per year:', value: indicators.workingDays.workingDaysInYear.toString() },
-            { label: 'Vacation (days):', value: indicators.workingDays.workingDaysInYearWithoutVacation.toString() },
-            { label: 'Sick leave (days):', value: indicators.workingDays.workingDaysInYearWithoutVacationAndSick.toString() },
-            { label: 'Working days per month (avg.):', value: indicators.workingDays.workingDaysInMonth.toString() },
-            { label: 'Hours per month (avg.):', value: indicators.workingDays.workingHoursInMonth.toString() },
-          ]}
-          icon="icon-calendar"
-        />
-        <AbsoluteDuoComponent
-          sumValue={{ label: 'Total expense (month)', value: formatMoney(indicators.totalExpenses.totalExpense) }}
-          leftValue={{ label: 'Salary', value: formatMoney(indicators.totalExpenses.payrollExpense) }}
-          rightValue={{ label: 'Office', value: formatMoney(indicators.totalExpenses.officeExpense) }}
-          icon="icon-expense"
-        />
+
+        <IndicatorComponent head="Reserve for the">
+          <IndicatorValue label={<li>Quarter</li>} value={formatMoney(indicators.reserveFinance.reserveForQuarter)} />
+          <IndicatorValue label={<li>Half a year</li>} value={formatMoney(indicators.reserveFinance.reserveForHalfYear)} />
+          <IndicatorValue label={<li>Year</li>} value={formatMoney(indicators.reserveFinance.reserveForYear)} />
+        </IndicatorComponent>
+
+        <IndicatorComponent head="Desired">
+          <IndicatorValue label={<li>Income</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredIncome)} />
+          <IndicatorValue label={<li>Profit</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredProfit)} />
+          <IndicatorValue label={<li>Profitability</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredProfitability)} />
+        </IndicatorComponent>
+
+        <IndicatorComponent>
+          <IndicatorValue label="Working days per year:" value={indicators.workingDays.workingDaysInYear.toString()} />
+          <IndicatorValue label={<li>Vacation (days):</li>} value={indicators.workingDays.workingDaysInYearWithoutVacation.toString()} />
+          <IndicatorValue label={<li>Sick leave (days):</li>} value={indicators.workingDays.workingDaysInYearWithoutVacationAndSick.toString()} />
+          <IndicatorValue label="Working days per month (avg.):" value={indicators.workingDays.workingDaysInMonth.toString()} />
+          <IndicatorValue label="Hours per month (avg.):" value={indicators.workingDays.workingHoursInMonth.toString()} />
+        </IndicatorComponent>
+
+        <IndicatorComponent>
+          <IndicatorValue isColumn label="Total expense (month)" value={formatMoney(indicators.totalExpenses.totalExpense)} />
+          <div style={{ display: 'flex' }}>
+            <IndicatorValue isColumn label="Salary" value={formatMoney(indicators.totalExpenses.payrollExpense)} />
+            <IndicatorValue isColumn label="Office" value={formatMoney(indicators.totalExpenses.officeExpense)} />
+          </div>
+        </IndicatorComponent>
+
         <div className="indicators-double__components">
-          <SingleComponent
-            value={{ label: 'District coefficient', value: `${indicators.districtCoefficient} %` }}
-            icon="icon-district"
-          />
-          <SingleComponent
-            value={{ label: 'Income tax', value: `${indicators.incomeTaxPercent} %` }}
-            icon="icon-tax"
-          />
+          <IndicatorComponent isLite>
+            <IndicatorValue isColumn label="District coefficient" value={`${indicators.districtCoefficient * 100} %`} />
+          </IndicatorComponent>
+          <IndicatorComponent isLite>
+            <IndicatorValue isColumn label="Income tax" value={`${indicators.incomeTaxPercent * 100} %`} />
+          </IndicatorComponent>
         </div>
-        <SingleComponent
-          value={{ label: 'Minimum Wage', value: formatMoney(indicators.minimumWage) }}
-          icon="icon-wage"
-        />
+
+        <IndicatorComponent isLite>
+          <IndicatorValue isColumn label="Minimum Wage" value={formatMoney(indicators.minimumWage)} />
+        </IndicatorComponent>
+
       </div>
     </ContentCard>
   );

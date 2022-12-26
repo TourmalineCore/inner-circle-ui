@@ -35,7 +35,7 @@
 .marker-list__head {
   margin-bottom: 24.17px;
   font-weight: 500;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 .marker-list__info {
@@ -83,25 +83,25 @@
 
 .component-value__big {
   font-weight: 500;
-  font-size: 36px;
+  font-size: 20px;
   color: #000;
 }
 
 .component-value__min {
-  font-weight: 500;
-  font-size: 26px;
+  font-weight: 400;
+  font-size: 20px;
   color: #000;
 }
 
 .component-signature__big {
   font-weight: 500;
-  font-size: 26px;
+  font-size: 20px;
   color: #838383;
 }
 
 .component-signature__min {
   margin-bottom: 12px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 20px;
   color: #838383;
 }
