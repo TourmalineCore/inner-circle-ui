@@ -4,7 +4,7 @@ import AnalyticsPage from './AnalyticsPage';
 
 export const analyticsRoutes = [
   {
-    path: '/analytics',
+    path: '/',
     breadcrumb: 'Analytics',
     Component: AnalyticsPage,
   },
@@ -12,7 +12,7 @@ export const analyticsRoutes = [
 
 export const analyticsSidebarRoutes = [
   {
-    path: '/analytics',
+    path: '/',
     label: 'Analytics',
     icon: faMoneyCheck,
   },

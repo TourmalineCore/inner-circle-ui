@@ -541,9 +541,9 @@ function AnalyticsPage() {
           maxStillMobileBreakpoint={800}
           actions={[
             {
-              name: 'dublicate-row-action',
+              name: 'duplicate-row-action',
               show: () => true,
-              renderText: () => 'Dublicate',
+              renderText: () => 'Duplicate',
               onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
                 const { original } = row;
                 dublicateEmployee(original);
