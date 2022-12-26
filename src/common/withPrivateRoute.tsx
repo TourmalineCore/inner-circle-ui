@@ -3,9 +3,9 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from './authService';
-import { ENV_KEY } from './config/config';
+// import { ENV_KEY } from './config/config';
 
-const isProduction = ENV_KEY !== 'local';
+// const isProduction = ENV_KEY !== 'local';
 
 export const withPrivateRoute = <Type extends Record<string, unknown>>(ComposedComponent: FunctionComponent<Type>) => function RequireAuthentication(props: Type) {
   // @ts-ignore
@@ -15,11 +15,12 @@ export const withPrivateRoute = <Type extends Record<string, unknown>>(ComposedC
 
   useEffect(() => {
     if (!token) {
-      if (isProduction) {
-        window.location.href = '/auth';
-      } else {
-        navigation('/auth');
-      }
+      // if (isProduction) {
+      //   window.location.href = '/auth';
+      // } else {
+      //   navigation('/auth');
+      // }
+      navigation('/auth');
     }
   }, [token]);
 
