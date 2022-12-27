@@ -1,6 +1,5 @@
 .indicators {
   display: flex;
-  align-items: flex-start;
   flex-wrap: wrap;
   font-family: Montserrat, sans-serif;
 }
