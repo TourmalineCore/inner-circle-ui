@@ -7,6 +7,7 @@ import { Employee, EmployeeUpdateType } from '../../types/Profile';
 import { api } from '../../../../common/api';
 import '../../../analytics/components/RedactComponent/RedactComponent.css';
 import InfoComponent from '../InfoComponent/InfoComponent';
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -86,9 +87,10 @@ function ProfileEdit() {
     </div>
   );
   async function loadEmployeesAsync() {
-    const { data } = await api.get<Employee>('employees/get-profile');
+    const { data } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`);
     setEmployee(data);
   }
+
   async function updateEmployeesAsync() {
     const fullName = employee.fullName.split(' ');
     const updateEmployee : EmployeeUpdateType = {
