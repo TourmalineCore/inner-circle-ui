@@ -1,0 +1,39 @@
+$fontSize: 20px;
+$fontSizeMobile: 16px;
+
+@media screen and (max-width: 970px) {
+  $fontSize: 16px;
+}
+
+.indicator-value {
+  display: flex;
+  justify-content: space-between;
+
+  &__label {
+    font-size: $fontSize;
+    color: #838383;
+  }
+
+  &__info {
+    font-size: $fontSize;
+    color: #000;
+  }
+
+  @media screen and (max-width: 970px) {
+    &__label {
+      font-size: $fontSizeMobile;
+    }
+
+    &__info {
+      font-size: $fontSizeMobile;
+    }
+  }
+}
+
+.direction-column {
+  flex-direction: column;
+
+  & div.indicator-value__label:first-child {
+    margin-bottom: 16px;
+  }
+}

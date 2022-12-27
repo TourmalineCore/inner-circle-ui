@@ -51,3 +51,36 @@ export type GetPreviewType = {
   netSalary: number,
   netSalaryDelta?: number
 };
+
+export type IndicatorsType = {
+  totalExpenses: {
+    payrollExpense: number,
+    officeExpense: number,
+    totalExpense: number
+  },
+  desiredFinancialMetrics: {
+    desiredIncome: number,
+    desiredProfit: number,
+    desiredProfitability: number
+  },
+  reserveFinance: {
+    reserveForQuarter: number,
+    reserveForHalfYear: number,
+    reserveForYear: number
+  },
+  workingDays: {
+    workingDaysInYear: number,
+    workingDaysInYearWithoutVacation: number,
+    workingDaysInYearWithoutVacationAndSick: number,
+    workingDaysInMonth: number,
+    workingHoursInMonth: number
+  },
+  incomeTaxPercent: number,
+  districtCoefficient: number,
+  minimumWage: number
+};
+
+export type IndicatorType = {
+  label: string,
+  value: string,
+};

@@ -68,7 +68,6 @@ function ProfilePage() {
 
   async function loadEmployeesAsync() {
     const { data } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`);
-
     setEmployee(data);
   }
 }

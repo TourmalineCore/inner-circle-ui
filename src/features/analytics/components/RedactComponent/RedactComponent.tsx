@@ -52,6 +52,7 @@ function RedactComponent({
       inputRef.current?.blur();
       onAccept();
     }
+
     if (event.key === 'Escape') {
       event.preventDefault();
       inputRef.current?.blur();
