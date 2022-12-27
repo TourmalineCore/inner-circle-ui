@@ -52,13 +52,13 @@ function Indicators() {
     >
       <div className="indicators">
 
-        <IndicatorComponent head="Reserve for the">
+        <IndicatorComponent head="Reserve for the" style={{ paddingTop: 50, paddingBottom: 40 }}>
           <IndicatorValue label={<li>Quarter</li>} value={formatMoney(indicators.reserveFinance.reserveForQuarter)} />
           <IndicatorValue label={<li>Half a year</li>} value={formatMoney(indicators.reserveFinance.reserveForHalfYear)} />
           <IndicatorValue label={<li>Year</li>} value={formatMoney(indicators.reserveFinance.reserveForYear)} />
         </IndicatorComponent>
 
-        <IndicatorComponent head="Desired">
+        <IndicatorComponent head="Desired" style={{ paddingTop: 50, paddingBottom: 40 }}>
           <IndicatorValue label={<li>Income</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredIncome)} />
           <IndicatorValue label={<li>Profit</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredProfit)} />
           <IndicatorValue label={<li>Profitability</li>} value={formatMoney(indicators.desiredFinancialMetrics.desiredProfitability)} />
@@ -72,7 +72,7 @@ function Indicators() {
           <IndicatorValue label="Hours per month (avg.):" value={indicators.workingDays.workingHoursInMonth.toString()} />
         </IndicatorComponent>
 
-        <IndicatorComponent>
+        <IndicatorComponent style={{ paddingTop: 50, paddingBottom: 40 }}>
           <IndicatorValue isColumn label="Total expense (month)" value={formatMoney(indicators.totalExpenses.totalExpense)} />
           <div className="indicators-absolute__components">
             <IndicatorValue isColumn label="Salary" value={formatMoney(indicators.totalExpenses.payrollExpense)} />
