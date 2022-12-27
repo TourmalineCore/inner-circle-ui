@@ -74,7 +74,7 @@ function Indicators() {
 
         <IndicatorComponent>
           <IndicatorValue isColumn label="Total expense (month)" value={formatMoney(indicators.totalExpenses.totalExpense)} />
-          <div className="indicators-absolute__components" style={{ display: 'flex' }}>
+          <div className="indicators-absolute__components">
             <IndicatorValue isColumn label="Salary" value={formatMoney(indicators.totalExpenses.payrollExpense)} />
             <IndicatorValue isColumn label="Office" value={formatMoney(indicators.totalExpenses.officeExpense)} />
           </div>
