@@ -24,6 +24,14 @@
   margin-bottom: 25px;
 }
 
+.indicators-absolute__components {
+  display: flex;
+}
+
+.indicators-absolute__components > div:first-child {
+  margin-right: 20px;
+}
+
 @media screen and (max-width: 1960px) {
   .indicators > div:nth-child(n) {
     margin-top: 34px;
