@@ -9,7 +9,17 @@ ReCaptchaOptions:
   SiteKey: # secret
   Enabled: true
 
+image:
+  repository: ghcr.io/tourmalinecore/inner-circle/dev-inner-circle-ui
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag:
+
 imageCredentials:
   registry: ghcr.io
   username: # secret
   password: # secret
+
+apiLinks:
+  LINK_TO_SALARY_SERVICE: /salary/
+  LINK_TO_ACCOUNT_SERVICE: /account/

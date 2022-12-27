@@ -22,6 +22,7 @@ import {
 
 import { formatMoney } from '../../common/utils/formatMoney';
 import { api } from '../../common/api';
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 
 type Row<Type> = {
   original: Type
@@ -33,9 +34,10 @@ type Table<TypeProps> = {
 };
 
 function EmployeesPage() {
-  const navigate = useNavigate();
   const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
   const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesDtoType[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -61,7 +63,6 @@ function EmployeesPage() {
             renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
-            isStriped
             actions={[
               {
                 name: 'edit-row-action',
@@ -69,7 +70,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
-                  navigate(`/employees/edit-contact&${Number(row.original.id)}`);
+                  navigate(`/employees/edit-contact/${row.original.id}`);
                 },
               },
               {
@@ -166,7 +167,6 @@ function EmployeesPage() {
             renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={1200}
-            isStriped
             actions={[
               {
                 name: 'edit-row-action',
@@ -174,7 +174,7 @@ function EmployeesPage() {
                 renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
                 renderText: () => 'Edit',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
-                  navigate(`/employees/edit-salary&${Number(row.original.id)}`);
+                  navigate(`/employees/edit-salary/${Number(row.original.id)}`);
                 },
               },
             ]}
@@ -245,7 +245,7 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleaguesType>('employees/get-colleagues');
+    const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
     setEmployeesContact(data.colleagueContacts);
     setEmployeesSalary(data.colleagueFinancesDto);
   }
@@ -255,7 +255,7 @@ function EmployeesPage() {
     const isDelete = confirm('Удалить сотрудника?');
 
     if (isDelete) {
-      await api.delete(`employees/delete/${id}`);
+      await api.delete(`${LINK_TO_SALARY_SERVICE}employees/delete/${id}`);
       await loadEmployeesAsync();
     }
   }

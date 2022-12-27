@@ -1,0 +1,4 @@
+ENV_KEY:local
+API_ROOT:http://localhost:5000/api
+LINK_TO_SALARY_SERVICE:/
+LINK_TO_ACCOUNT_SERVICE:/

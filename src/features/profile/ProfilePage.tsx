@@ -5,6 +5,7 @@ import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import faGithub from '../../assets/icons/faGithub.svg';
 import faGitlab from '../../assets/icons/faGitlab.svg';
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
 import InfoComponent from './components/InfoComponent/InfoComponent';
@@ -66,7 +67,7 @@ function ProfilePage() {
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<Employee>('employees/get-profile');
+    const { data } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`);
     setEmployee(data);
   }
 }

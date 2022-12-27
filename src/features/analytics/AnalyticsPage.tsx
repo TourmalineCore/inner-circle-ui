@@ -7,7 +7,9 @@ import React, {
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
+
 import { formatMoney } from '../../common/utils/formatMoney';
 import {
   GetPreviewType,
@@ -18,8 +20,8 @@ import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import RedactComponent from './components/RedactComponent/RedactComponent';
 
-import './AnalyticsPage.css';
 import Indicators from './components/Indicators/Indicators';
+import './AnalyticsPage.css';
 
 type Row<TypeProps> = {
   original: TypeProps
@@ -63,12 +65,14 @@ const employeeTypeData = {
 
 function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [initialEmployees, setInitialEmployees] = useState<(GetPreviewType)[]>([]);
   const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
+
   const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
@@ -266,8 +270,8 @@ function AnalyticsPage() {
 
         return (
           <RedactComponent
-            value={`${profitAbility}%`}
-            valueDelta={profitAbilityDelta}
+            value={`${profitAbility.toFixed(2)}%`}
+            valueDelta={profitAbilityDelta ? Number(profitAbilityDelta.toFixed(2)) : undefined}
           />
         );
       },
@@ -537,19 +541,18 @@ function AnalyticsPage() {
             renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
             enableTableStatePersistance
             maxStillMobileBreakpoint={800}
-            isStriped
             actions={[
               {
-                name: 'edit-row-action',
+                name: 'duplicate-row-action',
                 show: () => true,
-                renderText: () => 'Dublicate',
+                renderText: () => 'Duplicate',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
                   const { original } = row;
                   dublicateEmployee(original);
                 },
               },
               {
-                name: 'edit-row-action',
+                name: 'delete-row-action',
                 show: () => true,
                 renderText: () => 'Delete',
                 onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
@@ -558,6 +561,7 @@ function AnalyticsPage() {
             columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
           />
         </div>
+
       </ContentCard>
       <Indicators />
     </>
@@ -602,29 +606,57 @@ function AnalyticsPage() {
     update = {
       ...update,
       id: `${data.id}_dublicate`,
+      fullName: `(Copy)\n ${update.fullName}`,
     };
 
     setEmployees([...employees, update]);
+    setInitialEmployees([...initialEmployees, update]);
   }
 
   async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
+    const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
     if (copyEmployee) {
-      const index = employees.indexOf(copyEmployee);
-      const newEmployees = employees.slice();
-      newEmployees.splice(index, 1);
+      let newEmployees = employees.slice();
+      newEmployees.splice(employees.indexOf(copyEmployee), 1);
       setEmployees(newEmployees);
+
+      newEmployees = initialEmployees.slice();
+      newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
+
+      setInitialEmployees(newEmployees);
     }
   }
 
+  function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
+    let update: GetPreviewType = newData;
+
+    for (const el of Object.keys(oldData)) {
+      if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
+        update = {
+          ...update,
+          [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
+        };
+      } else {
+        update = {
+          ...update,
+          [el]: newData[el as keyof GetPreviewType],
+        };
+      }
+    }
+
+    return update;
+  }
+
   async function updateEmployeesAsync(employee: PutPreviewType) {
-    const { data } = await api.post<GetPreviewType>('finance/get-preview', employee);
+    const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
 
     const index = employees.find((el) => el.id === employee.employeeId);
+    const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
 
     if (index) {
       const newemp = employees.slice();
-      newemp[newemp.indexOf(index)] = data;
+      newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
       setEmployees(newemp);
     }
   }
@@ -633,9 +665,10 @@ function AnalyticsPage() {
     setIsLoading(true);
 
     try {
-      const { data } = await api.get<GetPreviewType[]>('finance/get-analytic');
+      const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
 
       setEmployees(data);
+      setInitialEmployees(data);
       setIsLoading(false);
     } catch {
       setIsLoading(false);
