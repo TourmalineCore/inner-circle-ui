@@ -9,6 +9,7 @@ import IndicatorComponent from '../IndicatorComponent/IndicatorComponent';
 import IndicatorValue from '../IndicatorValue/IndicatorValue';
 
 import './Indicators.css';
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function Indicators() {
   const [indicators, setIndicators] = useState<IndicatorsType>({
@@ -98,7 +99,7 @@ function Indicators() {
   );
 
   async function getTotalIndicatorsAsync() {
-    const { data } = await api.get<IndicatorsType>('finance/get-total-finance');
+    const { data } = await api.get<IndicatorsType>(`${LINK_TO_SALARY_SERVICE}finance/get-total-finance`);
     setIndicators(data);
   }
 }
