@@ -12,7 +12,7 @@ function Copyright() {
         Tourmaline Core
       </a>
       {' '}
-      2020
+      2022
     </div>
   );
 }
