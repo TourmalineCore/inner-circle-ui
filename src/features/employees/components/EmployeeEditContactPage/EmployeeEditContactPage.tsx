@@ -41,8 +41,8 @@ function EmployeeEditContactPage() {
 
   return (
     <div className="employee">
-      <div className="employee-data">
-        <div className="employee-data__rows">
+      <div className="employee__data">
+        <div className="employee__row">
           <Input
             name="name"
             value={employee.name}
@@ -62,8 +62,8 @@ function EmployeeEditContactPage() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="employee-data__columns">
-          <div className="employee-data__rows">
+        <div className="employee__column">
+          <div className="employee__row">
             <Input
               name="corporateEmail"
               value={employee.corporateEmail}
@@ -84,7 +84,7 @@ function EmployeeEditContactPage() {
             label="Phone"
             onChange={handleFormChange}
           />
-          <div className="employee-data__rows">
+          <div className="employee__row">
             <div className="input-signature">@</div>
             <Input
               name="gitHub"
@@ -93,7 +93,7 @@ function EmployeeEditContactPage() {
               onChange={handleFormChange}
             />
           </div>
-          <div className="employee-data__rows">
+          <div className="employee__row">
             <div className="input-signature">@</div>
             <Input
               name="gitLab"
@@ -104,7 +104,7 @@ function EmployeeEditContactPage() {
           </div>
         </div>
       </div>
-      <div className="employee-buttons">
+      <div className="employee__buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}
@@ -145,8 +145,8 @@ function EmployeeEditContactPage() {
         ...employee,
         corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
         phone: employee.phone || null,
-        gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
-        gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
+        gitHub: employee.gitHub ? `${employee.gitHub}` : null,
+        gitLab: employee.gitLab ? `${employee.gitLab}` : null,
       },
     );
 
