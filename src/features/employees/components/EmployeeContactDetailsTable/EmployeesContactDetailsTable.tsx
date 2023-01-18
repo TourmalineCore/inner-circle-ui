@@ -49,7 +49,7 @@ function EmployeesContactDetailsTable({
           renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
           renderText: () => 'Edit',
           onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
-            navigate(`/employees/edit-contact/${row.original.id}`);
+            navigate(`/employees/${row.original.id}`);
           },
         },
         {

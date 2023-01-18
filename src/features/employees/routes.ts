@@ -17,12 +17,12 @@ export const employeesRoutes = [
     Component: EmployeeAddPage,
   },
   {
-    path: '/employees/edit-contact/:id',
+    path: '/employees/:id',
     breadcrumb: 'Edit contact details',
     Component: EmployeeEditContactPage,
   },
   {
-    path: '/employees/edit-salary/:id',
+    path: '/employees/:id',
     breadcrumb: 'Edit salary data',
     Component: EmployeeEditSalaryPage,
   },
