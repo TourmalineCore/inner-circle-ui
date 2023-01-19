@@ -133,8 +133,8 @@ function EmployeeEditContactPage() {
       personalEmail: data.personalEmail,
       corporateEmail: data.corporateEmail.split('@')[0],
       phone: data.phone,
-      gitHub: data.gitHub ? data.gitHub?.split('@')[1] : '',
-      gitLab: data.gitLab ? data.gitLab?.split('@')[1] : '',
+      gitHub: data.gitHub ? data.gitHub : '',
+      gitLab: data.gitLab ? data.gitLab : '',
     });
   }
 
