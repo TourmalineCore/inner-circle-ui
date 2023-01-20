@@ -39,11 +39,11 @@ function EmployeeEditSalaryPage() {
 
   return (
     <div className="employee">
-      <div className="employee-info">
-        <h3>{employee.fullName}</h3>
-      </div>
-      <div className="employee-data">
-        <div className="employee-data__columns">
+      <h3 className="employee__title">
+        {employee.fullName}
+      </h3>
+      <div className="employee__data">
+        <div className="employee__column">
           <Input
             name="ratePerHour"
             value={employee.ratePerHour}
@@ -67,7 +67,6 @@ function EmployeeEditSalaryPage() {
                 employmentType: option.value,
               });
             }}
-            style={{ maxWidth: 300, width: 250, marginTop: 0 }}
           />
           <Input
             name="parking"
@@ -77,7 +76,7 @@ function EmployeeEditSalaryPage() {
           />
         </div>
       </div>
-      <div className="employee-buttons">
+      <div className="employee__buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}

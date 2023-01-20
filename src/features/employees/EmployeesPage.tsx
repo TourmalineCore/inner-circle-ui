@@ -1,37 +1,19 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import {
-  useState,
-  useEffect,
-  MouseEventHandler,
-} from 'react';
+import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-
-import ContentCard from '../../components/ContentCard/ContentCard';
-import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
-import {
-  ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType, EmployeeTypeSwitch,
-} from './types/index';
-
-import { formatMoney } from '../../common/utils/formatMoney';
 import { api } from '../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 
-type Row<Type> = {
-  original: Type
-};
-type Table<TypeProps> = {
-  row: {
-    original: TypeProps;
-  }
-};
+import ContentCard from '../../components/ContentCard/ContentCard';
+import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
+
+import EmployeesContactDetailsTable from './components/EmployeeContactDetailsTable/EmployeesContactDetailsTable';
+import EmployeesSalaryDataTable from './components/EmployeeSalaryDataTable/EmployeesSalaryDataTable';
+import { ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType } from './types';
 
 function EmployeesPage() {
   const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
@@ -53,92 +35,9 @@ function EmployeesPage() {
         )}
       >
         <div style={{ paddingTop: 4 }}>
-          <ClientTable
-            tableId="tc-story-bonus-table"
-            data={employeesContact}
-            order={{
-              id: 'weightForSorting',
-              desc: true,
-            }}
-            renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
-            enableTableStatePersistance
-            maxStillMobileBreakpoint={1200}
-            actions={[
-              {
-                name: 'edit-row-action',
-                show: () => true,
-                renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
-                renderText: () => 'Edit',
-                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
-                  navigate(`/employees/edit-contact/${row.original.id}`);
-                },
-              },
-              {
-                name: 'edit-row-action',
-                show: () => true,
-                renderIcon: () => <FontAwesomeIcon icon={faTrash} />,
-                renderText: () => 'Delete',
-                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
-                  deleteEmployeesAsync(row.original.id);
-                },
-              },
-            ]}
-            columns={[
-              {
-                Header: 'Employee',
-                accessor: 'fullName',
-                // Use our custom `fuzzyText` filter on this column
-                filter: 'fuzzyText',
-                nonMobileColumn: true,
-                principalFilterableColumn: true,
-              },
-              {
-                Header: 'Corporate Email',
-                accessor: 'corporateEmail',
-                disableFilters: true,
-                disableSortBy: true,
-                minWidth: 250,
-              },
-              {
-                Header: 'Personal Email',
-                accessor: 'personalEmail',
-                disableFilters: true,
-                disableSortBy: true,
-              },
-              {
-                Header: 'Phone',
-                accessor: 'phone',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueContactsType>) => {
-                  const { phone } = row.original;
-                  const phoneChange = phone || 'Not specified';
-                  return (<div>{phoneChange}</div>);
-                },
-              },
-              {
-                Header: 'GitHub',
-                accessor: 'gitHub',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueContactsType>) => {
-                  const { gitHub } = row.original;
-                  const gitHubChange = gitHub || 'Not specified';
-                  return (<div>{gitHubChange}</div>);
-                },
-              },
-              {
-                Header: 'GitLab',
-                accessor: 'gitLab',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueContactsType>) => {
-                  const { gitLab } = row.original;
-                  const gitLabChange = gitLab || 'Not specified';
-                  return (<div>{gitLabChange}</div>);
-                },
-              },
-            ]}
+          <EmployeesContactDetailsTable
+            employeesContact={employeesContact}
+            loadEmployeesAsync={loadEmployeesAsync}
           />
         </div>
         <Button
@@ -157,88 +56,7 @@ function EmployeesPage() {
         )}
       >
         <div className="table" style={{ paddingTop: 4 }}>
-          <ClientTable
-            tableId="tc-story-bonus-table"
-            data={employeesSalary}
-            order={{
-              id: 'weightForSorting',
-              desc: true,
-            }}
-            renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
-            enableTableStatePersistance
-            maxStillMobileBreakpoint={1200}
-            actions={[
-              {
-                name: 'edit-row-action',
-                show: () => true,
-                renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
-                renderText: () => 'Edit',
-                onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
-                  navigate(`/employees/edit-salary/${Number(row.original.id)}`);
-                },
-              },
-            ]}
-            columns={[
-              {
-                Header: 'Employee',
-                accessor: 'fullName',
-                // Use our custom `fuzzyText` filter on this column
-                filter: 'fuzzyText',
-                nonMobileColumn: true,
-                principalFilterableColumn: true,
-              },
-              {
-                Header: 'Rate per hour',
-                accessor: 'ratePerHour',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
-                  const { ratePerHour } = row.original;
-                  return (<div>{formatMoney(ratePerHour)}</div>);
-                },
-              },
-              {
-                Header: 'Pay',
-                accessor: 'pay',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
-                  const { pay } = row.original;
-                  return (<div>{formatMoney(pay)}</div>);
-                },
-              },
-              {
-                Header: 'Employment Type',
-                accessor: 'employmentType',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
-                  const { employmentType } = row.original;
-                  return (<div>{EmployeeTypeSwitch[employmentType]}</div>);
-                },
-              },
-              {
-                Header: 'Net Salary',
-                accessor: 'netSalary',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
-                  const { netSalary } = row.original;
-                  return (<div>{formatMoney(netSalary)}</div>);
-                },
-              },
-              {
-                Header: 'Parking',
-                accessor: 'parking',
-                disableFilters: true,
-                disableSortBy: true,
-                Cell: ({ row }: Table<ColleagueFinancesDtoType>) => {
-                  const { parking } = row.original;
-                  return (<div>{formatMoney(parking)}</div>);
-                },
-              },
-            ]}
-          />
+          <EmployeesSalaryDataTable employeesSalary={employeesSalary} />
         </div>
       </ContentCard>
     </>
@@ -248,16 +66,6 @@ function EmployeesPage() {
     const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
     setEmployeesContact(data.colleagueContacts);
     setEmployeesSalary(data.colleagueFinancesDto);
-  }
-
-  async function deleteEmployeesAsync(id: number) {
-    // eslint-disable-next-line no-restricted-globals
-    const isDelete = confirm('Удалить сотрудника?');
-
-    if (isDelete) {
-      await api.delete(`${LINK_TO_SALARY_SERVICE}employees/delete/${id}`);
-      await loadEmployeesAsync();
-    }
   }
 }
 

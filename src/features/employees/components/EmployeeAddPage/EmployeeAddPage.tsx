@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
 
-import './EmployeeAddPage.css';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
 function EmployeeAddPage() {
@@ -43,11 +42,11 @@ function EmployeeAddPage() {
 
   return (
     <div className="employee">
-      <div className="employee-name">
-        <h3>Create a user</h3>
-      </div>
-      <div className="employee-data">
-        <div className="employee-data__rows">
+      <h3 className="employee__title">
+        Create a user
+      </h3>
+      <div className="employee__data">
+        <div className="employee__row">
           <Input
             name="name"
             value={employee.name}
@@ -70,8 +69,8 @@ function EmployeeAddPage() {
             data-testid="middleName-input"
           />
         </div>
-        <div className="employee-data__columns">
-          <div className="employee-data__rows">
+        <div className="employee__column">
+          <div className="employee__row">
             <Input
               name="corporateEmail"
               value={employee.corporateEmail}
@@ -96,8 +95,8 @@ function EmployeeAddPage() {
             data-testid="phone-input"
           />
         </div>
-        <div className="employee-data__columns">
-          <div className="employee-data__rows">
+        <div className="employee__column">
+          <div className="employee__row">
             <div className="input-signature">@</div>
             <Input
               name="gitHub"
@@ -121,7 +120,7 @@ function EmployeeAddPage() {
               data-testid="pay-input"
             />
           </div>
-          <div className="employee-data__rows">
+          <div className="employee__row">
             <div className="input-signature">@</div>
             <Input
               name="gitLab"
@@ -154,7 +153,7 @@ function EmployeeAddPage() {
           </div>
         </div>
       </div>
-      <div className="employee-buttons">
+      <div className="employee__buttons">
         <Button
           type="button"
           onClick={() => { navigate('/employees'); }}
@@ -175,8 +174,8 @@ function EmployeeAddPage() {
       ...employee,
       corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
       phone: employee.phone || null,
-      gitHub: employee.gitHub ? `@${employee.gitHub}` : null,
-      gitLab: employee.gitLab ? `@${employee.gitLab}` : null,
+      gitHub: employee.gitHub ? `${employee.gitHub}` : null,
+      gitLab: employee.gitLab ? `${employee.gitLab}` : null,
       ratePerHour: Number(employee.ratePerHour),
       pay: Number(employee.pay),
       parkingCostPerMonth: Number(employee.parkingCostPerMonth),
