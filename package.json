@@ -45,6 +45,7 @@
     "cypress-mochawesome-reporter": "^3.2.3",
     "cypress-multi-reporters": "^1.6.1",
     "cypress-qase-reporter": "^1.4.2-alpha.2",
+    "cypress-react-router": "^2.0.1",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
@@ -68,6 +69,8 @@
     "start-devserver": "react-scripts start",
     "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
+    "cy:open": "npx cypress open",
+    "cy:run:component": "npx cypress run --component",
     "eject": "react-scripts eject",
     "release": "standard-version",
     "lint": "run-s lint:js lint:ts lint:css",
@@ -79,9 +82,7 @@
     "lint:css:fix": "npx stylelint ./src/**/*.{css,scss} --fix",
     "create-config:dev": "node local-config-builder dev",
     "create-config:local": "node local-config-builder local",
-    "prepare": "husky install",
-    "cy:open": "npx cypress open",
-    "cy:run": "npx cypress run"
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
