@@ -1,6 +1,6 @@
 import { qase } from 'cypress-qase-reporter/dist/mocha';
 
-import AuthView from './pages/AuthView';
+import AuthView from './pages/AuthenticationView';
 
 describe('Auth tests', () => {
   beforeEach('visit site', () => {
