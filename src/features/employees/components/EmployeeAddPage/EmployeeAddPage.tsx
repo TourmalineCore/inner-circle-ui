@@ -53,18 +53,21 @@ function EmployeeAddPage() {
             value={employee.name}
             label="Name*"
             onChange={handleFormChange}
+            data-testid="name-input"
           />
           <Input
             name="surname"
             value={employee.surname}
             label="Surname*"
             onChange={handleFormChange}
+            data-testid="surname-input"
           />
           <Input
             name="middleName"
             value={employee.middleName}
             label="Middle Name*"
             onChange={handleFormChange}
+            data-testid="middleName-input"
           />
         </div>
         <div className="employee-data__columns">
@@ -74,6 +77,7 @@ function EmployeeAddPage() {
               value={employee.corporateEmail}
               label="Corporate Email*"
               onChange={handleFormChange}
+              data-testid="corporateEmail-input"
             />
             <div className="input-signature">@tourmalinecore.com</div>
           </div>
@@ -82,12 +86,14 @@ function EmployeeAddPage() {
             value={employee.personalEmail}
             label="Personal Email*"
             onChange={handleFormChange}
+            data-testid="personalEmail-input"
           />
           <Input
             name="phone"
             value={employee.phone}
             label="Phone"
             onChange={handleFormChange}
+            data-testid="phone-input"
           />
         </div>
         <div className="employee-data__columns">
@@ -98,18 +104,21 @@ function EmployeeAddPage() {
               value={employee.gitHub}
               label="GitHub"
               onChange={handleFormChange}
+              data-testid="gitHub-input"
             />
             <Input
               name="ratePerHour"
               value={employee.ratePerHour}
               label="Rate per hour*"
               onChange={handleFormChange}
+              data-testid="ratePerHour-input"
             />
             <Input
               name="pay"
               value={employee.pay}
               label="Pay*"
               onChange={handleFormChange}
+              data-testid="pay-input"
             />
           </div>
           <div className="employee-data__rows">
@@ -119,6 +128,7 @@ function EmployeeAddPage() {
               value={employee.gitLab}
               label="GitLab"
               onChange={handleFormChange}
+              data-testid="gitLab-input"
             />
             <NativeSelect
               options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
@@ -132,12 +142,14 @@ function EmployeeAddPage() {
                 });
               }}
               style={{ maxWidth: 300, width: 250, marginTop: 0 }}
+              data-testid="employmentType-select"
             />
             <Input
               name="parkingCostPerMonth"
               value={employee.parkingCostPerMonth}
               label="Parking*"
               onChange={handleFormChange}
+              data-testid="parkingCostPerMonth-input"
             />
           </div>
         </div>
