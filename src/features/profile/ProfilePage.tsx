@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { faPhoneFlip, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import faGithub from '../../assets/icons/faGithub.svg';
-import faGitlab from '../../assets/icons/faGitlab.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SizeProp } from '@fortawesome/fontawesome-svg-core';
+import { ReactComponent as FaGithub } from '../../assets/icons/faGithub.svg';
+import { ReactComponent as FaGitlab } from '../../assets/icons/faGitlab.svg';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
@@ -33,27 +35,27 @@ function ProfilePage() {
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
-          icon={faEnvelope}
+          icon={<FontAwesomeIcon size={'xl' as SizeProp} icon={faEnvelope} />}
           link={`mailto:${employee.corporateEmail}`}
         />
         <InfoComponent
           value={employee.personalEmail}
-          icon={faEnvelope}
+          icon={<FontAwesomeIcon size={'xl' as SizeProp} icon={faEnvelope} />}
           link={`mailto:${employee.personalEmail}`}
         />
         <InfoComponent
           value={employee.phone}
-          icon={faPhoneFlip}
+          icon={<FontAwesomeIcon size={'xl' as SizeProp} icon={faPhoneFlip} />}
           link={`tel:${employee.phone}`}
         />
         <InfoComponent
           value={employee.gitHub}
-          icon={faGithub}
+          icon={<FaGithub />}
           link={`https://github.com/${employee.gitHub}`}
         />
         <InfoComponent
           value={employee.gitLab}
-          icon={faGitlab}
+          icon={<FaGitlab />}
           link={`https://gitlab.com/${employee.gitLab}`}
         />
         <div className="profile__buttons">

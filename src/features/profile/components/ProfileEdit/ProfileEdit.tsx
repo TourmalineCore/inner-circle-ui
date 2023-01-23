@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Button, Input } from '@tourmalinecore/react-tc-ui-kit';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { SizeProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Employee, EmployeeUpdateType } from '../../types/Profile';
 import { api } from '../../../../common/api';
 import '../../../analytics/components/RedactComponent/RedactComponent.css';
@@ -40,7 +42,7 @@ function ProfileEdit() {
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
-          icon={faEnvelope}
+          icon={<FontAwesomeIcon size={'xl' as SizeProp} icon={faEnvelope} />}
           link={`mailto:${employee.corporateEmail}`}
         />
         <Input
