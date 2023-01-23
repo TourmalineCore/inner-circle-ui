@@ -36,11 +36,12 @@ function ProfileEdit() {
 
   return (
     <div className="profile">
-      <div className="profile-info">
+      <div className="profile__inner">
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
           icon={faEnvelope}
+          link={`mailto:${employee.corporateEmail}`}
         />
         <Input
           value={employee.personalEmail}
@@ -66,17 +67,17 @@ function ProfileEdit() {
           onChange={handleFormChange}
           name="gitLab"
         />
-        <div className="profile-info__buttons">
+        <div className="profile__buttons">
           <Button
             type="button"
-            className="profile-bt"
+            className="profile__button"
             onClick={() => { navigate('/profile'); }}
           >
             Cancel
           </Button>
           <Button
             type="button"
-            className="profile-bt"
+            className="profile__button"
             onClick={() => { updateEmployeesAsync(); }}
           >
             Save changes
@@ -92,19 +93,16 @@ function ProfileEdit() {
   }
 
   async function updateEmployeesAsync() {
-    const fullName = employee.fullName.split(' ');
     const updateEmployee : EmployeeUpdateType = {
       ...employee,
       employeeId: employee.id,
-      name: fullName[0],
-      surname: fullName[1],
-      middleName: fullName[2],
       personalEmail: employee.personalEmail,
       phone: employee.phone || null,
       gitHub: employee.gitHub || null,
       gitLab: employee.gitLab || null,
     };
-    await api.put('employees/update-employee-contacts', updateEmployee);
+    await api.put(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee);
+
     navigate('/profile');
   }
 }

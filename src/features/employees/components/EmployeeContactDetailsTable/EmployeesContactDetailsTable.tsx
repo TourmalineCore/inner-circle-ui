@@ -99,8 +99,7 @@ function EmployeesContactDetailsTable({
           disableSortBy: true,
           Cell: ({ row }: Table<ColleagueContactsType>) => {
             const { phone } = row.original;
-            const phoneChange = phone || 'Not specified';
-            return <ContactLink contact={phoneChange} link={phoneChange} />;
+            return <ContactLink contact={phone} link={`tel:${phone}`} />;
           },
         },
         {

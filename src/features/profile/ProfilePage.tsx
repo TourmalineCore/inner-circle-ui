@@ -10,8 +10,6 @@ import { Employee } from './types/Profile';
 import { api } from '../../common/api';
 import InfoComponent from './components/InfoComponent/InfoComponent';
 
-import './ProfilePage.css';
-
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>(
     {
@@ -31,32 +29,37 @@ function ProfilePage() {
 
   return (
     <div className="profile">
-      <div className="profile-info">
+      <div className="profile__inner">
         <h2>{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
           icon={faEnvelope}
+          link={`mailto:${employee.corporateEmail}`}
         />
         <InfoComponent
           value={employee.personalEmail}
           icon={faEnvelope}
+          link={`mailto:${employee.personalEmail}`}
         />
         <InfoComponent
-          value={employee.phone || 'Not specified'}
+          value={employee.phone}
           icon={faPhoneFlip}
+          link={`tel:${employee.phone}`}
         />
         <InfoComponent
-          value={employee.gitHub || 'Not specified'}
+          value={employee.gitHub}
           icon={faGithub}
+          link={`https://github.com/${employee.gitHub}`}
         />
         <InfoComponent
-          value={employee.gitLab || 'Not specified'}
+          value={employee.gitLab}
           icon={faGitlab}
+          link={`https://gitlab.com/${employee.gitLab}`}
         />
-        <div className="profile-info__buttons">
+        <div className="profile__buttons">
           <Button
             type="button"
-            className="profile-bt"
+            className="profile__button"
             onClick={() => { history('/profile/edit'); }}
           >
             Edit

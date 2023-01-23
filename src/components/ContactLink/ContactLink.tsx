@@ -1,9 +1,9 @@
 function ContactLink({
   contact,
-  link,
+  link = '',
 }:{
   contact: string | null,
-  link: string,
+  link?: string,
 }) {
   return (
     (!contact
