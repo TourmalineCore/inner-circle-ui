@@ -1,0 +1,9 @@
+[
+  {
+  "reserveFinance": {
+    "reserveForQuarter": 55,
+    "reserveForHalfYear": 66,
+    "reserveForYear": 77
+  }
+  }
+]
