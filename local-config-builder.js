@@ -3,6 +3,7 @@
 const env = process.argv[2];
 
 const fs = require("fs");
+// import fs from 'fs';
 
 const filepath = "./public/env-config.js";
 const data = fs.readFileSync(`./.config-${env}`);

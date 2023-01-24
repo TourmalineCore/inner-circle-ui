@@ -39,9 +39,10 @@ function Indicators() {
     districtCoefficient: 0,
     minimumWage: 0,
   });
-
   useEffect(() => {
+    console.log('effect');
     getTotalIndicatorsAsync();
+    console.log(`first ${indicators.reserveFinance.reserveForQuarter}`);
   }, []);
 
   return (
@@ -99,7 +100,9 @@ function Indicators() {
   );
 
   async function getTotalIndicatorsAsync() {
+    console.log('QQQQQUUUUUUUEEEEEEEEEEEEERRRRRRRRRRYYYYYYYYYYY');
     const { data } = await api.get<IndicatorsType>(`${LINK_TO_SALARY_SERVICE}finance/get-total-finance`);
+    console.log(`second ${indicators.reserveFinance.reserveForQuarter}`);
     setIndicators(data);
   }
 }
