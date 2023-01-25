@@ -1,21 +1,28 @@
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowLeft, faHome, faBars, faTimes,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { ReactComponent as IconAnalitics } from '../../../assets/icons/analytics.svg';
+import { ReactComponent as IconAnaliticsActive } from '../../../assets/icons/analytics-active.svg';
+import { ReactComponent as IconBurger } from '../../../assets/icons/burger.svg';
+import { ReactComponent as IconCross } from '../../../assets/icons/cross.svg';
 
 function MobileControlsPanel({
   prevPath,
   homePath = '/',
+  nameHomePage = 'Home',
   isToggled,
   onToggleClick = () => {},
 }: {
   prevPath?: string | null;
   homePath?: string;
+  nameHomePage?: string;
   isToggled: boolean;
   onToggleClick?: () => unknown;
 }) {
+  const location = useLocation();
+
   return (
     <div className="mobile-controls-panel">
       {prevPath ? (
@@ -27,7 +34,14 @@ function MobileControlsPanel({
       )}
 
       <Link to={homePath} className="mobile-controls-panel__item">
-        <FontAwesomeIcon className="mobile-controls-panel__item-icon" icon={faHome} />
+        <div className="mobile-controls-panel__icon-location">
+          {
+            location.pathname === homePath
+              ? <IconAnaliticsActive />
+              : <IconAnalitics />
+          }
+        </div>
+        <span>{nameHomePage}</span>
       </Link>
 
       <button
@@ -35,10 +49,9 @@ function MobileControlsPanel({
         className="mobile-controls-panel__item"
         onClick={onToggleClick}
       >
-        <FontAwesomeIcon
-          className="mobile-controls-panel__item-icon"
-          icon={isToggled ? faTimes : faBars}
-        />
+        <div className="mobile-controls-panel__item-icon">
+          {!isToggled ? <IconBurger /> : <IconCross />}
+        </div>
       </button>
     </div>
   );
