@@ -3,7 +3,8 @@ import {
 } from 'react';
 import ReactDOM from 'react-dom';
 
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { ReactComponent as IconSetting } from '../../../../../assets/icons/settings.svg';
+import { ReactComponent as IconSettingActive } from '../../../../../assets/icons/settings-active.svg';
 
 import SidebarItem from '../SidebarItem/SidebarItem';
 import SidebarSettingsMenu from './SidebarSettingsMenu/SidebarSettingsMenu';
@@ -50,7 +51,8 @@ function SidebarSettingsControl({
         itemRef={containerRef}
         tagName="button"
         className="sidebar-settings-control"
-        icon={faCog}
+        icon={<IconSetting />}
+        iconActive={<IconSettingActive />}
         label="Settings"
         onItemClick={() => setMenuOpened(!isMenuOpened)}
       />

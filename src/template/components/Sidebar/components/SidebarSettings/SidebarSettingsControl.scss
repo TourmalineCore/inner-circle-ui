@@ -1,6 +1,6 @@
 .sidebar-settings-control__dropdown {
   position: absolute;
-  left: 20px;
+  left: calc(20px + var(--mobile-controls-panel-height));
   right: 20px;
   bottom: 110px;
   z-index: $sidebar-setting-control;
@@ -8,7 +8,7 @@
   @include tablet {
     left: 100%;
     right: auto;
-    bottom: 10px;
+    bottom: calc(10px + var(--mobile-controls-panel-height));
     padding: 0 6px;
     width: 250px;
   }

@@ -32,7 +32,12 @@
 
   &__content {
     flex: 1 1 auto;
+    padding-bottom: var(--mobile-controls-panel-height);
     width: 100%;
+
+    @include desktop {
+      padding-bottom: 0;
+    }
   }
 
   &__panel {

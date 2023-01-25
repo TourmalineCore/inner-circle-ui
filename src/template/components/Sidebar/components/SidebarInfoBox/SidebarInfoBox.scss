@@ -1,8 +1,7 @@
 .sidebar-infobox {
   display: flex;
-  align-items: flex-start;
-  padding: 20px 20px 28px;
-  font-size: 18px;
+  align-items: center;
+  padding: 8px 16px 24px;
   white-space: nowrap;
 
   &__image {
@@ -12,9 +11,8 @@
     justify-content: center;
     overflow: hidden;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-weight: 700;
+    width: 32px;
+    height: 32px;
     background-color: var(--color-white);
 
     img {
@@ -24,17 +22,28 @@
       height: 100%;
       object-fit: cover;
     }
+
+    @include tablet-xl {
+      width: 40px;
+      height: 40px;
+    }
+
+    @include desktop-xl {
+      width: 56px;
+      height: 56px;
+    }
   }
 
   &__col {
     overflow: hidden;
-    margin-left: 20px;
+    margin-left: 16px;
     transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
   }
 
   &__name {
     overflow: hidden;
-    font-weight: 400;
+    font-weight: inherit;
+    font-size: inherit;
     text-overflow: ellipsis;
   }
 
@@ -43,6 +52,10 @@
     margin-top: 3px;
     font-size: 16px;
     text-overflow: ellipsis;
+  }
+
+  @include desktop-xl {
+    padding: 20px 16px 28px;
   }
 }
 

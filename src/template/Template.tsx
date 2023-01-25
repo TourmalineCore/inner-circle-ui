@@ -2,9 +2,10 @@ import { useState } from 'react';
 import useBreadcrumbs, { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
 import clsx from 'clsx';
 
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
 import { useLocation } from 'react-router-dom';
+import { ReactComponent as IconLogout } from '../assets/icons/logout.svg';
+import { ReactComponent as IconLogoutActive } from '../assets/icons/logout-active.svg';
+
 import Sidebar from './components/Sidebar/Sidebar';
 import SidebarItem from './components/Sidebar/components/SidebarItem/SidebarItem';
 import SidebarSettingsControl from './components/Sidebar/components/SidebarSettings/SidebarSettingsControl';
@@ -52,7 +53,8 @@ function Template() {
                 <SidebarSettingsControl portalTarget={props.portalTarget} />
 
                 <SidebarItem
-                  icon={faSignOutAlt}
+                  icon={<IconLogout />}
+                  iconActive={<IconLogoutActive />}
                   windowPath="/auth/logout"
                   label="Sign Out"
                 />
@@ -77,6 +79,8 @@ function Template() {
       </div>
 
       <MobileControlsPanel
+        homePath="/analytics"
+        nameHomePage="Analytics"
         prevPath={prevBreadcrumbPath}
         isToggled={isMobileSidebarOpened}
         onToggleClick={() => setIsMobileSidebarOpened(!isMobileSidebarOpened)}

@@ -11,9 +11,13 @@ html.is-sidebar-mobile-opened {
 
   position: relative;
   padding: 0;
+  padding-bottom: var(--mobile-controls-panel-height);
   width: var(--sidebar-width);
   height: 100%;
   box-sizing: border-box;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
   transform: translate3d(-100%, 0, 0);
   transition: transform 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   will-change: width;
@@ -43,6 +47,7 @@ html.is-sidebar-mobile-opened {
     width: 100%;
     box-shadow: none;
     font-weight: inherit;
+    font-size: inherit;
     color: inherit;
     background-color: transparent;
     cursor: pointer;
@@ -65,14 +70,8 @@ html.is-sidebar-mobile-opened {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-image:
-      linear-gradient(
-        180deg,
-        var(--accent-gradient-color-1) 0%,
-        var(--accent-gradient-color-2) 52%,
-        var(--accent-gradient-color-3) 100%
-      );
-    background-color: var(--colo);
+    background-image: var(--sidebar-background-gradient);
+    background-color: var(--color-white);
   }
 
   &__top {
@@ -86,7 +85,14 @@ html.is-sidebar-mobile-opened {
       right: 20px;
       bottom: 0;
       height: 1px;
-      background-color: #bdd9ed;
+      background-color: var(--color-white);
+    }
+  }
+
+  &__collapse-button {
+    #{$this}-item__icon {
+      width: 32px;
+      height: 32px;
     }
   }
 
@@ -111,18 +117,11 @@ html.is-sidebar-mobile-opened {
 
   &__navsection {
     position: relative;
-    padding: 16px 20px;
+    padding: 8px;
     width: 100%;
 
-    &::before {
-      content: "";
-      position: absolute;
-      left: 8px;
-      right: 8px;
-      top: 0;
-      display: block;
-      height: 1px;
-      background-color: rgba(#fff, 0.5);
+    @include desktop-xl {
+      padding: 16px 8px;
     }
   }
 
@@ -133,11 +132,15 @@ html.is-sidebar-mobile-opened {
     &:last-child {
       margin-bottom: 0;
     }
+
+    @include desktop-xl {
+      margin-bottom: 16px;
+    }
   }
 
   &__bottom {
     position: relative;
-    padding: 12px 20px;
+    padding: 8px 8px 16px;
     width: 100%;
 
     &::before {
@@ -147,7 +150,11 @@ html.is-sidebar-mobile-opened {
       right: 20px;
       top: 0;
       height: 1px;
-      background-color: #bdd9ed;
+      background-color: var(--color-white);
+    }
+
+    @include desktop-xl {
+      padding: 16px 16px 32px 8px;
     }
   }
 
@@ -163,15 +170,21 @@ html.is-sidebar-mobile-opened {
       animation: show-overlay 0.2s ease-out 0.5s forwards;
     }
 
-    @include desktop {
+    @include desktop-xl {
       #{$this}__overlay {
         display: none;
       }
     }
   }
 
+  @include tablet-xl {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
   @include desktop {
     border-radius: 6px;
+    padding: 0;
     width: var(--sidebar-width);
     transform: translate3d(0, 0, 0);
     transition: width 0.3s ease;
@@ -179,6 +192,11 @@ html.is-sidebar-mobile-opened {
     &--collapsed {
       width: var(--sidebar-collapsed-width);
     }
+  }
+
+  @include desktop-xl {
+    font-size: 26px;
+    line-height: 1.23;
   }
 }
 

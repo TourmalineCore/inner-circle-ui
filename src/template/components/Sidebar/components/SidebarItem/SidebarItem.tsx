@@ -1,5 +1,5 @@
 import {
-  useState, useRef, MutableRefObject, ChangeEvent, ElementType,
+  useState, useRef, MutableRefObject, ChangeEvent, ElementType, ReactNode,
 } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,6 +19,7 @@ function SidebarItem({
   sidebarContainerRef,
   className,
   icon,
+  iconActive,
   iconMini,
   label,
   windowPath,
@@ -35,7 +36,8 @@ function SidebarItem({
   itemRef?: MutableRefObject<HTMLElement | null>;
   sidebarContainerRef?: MutableRefObject<HTMLElement | null>;
   className?: string;
-  icon?: IconProp;
+  icon?: ReactNode;
+  iconActive?: (() => JSX.Element) | ReactNode;
   iconMini?: IconProp;
   label: string;
   windowPath?: string;
@@ -81,7 +83,27 @@ function SidebarItem({
       >
         {icon && (
           <span className="sidebar-item__icon-container">
-            <FontAwesomeIcon icon={icon} fixedWidth className="sidebar-item__icon" />
+            {!isActive
+              ? (
+                <div className="sidebar-item__icon">
+                  {icon }
+                </div>
+              )
+              : (
+                <div className="sidebar-item__icon">
+                  {iconActive
+                    ? (
+                      <span>
+                        {iconActive }
+                      </span>
+                    )
+                    : (
+                      <span>
+                        {icon }
+                      </span>
+                    )}
+                </div>
+              )}
 
             {!!counter && (
               <span className="sidebar-item__counter">{counter}</span>
