@@ -90,7 +90,7 @@ html.is-sidebar-mobile-opened {
   }
 
   &__collapse-button {
-    #{$this}-item__icon {
+    .sidebar-item__icon {
       width: 32px;
       height: 32px;
     }

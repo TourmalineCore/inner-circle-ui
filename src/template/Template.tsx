@@ -80,7 +80,7 @@ function Template() {
 
       <MobileControlsPanel
         homePath="/analytics"
-        nameHomePage="Analytics"
+        homePageName="Analytics"
         prevPath={prevBreadcrumbPath}
         isToggled={isMobileSidebarOpened}
         onToggleClick={() => setIsMobileSidebarOpened(!isMobileSidebarOpened)}
