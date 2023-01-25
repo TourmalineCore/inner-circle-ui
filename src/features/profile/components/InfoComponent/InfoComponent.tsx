@@ -1,6 +1,4 @@
-// import { ReactNode } from 'react';
 import ContactLink from '../../../../components/ContactLink/ContactLink';
-import './InfoComponent.scss';
 
 function InfoComponent({ value, icon, link }: { value: string | null, icon?:JSX.Element, link: string | null }) {
   const linkValidity = link || undefined;
