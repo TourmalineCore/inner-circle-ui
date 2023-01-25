@@ -45,7 +45,7 @@
     padding: 16px 10px;
     width: 100%;
     min-height: 50px;
-    box-shadow: 1px 2px 10px rgb(34 49 59 / 10%);
+    box-shadow: 0 0 43px rgb(24 14 54 / 10%);
     background-color: var(--color-white);
 
     &--top {
@@ -60,7 +60,7 @@
 
     @include tablet {
       margin: 20px 0;
-      padding: 22px 20px;
+      padding: 23px 16px;
       min-height: 66px;
 
       &--top {
@@ -73,6 +73,8 @@
     }
 
     @include desktop {
+      padding: 32px 24px;
+
       &--bottom {
         display: block;
       }
