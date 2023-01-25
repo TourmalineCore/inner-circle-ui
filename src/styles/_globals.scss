@@ -1,6 +1,7 @@
 :root {
   --sidebar-width: 320px;
-  --sidebar-collapsed-width: 86px;
+  --sidebar-collapsed-width: 88px;
+  --mobile-controls-panel-height: 80px;
   --color-white: #fff;
   --color-text: #172f3d;
   --color-accent-first: #0c8bb4;
@@ -12,6 +13,7 @@
   --accent-gradient-color-3: #e1f1ff;
   --auth-bg-accent-color-first: #81b4ff;
   --auth-bg-accent-color-last: #ffc1ee;
+  --sidebar-background-gradient: linear-gradient(0deg, rgb(224 223 246 / 50%), rgb(224 223 246 / 50%));
 }
 
 *,

@@ -1,12 +1,13 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { ReactNode } from 'react';
 
 interface SidebarRoutesProps {
   path: string;
   label: string;
-  icon: IconProp;
+  icon?: ReactNode;
+  iconActive?: ReactNode;
   routes?: {
     path: string;
     label: string;
-    iconMini: IconProp;
+    iconMini: ReactNode;
   }[];
 }

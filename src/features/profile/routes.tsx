@@ -1,4 +1,5 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { ReactComponent as IconProfile } from '../../assets/icons/profile.svg';
+import { ReactComponent as IconProfileActive } from '../../assets/icons/profile-active.svg';
 
 import ProfilePage from './ProfilePage';
 import ProfileEdit from './components/ProfileEdit/ProfileEdit';
@@ -20,6 +21,7 @@ export const profileSidebarRoutes = [
   {
     path: '/profile',
     label: 'Profile',
-    icon: faUser,
+    icon: <IconProfile />,
+    iconActive: <IconProfileActive />,
   },
 ];

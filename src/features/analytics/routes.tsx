@@ -1,4 +1,5 @@
-import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import { ReactComponent as IconAnalytics } from '../../assets/icons/analytics.svg';
+import { ReactComponent as IconAnalyticsActive } from '../../assets/icons/analytics-active.svg';
 
 import AnalyticsPage from './AnalyticsPage';
 
@@ -14,6 +15,7 @@ export const analyticsSidebarRoutes = [
   {
     path: '/analytics',
     label: 'Analytics',
-    icon: faMoneyCheck,
+    icon: <IconAnalytics />,
+    iconActive: <IconAnalyticsActive />,
   },
 ];

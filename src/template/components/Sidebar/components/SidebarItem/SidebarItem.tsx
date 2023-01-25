@@ -1,5 +1,5 @@
 import {
-  useState, useRef, MutableRefObject, ChangeEvent, ElementType,
+  useState, useRef, MutableRefObject, ChangeEvent, ElementType, ReactNode,
 } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import SidebarTooltip from './components/SidebarTooltip/SidebarTooltip';
 import { SidebarProps } from '../../../../types/Template';
 
@@ -19,6 +18,7 @@ function SidebarItem({
   sidebarContainerRef,
   className,
   icon,
+  iconActive,
   iconMini,
   label,
   windowPath,
@@ -35,8 +35,9 @@ function SidebarItem({
   itemRef?: MutableRefObject<HTMLElement | null>;
   sidebarContainerRef?: MutableRefObject<HTMLElement | null>;
   className?: string;
-  icon?: IconProp;
-  iconMini?: IconProp;
+  icon?: ReactNode;
+  iconActive?: (() => JSX.Element) | ReactNode;
+  iconMini?: ReactNode;
   label: string;
   windowPath?: string;
   path?: string;
@@ -81,7 +82,27 @@ function SidebarItem({
       >
         {icon && (
           <span className="sidebar-item__icon-container">
-            <FontAwesomeIcon icon={icon} fixedWidth className="sidebar-item__icon" />
+            {!isActive
+              ? (
+                <div className="sidebar-item__icon">
+                  {icon }
+                </div>
+              )
+              : (
+                <div className="sidebar-item__icon">
+                  {iconActive
+                    ? (
+                      <span>
+                        {iconActive }
+                      </span>
+                    )
+                    : (
+                      <span>
+                        {icon }
+                      </span>
+                    )}
+                </div>
+              )}
 
             {!!counter && (
               <span className="sidebar-item__counter">{counter}</span>
@@ -91,7 +112,7 @@ function SidebarItem({
 
         {iconMini && (
           <span className="sidebar-item__mini-container">
-            <FontAwesomeIcon icon={iconMini} fixedWidth className="sidebar-item__icon-mini" />
+            { iconMini }
           </span>
         )}
 
