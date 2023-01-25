@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import SidebarTooltip from './components/SidebarTooltip/SidebarTooltip';
 import { SidebarProps } from '../../../../types/Template';
 
@@ -38,7 +37,7 @@ function SidebarItem({
   className?: string;
   icon?: ReactNode;
   iconActive?: (() => JSX.Element) | ReactNode;
-  iconMini?: IconProp;
+  iconMini?: ReactNode;
   label: string;
   windowPath?: string;
   path?: string;
@@ -113,7 +112,7 @@ function SidebarItem({
 
         {iconMini && (
           <span className="sidebar-item__mini-container">
-            <FontAwesomeIcon icon={iconMini} fixedWidth className="sidebar-item__icon-mini" />
+            { iconMini }
           </span>
         )}
 
