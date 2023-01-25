@@ -43,7 +43,7 @@ function EmployeesSalaryDataTable({ employeesSalary = [] }:{ employeesSalary: Co
           renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
           renderText: () => 'Edit',
           onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueFinancesDtoType>) => {
-            navigate(`/employees/${Number(row.original.id)}`);
+            navigate(`/employees/salary?id=${Number(row.original.id)}`);
           },
         },
       ]}

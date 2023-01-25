@@ -1,7 +1,7 @@
 import {
   Button, Input,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 
@@ -24,7 +24,8 @@ function EmployeeEditContactPage() {
       gitLab: '',
     },
   );
-  const { id } = useParams();
+  const [param] = useSearchParams();
+  const id = param.get('id');
 
   useEffect(() => { loadEmployeesAsync(); }, []);
 

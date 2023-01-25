@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Button, Input, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
   ColleagueFinancesDtoType, EmployeeSalaryUpdateType, EmployeeTypeSwitch,
@@ -22,7 +22,8 @@ function EmployeeEditSalaryPage() {
     netSalary: 0,
     parking: 0,
   });
-  const { id } = useParams();
+  const [param] = useSearchParams();
+  const id = param.get('id');
 
   useEffect(() => { loadEmployeesAsync(); }, []);
 
