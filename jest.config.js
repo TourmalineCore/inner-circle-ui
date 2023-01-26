@@ -28,8 +28,7 @@ module.exports = {
     '<rootDir>/public/env-config.js',
     '<rootDir>/src/mocks/intersectionObserverMock.js',
   ],
-  // extensionsToTreatAsEsm: [
-  //   '.ts',
-  //   '.js',
-  // ],
+  setupFilesAfterEnv: [
+    '<rootDir>/src/setupTests.ts',
+  ],
 };

@@ -8,7 +8,14 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["cypress", "@testing-library/cypress", "jest", "cypress-react-router", "@types/node"],
+    "types": [
+      "cypress", 
+      "@testing-library/cypress", 
+      "jest", 
+      "cypress-react-router", 
+      "@types/node"
+    ],
+
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -29,6 +36,8 @@
     "cypress",
     "cypress.config.js",
     "helpers",
-    "jest.config.js"
+    "jest.config.js",
+    "src/mocks",
+    "./jest-setup.ts"
   ]
 }

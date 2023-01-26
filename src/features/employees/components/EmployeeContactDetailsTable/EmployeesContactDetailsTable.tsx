@@ -128,7 +128,7 @@ function EmployeesContactDetailsTable({
   );
 
   async function deleteEmployeesAsync(id: number) {
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-restricted-globals, no-alert
     const isDelete = confirm('Удалить сотрудника?');
 
     if (isDelete) {

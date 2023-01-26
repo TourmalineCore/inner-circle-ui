@@ -1,367 +1,1555 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Indicator tests should render with get request with rights values and match to snapshot 1`] = `null`;
+exports[`Indicator tests should render with get request with rights values and match to snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="content-card "
+      >
+        <div
+          class="content-card__sentinel content-card__sentinel--top"
+        />
+        <div
+          class="content-card__header content-card__header--sticky"
+        >
+          <div
+            class="default-card-header"
+          >
+            Indicators
+          </div>
+        </div>
+        <div
+          class="content-card__body"
+        >
+          <div
+            class="indicators"
+            data-testid="indicators"
+          >
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__head"
+              >
+                Reserve for the
+              </div>
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Quarter
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    1 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Half a year
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    2 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Year
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    3 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__head"
+              >
+                Desired
+              </div>
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Income
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    7 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Profit
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    8 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Profitability
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    9 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Total expense (month)
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    6 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicators-absolute__components"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Salary
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      4 ₽
+                    </div>
+                  </div>
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Office
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      5 ₽
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Working days per year:
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    10
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Vacation (days):
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    11
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Sick leave (days):
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    12
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Working days per month (avg.):
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    13
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Hours per month (avg.):
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    14
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicators-double__components"
+            >
+              <div
+                class="indicator-component lite-box"
+              >
+                <div
+                  class="indicator-component__values"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      District coefficient
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      16 %
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="indicator-component lite-box"
+              >
+                <div
+                  class="indicator-component__values"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Income tax
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      15 %
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component lite-box"
+              style="align-self: baseline;"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Minimum Wage
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0,17 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-card__sentinel content-card__sentinel--bottom"
+        />
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="content-card "
+    >
+      <div
+        class="content-card__sentinel content-card__sentinel--top"
+      />
+      <div
+        class="content-card__header content-card__header--sticky"
+      >
+        <div
+          class="default-card-header"
+        >
+          Indicators
+        </div>
+      </div>
+      <div
+        class="content-card__body"
+      >
+        <div
+          class="indicators"
+          data-testid="indicators"
+        >
+          <div
+            class="indicator-component"
+          >
+            <div
+              class="indicator-component__head"
+            >
+              Reserve for the
+            </div>
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Quarter
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  1 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Half a year
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  2 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Year
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  3 ₽
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component"
+          >
+            <div
+              class="indicator-component__head"
+            >
+              Desired
+            </div>
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Income
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  7 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Profit
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  8 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Profitability
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  9 ₽
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component"
+          >
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value direction-column"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Total expense (month)
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  6 ₽
+                </div>
+              </div>
+              <div
+                class="indicators-absolute__components"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Salary
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    4 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Office
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    5 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component"
+          >
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Working days per year:
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  10
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Vacation (days):
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  11
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Sick leave (days):
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  12
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Working days per month (avg.):
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  13
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Hours per month (avg.):
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  14
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicators-double__components"
+          >
+            <div
+              class="indicator-component lite-box"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    District coefficient
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    16 %
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component lite-box"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Income tax
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    15 %
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component lite-box"
+            style="align-self: baseline;"
+          >
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value direction-column"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Minimum Wage
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0,17 ₽
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-card__sentinel content-card__sentinel--bottom"
+      />
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
 
 exports[`Indicator tests should successfully render and match to snapshot 1`] = `
-<div
-  className="content-card "
-  style={{}}
->
-  <div
-    className="content-card__sentinel content-card__sentinel--top"
-  />
-  <div
-    className="content-card__header content-card__header--sticky"
-  >
-    <div
-      className="default-card-header"
-    >
-      Indicators
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="content-card "
+      >
+        <div
+          class="content-card__sentinel content-card__sentinel--top"
+        />
+        <div
+          class="content-card__header content-card__header--sticky"
+        >
+          <div
+            class="default-card-header"
+          >
+            Indicators
+          </div>
+        </div>
+        <div
+          class="content-card__body"
+        >
+          <div
+            class="indicators"
+            data-testid="indicators"
+          >
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__head"
+              >
+                Reserve for the
+              </div>
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Quarter
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Half a year
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Year
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__head"
+              >
+                Desired
+              </div>
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Income
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Profit
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Profitability
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Total expense (month)
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicators-absolute__components"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Salary
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      0 ₽
+                    </div>
+                  </div>
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Office
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      0 ₽
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Working days per year:
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Vacation (days):
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    <li>
+                      Sick leave (days):
+                    </li>
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Working days per month (avg.):
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0
+                  </div>
+                </div>
+                <div
+                  class="indicator-value"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Hours per month (avg.):
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicators-double__components"
+            >
+              <div
+                class="indicator-component lite-box"
+              >
+                <div
+                  class="indicator-component__values"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      District coefficient
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      0 %
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="indicator-component lite-box"
+              >
+                <div
+                  class="indicator-component__values"
+                >
+                  <div
+                    class="indicator-value direction-column"
+                  >
+                    <div
+                      class="indicator-value__label"
+                    >
+                      Income tax
+                    </div>
+                    <div
+                      class="indicator-value__info"
+                    >
+                      0 %
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="indicator-component lite-box"
+              style="align-self: baseline;"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Minimum Wage
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-card__sentinel content-card__sentinel--bottom"
+        />
+      </div>
     </div>
-  </div>
-  <div
-    className="content-card__body"
-  >
+  </body>,
+  "container": <div>
     <div
-      className="indicators"
+      class="content-card "
     >
       <div
-        className="indicator-component"
+        class="content-card__sentinel content-card__sentinel--top"
+      />
+      <div
+        class="content-card__header content-card__header--sticky"
       >
         <div
-          className="indicator-component__head"
+          class="default-card-header"
         >
-          Reserve for the
+          Indicators
         </div>
+      </div>
+      <div
+        class="content-card__body"
+      >
         <div
-          className="indicator-component__values"
+          class="indicators"
+          data-testid="indicators"
         >
           <div
-            className="indicator-value"
+            class="indicator-component"
           >
             <div
-              className="indicator-value__label"
+              class="indicator-component__head"
             >
-              <li>
-                Quarter
-              </li>
+              Reserve for the
             </div>
             <div
-              className="indicator-value__info"
+              class="indicator-component__values"
             >
-              0 ₽
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Quarter
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Half a year
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Year
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
             </div>
           </div>
           <div
-            className="indicator-value"
+            class="indicator-component"
           >
             <div
-              className="indicator-value__label"
+              class="indicator-component__head"
             >
-              <li>
-                Half a year
-              </li>
+              Desired
             </div>
             <div
-              className="indicator-value__info"
+              class="indicator-component__values"
             >
-              0 ₽
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Income
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Profit
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Profitability
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
             </div>
           </div>
           <div
-            className="indicator-value"
+            class="indicator-component"
           >
             <div
-              className="indicator-value__label"
+              class="indicator-component__values"
             >
-              <li>
-                Year
-              </li>
+              <div
+                class="indicator-value direction-column"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Total expense (month)
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
+              <div
+                class="indicators-absolute__components"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Salary
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Office
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 ₽
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component"
+          >
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Working days per year:
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Vacation (days):
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  <li>
+                    Sick leave (days):
+                  </li>
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Working days per month (avg.):
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="indicator-value"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Hours per month (avg.):
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicators-double__components"
+          >
+            <div
+              class="indicator-component lite-box"
+            >
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    District coefficient
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 %
+                  </div>
+                </div>
+              </div>
             </div>
             <div
-              className="indicator-value__info"
+              class="indicator-component lite-box"
             >
-              0 ₽
+              <div
+                class="indicator-component__values"
+              >
+                <div
+                  class="indicator-value direction-column"
+                >
+                  <div
+                    class="indicator-value__label"
+                  >
+                    Income tax
+                  </div>
+                  <div
+                    class="indicator-value__info"
+                  >
+                    0 %
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="indicator-component lite-box"
+            style="align-self: baseline;"
+          >
+            <div
+              class="indicator-component__values"
+            >
+              <div
+                class="indicator-value direction-column"
+              >
+                <div
+                  class="indicator-value__label"
+                >
+                  Minimum Wage
+                </div>
+                <div
+                  class="indicator-value__info"
+                >
+                  0 ₽
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        className="indicator-component"
-      >
-        <div
-          className="indicator-component__head"
-        >
-          Desired
-        </div>
-        <div
-          className="indicator-component__values"
-        >
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              <li>
-                Income
-              </li>
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0 ₽
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              <li>
-                Profit
-              </li>
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0 ₽
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              <li>
-                Profitability
-              </li>
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0 ₽
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="indicator-component"
-      >
-        <div
-          className="indicator-component__values"
-        >
-          <div
-            className="indicator-value direction-column"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              Total expense (month)
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0 ₽
-            </div>
-          </div>
-          <div
-            className="indicators-absolute__components"
-          >
-            <div
-              className="indicator-value direction-column"
-            >
-              <div
-                className="indicator-value__label"
-              >
-                Salary
-              </div>
-              <div
-                className="indicator-value__info"
-              >
-                0 ₽
-              </div>
-            </div>
-            <div
-              className="indicator-value direction-column"
-            >
-              <div
-                className="indicator-value__label"
-              >
-                Office
-              </div>
-              <div
-                className="indicator-value__info"
-              >
-                0 ₽
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="indicator-component"
-      >
-        <div
-          className="indicator-component__values"
-        >
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              Working days per year:
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              <li>
-                Vacation (days):
-              </li>
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              <li>
-                Sick leave (days):
-              </li>
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              Working days per month (avg.):
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0
-            </div>
-          </div>
-          <div
-            className="indicator-value"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              Hours per month (avg.):
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="indicators-double__components"
-      >
-        <div
-          className="indicator-component lite-box"
-        >
-          <div
-            className="indicator-component__values"
-          >
-            <div
-              className="indicator-value direction-column"
-            >
-              <div
-                className="indicator-value__label"
-              >
-                District coefficient
-              </div>
-              <div
-                className="indicator-value__info"
-              >
-                0 %
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="indicator-component lite-box"
-        >
-          <div
-            className="indicator-component__values"
-          >
-            <div
-              className="indicator-value direction-column"
-            >
-              <div
-                className="indicator-value__label"
-              >
-                Income tax
-              </div>
-              <div
-                className="indicator-value__info"
-              >
-                0 %
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="indicator-component lite-box"
-        style={
-          {
-            "alignSelf": "baseline",
-          }
-        }
-      >
-        <div
-          className="indicator-component__values"
-        >
-          <div
-            className="indicator-value direction-column"
-          >
-            <div
-              className="indicator-value__label"
-            >
-              Minimum Wage
-            </div>
-            <div
-              className="indicator-value__info"
-            >
-              0 ₽
-            </div>
-          </div>
-        </div>
-      </div>
+        class="content-card__sentinel content-card__sentinel--bottom"
+      />
     </div>
-  </div>
-  <div
-    className="content-card__sentinel content-card__sentinel--bottom"
-  />
-</div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
