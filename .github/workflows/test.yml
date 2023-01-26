@@ -7,7 +7,7 @@ on:
             - develop
 jobs:
     component-tests:
-        name: Run on Chrome 106
+        name: Component testing
         runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v2
