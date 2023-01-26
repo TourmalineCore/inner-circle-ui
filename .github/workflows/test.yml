@@ -1,0 +1,22 @@
+name: component and snapshot testing by jest and cypress
+
+on:
+    push:
+        branches:
+            - feature/*
+            - develop
+jobs:
+    component-tests:
+        name: Run on Chrome 106
+        runs-on: ubuntu-18.04
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Download dependencies
+              continue-on-error: true
+              run: |
+                npm ci
+
+            - name: Run tests
+              continue-on-error: true
+              run: npm test
