@@ -74,6 +74,7 @@
   "scripts": {
     "start": "run-s create-config:dev start-devserver",
     "start:local": "run-s create-config:local start-devserver",
+    "start:local:mocked": "run-s create-config:test start-devserver",
     "start-devserver": "react-scripts start",
     "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "cy:open": "npx cypress open",
