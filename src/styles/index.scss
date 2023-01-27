@@ -12,6 +12,7 @@
 
 // Features
 @import "../features/profile/ProfilePage";
+@import "../features/profile/components/InfoComponent/InfoComponent";
 @import "../features/employees/EmployeesPage";
 
 // Template
@@ -23,6 +24,7 @@
 @import "../template/components/Sidebar/components/SidebarItem/SidebarItem";
 @import "../template/components/Sidebar/components/SidebarSettings/SidebarSettingsMenu/SidebarSettingsMenu";
 @import "../template/components/Sidebar/components/SidebarSettings/SidebarSettingsControl";
+@import "../template/components/Sidebar/components/SidebarLogo/SidebarLogo";
 @import "../template/components/Sidebar/Sidebar";
 @import "../template/Template";
 

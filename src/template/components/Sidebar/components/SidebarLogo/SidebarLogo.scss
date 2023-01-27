@@ -1,0 +1,47 @@
+.sidebar-logo {
+  display: flex;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+
+  &__image {
+    display: block;
+    flex: none;
+    width: 36px;
+    height: 44px;
+
+    @include desktop-xl {
+      width: 48px;
+      height: 64px;
+    }
+  }
+
+  &__text-container {
+    position: relative;
+    margin-left: 12px;
+    height: 44px;
+
+    @include desktop-xl {
+      height: 64px;
+    }
+  }
+
+  &__text {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 100%;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  @include desktop-xl {
+    padding: 32px 20px 16px;
+  }
+}
+
+@include desktop {
+  .sidebar--collapsed .sidebar-logo__text {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+}

@@ -58,6 +58,6 @@ export type EmployeeSalaryUpdateType = {
 };
 
 export enum EmployeeTypeSwitch {
-  'Full Time' = 0,
-  'Half Time' = 1,
+  'Full Time' = 1,
+  'Half Time' = 0.5,
 }

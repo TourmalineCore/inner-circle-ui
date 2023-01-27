@@ -49,7 +49,7 @@ function EmployeesContactDetailsTable({
           renderIcon: () => <FontAwesomeIcon icon={faEdit} />,
           renderText: () => 'Edit',
           onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<ColleagueContactsType>) => {
-            navigate(`/employees/${row.original.id}`);
+            navigate(`/employees/edit?id=${row.original.id}`);
           },
         },
         {
@@ -99,8 +99,7 @@ function EmployeesContactDetailsTable({
           disableSortBy: true,
           Cell: ({ row }: Table<ColleagueContactsType>) => {
             const { phone } = row.original;
-            const phoneChange = phone || 'Not specified';
-            return <ContactLink contact={phoneChange} link={phoneChange} />;
+            return <ContactLink contact={phone} link={`tel:${phone}`} />;
           },
         },
         {

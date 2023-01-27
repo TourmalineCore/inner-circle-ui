@@ -23,7 +23,7 @@ function EmployeeAddPage() {
     gitLab: '',
     ratePerHour: 0,
     pay: 0,
-    employmentType: 0,
+    employmentType: 1,
     parkingCostPerMonth: 0,
   });
 
@@ -130,7 +130,7 @@ function EmployeeAddPage() {
               data-testid="gitLab-input"
             />
             <NativeSelect
-              options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
+              options={[{ label: EmployeeTypeSwitch[0.5], value: 0.5 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
               label="Employment Type*"
               name="employmentType"
               value={employee.employmentType}

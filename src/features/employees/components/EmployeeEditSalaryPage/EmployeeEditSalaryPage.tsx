@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Button, Input, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
   ColleagueFinancesDtoType, EmployeeSalaryUpdateType, EmployeeTypeSwitch,
@@ -18,11 +18,12 @@ function EmployeeEditSalaryPage() {
     fullName: '',
     ratePerHour: 0,
     pay: 0,
-    employmentType: 0,
+    employmentType: 1,
     netSalary: 0,
     parking: 0,
   });
-  const { id } = useParams();
+  const [param] = useSearchParams();
+  const id = param.get('id');
 
   useEffect(() => { loadEmployeesAsync(); }, []);
 
@@ -57,7 +58,7 @@ function EmployeeEditSalaryPage() {
             onChange={handleFormChange}
           />
           <NativeSelect
-            options={[{ label: EmployeeTypeSwitch[0], value: 0 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
+            options={[{ label: EmployeeTypeSwitch[0.5], value: 0.5 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
             label="Employment Type*"
             name="employmentType"
             value={employee.employmentType}

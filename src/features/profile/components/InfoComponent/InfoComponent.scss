@@ -1,0 +1,19 @@
+.info-component {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+
+  &__icon {
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  &__value {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  & + & {
+    margin-top: 10px;
+  }
+}

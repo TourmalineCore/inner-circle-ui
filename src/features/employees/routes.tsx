@@ -1,4 +1,5 @@
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { ReactComponent as IconEmployees } from '../../assets/icons/employees.svg';
+import { ReactComponent as IconEmployeesActive } from '../../assets/icons/employees-active.svg';
 
 import EmployeesPage from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
@@ -17,12 +18,12 @@ export const employeesRoutes = [
     Component: EmployeeAddPage,
   },
   {
-    path: '/employees/:id',
+    path: '/employees/edit',
     breadcrumb: 'Edit contact details',
     Component: EmployeeEditContactPage,
   },
   {
-    path: '/employees/:id',
+    path: '/employees/salary',
     breadcrumb: 'Edit salary data',
     Component: EmployeeEditSalaryPage,
   },
@@ -32,6 +33,7 @@ export const employeesSidebarRoutes = [
   {
     path: '/employees',
     label: 'Employees',
-    icon: faUsers,
+    icon: <IconEmployees />,
+    iconActive: <IconEmployeesActive />,
   },
 ];
