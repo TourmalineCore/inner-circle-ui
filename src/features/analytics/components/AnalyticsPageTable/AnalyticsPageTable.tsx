@@ -1,5 +1,3 @@
-// ToDo: get rid of employentCof - discuss with backend
-
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import React, { MouseEventHandler, useEffect, useState } from 'react';
@@ -24,8 +22,8 @@ const checkFormatColumnsData = {
 };
 
 const employeeTypeData = {
-  1: 'Full Time',
-  2: 'Half Time',
+  1: 'Half Time',
+  2: 'Full Time',
 };
 
 function AnalyticsPageTable() {
@@ -51,10 +49,8 @@ function AnalyticsPageTable() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const {
-          id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, ratePerHourDelta,
+          id: employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth, ratePerHourDelta,
         } = row.original;
-
-        const employmentType = employentCof === 1 ? 0 : 1;
 
         return (
           <RedactComponent
@@ -76,10 +72,8 @@ function AnalyticsPageTable() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const {
-          id: employeeId, ratePerHour, pay, employmentType: employentCof, parkingCostPerMonth, payDelta,
+          id: employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth, payDelta,
         } = row.original;
-
-        const employmentType = employentCof === 1 ? 0 : 1;
 
         return (
           <RedactComponent
@@ -101,10 +95,8 @@ function AnalyticsPageTable() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const {
-          employmentType: employentCof, id: employeeId, ratePerHour, pay, parkingCostPerMonth,
+          employmentType, id: employeeId, ratePerHour, pay, parkingCostPerMonth,
         } = row.original;
-
-        const employmentType = employentCof === 1 ? 0 : 1;
 
         return (
           <div className="cell-component">
@@ -119,7 +111,7 @@ function AnalyticsPageTable() {
                 });
               }}
             >
-              <option value={0}>{employeeTypeData[1]}</option>
+              <option value={0.5}>{employeeTypeData[1]}</option>
               <option value={1}>{employeeTypeData[2]}</option>
             </select>
           </div>
@@ -449,10 +441,9 @@ function AnalyticsPageTable() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const {
-          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType: employentCof, ratePerHour, pay,
+          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType, ratePerHour, pay,
         } = row.original;
 
-        const employmentType = employentCof === 1 ? 0 : 1;
         return (
           <RedactComponent
             value={formatMoney(parkingCostPerMonth)}
