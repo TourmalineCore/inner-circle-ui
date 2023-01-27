@@ -1,37 +1,58 @@
 .breadcrumbs {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
   white-space: nowrap;
+
+  &__breadcrumb {
+    border-radius: 10px;
+    padding: 4px 8px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
+    background: rgb(224 223 246 / 50%);
+  }
 
   &__item {
     display: inline-block;
     overflow: hidden;
     max-width: 100%;
-    text-overflow: ellipsis;
+  }
 
-    &:not(:last-child) {
-      flex: none;
+  &__icon {
+    display: inline-block;
+    align-items: center;
+    margin: 0 6px;
+    width: 6px;
+    height: 12px;
 
-      &::after {
-        content: "➔";
-        margin: 0 8px;
-      }
+    @include desktop-xl {
+      width: 10px;
+      height: 16px;
     }
   }
 
   &__link {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--color-link);
+    padding: 4px 8px;
+    font-size: inherit;
+    text-decoration-line: underline;
+    color: #000;
+    transition: all 0.3s ease-in-out;
+    text-decoration-thickness: 0.5px;
 
     &:hover {
-      text-decoration: underline;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
+      text-decoration-line: underline;
+      background-color: rgb(224 223 246 / 50%);
     }
+  }
+
+  @include tablet-xl {
+    font-size: 20px;
   }
 
   @include desktop-xl {
