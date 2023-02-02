@@ -9,21 +9,12 @@
     flex: none;
     width: 36px;
     height: 44px;
-
-    @include desktop-xl {
-      width: 48px;
-      height: 64px;
-    }
   }
 
   &__text-container {
     position: relative;
     margin-left: 12px;
     height: 44px;
-
-    @include desktop-xl {
-      height: 64px;
-    }
   }
 
   &__text {
@@ -35,7 +26,7 @@
   }
 
   @include desktop-xl {
-    padding: 32px 20px 16px;
+    padding: 24px 16px;
   }
 }
 
