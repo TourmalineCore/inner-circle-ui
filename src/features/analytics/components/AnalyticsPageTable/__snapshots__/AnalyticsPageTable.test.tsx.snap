@@ -1,0 +1,2088 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnalyticsPageTable tests should render with get request with rights values and match to snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="content-card "
+      >
+        <div
+          class="content-card__sentinel content-card__sentinel--top"
+        />
+        <div
+          class="content-card__header content-card__header--sticky"
+        >
+          <div
+            class="default-card-header"
+          >
+            Analytics
+          </div>
+        </div>
+        <div
+          class="content-card__body"
+        >
+          <div
+            class="analitycs-page--btns"
+            data-testid="content-card"
+          >
+            <button
+              class="tc-button   "
+              type="button"
+            >
+              <span
+                class="tc-button__inner"
+              >
+                Reset changes
+              </span>
+            </button>
+            <div>
+              <label
+                class="tc-checkfield "
+                style="margin-left: 16px;"
+              >
+                <input
+                  class="tc-checkfield__input"
+                  type="checkbox"
+                />
+                <span
+                  class="tc-checkfield__box tc-checkfield__box--radio"
+                />
+                <span
+                  class="tc-checkfield__label"
+                >
+                  All
+                </span>
+              </label>
+              <label
+                class="tc-checkfield "
+                style="margin-left: 16px;"
+              >
+                <input
+                  checked=""
+                  class="tc-checkfield__input"
+                  type="checkbox"
+                />
+                <span
+                  class="tc-checkfield__box tc-checkfield__box--radio"
+                />
+                <span
+                  class="tc-checkfield__label"
+                >
+                  Main parameters
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            style="padding-top: 4px;"
+          >
+            <div
+              class="tc-table-desktop"
+            >
+              <div
+                class="tc-table-desktop__inner"
+              >
+                <div
+                  class="tc-table-desktop__content"
+                  role="table"
+                  style="min-width: 1114px;"
+                >
+                  <div
+                    class="tc-table-desktop__header"
+                  >
+                    <div
+                      class="tc-table-desktop__tr"
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Employee"
+                      >
+                        Employee
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Rate/h"
+                      >
+                        Rate/h
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Pay"
+                      >
+                        Pay
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Employment type"
+                      >
+                        Employment type
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Salary"
+                      >
+                        Salary
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Hourly Cost (By Fact)"
+                      >
+                        Hourly Cost (By Fact)
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Hourly Cost (On Hand)"
+                      >
+                        Hourly Cost (On Hand)
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                        title="Earnings"
+                      >
+                        Earnings
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                        title="Expenses"
+                      >
+                        Expenses
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Profit"
+                      >
+                        Profit
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Profitability"
+                      >
+                        Profitability
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        tc-table-desktop__action-cell
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                        title=""
+                      >
+                        
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__tr tc-table-desktop__tr--filter"
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div>
+                          <input
+                            class="tc-table-filter"
+                            style="width: 100%; line-height: 1;"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__action-cell"
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                      >
+                        <div />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__body"
+                  >
+                    <div
+                      class="tc-table-desktop__tr "
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        Orlov
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <input
+                            class="component-input"
+                            type="text"
+                            value="400 ₽"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <input
+                            class="component-input"
+                            type="text"
+                            value="20 000 ₽"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="cell-component"
+                        >
+                          <select
+                            class="cell-component__select"
+                          >
+                            <option
+                              value="0.5"
+                            >
+                              Half Time
+                            </option>
+                            <option
+                              value="1"
+                            >
+                              Full Time
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            20 000 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            230,45 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            125 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            54 133,33 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            31 187,85 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            22 945,48 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            42.39%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td tc-table-desktop__action-cell"
+                        role="cell"
+                        style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="tc-table-desktop-actions-dropdown"
+                        >
+                          <button
+                            class="tc-table-desktop-actions-dropdown__button"
+                            type="button"
+                          >
+                            <span />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__tr "
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        Ivanov
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <input
+                            class="component-input"
+                            type="text"
+                            value="400 ₽"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <input
+                            class="component-input"
+                            type="text"
+                            value="20 000 ₽"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="cell-component"
+                        >
+                          <select
+                            class="cell-component__select"
+                          >
+                            <option
+                              value="0.5"
+                            >
+                              Half Time
+                            </option>
+                            <option
+                              value="1"
+                            >
+                              Full Time
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            20 000 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            230,45 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            125 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            54 133,33 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            31 187,85 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            22 945,48 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        role="cell"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            42.39%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td tc-table-desktop__action-cell"
+                        role="cell"
+                        style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="tc-table-desktop-actions-dropdown"
+                        >
+                          <button
+                            class="tc-table-desktop-actions-dropdown__button"
+                            type="button"
+                          >
+                            <span />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__tr tc-table-desktop__tr--footer"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        Total
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            108 266,66 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            62 375,7 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            45 890,96 ₽
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td "
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                        <div
+                          class="component"
+                        >
+                          <div>
+                            42.39%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__td tc-table-desktop__action-cell"
+                        colspan="1"
+                        style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tc-table-desktop__pagination"
+              >
+                <div
+                  class="tc-table-desktop__pagination-left"
+                >
+                  <div
+                    class="tc-table-desktop__page-count"
+                  >
+                    Show rows
+                     
+                    <select
+                      class="tc-table-desktop__select tc-table-desktop__page-count-select"
+                    >
+                      <option
+                        value="10"
+                      >
+                        10
+                      </option>
+                      <option
+                        value="20"
+                      >
+                        20
+                      </option>
+                      <option
+                        value="50"
+                      >
+                        50
+                      </option>
+                      <option
+                        value="100"
+                      >
+                        100
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="tc-table-desktop__pagination-center"
+                >
+                  <span>
+                    Shown 1 - 2 of 2
+                  </span>
+                   
+                </div>
+                <div
+                  class="tc-table-desktop__pagination-right"
+                >
+                  <div
+                    class="tc-table-desktop__table-pagination-buttons"
+                  >
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="First Page"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M.5 1v14M14 1L7 8.26 14 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Previous"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 9 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 1L1 8.26 8 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <div
+                      class="tc-table-desktop__table-page-current"
+                    >
+                      1
+                    </div>
+                    <div
+                      class="tc-table-desktop__of-total"
+                    >
+                      of 1
+                    </div>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Next"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 9 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 1l7 7.26L1 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Last Page"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.5 1v14M1 1l7 7.26L1 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-card__sentinel content-card__sentinel--bottom"
+        />
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="content-card "
+    >
+      <div
+        class="content-card__sentinel content-card__sentinel--top"
+      />
+      <div
+        class="content-card__header content-card__header--sticky"
+      >
+        <div
+          class="default-card-header"
+        >
+          Analytics
+        </div>
+      </div>
+      <div
+        class="content-card__body"
+      >
+        <div
+          class="analitycs-page--btns"
+          data-testid="content-card"
+        >
+          <button
+            class="tc-button   "
+            type="button"
+          >
+            <span
+              class="tc-button__inner"
+            >
+              Reset changes
+            </span>
+          </button>
+          <div>
+            <label
+              class="tc-checkfield "
+              style="margin-left: 16px;"
+            >
+              <input
+                class="tc-checkfield__input"
+                type="checkbox"
+              />
+              <span
+                class="tc-checkfield__box tc-checkfield__box--radio"
+              />
+              <span
+                class="tc-checkfield__label"
+              >
+                All
+              </span>
+            </label>
+            <label
+              class="tc-checkfield "
+              style="margin-left: 16px;"
+            >
+              <input
+                checked=""
+                class="tc-checkfield__input"
+                type="checkbox"
+              />
+              <span
+                class="tc-checkfield__box tc-checkfield__box--radio"
+              />
+              <span
+                class="tc-checkfield__label"
+              >
+                Main parameters
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          style="padding-top: 4px;"
+        >
+          <div
+            class="tc-table-desktop"
+          >
+            <div
+              class="tc-table-desktop__inner"
+            >
+              <div
+                class="tc-table-desktop__content"
+                role="table"
+                style="min-width: 1114px;"
+              >
+                <div
+                  class="tc-table-desktop__header"
+                >
+                  <div
+                    class="tc-table-desktop__tr"
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Employee"
+                    >
+                      Employee
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Rate/h"
+                    >
+                      Rate/h
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Pay"
+                    >
+                      Pay
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Employment type"
+                    >
+                      Employment type
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Salary"
+                    >
+                      Salary
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Hourly Cost (By Fact)"
+                    >
+                      Hourly Cost (By Fact)
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Hourly Cost (On Hand)"
+                    >
+                      Hourly Cost (On Hand)
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                      title="Earnings"
+                    >
+                      Earnings
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                      title="Expenses"
+                    >
+                      Expenses
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Profit"
+                    >
+                      Profit
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Profitability"
+                    >
+                      Profitability
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        tc-table-desktop__action-cell
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                      title=""
+                    >
+                      
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__tr tc-table-desktop__tr--filter"
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div>
+                        <input
+                          class="tc-table-filter"
+                          style="width: 100%; line-height: 1;"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__action-cell"
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                    >
+                      <div />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tc-table-desktop__body"
+                >
+                  <div
+                    class="tc-table-desktop__tr "
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      Orlov
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <input
+                          class="component-input"
+                          type="text"
+                          value="400 ₽"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <input
+                          class="component-input"
+                          type="text"
+                          value="20 000 ₽"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="cell-component"
+                      >
+                        <select
+                          class="cell-component__select"
+                        >
+                          <option
+                            value="0.5"
+                          >
+                            Half Time
+                          </option>
+                          <option
+                            value="1"
+                          >
+                            Full Time
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          20 000 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          230,45 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          125 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          54 133,33 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          31 187,85 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          22 945,48 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          42.39%
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td tc-table-desktop__action-cell"
+                      role="cell"
+                      style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="tc-table-desktop-actions-dropdown"
+                      >
+                        <button
+                          class="tc-table-desktop-actions-dropdown__button"
+                          type="button"
+                        >
+                          <span />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__tr "
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      Ivanov
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <input
+                          class="component-input"
+                          type="text"
+                          value="400 ₽"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <input
+                          class="component-input"
+                          type="text"
+                          value="20 000 ₽"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="cell-component"
+                      >
+                        <select
+                          class="cell-component__select"
+                        >
+                          <option
+                            value="0.5"
+                          >
+                            Half Time
+                          </option>
+                          <option
+                            value="1"
+                          >
+                            Full Time
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          20 000 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          230,45 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          125 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          54 133,33 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          31 187,85 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          22 945,48 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      role="cell"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          42.39%
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td tc-table-desktop__action-cell"
+                      role="cell"
+                      style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="tc-table-desktop-actions-dropdown"
+                      >
+                        <button
+                          class="tc-table-desktop-actions-dropdown__button"
+                          type="button"
+                        >
+                          <span />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__tr tc-table-desktop__tr--footer"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      Total
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          108 266,66 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          62 375,7 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          45 890,96 ₽
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td "
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                      <div
+                        class="component"
+                      >
+                        <div>
+                          42.39%
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__td tc-table-desktop__action-cell"
+                      colspan="1"
+                      style="box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px; justify-content: flex-start; align-items: flex-start; display: flex;"
+                    >
+                       
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tc-table-desktop__pagination"
+            >
+              <div
+                class="tc-table-desktop__pagination-left"
+              >
+                <div
+                  class="tc-table-desktop__page-count"
+                >
+                  Show rows
+                   
+                  <select
+                    class="tc-table-desktop__select tc-table-desktop__page-count-select"
+                  >
+                    <option
+                      value="10"
+                    >
+                      10
+                    </option>
+                    <option
+                      value="20"
+                    >
+                      20
+                    </option>
+                    <option
+                      value="50"
+                    >
+                      50
+                    </option>
+                    <option
+                      value="100"
+                    >
+                      100
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="tc-table-desktop__pagination-center"
+              >
+                <span>
+                  Shown 1 - 2 of 2
+                </span>
+                 
+              </div>
+              <div
+                class="tc-table-desktop__pagination-right"
+              >
+                <div
+                  class="tc-table-desktop__table-pagination-buttons"
+                >
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="First Page"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 15 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.5 1v14M14 1L7 8.26 14 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Previous"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 9 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 1L1 8.26 8 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    class="tc-table-desktop__table-page-current"
+                  >
+                    1
+                  </div>
+                  <div
+                    class="tc-table-desktop__of-total"
+                  >
+                    of 1
+                  </div>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Next"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 9 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 1l7 7.26L1 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Last Page"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 15 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.5 1v14M1 1l7 7.26L1 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-card__sentinel content-card__sentinel--bottom"
+      />
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
