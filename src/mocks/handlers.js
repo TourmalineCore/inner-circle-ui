@@ -6,8 +6,9 @@ import getAnalyticsData from './data/get-analytics-data.json';
 
 export const handlers = [
   // Handles a POST /login request
-  rest.post('/login', null),
-
+  rest.post(`${API_ROOT}${LINK_TO_SALARY_SERVICE}employees/create`, (req, res, ctx) => res(
+    ctx.status(200),
+  )),
   // Handles a GET /user request
   rest.get(`${API_ROOT}${LINK_TO_SALARY_SERVICE}finance/get-total-finance`, (req, res, ctx) => res(
     ctx.status(200),

@@ -471,7 +471,7 @@ function AnalyticsPageTable() {
         <DefaultCardHeader>Analytics</DefaultCardHeader>
       )}
     >
-      <div className="analitycs-page--btns">
+      <div className="analitycs-page--btns" data-testid="content-card">
         <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
         <div>
           {Object.entries(checkFormatColumnsData).map(([value, label]) => (
@@ -626,6 +626,7 @@ function AnalyticsPageTable() {
 
     try {
       const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
+      console.log('KEEEEEEEK', data);
 
       setEmployees(data);
       setInitialEmployees(data);

@@ -9,10 +9,6 @@ export default defineConfig({
   },
 
   component: {
-    reporter: 'cypress-multi-reporters',
-    reporterOptions: {
-      configFile: 'reporterOptions.json',
-    },
     viewportWidth: 1200,
     viewportHeight: 660,
     video: false,

@@ -10,6 +10,7 @@
     ],
     "types": [
       "cypress", 
+      "msw-cypress/commands",
       "@testing-library/cypress", 
       "jest", 
       "cypress-react-router", 
@@ -34,6 +35,7 @@
     "**/*.d.ts",
     "src",
     "cypress",
+    "./src/mocks/handlers.js",
     "cypress.config.js",
     "helpers",
     "jest.config.js",

@@ -113,9 +113,8 @@ function fillInput(fieldName, value) {
 }
 
 function interceptCreateEmployeeRequest() {
-  cy.intercept('POST', '**/*employees/create', {
-    statusCode: 200,
-  }).as('employeerCreate');
+  cy.intercept('POST', '/salary/employees/create')
+    .as('employeerCreate');
 }
 
 function validateRequestValue(fieldName, value) {
