@@ -1,3 +1,5 @@
+// ToDo: rename RedactComponent, get rid of inline styles for delta (using classname)
+
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
@@ -8,24 +10,26 @@ import './RedactComponent.css';
 function RedactComponent({
   value,
   valueDelta,
-  onChange,
+  onChange = () => {},
+  isEditable = false,
 } : {
   value : string,
   valueDelta?: number,
-  onChange?: (number: number) => void
+  onChange?: (number: number) => void,
+  isEditable?: boolean,
 }) {
-  const [redValue, setRedValue] = useState(value);
-  const [isPercent, setisPercent] = useState(false);
+  const [editableValue, setRedValue] = useState(value);
+  const [isPercent, setIsPercent] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (redValue.includes('%')) {
-      setisPercent(true);
+    if (editableValue.includes('%')) {
+      setIsPercent(true);
     }
   }, []);
 
   function onFocus() {
-    setRedValue(reformatMoney(redValue));
+    setRedValue(reformatMoney(editableValue));
   }
 
   function onCheckPercent(number : string) {
@@ -37,15 +41,16 @@ function RedactComponent({
   }
 
   function onAccept() {
-    onCheckPercent(redValue.replace(',', '.'));
-    if (onChange && (Number(reformatMoney(value)) !== Number(reformatMoney(redValue)))) {
-      onChange(Number(redValue));
+    onCheckPercent(editableValue.replace(',', '.'));
+    if (isEditable && (Number(reformatMoney(value)) !== Number(reformatMoney(editableValue)))) {
+      onChange(Number(editableValue));
     }
   }
 
-  function onCancellation() {
+  function onCancel() {
     setRedValue(value);
   }
+
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -57,33 +62,34 @@ function RedactComponent({
       event.preventDefault();
       inputRef.current?.blur();
 
-      onCancellation();
+      onCancel();
     }
   }
 
   return (
     <div className="component">
       {
-        onChange
+        isEditable
           ? (
             <input
               ref={inputRef}
               className="component-input"
               type="text"
-              value={redValue}
+              value={editableValue}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setRedValue(e.target.value)}
               onFocus={onFocus}
               onKeyUp={handleKeyUp}
-              onBlur={onCancellation}
+              onBlur={onCancel}
             />
           ) : <div>{value}</div>
       }
-      {valueDelta !== 0 && valueDelta
-        && (
+      {valueDelta
+        ? (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
             {getTotal(valueDelta)}
           </div>
-        )}
+        )
+        : null}
     </div>
   );
 
