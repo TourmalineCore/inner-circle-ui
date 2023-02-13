@@ -1,10 +1,10 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useBreadcrumbs, { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
 
 import { useLocation } from 'react-router-dom';
-import { ReactComponent as IconLogoutActive } from '../assets/icons/logout-active.svg';
-import { ReactComponent as IconLogout } from '../assets/icons/logout.svg';
+import { ReactComponent as IconLogoutActive } from '../assets/icons/icon-logout-active.svg';
+import { ReactComponent as IconLogout } from '../assets/icons/icon-logout.svg';
 
 import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
 import Copyright from './components/Copyright/Copyright';
@@ -31,8 +31,6 @@ function Template() {
   const prevBreadcrumbPath = breadcrumbs.length > 1
     ? breadcrumbs[breadcrumbs.length - 2].key
     : null;
-
-  useEffect(() => {});
 
   return (
     <>

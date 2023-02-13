@@ -1,23 +1,23 @@
 import clsx from 'clsx';
 import {
-  useEffect,
+  useEffect, useRef,
 } from 'react';
 import { Link } from 'react-router-dom';
 import { BreadcrumbData } from 'use-react-router-breadcrumbs';
-import { ReactComponent as IconBreadcrumbs } from '../../../assets/icons/arrow-breadcrumbs.svg';
+import { ReactComponent as IconBreadcrumbs } from '../../../assets/icons/icon-arrow-breadcrumbs.svg';
 
 function Breadcrumbs({
   list = [],
 }: {
   list: BreadcrumbData[];
 }) {
+  const listRef = useRef<HTMLUListElement>(null);
+  const locatedElementRef = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
     if (window.innerWidth < 768) {
-      const main = document.querySelector('.breadcrumbs');
-      const sdfs = document.querySelector('.breadcrumbs__breadcrumb--located');
-
-      main?.scrollTo({
-        left: sdfs?.getBoundingClientRect().left,
+      listRef.current?.scrollTo({
+        left: locatedElementRef.current?.getBoundingClientRect().right,
       });
     }
   }, []);
@@ -25,7 +25,7 @@ function Breadcrumbs({
   return !list.length
     ? <span>Домашняя страница</span>
     : (
-      <ul className="breadcrumbs">
+      <ul ref={listRef} className="breadcrumbs">
         {list.map(({ breadcrumb, key }, i) => (
           <li key={key} className="breadcrumbs__item">
             {
@@ -41,9 +41,11 @@ function Breadcrumbs({
                   </span>
                 )
                 : (
-                  <span className={clsx('breadcrumbs__breadcrumb', {
-                    'breadcrumbs__breadcrumb--located': list.length > 1,
-                  })}
+                  <span
+                    ref={locatedElementRef}
+                    className={clsx('breadcrumbs__breadcrumb', {
+                      'breadcrumbs__breadcrumb--located': list.length > 1,
+                    })}
                   >
                     {breadcrumb}
                   </span>
