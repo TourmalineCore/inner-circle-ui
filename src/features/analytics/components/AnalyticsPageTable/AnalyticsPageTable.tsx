@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
 import React, { MouseEventHandler, useEffect, useState } from 'react';
@@ -5,15 +6,22 @@ import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
+import { nanoid } from 'nanoid';
 import { formatMoney } from '../../../../common/utils/formatMoney';
 import ContentCard from '../../../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
-import { GetPreviewType, PutPreviewType } from '../../types';
+import {
+  Employee,
+  GetPreviewType, PutPreviewType, RootObject, Total,
+} from '../../types';
 import RedactComponent from '../RedactComponent/RedactComponent';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import {
-  CellTable, ColumnType, FooterTable, Row,
+  CellTable,
+  ColumnType,
+  // FooterTable,
+  Row,
 } from './types/AnalyticsPageTable';
 
 const checkFormatColumnsData = {
@@ -28,14 +36,50 @@ const employeeTypeData = {
 
 function AnalyticsPageTable() {
   const [isLoading, setIsLoading] = useState(true);
-  const [initialEmployees, setInitialEmployees] = useState<(GetPreviewType)[]>([]);
-  const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
+  const [initialEmployees, setInitialEmployees] = useState<GetPreviewType[]>([]);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
+
+  const [employees, setEmployees] = useState<GetPreviewType[]>([]);
+  const [employeess, setEmployeess] = useState<Employee[]>([]);
+  const [total, setTotal] = useState<Total>({
+    source: {
+      parkingCostPerMonth: 0,
+      accountingPerMonth: 0,
+      earnings: 0,
+      expenses: 0,
+      incomeTaxContributions: 0,
+      pensionContributions: 0,
+      medicalContributions: 0,
+      socialInsuranceContributions: 0,
+      injuriesContributions: 0,
+      profit: 0,
+      profitAbility: 0,
+      prepayment: 0,
+      netSalary: 0,
+    },
+    metricsDiff: {
+      parkingCostPerMonth: 1000,
+      accountingPerMonth: 0,
+      earnings: 0,
+      expenses: 0,
+      incomeTaxContributions: 0,
+      pensionContributions: 0,
+      medicalContributions: 0,
+      socialInsuranceContributions: 0,
+      injuriesContributions: 0,
+      profit: 0,
+      profitAbility: 0,
+      prepayment: 0,
+      netSalary: 0,
+    },
+  });
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
 
+  console.log(employeess);
+  console.log('source', total);
   const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
@@ -176,9 +220,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('earnings', row.page),
-        getSumForTotal('earningsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('earnings', row.page),
+      //   getSumForTotal('earningsDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.earnings}
+          valueDelta={total.metricsDiff.earnings}
+        />
       ),
     },
     {
@@ -196,10 +247,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('expenses', row.page),
-        getSumForTotal('expensesDelta', row.page),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.expenses}
+          valueDelta={total.metricsDiff.expenses}
+        />
       ),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('expenses', row.page),
+      //   getSumForTotal('expensesDelta', row.page),
+      // ),
     },
     {
       Header: 'Profit',
@@ -215,9 +272,15 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('profit', row.page),
-        getSumForTotal('profitDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('profit', row.page),
+      //   getSumForTotal('profitDelta', row.page),
+      // ),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.profit}
+          valueDelta={total.metricsDiff.profit}
+        />
       ),
     },
     {
@@ -234,24 +297,31 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => {
-        const sumValue = getSumForTotal('profit', row.page) / getSumForTotal('earnings', row.page);
+      // Footer: (row: FooterTable<GetPreviewType>) => {
+      //   const sumValue = getSumForTotal('profit', row.page) / getSumForTotal('earnings', row.page);
 
-        const sumDelta = sumValue - (getSumForTotal('profit', row.page) - getSumForTotal('profitDelta', row.page))
-            / (getSumForTotal('earnings', row.page) - getSumForTotal('earningsDelta', row.page));
+      //   const sumDelta = sumValue - (getSumForTotal('profit', row.page) - getSumForTotal('profitDelta', row.page))
+      //       / (getSumForTotal('earnings', row.page) - getSumForTotal('earningsDelta', row.page));
 
-        return getTotalCost(
-          sumValue,
-          sumDelta,
-          true,
-        );
-      },
+      //   return getTotalCost(
+      //     sumValue,
+      //     sumDelta,
+      //     true,
+      //   );
+      // },
+      Footer: () => (
+        <RedactComponent
+          value={total.source.profitAbility}
+          valueDelta={total.metricsDiff.profitAbility}
+        />
+      ),
     },
   ];
 
-  type SumTotal = {
-    original: GetPreviewType,
-  };
+  // type SumTotal = {
+  //   original: GetPreviewType,
+  // };
+
   const columnForAll: ColumnType[] = [
     ...columnForMain,
     {
@@ -298,9 +368,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('prepayment', row.page),
-        getSumForTotal('prepaymentDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('prepayment', row.page),
+      //   getSumForTotal('prepaymentDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.prepayment}
+          valueDelta={total.metricsDiff.prepayment}
+        />
       ),
     },
     {
@@ -317,9 +394,15 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('incomeTaxContributions', row.page),
-        getSumForTotal('incomeTaxContributionsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('incomeTaxContributions', row.page),
+      //   getSumForTotal('incomeTaxContributionsDelta', row.page),
+      // ),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.incomeTaxContributions}
+          valueDelta={total.metricsDiff.incomeTaxContributions}
+        />
       ),
     },
     {
@@ -336,9 +419,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('netSalary', row.page),
-        getSumForTotal('netSalaryDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('netSalary', row.page),
+      //   getSumForTotal('netSalaryDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.netSalary}
+          valueDelta={total.metricsDiff.netSalary}
+        />
       ),
     },
     {
@@ -355,9 +445,15 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('pensionContributions', row.page),
-        getSumForTotal('pensionContributionsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('pensionContributions', row.page),
+      //   getSumForTotal('pensionContributionsDelta', row.page),
+      // ),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.pensionContributions}
+          valueDelta={total.metricsDiff.pensionContributions}
+        />
       ),
     },
     {
@@ -374,9 +470,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('medicalContributions', row.page),
-        getSumForTotal('medicalContributionsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('medicalContributions', row.page),
+      //   getSumForTotal('medicalContributionsDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.medicalContributions}
+          valueDelta={total.metricsDiff.medicalContributions}
+        />
       ),
     },
     {
@@ -393,9 +496,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('socialInsuranceContributions', row.page),
-        getSumForTotal('socialInsuranceContributionsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('socialInsuranceContributions', row.page),
+      //   getSumForTotal('socialInsuranceContributionsDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.socialInsuranceContributions}
+          valueDelta={total.metricsDiff.socialInsuranceContributions}
+        />
       ),
     },
     {
@@ -412,9 +522,16 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('injuriesContributions', row.page),
-        getSumForTotal('injuriesContributionsDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('injuriesContributions', row.page),
+      //   getSumForTotal('injuriesContributionsDelta', row.page),
+      // ),
+
+      Footer: () => (
+        <RedactComponent
+          value={total.source.injuriesContributions}
+          valueDelta={total.metricsDiff.injuriesContributions}
+        />
       ),
     },
     {
@@ -425,14 +542,20 @@ function AnalyticsPageTable() {
         const { accountingPerMonth, accountingPerMonthDelta } = row.original;
         return (
           <RedactComponent
-            value={formatMoney(accountingPerMonth)}
+            value={accountingPerMonth}
             valueDelta={accountingPerMonthDelta}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('accountingPerMonth', row.page),
-        getSumForTotal('accountingPerMonthDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('accountingPerMonth', row.page),
+      //   getSumForTotal('accountingPerMonthDelta', row.page),
+      // ),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.accountingPerMonth}
+          valueDelta={total.metricsDiff.accountingPerMonth}
+        />
       ),
     },
     {
@@ -441,7 +564,7 @@ function AnalyticsPageTable() {
       disableFilters: true,
       Cell: ({ row }: CellTable<GetPreviewType>) => {
         const {
-          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType, ratePerHour, pay,
+          parkingCostPerMonth, parkingCostPerMonthDelta,
         } = row.original;
 
         return (
@@ -449,17 +572,24 @@ function AnalyticsPageTable() {
             value={formatMoney(parkingCostPerMonth)}
             valueDelta={parkingCostPerMonthDelta}
             onChange={(parkingCostPerMonth: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
+              // updateEmployeesAsync({
+              //   employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
+              // });
+              updateEmployeesAsyncs(parkingCostPerMonth);
             }}
             isEditable
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('parkingCostPerMonth', row.page),
-        getSumForTotal('parkingCostPerMonthDelta', row.page),
+      // Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
+      //   getSumForTotal('parkingCostPerMonth', row.page),
+      //   getSumForTotal('parkingCostPerMonthDelta', row.page),
+      // ),
+      Footer: () => (
+        <RedactComponent
+          value={total.source.parkingCostPerMonth}
+          valueDelta={total.metricsDiff.parkingCostPerMonth}
+        />
       ),
     },
   ];
@@ -495,8 +625,8 @@ function AnalyticsPageTable() {
           tableId="analytics-salary-table"
           data={employees}
           order={{
-            id: 'weightForSorting',
-            desc: true,
+            id: 'fullName',
+            desc: false,
           }}
           loading={isLoading}
           renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
@@ -526,26 +656,26 @@ function AnalyticsPageTable() {
     </ContentCard>
   );
 
-  function getSumForTotal(key: string, data: SumTotal[]) {
-    const sum = data.map((el) => el.original[key as keyof GetPreviewType] as number)
-      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+  // function getSumForTotal(key: string, data: SumTotal[]) {
+  //   const sum = data.map((el) => el.original[key as keyof GetPreviewType] as number)
+  //     .reduce((pre: number, current: number) => pre += (current || 0), 0);
 
-    return sum;
-  }
+  //   return sum;
+  // }
 
-  function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta?: number, isPercent: boolean = false) {
-    if (isPercent) {
-      sumOfEmployeesValues *= 100;
-      sumOfEmployeesValuesDelta = sumOfEmployeesValuesDelta ? sumOfEmployeesValuesDelta * 100 : undefined;
-    }
+  // function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta?: number, isPercent: boolean = false) {
+  //   if (isPercent) {
+  //     sumOfEmployeesValues *= 100;
+  //     sumOfEmployeesValuesDelta = sumOfEmployeesValuesDelta ? sumOfEmployeesValuesDelta * 100 : undefined;
+  //   }
 
-    return (
-      <RedactComponent
-        value={isPercent ? `${Number(sumOfEmployeesValues.toFixed(2))}%` : formatMoney(Number(sumOfEmployeesValues.toFixed(2)))}
-        valueDelta={sumOfEmployeesValuesDelta ? Number(sumOfEmployeesValuesDelta.toFixed(2)) : undefined}
-      />
-    );
-  }
+  //   return (
+  //     <RedactComponent
+  //       value={isPercent ? `${Number(sumOfEmployeesValues.toFixed(2))}%` : formatMoney(Number(sumOfEmployeesValues.toFixed(2)))}
+  //       valueDelta={sumOfEmployeesValuesDelta ? Number(sumOfEmployeesValuesDelta.toFixed(2)) : undefined}
+  //     />
+  //   );
+  // }
 
   function duplicateEmployee(data: GetPreviewType) {
     let update: GetPreviewType = data;
@@ -566,8 +696,8 @@ function AnalyticsPageTable() {
 
     update = {
       ...update,
-      id: `${data.id}_duplicate`,
-      fullName: `(Copy)\n ${update.fullName}`,
+      id: `duplicate_${nanoid()}`,
+      fullName: `${update.fullName} (Copy)`,
     };
 
     setEmployees([...employees, update]);
@@ -576,49 +706,96 @@ function AnalyticsPageTable() {
 
   async function deleteEmployee(idEmployee: number | string) {
     const copyEmployee = employees.find((el) => el.id === idEmployee);
-    const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
+    // const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
 
     if (copyEmployee) {
-      let newEmployees = employees.slice();
+      const newEmployees = employees.slice();
       newEmployees.splice(employees.indexOf(copyEmployee), 1);
 
       setEmployees(newEmployees);
 
       // todo
-      newEmployees = initialEmployees.slice();
-      newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
+      // newEmployees = initialEmployees.slice();
+      // newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
 
-      setInitialEmployees(newEmployees);
+      // setInitialEmployees(newEmployees);
     }
   }
 
-  function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
-    let update: GetPreviewType = newData;
+  // function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
+  //   let update: GetPreviewType = newData;
 
-    for (const el of Object.keys(oldData)) {
-      if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
-        update = {
-          ...update,
-          [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
-        };
-      }
-    }
+  //   for (const el of Object.keys(oldData)) {
+  //     if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
+  //       update = {
+  //         ...update,
+  //         [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
+  //       };
+  //     }
+  //   }
 
-    return update;
+  //   return update;
+  // }
+
+  // console.log(updateEmployeesAsyncs());
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async function updateEmployeesAsyncs(number: number) {
+    // const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
+    // console.log(data);
+
+    console.log('number', number);
+    const a = employeess.map((item) => ({
+      employeeId: String(item.employeeId).toLowerCase().includes('duplicate_') ? null : item.employeeId,
+      ratePerHour: item.metrics.ratePerHour,
+      pay: item.metrics.pay,
+      employmentType: item.metrics.employmentType,
+      parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+    }));
+
+    console.log('dfsfs', a);
+    const { data: datas } = await api.post<RootObject>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, a);
+
+    setTotal(datas.total);
+    setEmployeess(datas.employees);
+
+    // const index = employees.find((el) => el.id === employee.employeeId);
+    // const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
+
+    // if (index) {
+    //   const newemp = employees.slice();
+    //   newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
+
+    //   setEmployees(newemp);
+    // }
   }
 
   async function updateEmployeesAsync(employee: PutPreviewType) {
     const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
+    console.log(data);
 
-    const index = employees.find((el) => el.id === employee.employeeId);
-    const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
+    const a = employeess.map((item) => ({
+      employeeId: String(item.employeeId).toLowerCase().includes('duplicate_') ? null : item.employeeId,
+      ratePerHour: item.metrics.ratePerHour,
+      pay: item.metrics.pay,
+      employmentType: item.metrics.employmentType,
+      parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+    }));
 
-    if (index) {
-      const newemp = employees.slice();
-      newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
+    const { data: datas } = await api.post<RootObject>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, a);
 
-      setEmployees(newemp);
-    }
+    setTotal(datas.total);
+    setEmployeess(datas.employees);
+
+    // const index = employees.find((el) => el.id === employee.employeeId);
+    // const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
+
+    // if (index) {
+    //   const newemp = employees.slice();
+    //   newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
+
+    //   setEmployees(newemp);
+    // }
   }
 
   async function loadEmployeesAsync() {
@@ -626,6 +803,12 @@ function AnalyticsPageTable() {
 
     try {
       const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
+      // const { data: datas } = await api.get<RootObject>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
+
+      // console.log('data', data);
+
+      // setTotal(datas.total);
+      // setEmployeess(datas.employees);
 
       setEmployees(data);
       setInitialEmployees(data);

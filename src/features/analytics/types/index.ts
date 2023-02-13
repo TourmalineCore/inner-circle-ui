@@ -1,5 +1,6 @@
 export type PutPreviewType = {
-  employeeId: number | string,
+  employeeId: number | string | null,
+  rowPosition?: number | string,
   ratePerHour: number,
   pay: number,
   employmentType: number,
@@ -84,3 +85,98 @@ export type IndicatorType = {
   label: string,
   value: string,
 };
+
+// new
+export interface Metrics {
+  ratePerHour: number;
+  pay: number;
+  employmentType: number;
+  parkingCostPerMonth: number;
+  salary: number;
+  accountingPerMonth: number;
+  hourlyCostFact: number;
+  hourlyCostHand: number;
+  earnings: number;
+  expenses: number;
+  incomeTaxContributions: number;
+  districtCoefficient: number;
+  pensionContributions: number;
+  medicalContributions: number;
+  socialInsuranceContributions: number;
+  injuriesContributions: number;
+  profit: number;
+  profitAbility: number;
+  grossSalary: number;
+  prepayment: number;
+  netSalary: number;
+}
+
+export interface MetricsDiff {
+  ratePerHour: number;
+  pay: number;
+  parkingCostPerMonth: number;
+  salary: number;
+  accountingPerMonth: number;
+  hourlyCostFact: number;
+  hourlyCostHand: number;
+  earnings: number;
+  expenses: number;
+  incomeTaxContributions: number;
+  districtCoefficient: number;
+  pensionContributions: number;
+  medicalContributions: number;
+  socialInsuranceContributions: number;
+  injuriesContributions: number;
+  profit: number;
+  profitAbility: number;
+  grossSalary: number;
+  prepayment: number;
+  netSalary: number;
+}
+
+export interface Employee {
+  employeeId: number;
+  metrics: Metrics;
+  metricsDiff: MetricsDiff;
+}
+
+export interface Source {
+  parkingCostPerMonth: number;
+  accountingPerMonth: number;
+  earnings: number;
+  expenses: number;
+  incomeTaxContributions: number;
+  pensionContributions: number;
+  medicalContributions: number;
+  socialInsuranceContributions: number;
+  injuriesContributions: number;
+  profit: number;
+  profitAbility: number;
+  prepayment: number;
+  netSalary: number;
+}
+
+export interface MetricsDiffTotal {
+  parkingCostPerMonth: number;
+  accountingPerMonth: number;
+  earnings: number;
+  expenses: number;
+  incomeTaxContributions: number;
+  pensionContributions: number;
+  medicalContributions: number;
+  socialInsuranceContributions: number;
+  injuriesContributions: number;
+  profit: number;
+  profitAbility: number;
+  prepayment: number;
+  netSalary: number;
+}
+
+export interface Total {
+  source: Source;
+  metricsDiff: MetricsDiffTotal;
+}
+export interface RootObject {
+  employees: Employee[];
+  total: Total;
+}

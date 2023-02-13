@@ -13,12 +13,12 @@ function RedactComponent({
   onChange = () => {},
   isEditable = false,
 } : {
-  value : string,
+  value : string | number,
   valueDelta?: number,
   onChange?: (number: number) => void,
   isEditable?: boolean,
 }) {
-  const [editableValue, setRedValue] = useState(value);
+  const [editableValue, setRedValue] = useState(String(value));
   const [isPercent, setIsPercent] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -42,13 +42,13 @@ function RedactComponent({
 
   function onAccept() {
     onCheckPercent(editableValue.replace(',', '.'));
-    if (isEditable && (Number(reformatMoney(value)) !== Number(reformatMoney(editableValue)))) {
+    if (isEditable && (Number(reformatMoney(String(value))) !== Number(reformatMoney(editableValue)))) {
       onChange(Number(editableValue));
     }
   }
 
   function onCancel() {
-    setRedValue(value);
+    setRedValue(String(value));
   }
 
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -95,6 +95,7 @@ function RedactComponent({
 
   function getTotal(delta: number) {
     const plus = delta >= 1 ? '+' : '';
+
     return `${plus}${isPercent ? `${delta}%` : formatMoney(delta)}`;
   }
 }
