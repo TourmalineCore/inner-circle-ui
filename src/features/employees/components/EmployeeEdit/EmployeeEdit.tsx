@@ -7,6 +7,7 @@ import { NumberFormatValues, PatternFormat } from 'react-number-format';
 import { ReactComponent as IconProfile } from '../../../../assets/icons/profile.svg';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
+import { Employee } from '../../types';
 
 import DatePickerCustom from './components/DatePickerCustom/DatePickerCustom';
 import MyCustomNumberFormat from './components/MyCustomNumberFormat/MyCustomNumberFormat';
@@ -25,24 +26,6 @@ const employedData = {
   officially: 'Officially',
   unofficially: 'Unofficially',
 };
-
-export interface Employee {
-  fullName: string;
-  corporateEmail: string;
-  personalEmail?: null;
-  phone: string | null;
-  gitHub?: string | null;
-  gitLab?: string | null;
-  ratePerHour: number | null;
-  fullSalary: number | null;
-  employmentType: number;
-  parking: number;
-  hireDate: Date | null;
-  dateDismissal?: Date | null;
-  isEmployedOfficially: boolean;
-  isFired?: boolean;
-  personnelNumber?: string;
-}
 
 function EmployeeEdit() {
   const navigate = useNavigate();
@@ -95,7 +78,6 @@ function EmployeeEdit() {
         {employee.corporateEmail}
       </div>
 
-      {/* Contacts */}
       <div>
         <h3>Contacts</h3>
         <ul>
@@ -150,7 +132,6 @@ function EmployeeEdit() {
         </ul>
       </div>
 
-      {/* Salary */}
       <div>
         <h3>Salary</h3>
         <ul>
@@ -201,7 +182,6 @@ function EmployeeEdit() {
         </ul>
       </div>
 
-      {/* Documents */}
       <div>
         <h3>Documents</h3>
         <ul>
