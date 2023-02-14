@@ -15,6 +15,9 @@ export type ColleagueFinancesDtoType = {
   employmentType: number;
   netSalary: number;
   parking: number;
+  employeeStatus: string;
+  employed: string;
+  selectedDate: null | Date;
 };
 
 export type ColleaguesType = {

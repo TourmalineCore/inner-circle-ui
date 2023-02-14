@@ -1,0 +1,61 @@
+.employee-edit {
+  margin: 0 auto;
+  max-width: 600px;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    & + & {
+      margin-top: 24px;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    &--radio-list {
+      align-items: start;
+    }
+
+    & + & {
+      margin-top: 20px;
+    }
+  }
+
+  &__label {
+    display: block;
+    width: 40%;
+  }
+
+  &__control {
+    width: auto;
+  }
+
+  &__git {
+    display: flex;
+    align-items: center;
+  }
+
+  &__sumbol {
+    margin-right: 4px;
+  }
+
+  &__box-buttons {
+    margin-top: 24px;
+    text-align: center;
+
+    button + button {
+      margin-left: 12px;
+    }
+  }
+}
