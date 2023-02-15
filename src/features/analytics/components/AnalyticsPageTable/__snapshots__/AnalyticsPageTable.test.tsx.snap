@@ -2086,3 +2086,1180 @@ exports[`AnalyticsPageTable tests should render with get request with rights val
   "unmount": [Function],
 }
 `;
+
+exports[`AnalyticsPageTable tests should successfully render and match to snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="content-card "
+      >
+        <div
+          class="content-card__sentinel content-card__sentinel--top"
+        />
+        <div
+          class="content-card__header content-card__header--sticky"
+        >
+          <div
+            class="default-card-header"
+          >
+            Analytics
+          </div>
+        </div>
+        <div
+          class="content-card__body"
+        >
+          <div
+            class="analitycs-page--btns"
+            data-testid="content-card"
+          >
+            <button
+              class="tc-button   "
+              type="button"
+            >
+              <span
+                class="tc-button__inner"
+              >
+                Reset changes
+              </span>
+            </button>
+            <div>
+              <label
+                class="tc-checkfield "
+                style="margin-left: 16px;"
+              >
+                <input
+                  class="tc-checkfield__input"
+                  type="checkbox"
+                />
+                <span
+                  class="tc-checkfield__box tc-checkfield__box--radio"
+                />
+                <span
+                  class="tc-checkfield__label"
+                >
+                  All
+                </span>
+              </label>
+              <label
+                class="tc-checkfield "
+                style="margin-left: 16px;"
+              >
+                <input
+                  checked=""
+                  class="tc-checkfield__input"
+                  type="checkbox"
+                />
+                <span
+                  class="tc-checkfield__box tc-checkfield__box--radio"
+                />
+                <span
+                  class="tc-checkfield__label"
+                >
+                  Main parameters
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            style="padding-top: 4px;"
+          >
+            <div
+              class="tc-table-desktop"
+            >
+              <div
+                class="tc-table-desktop__inner"
+              >
+                <div
+                  class="tc-table-desktop__content"
+                  role="table"
+                  style="min-width: 1114px;"
+                >
+                  <div
+                    class="tc-table-desktop__header"
+                  >
+                    <div
+                      class="tc-table-desktop__tr"
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Employee"
+                      >
+                        Employee
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Rate/h"
+                      >
+                        Rate/h
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Pay"
+                      >
+                        Pay
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Employment type"
+                      >
+                        Employment type
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Salary"
+                      >
+                        Salary
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Hourly Cost (By Fact)"
+                      >
+                        Hourly Cost (By Fact)
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Hourly Cost (On Hand)"
+                      >
+                        Hourly Cost (On Hand)
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                        title="Earnings"
+                      >
+                        Earnings
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                        title="Expenses"
+                      >
+                        Expenses
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Profit"
+                      >
+                        Profit
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                        title="Profitability"
+                      >
+                        Profitability
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__th--header
+                        tc-table-desktop__action-cell
+                        "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                        title=""
+                      >
+                        
+                        <div
+                          class="resizer"
+                          draggable="false"
+                          role="separator"
+                          style="cursor: col-resize;"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__tr tc-table-desktop__tr--filter"
+                      role="row"
+                      style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                    >
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div>
+                          <input
+                            class="tc-table-filter"
+                            style="width: 100%; line-height: 1;"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th "
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                      >
+                        <div />
+                      </div>
+                      <div
+                        class="tc-table-desktop__th tc-table-desktop__action-cell"
+                        colspan="1"
+                        role="columnheader"
+                        style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                      >
+                        <div />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__body"
+                  >
+                    <div
+                      class="tc-table-no-records"
+                    >
+                      <img
+                        alt="No matching records found"
+                        src="data:image/svg+xml,%3Csvg%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2060%2071%22%20width%3D%2260%22%20height%3D%2271%22%3E%20%20%3Cg%20clip-path%3D%22url%28%23clip0%29%22%3E%20%20%20%20%3Cpath%20d%3D%22M59.8%2065.82V15.7L43.89.06l-9.8.41s6.76%207.38%208.58%2013.08c1.82%205.7%202.04%2019.2%202.04%2030.24%200%2017.57%202.33%2024.92%206.94%2026.96h3.76c2.43%200%204.4-2.2%204.4-4.93z%22%20fill%3D%22%23E5E5E5%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.51.2H5.15A4.95%204.95%200%2000.2%205.16v60.7a4.96%204.96%200%20004.96%204.94h49.7a4.95%204.95%200%20004.96-4.95V15.5L44.5.2z%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.52.2v15.46l15.28-.16%22%20fill%3D%22%23fff%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.52.2v15.46l15.28-.16%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M36.33%2021.92l11.02%209.81M47.35%2021.92l-11.02%209.81M13.46%2021.92l11.03%209.81M24.49%2021.92l-11.03%209.81%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M30.72%2046.75v6.54c0%20.57.14%201.13.4%201.63.46.9%201.38%202.05%203.1%202.05a3.62%203.62%200%20003.15-1.94c.3-.53.46-1.12.45-1.73v-6.54%22%20fill%3D%22%23F4A8A8%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M30.72%2046.75v6.54c0%20.57.14%201.13.4%201.63.46.9%201.38%202.05%203.1%202.05a3.62%203.62%200%20003.15-1.94c.3-.53.46-1.12.45-1.73v-6.54%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M17.63%2046.67l24.75.16M34.26%2046.77v7.03%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%2F%3E%20%20%3C%2Fg%3E%20%20%3Cdefs%3E%20%20%20%20%3CclipPath%20id%3D%22clip0%22%3E%20%20%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M0%200h60v71H0z%22%2F%3E%20%20%20%20%3C%2FclipPath%3E%20%20%3C%2Fdefs%3E%3C%2Fsvg%3E"
+                      />
+                      <div
+                        class="tc-table-no-records__text"
+                      >
+                        No matching records found
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tc-table-desktop__pagination"
+              >
+                <div
+                  class="tc-table-desktop__pagination-left"
+                >
+                  <div
+                    class="tc-table-desktop__page-count"
+                  >
+                    Show rows
+                     
+                    <select
+                      class="tc-table-desktop__select tc-table-desktop__page-count-select"
+                    >
+                      <option
+                        value="10"
+                      >
+                        10
+                      </option>
+                      <option
+                        value="20"
+                      >
+                        20
+                      </option>
+                      <option
+                        value="50"
+                      >
+                        50
+                      </option>
+                      <option
+                        value="100"
+                      >
+                        100
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="tc-table-desktop__pagination-center"
+                >
+                  No Records
+                   
+                </div>
+                <div
+                  class="tc-table-desktop__pagination-right"
+                >
+                  <div
+                    class="tc-table-desktop__table-pagination-buttons"
+                  >
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="First Page"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M.5 1v14M14 1L7 8.26 14 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Previous"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 9 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 1L1 8.26 8 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Next"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 9 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 1l7 7.26L1 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="tc-table-desktop__table-page-button "
+                      disabled=""
+                      title="Last Page"
+                      type="button"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.5 1v14M1 1l7 7.26L1 15"
+                          stroke="currentColor"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tc-table-desktop__loading-overlay"
+              >
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-card__sentinel content-card__sentinel--bottom"
+        />
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="content-card "
+    >
+      <div
+        class="content-card__sentinel content-card__sentinel--top"
+      />
+      <div
+        class="content-card__header content-card__header--sticky"
+      >
+        <div
+          class="default-card-header"
+        >
+          Analytics
+        </div>
+      </div>
+      <div
+        class="content-card__body"
+      >
+        <div
+          class="analitycs-page--btns"
+          data-testid="content-card"
+        >
+          <button
+            class="tc-button   "
+            type="button"
+          >
+            <span
+              class="tc-button__inner"
+            >
+              Reset changes
+            </span>
+          </button>
+          <div>
+            <label
+              class="tc-checkfield "
+              style="margin-left: 16px;"
+            >
+              <input
+                class="tc-checkfield__input"
+                type="checkbox"
+              />
+              <span
+                class="tc-checkfield__box tc-checkfield__box--radio"
+              />
+              <span
+                class="tc-checkfield__label"
+              >
+                All
+              </span>
+            </label>
+            <label
+              class="tc-checkfield "
+              style="margin-left: 16px;"
+            >
+              <input
+                checked=""
+                class="tc-checkfield__input"
+                type="checkbox"
+              />
+              <span
+                class="tc-checkfield__box tc-checkfield__box--radio"
+              />
+              <span
+                class="tc-checkfield__label"
+              >
+                Main parameters
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          style="padding-top: 4px;"
+        >
+          <div
+            class="tc-table-desktop"
+          >
+            <div
+              class="tc-table-desktop__inner"
+            >
+              <div
+                class="tc-table-desktop__content"
+                role="table"
+                style="min-width: 1114px;"
+              >
+                <div
+                  class="tc-table-desktop__header"
+                >
+                  <div
+                    class="tc-table-desktop__tr"
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Employee"
+                    >
+                      Employee
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Rate/h"
+                    >
+                      Rate/h
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Pay"
+                    >
+                      Pay
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Employment type"
+                    >
+                      Employment type
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Salary"
+                    >
+                      Salary
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Hourly Cost (By Fact)"
+                    >
+                      Hourly Cost (By Fact)
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Hourly Cost (On Hand)"
+                    >
+                      Hourly Cost (On Hand)
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                      title="Earnings"
+                    >
+                      Earnings
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px; cursor: pointer;"
+                      title="Expenses"
+                    >
+                      Expenses
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Profit"
+                    >
+                      Profit
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px; cursor: pointer;"
+                      title="Profitability"
+                    >
+                      Profitability
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__th--header
+                        tc-table-desktop__action-cell
+                        "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                      title=""
+                    >
+                      
+                      <div
+                        class="resizer"
+                        draggable="false"
+                        role="separator"
+                        style="cursor: col-resize;"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="tc-table-desktop__tr tc-table-desktop__tr--filter"
+                    role="row"
+                    style="display: flex; flex: 1 0 auto; min-width: 1114px;"
+                  >
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div>
+                        <input
+                          class="tc-table-filter"
+                          style="width: 100%; line-height: 1;"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 160 0 auto; min-width: 160px; width: 160px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th "
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 150 0 auto; min-width: 80px; width: 150px;"
+                    >
+                      <div />
+                    </div>
+                    <div
+                      class="tc-table-desktop__th tc-table-desktop__action-cell"
+                      colspan="1"
+                      role="columnheader"
+                      style="position: relative; box-sizing: border-box; flex: 74 0 auto; min-width: 74px; width: 74px;"
+                    >
+                      <div />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tc-table-desktop__body"
+                >
+                  <div
+                    class="tc-table-no-records"
+                  >
+                    <img
+                      alt="No matching records found"
+                      src="data:image/svg+xml,%3Csvg%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2060%2071%22%20width%3D%2260%22%20height%3D%2271%22%3E%20%20%3Cg%20clip-path%3D%22url%28%23clip0%29%22%3E%20%20%20%20%3Cpath%20d%3D%22M59.8%2065.82V15.7L43.89.06l-9.8.41s6.76%207.38%208.58%2013.08c1.82%205.7%202.04%2019.2%202.04%2030.24%200%2017.57%202.33%2024.92%206.94%2026.96h3.76c2.43%200%204.4-2.2%204.4-4.93z%22%20fill%3D%22%23E5E5E5%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.51.2H5.15A4.95%204.95%200%2000.2%205.16v60.7a4.96%204.96%200%20004.96%204.94h49.7a4.95%204.95%200%20004.96-4.95V15.5L44.5.2z%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.52.2v15.46l15.28-.16%22%20fill%3D%22%23fff%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M44.52.2v15.46l15.28-.16%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M36.33%2021.92l11.02%209.81M47.35%2021.92l-11.02%209.81M13.46%2021.92l11.03%209.81M24.49%2021.92l-11.03%209.81%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M30.72%2046.75v6.54c0%20.57.14%201.13.4%201.63.46.9%201.38%202.05%203.1%202.05a3.62%203.62%200%20003.15-1.94c.3-.53.46-1.12.45-1.73v-6.54%22%20fill%3D%22%23F4A8A8%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M30.72%2046.75v6.54c0%20.57.14%201.13.4%201.63.46.9%201.38%202.05%203.1%202.05a3.62%203.62%200%20003.15-1.94c.3-.53.46-1.12.45-1.73v-6.54%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%2F%3E%20%20%20%20%3Cpath%20d%3D%22M17.63%2046.67l24.75.16M34.26%2046.77v7.03%22%20stroke%3D%22%23787D81%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%2F%3E%20%20%3C%2Fg%3E%20%20%3Cdefs%3E%20%20%20%20%3CclipPath%20id%3D%22clip0%22%3E%20%20%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M0%200h60v71H0z%22%2F%3E%20%20%20%20%3C%2FclipPath%3E%20%20%3C%2Fdefs%3E%3C%2Fsvg%3E"
+                    />
+                    <div
+                      class="tc-table-no-records__text"
+                    >
+                      No matching records found
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tc-table-desktop__pagination"
+            >
+              <div
+                class="tc-table-desktop__pagination-left"
+              >
+                <div
+                  class="tc-table-desktop__page-count"
+                >
+                  Show rows
+                   
+                  <select
+                    class="tc-table-desktop__select tc-table-desktop__page-count-select"
+                  >
+                    <option
+                      value="10"
+                    >
+                      10
+                    </option>
+                    <option
+                      value="20"
+                    >
+                      20
+                    </option>
+                    <option
+                      value="50"
+                    >
+                      50
+                    </option>
+                    <option
+                      value="100"
+                    >
+                      100
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="tc-table-desktop__pagination-center"
+              >
+                No Records
+                 
+              </div>
+              <div
+                class="tc-table-desktop__pagination-right"
+              >
+                <div
+                  class="tc-table-desktop__table-pagination-buttons"
+                >
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="First Page"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 15 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M.5 1v14M14 1L7 8.26 14 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Previous"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 9 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 1L1 8.26 8 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Next"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 9 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 1l7 7.26L1 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="tc-table-desktop__table-page-button "
+                    disabled=""
+                    title="Last Page"
+                    type="button"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 15 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.5 1v14M1 1l7 7.26L1 15"
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tc-table-desktop__loading-overlay"
+            >
+              Loading...
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-card__sentinel content-card__sentinel--bottom"
+      />
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

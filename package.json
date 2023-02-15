@@ -80,7 +80,7 @@
     "start-devserver": "react-scripts start",
     "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "cy:open": "npx cypress open",
-    "cy:open:debug": "run-s create-config:test && npx cypress open",
+    "test:component:debug": "run-s create-config:test && npx cypress open",
     "test:component": "run-s create-config:test && npx cypress run --component",
     "test:component:snapshot": "run-s create-config:test && npx jest",
     "test": "run-s test:component test:component:snapshot",
