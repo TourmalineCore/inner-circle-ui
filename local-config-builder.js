@@ -5,7 +5,7 @@ const env = process.argv[2];
 const fs = require("fs");
 
 let filepath
-if (env === 'test') {
+if (env === 'test-cypress') {
   filepath = "./cypress/support/env-config.js";
 } else {
   filepath = "./public/env-config.js"; 

@@ -81,7 +81,7 @@
     "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "cy:open": "npx cypress open",
     "test:component:debug": "run-s create-config:test && npx cypress open",
-    "test:component": "run-s create-config:test && npx cypress run --component",
+    "test:component": "run-s create-config:test-cypress && npx cypress run --component",
     "test:component:snapshot": "run-s create-config:test && npx jest",
     "test": "run-s test:component test:component:snapshot",
     "eject": "react-scripts eject",
@@ -96,6 +96,7 @@
     "create-config:dev": "node local-config-builder dev",
     "create-config:local": "node local-config-builder local",
     "create-config:test": "node local-config-builder test",
+    "create-config:test-cypress": "node local-config-builder test-cypress",
     "prepare": "husky install"
   },
   "browserslist": {
