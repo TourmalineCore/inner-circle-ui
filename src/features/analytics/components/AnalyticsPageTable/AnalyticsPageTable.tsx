@@ -626,7 +626,6 @@ function AnalyticsPageTable() {
 
     try {
       const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
-      console.log('KEEEEEEEK', data);
 
       setEmployees(data);
       setInitialEmployees(data);
