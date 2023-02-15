@@ -84,15 +84,15 @@ describe('EmployeeAddPage', () => {
   });
 
   it('validate request after button click and selected "employmentType" as full time', () => {
-    cy.findByTestId('employmentType-select').select('Full Time');
+    pickSelect('Full Time');
     clickCreateButton();
-    validateRequestValue('employmentType', 0);
+    validateRequestValue('employmentType', 1);
   });
 
   it('validate request after button click and selected "employmentType" as half time', () => {
-    cy.findByTestId('employmentType-select').select('Half Time');
+    pickSelect('Half Time');
     clickCreateButton();
-    validateRequestValue('employmentType', 1);
+    validateRequestValue('employmentType', 0.5);
   });
 });
 
@@ -113,7 +113,9 @@ function fillInput(fieldName, value) {
 }
 
 function interceptCreateEmployeeRequest() {
-  cy.intercept('POST', '/salary/employees/create')
+  cy.intercept('POST', '**/salary/employees/create', {
+    statusCode: 200,
+  })
     .as('employeerCreate');
 }
 
@@ -123,4 +125,7 @@ function validateRequestValue(fieldName, value) {
     .then(({ body }) => {
       expect(body[fieldName]).equal(value);
     });
+}
+function pickSelect(option) {
+  cy.findByTestId('employmentType-select').select(option);
 }
