@@ -203,6 +203,11 @@ html.is-sidebar-mobile-opened {
       width: var(--sidebar-collapsed-width);
     }
   }
+
+  @include desktop-xl {
+    font-size: 26px;
+    line-height: 1.23;
+  }
 }
 
 @keyframes show-overlay {
