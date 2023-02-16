@@ -9,27 +9,34 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { PatternFormat } from 'react-number-format';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 
-function DatePickerCustom({
+import { InputPropPackage } from '../../types';
+
+function CustomDatePicker({
   date = null,
   dateFormat = 'dd.MM.yyyy',
   patternFormat = '##.##.####',
+  isInvalid,
   onChange = () => {},
 }: {
   date?: Date | null;
   dateFormat?: string;
   patternFormat?: string;
+  isInvalid?: boolean;
   onChange: (date: Date) => void;
 }) {
   const CustomInput = forwardRef((props: React.HTMLProps<HTMLInputElement>, ref: React.Ref<HTMLInputElement>) => (
     // @ts-ignore
-    <PatternFormat
+    <PatternFormat<InputPropPackage>
       {...props}
+      customInput={ReadonlyInput}
       format={patternFormat}
       allowEmptyFormatting
       mask="_"
       placeholder="dd.mm.yyyy"
+      isInvalid={isInvalid}
+      validationMessages={['This field is required. Please fill it up.']}
+      isMessagesAbsolute
       getInputRef={ref}
-      customInput={ReadonlyInput}
     />
   ));
 
@@ -60,4 +67,4 @@ class ReadonlyInput extends Component {
   }
 }
 
-export default DatePickerCustom;
+export default CustomDatePicker;

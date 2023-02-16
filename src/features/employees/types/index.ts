@@ -48,10 +48,10 @@ export enum EmployeeTypeSwitch {
 export interface Employee {
   fullName: string;
   corporateEmail: string;
-  personalEmail?: null;
+  personalEmail: string | null;
   phone: string | null;
-  gitHub?: string | null;
-  gitLab?: string | null;
+  gitHub: string | null;
+  gitLab: string | null;
   ratePerHour: number | null;
   fullSalary: number | null;
   employmentType: number;
@@ -60,5 +60,5 @@ export interface Employee {
   dateDismissal?: Date | null;
   isEmployedOfficially: boolean;
   isFired?: boolean;
-  personnelNumber?: string;
+  personnelNumber: string | null;
 }
