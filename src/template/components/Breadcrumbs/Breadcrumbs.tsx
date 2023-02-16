@@ -11,13 +11,13 @@ function Breadcrumbs({
 }: {
   list: BreadcrumbData[];
 }) {
-  const listRef = useRef<HTMLUListElement>(null);
-  const locatedElementRef = useRef<HTMLSpanElement>(null);
+  const breadcrumbsRef = useRef<HTMLUListElement>(null);
+  const breadcrumbsLocatedRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
-      listRef.current?.scrollTo({
-        left: locatedElementRef.current?.getBoundingClientRect().right,
+      breadcrumbsRef.current?.scrollTo({
+        left: breadcrumbsLocatedRef.current?.getBoundingClientRect().right,
       });
     }
   }, []);
@@ -25,7 +25,7 @@ function Breadcrumbs({
   return !list.length
     ? <span>Домашняя страница</span>
     : (
-      <ul ref={listRef} className="breadcrumbs">
+      <ul ref={breadcrumbsRef} className="breadcrumbs">
         {list.map(({ breadcrumb, key }, i) => (
           <li key={key} className="breadcrumbs__item">
             {
@@ -42,7 +42,7 @@ function Breadcrumbs({
                 )
                 : (
                   <span
-                    ref={locatedElementRef}
+                    ref={breadcrumbsLocatedRef}
                     className={clsx('breadcrumbs__breadcrumb', {
                       'breadcrumbs__breadcrumb--located': list.length > 1,
                     })}
