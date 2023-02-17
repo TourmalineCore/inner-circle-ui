@@ -1,71 +1,73 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {
-  Button,
-} from '@tourmalinecore/react-tc-ui-kit';
 import { useState, useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../common/api';
-import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
+import { mockData } from './mock';
 
-import EmployeesContactDetailsTable from './components/EmployeeContactDetailsTable/EmployeesContactDetailsTable';
-import EmployeesSalaryDataTable from './components/EmployeeSalaryDataTable/EmployeesSalaryDataTable';
-import { ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType } from './types';
+import {
+  Employees,
+} from './types';
 
 function EmployeesPage() {
-  const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
-  const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesDtoType[]>([]);
+  const [employees, setEmployees] = useState<Employees[]>([]);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
 
   return (
-    <>
-      <ContentCard
-        style={{ margin: 20 }}
-        isStickyHead
-        headerContent={(
-          <DefaultCardHeader>Contact details</DefaultCardHeader>
-        )}
-      >
-        <div style={{ paddingTop: 4 }}>
-          <EmployeesContactDetailsTable
-            employeesContact={employeesContact}
-            loadEmployeesAsync={loadEmployeesAsync}
-          />
-        </div>
-        <Button
-          style={{ marginTop: 20 }}
-          onClick={() => { navigate('/employees/add'); }}
-        >
-          Аdd an employee
+    <ContentCard
+      style={{ margin: 20 }}
+      isStickyHead
+      headerContent={(
+        <DefaultCardHeader>Salary data</DefaultCardHeader>
+      )}
+    >
+      <div className="table" style={{ paddingTop: 4 }}>
 
-        </Button>
-      </ContentCard>
-      <ContentCard
-        style={{ margin: 20 }}
-        isStickyHead
-        headerContent={(
-          <DefaultCardHeader>Salary data</DefaultCardHeader>
-        )}
-      >
-        <div className="table" style={{ paddingTop: 4 }}>
-          <EmployeesSalaryDataTable employeesSalary={employeesSalary} />
+        {/* <EmployeesSalaryDataTable employeesSalary={employeesSalary} /> */}
+
+        <div>
+          <div>Filter</div>
+          <div>Sort</div>
+          <div>Sort Name</div>
+
+          <div>
+            <ul>
+              {employees.map((employee) => (
+                <li key={employee.employeeId}>
+                  <div>
+                    <div>{employee.fullName}</div>
+                    <div>{employee.corporateEmail}</div>
+                    <div>{employee.personalEmail}</div>
+                    <div>{employee.personalEmail}</div>
+                    <div>{employee.phone}</div>
+                    <div>{employee.gitHub}</div>
+                    <div>{employee.gitLab}</div>
+                    <div>{employee.netSalary}</div>
+                    <div>{employee.ratePerHour}</div>
+                    <div>{employee.fullSalary}</div>
+                    <div>{employee.employmentType}</div>
+                    <div>{employee.parking}</div>
+                    <div>{employee.personnelNumber}</div>
+                    <div>{employee.hireDate}</div>
+                    <button type="button">Edit</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </ContentCard>
-    </>
+      </div>
+    </ContentCard>
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
-    setEmployeesContact(data.colleagueContacts);
-    setEmployeesSalary(data.colleagueFinancesDto);
+    // const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
+    setEmployees(mockData);
   }
 }
 

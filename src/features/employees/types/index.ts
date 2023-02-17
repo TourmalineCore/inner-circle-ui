@@ -61,3 +61,22 @@ export enum EmployeeTypeSwitch {
   'Full Time' = 1,
   'Half Time' = 0.5,
 }
+
+export type Employees = {
+  employeeId: number;
+  fullName: string;
+  corporateEmail: string;
+  personalEmail: string | null;
+  phone: string | null;
+  gitHub: string | null;
+  gitLab: string | null;
+  netSalary: number | null;
+  ratePerHour: number | null;
+  fullSalary: number | null;
+  employmentType: number;
+  parking: number | null;
+  personnelNumber: string | null;
+  hireDate: string | null;
+  isCurrentEmployee: boolean;
+  isBlankEmployee: boolean;
+};
