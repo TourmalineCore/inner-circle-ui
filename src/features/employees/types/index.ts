@@ -57,7 +57,7 @@ export interface Employee {
   employmentType: number;
   parking: number;
   hireDate: Date | null;
-  dateDismissal?: Date | null;
+  dismissalDate?: Date | null;
   isEmployedOfficially: boolean;
   isFired?: boolean;
   personnelNumber: string | null;

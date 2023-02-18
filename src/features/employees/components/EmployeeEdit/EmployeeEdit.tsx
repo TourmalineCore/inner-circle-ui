@@ -45,7 +45,7 @@ function EmployeeEdit() {
     employmentType: 0,
     parking: 0,
     hireDate: null,
-    dateDismissal: new Date(),
+    dismissalDate: new Date(),
     isEmployedOfficially: true,
     isFired: false,
     personnelNumber: '',
@@ -81,7 +81,7 @@ function EmployeeEdit() {
         {employee.corporateEmail}
       </div>
 
-      <h3>Contacts</h3>
+      <h2>Contacts</h2>
       <ul>
         <li className="employee-edit__item">
           <span className="employee-edit__label">Phone Number*</span>
@@ -107,7 +107,7 @@ function EmployeeEdit() {
         <li className="employee-edit__item">
           <span className="employee-edit__label">Personal GitHub</span>
           <div className="employee-edit__git employee-edit__control">
-            <span className="employee-edit__sumbol">@</span>
+            <span className="employee-edit__symbol">@</span>
             <Input
               className="employee-edit__control"
               name="gitHub"
@@ -119,7 +119,7 @@ function EmployeeEdit() {
         <li className="employee-edit__item">
           <span className="employee-edit__label">Personal GitLab</span>
           <div className="employee-edit__git employee-edit__control">
-            <span className="employee-edit__sumbol">@</span>
+            <span className="employee-edit__symbol">@</span>
             <Input
               className="employee-edit__control"
               name="gitLab"
@@ -130,7 +130,7 @@ function EmployeeEdit() {
         </li>
       </ul>
 
-      <h3>Salary</h3>
+      <h2>Salary</h2>
       <ul>
         <li className="employee-edit__item">
           <span className="employee-edit__label">Rate Per Hour *</span>
@@ -181,7 +181,7 @@ function EmployeeEdit() {
         </li>
       </ul>
 
-      <h3>Documents</h3>
+      <h2>Documents</h2>
       <ul>
         <li className="employee-edit__item">
           <span className="employee-edit__label">Hire Date *</span>
@@ -219,9 +219,9 @@ function EmployeeEdit() {
             <span className="employee-edit__label">Date of Dismissal *</span>
             <div className="employee-edit__control">
               <CustomDatePicker
-                date={employee.dateDismissal}
-                isInvalid={!Boolean(employee.dateDismissal) && triedToSubmit}
-                onChange={(date: Date) => setEmployee({ ...employee, dateDismissal: date })}
+                date={employee.dismissalDate}
+                isInvalid={!Boolean(employee.dismissalDate) && triedToSubmit}
+                onChange={(date: Date) => setEmployee({ ...employee, dismissalDate: date })}
               />
             </div>
           </li>
@@ -275,7 +275,7 @@ function EmployeeEdit() {
       ...data,
       phone: typeof data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
       hireDate: typeof data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
-      dateDismissal: typeof data.hireDate === 'string' ? new Date(data.dateDismissal) : data.dateDismissal,
+      dismissalDate: typeof data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
     };
 
     setEmployee(initialData);
@@ -288,7 +288,7 @@ function EmployeeEdit() {
     };
 
     delete updateEmployee.isFired;
-    delete updateEmployee.dateDismissal;
+    delete updateEmployee.dismissalDate;
 
     setTriedToSubmit(true);
 
@@ -298,7 +298,7 @@ function EmployeeEdit() {
       setTriedToSubmit(false);
       navigate('/employees');
     } catch {
-      alert('Error');
+      console.log('Error');
     }
   }
 }
