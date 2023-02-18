@@ -1,0 +1,12 @@
+.employee-list {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #000;
+    padding: 10px;
+
+    & + & {
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,18 +1,24 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { useState, useEffect } from 'react';
 
+import { useSearchParams } from 'react-router-dom';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
+import SearchBar from './components/SearchBar/SearchBar';
 import { mockData } from './mock';
 
-import {
-  Employees,
-} from './types';
+import { Employees } from './types';
+import EmployeeList from './components/EmployeeList/EmployeeList';
+import FilterMenu from './components/FilterMenu/FilterMenu';
+import SortMenu from './components/SortMenu/SortMenu';
 
 function EmployeesPage() {
+  const [params] = useSearchParams();
   const [employees, setEmployees] = useState<Employees[]>([]);
 
-  // const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
+  const [filterElement, setFilterElement] = useState(params.get('filter') || 'current');
+  const [sortBy, setSortBy] = useState('desc');
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -26,42 +32,25 @@ function EmployeesPage() {
         <DefaultCardHeader>Salary data</DefaultCardHeader>
       )}
     >
-      <div className="table" style={{ paddingTop: 4 }}>
-
-        {/* <EmployeesSalaryDataTable employeesSalary={employeesSalary} /> */}
+      <section>
+        <h1>Employees</h1>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: 20,
+          borderBottom: '1px solid #C2C2C2',
+          paddingBottom: 20,
+        }}
+        >
+          <SearchBar setEmployees={setSearchValue} />
+          <FilterMenu setEmployees={setFilterElement} />
+          <SortMenu setEmployees={setSortBy} />
+        </div>
 
         <div>
-          <div>Filter</div>
-          <div>Sort</div>
-          <div>Sort Name</div>
-
-          <div>
-            <ul>
-              {employees.map((employee) => (
-                <li key={employee.employeeId}>
-                  <div>
-                    <div>{employee.fullName}</div>
-                    <div>{employee.corporateEmail}</div>
-                    <div>{employee.personalEmail}</div>
-                    <div>{employee.personalEmail}</div>
-                    <div>{employee.phone}</div>
-                    <div>{employee.gitHub}</div>
-                    <div>{employee.gitLab}</div>
-                    <div>{employee.netSalary}</div>
-                    <div>{employee.ratePerHour}</div>
-                    <div>{employee.fullSalary}</div>
-                    <div>{employee.employmentType}</div>
-                    <div>{employee.parking}</div>
-                    <div>{employee.personnelNumber}</div>
-                    <div>{employee.hireDate}</div>
-                    <button type="button">Edit</button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <EmployeeList employees={employees} search={searchValue} filter={filterElement} sort={sortBy} />
         </div>
-      </div>
+      </section>
     </ContentCard>
   );
 
