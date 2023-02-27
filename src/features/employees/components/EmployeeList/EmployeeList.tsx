@@ -74,7 +74,7 @@ function EmployeeList({
   function getFilteredData(filterElement: string) {
     const processedData = [...employees]
       .sort(getSort)
-      .filter((item) => item.fullName.includes(search));
+      .filter((item) => item.fullName.toLowerCase().includes(search.toLowerCase().trim()));
 
     switch (filterElement) {
       case 'all': {

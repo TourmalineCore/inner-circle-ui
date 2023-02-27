@@ -6,7 +6,7 @@ function SearchBar({
 }: {
   setEmployees: (employee: SetStateAction<string>) => void;
 }) {
-  const searcheHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setEmployees(event.target.value);
   };
 
@@ -15,7 +15,7 @@ function SearchBar({
       <Input
         type="text"
         placeholder="Search for employee.."
-        onChange={searcheHandler}
+        onChange={searchHandler}
       />
     </div>
   );
