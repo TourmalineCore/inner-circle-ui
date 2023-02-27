@@ -1,6 +1,7 @@
 /* eslint-disable default-case */
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Employees } from '../../types';
 
 function EmployeeList({
@@ -14,6 +15,8 @@ function EmployeeList({
   sort: string;
   search: string;
 }) {
+  const navigate = useNavigate();
+
   const [filteredEmployees, setFilteredEmployees] = useState<Employees[]>([]);
 
   if (employees) {
@@ -57,7 +60,7 @@ function EmployeeList({
           </div>
           <div>{employee.personnelNumber}</div>
           <div>{employee.hireDate}</div>
-          <Button type="button">Edit</Button>
+          <Button onClick={() => { navigate(`/employees/${employee.employeeId}/edit`); }} type="button">Edit</Button>
         </li>
       ))}
     </ul>

@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Input, CheckField, Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues } from 'react-number-format';
 
-import { ReactComponent as IconProfile } from '../../../../assets/icons/profile.svg';
+import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import { Employee } from '../../types';
