@@ -1,4 +1,4 @@
-import { ReactComponent as IconPersonalProfile } from '../../../../../assets/icons/personal-profile.svg';
+import { ReactComponent as IconPersonalProfile } from '../../../../../assets/icons/icon-personal-profile.svg';
 
 function SidebarInfoBox({
   name = 'Nameless User',

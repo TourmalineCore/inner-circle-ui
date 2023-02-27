@@ -43,14 +43,24 @@ html.is-sidebar-mobile-opened {
     display: none;
     outline: none;
     border: none;
-    padding: 12px 20px;
+    padding: 12px 14px;
     width: 100%;
     box-shadow: none;
+    font-family: inherit;
     font-weight: inherit;
     font-size: inherit;
     color: inherit;
     background-color: transparent;
     cursor: pointer;
+
+    svg {
+      width: 24px;
+      height: 26px;
+    }
+
+    .sidebar-item:hover {
+      background-color: transparent;
+    }
 
     &:focus {
       outline: none;
@@ -192,11 +202,6 @@ html.is-sidebar-mobile-opened {
     &--collapsed {
       width: var(--sidebar-collapsed-width);
     }
-  }
-
-  @include desktop-xl {
-    font-size: 26px;
-    line-height: 1.23;
   }
 }
 

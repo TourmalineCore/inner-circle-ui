@@ -1,17 +1,17 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import useBreadcrumbs, { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
-import clsx from 'clsx';
 
 import { useLocation } from 'react-router-dom';
-import { ReactComponent as IconLogout } from '../assets/icons/logout.svg';
-import { ReactComponent as IconLogoutActive } from '../assets/icons/logout-active.svg';
+import { ReactComponent as IconLogoutActive } from '../assets/icons/icon-logout-active.svg';
+import { ReactComponent as IconLogout } from '../assets/icons/icon-logout.svg';
 
-import Sidebar from './components/Sidebar/Sidebar';
+import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
+import Copyright from './components/Copyright/Copyright';
+import MobileControlsPanel from './components/MobileControlsPanel/MobileControlsPanel';
 import SidebarItem from './components/Sidebar/components/SidebarItem/SidebarItem';
 import SidebarSettingsControl from './components/Sidebar/components/SidebarSettings/SidebarSettingsControl';
-import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
-import MobileControlsPanel from './components/MobileControlsPanel/MobileControlsPanel';
-import Copyright from './components/Copyright/Copyright';
+import Sidebar from './components/Sidebar/Sidebar';
 import TemplatePages from './components/TemplatePages/TemplatePages';
 
 import { useSidebarRoutes } from './hooks/useSidebarRoutes';

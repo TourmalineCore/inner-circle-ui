@@ -27,11 +27,6 @@
       width: 40px;
       height: 40px;
     }
-
-    @include desktop-xl {
-      width: 56px;
-      height: 56px;
-    }
   }
 
   &__col {
@@ -55,7 +50,7 @@
   }
 
   @include desktop-xl {
-    padding: 20px 16px 28px;
+    padding: 0 16px 28px;
   }
 }
 
