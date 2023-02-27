@@ -5,6 +5,10 @@
     border: 1px solid #000;
     padding: 10px;
 
+    &--is-blank {
+      border-left: 8px solid #aaa;
+    }
+
     & + & {
       margin-top: 10px;
     }

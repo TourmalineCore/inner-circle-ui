@@ -45,7 +45,7 @@ export enum EmployeeTypeSwitch {
   'Half Time' = 0.5,
 }
 
-export interface Employee {
+export type EditedEmployee = {
   fullName: string;
   corporateEmail: string;
   personalEmail: string | null;
@@ -61,9 +61,9 @@ export interface Employee {
   isEmployedOfficially: boolean;
   isFired?: boolean;
   personnelNumber: string | null;
-}
+};
 
-export type Employees = {
+export type Employee = {
   employeeId: number;
   fullName: string;
   corporateEmail: string;

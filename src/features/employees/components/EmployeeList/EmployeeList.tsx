@@ -2,7 +2,8 @@
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Employees } from '../../types';
+import clsx from 'clsx';
+import { Employee } from '../../types';
 
 function EmployeeList({
   employees = [],
@@ -10,14 +11,14 @@ function EmployeeList({
   sort,
   search,
 }: {
-  employees: Employees[],
+  employees: Employee[],
   filter: string;
   sort: string;
   search: string;
 }) {
   const navigate = useNavigate();
 
-  const [filteredEmployees, setFilteredEmployees] = useState<Employees[]>([]);
+  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
 
   if (employees) {
     <div>Loading...</div>;
@@ -37,7 +38,9 @@ function EmployeeList({
       {filteredEmployees.length > 0 && filteredEmployees.map((employee) => (
         <li
           key={employee.employeeId}
-          className="employee-list__item"
+          className={clsx('employee-list__item', {
+            'employee-list__item--is-blank': employee.isBlankEmployee,
+          })}
         >
           <div>
             <div>{employee.fullName}</div>
@@ -66,12 +69,12 @@ function EmployeeList({
     </ul>
   );
 
-  function getSort(a: Employees, b: Employees) {
+  function getSort(firstEmployee: Employee, secondEmployee: Employee) {
     if (sort === 'desc') {
-      return a.fullName.toLowerCase() > b.fullName.toLowerCase() ? 1 : -1;
+      return firstEmployee.fullName.toLowerCase() > secondEmployee.fullName.toLowerCase() ? 1 : -1;
     }
 
-    return a.fullName.toLowerCase() < b.fullName.toLowerCase() ? 1 : -1;
+    return firstEmployee.fullName.toLowerCase() < secondEmployee.fullName.toLowerCase() ? 1 : -1;
   }
 
   function getFilteredData(filterElement: string) {

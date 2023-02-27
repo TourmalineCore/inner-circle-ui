@@ -8,7 +8,7 @@ import { NumberFormatValues } from 'react-number-format';
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
-import { Employee } from '../../types';
+import { EditedEmployee } from '../../types';
 
 import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
 import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
@@ -33,7 +33,7 @@ function EmployeeEdit() {
   const navigate = useNavigate();
 
   const [triedToSubmit, setTriedToSubmit] = useState(false);
-  const [employee, setEmployee] = useState<Employee>({
+  const [employee, setEmployee] = useState<EditedEmployee>({
     fullName: '',
     corporateEmail: '',
     personalEmail: null,
@@ -61,7 +61,7 @@ function EmployeeEdit() {
   const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    const updatedForm: Employee = {
+    const updatedForm: EditedEmployee = {
       ...employee,
       [name]: value,
     };
@@ -293,7 +293,7 @@ function EmployeeEdit() {
     setTriedToSubmit(true);
 
     try {
-      await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
+      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
 
       setTriedToSubmit(false);
       navigate('/employees');

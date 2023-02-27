@@ -24,8 +24,10 @@ const filterElements = [
 ];
 
 function FilterMenu({
+  isBlankEmployees = false,
   setEmployees,
 }: {
+  isBlankEmployees: boolean;
   setEmployees: (employee: SetStateAction<string>) => void;
 }) {
   const [params, setParams] = useSearchParams();
@@ -58,6 +60,7 @@ function FilterMenu({
           type="button"
           className={clsx({
             'button-active': item.id === filterElement,
+            'is-hidden': !isBlankEmployees && item.id === 'blank',
           })}
           key={item.id}
           id={item.id}

@@ -7,14 +7,15 @@ import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHea
 import SearchBar from './components/SearchBar/SearchBar';
 import { mockData } from './mock';
 
-import { Employees } from './types';
+import { Employee } from './types';
 import EmployeeList from './components/EmployeeList/EmployeeList';
 import FilterMenu from './components/FilterMenu/FilterMenu';
 import SortMenu from './components/SortMenu/SortMenu';
 
 function EmployeesPage() {
   const [params] = useSearchParams();
-  const [employees, setEmployees] = useState<Employees[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [isBlankEmployees, setIsBlankEmployees] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
   const [filterElement, setFilterElement] = useState(params.get('filter') || 'current');
@@ -43,7 +44,7 @@ function EmployeesPage() {
         }}
         >
           <SearchBar setEmployees={setSearchValue} />
-          <FilterMenu setEmployees={setFilterElement} />
+          <FilterMenu setEmployees={setFilterElement} isBlankEmployees={isBlankEmployees} />
           <SortMenu setEmployees={setSortBy} />
         </div>
 
@@ -57,6 +58,9 @@ function EmployeesPage() {
   async function loadEmployeesAsync() {
     // const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
     setEmployees(mockData);
+    const blank = mockData.some((employee) => employee.isBlankEmployee);
+
+    setIsBlankEmployees(blank);
   }
 }
 
