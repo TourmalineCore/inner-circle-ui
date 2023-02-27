@@ -1,5 +1,5 @@
-import { ReactComponent as IconAnalytics } from '../../assets/icons/analytics.svg';
-import { ReactComponent as IconAnalyticsActive } from '../../assets/icons/analytics-active.svg';
+import { ReactComponent as IconAnalytics } from '../../assets/icons/icon-analytics.svg';
+import { ReactComponent as IconAnalyticsActive } from '../../assets/icons/icon-analytics-active.svg';
 
 import AnalyticsPage from './AnalyticsPage';
 

@@ -1,5 +1,5 @@
-import { ReactComponent as IconEmployees } from '../../assets/icons/employees.svg';
-import { ReactComponent as IconEmployeesActive } from '../../assets/icons/employees-active.svg';
+import { ReactComponent as IconEmployees } from '../../assets/icons/icon-employees.svg';
+import { ReactComponent as IconEmployeesActive } from '../../assets/icons/icon-employees-active.svg';
 
 import EmployeesPage from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
