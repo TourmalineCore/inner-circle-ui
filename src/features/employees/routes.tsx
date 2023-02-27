@@ -3,8 +3,7 @@ import { ReactComponent as IconEmployeesActive } from '../../assets/icons/icon-e
 
 import EmployeesPage from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
-import EmployeeEditContactPage from './components/EmployeeEditContactPage/EmployeeEditContactPage';
-import EmployeeEditSalaryPage from './components/EmployeeEditSalaryPage/EmployeeEditSalaryPage';
+import EmployeeEdit from './components/EmployeeEdit/EmployeeEdit';
 
 export const employeesRoutes = [
   {
@@ -20,12 +19,12 @@ export const employeesRoutes = [
   {
     path: '/employees/edit',
     breadcrumb: 'Edit contact details',
-    Component: EmployeeEditContactPage,
+    Component: EmployeeEdit,
   },
   {
     path: '/employees/salary',
     breadcrumb: 'Edit salary data',
-    Component: EmployeeEditSalaryPage,
+    Component: EmployeeEdit,
   },
 ];
 
