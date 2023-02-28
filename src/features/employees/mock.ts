@@ -18,8 +18,8 @@ export const mockData = [
     isBlankEmployee: true,
   },
   {
-    employeeId: 2,
-    fullName: 'Bndrey Yasnovsky',
+    employeeId: 3,
+    fullName: 'Cmdrey Yasnovsky',
     corporateEmail: 'csmith@tourmalinecore.com',
     personalEmail: 'csmith@mail.ru',
     phone: '+7993583635',
@@ -36,8 +36,8 @@ export const mockData = [
     isBlankEmployee: false,
   },
   {
-    employeeId: 3,
-    fullName: 'Cmdrey Yasnovsky',
+    employeeId: 2,
+    fullName: 'Bndrey Yasnovsky',
     corporateEmail: 'csmith@tourmalinecore.com',
     personalEmail: 'csmith@mail.ru',
     phone: '+7993583635',

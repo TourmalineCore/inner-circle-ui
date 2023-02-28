@@ -11,7 +11,7 @@ function EmployeeList({
   sort,
   search,
 }: {
-  employees: Employee[],
+  employees: Employee[];
   filter: string;
   sort: string;
   search: string;
@@ -20,7 +20,7 @@ function EmployeeList({
 
   const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
 
-  if (employees) {
+  if (employees.length === 0) {
     <div>Loading...</div>;
   }
 
@@ -47,7 +47,7 @@ function EmployeeList({
             <div>{employee.corporateEmail}</div>
           </div>
           <div>
-            <div className="">Contacts</div>
+            <div>Contacts</div>
             <div>{employee.personalEmail}</div>
             <div>{employee.personalEmail}</div>
             <div>{employee.phone}</div>
@@ -63,7 +63,12 @@ function EmployeeList({
           </div>
           <div>{employee.personnelNumber}</div>
           <div>{employee.hireDate}</div>
-          <Button onClick={() => { navigate(`/employees/${employee.employeeId}/edit`); }} type="button">Edit</Button>
+          <Button
+            type="button"
+            onClick={() => { navigate(`/employees/${employee.employeeId}/edit`); }}
+          >
+            Edit
+          </Button>
         </li>
       ))}
     </ul>
@@ -71,10 +76,12 @@ function EmployeeList({
 
   function getSort(firstEmployee: Employee, secondEmployee: Employee) {
     if (sort === 'desc') {
+      return firstEmployee.fullName.toLowerCase() < secondEmployee.fullName.toLowerCase() ? 1 : -1;
+    } if (sort === 'asc') {
       return firstEmployee.fullName.toLowerCase() > secondEmployee.fullName.toLowerCase() ? 1 : -1;
     }
 
-    return firstEmployee.fullName.toLowerCase() < secondEmployee.fullName.toLowerCase() ? 1 : -1;
+    return 1;
   }
 
   function getFilteredData(filterElement: string) {

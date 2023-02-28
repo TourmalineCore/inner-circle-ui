@@ -15,11 +15,11 @@ import SortMenu from './components/SortMenu/SortMenu';
 function EmployeesPage() {
   const [params] = useSearchParams();
   const [employees, setEmployees] = useState<Employee[]>([]);
-  const [isBlankEmployees, setIsBlankEmployees] = useState(false);
+  const [isBlankEmployees, setIsBlankEmployees] = useState(true);
 
   const [searchValue, setSearchValue] = useState('');
-  const [filterElement, setFilterElement] = useState(params.get('filter') || 'current');
-  const [sortBy, setSortBy] = useState('desc');
+  const [filter, setFilter] = useState(params.get('filter') || 'current');
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -33,23 +33,22 @@ function EmployeesPage() {
         <DefaultCardHeader>Salary data</DefaultCardHeader>
       )}
     >
-      <section>
+
+      <section className="employees-page">
         <h1>Employees</h1>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: 20,
-          borderBottom: '1px solid #C2C2C2',
-          paddingBottom: 20,
-        }}
-        >
-          <SearchBar setEmployees={setSearchValue} />
-          <FilterMenu setEmployees={setFilterElement} isBlankEmployees={isBlankEmployees} />
-          <SortMenu setEmployees={setSortBy} />
+        <div className="employees-page__box">
+          <SearchBar setSearch={setSearchValue} />
+          <FilterMenu setFilter={setFilter} isBlankEmployees={isBlankEmployees} />
+          <SortMenu setSortBy={setSortBy} />
         </div>
 
         <div>
-          <EmployeeList employees={employees} search={searchValue} filter={filterElement} sort={sortBy} />
+          <EmployeeList
+            employees={employees}
+            search={searchValue}
+            filter={filter}
+            sort={sortBy}
+          />
         </div>
       </section>
     </ContentCard>

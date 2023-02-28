@@ -1,4 +1,6 @@
-import { MouseEvent, SetStateAction, useState } from 'react';
+import {
+  MouseEvent, SetStateAction, useEffect, useState,
+} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
@@ -24,34 +26,23 @@ const filterElements = [
 ];
 
 function FilterMenu({
-  isBlankEmployees = false,
-  setEmployees,
+  isBlankEmployees,
+  setFilter,
 }: {
   isBlankEmployees: boolean;
-  setEmployees: (employee: SetStateAction<string>) => void;
+  setFilter: (value: SetStateAction<string>) => void;
 }) {
   const [params, setParams] = useSearchParams();
   const [filterElement, setFilterElement] = useState(params.get('filter') || 'current');
 
-  const sortHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    const text = event.currentTarget.id;
-
-    if (text === 'current') {
+  useEffect(() => {
+    if (filterElement === 'blank' && !isBlankEmployees) {
       params.delete('filter');
       setParams(params, {
         replace: true,
       });
-    } else {
-      params.set('filter', text);
-
-      setParams(params, {
-        replace: true,
-      });
     }
-
-    setFilterElement(event.currentTarget.id);
-    setEmployees(event.currentTarget.id);
-  };
+  }, [isBlankEmployees]);
 
   return (
     <div>
@@ -71,6 +62,26 @@ function FilterMenu({
       ))}
     </div>
   );
+
+  function sortHandler(event: MouseEvent<HTMLButtonElement>) {
+    const buttonId = event.currentTarget.id;
+
+    if (buttonId === 'current') {
+      params.delete('filter');
+      setParams(params, {
+        replace: true,
+      });
+    } else {
+      params.set('filter', buttonId);
+
+      setParams(params, {
+        replace: true,
+      });
+    }
+
+    setFilter(event.currentTarget.id);
+    setFilterElement(event.currentTarget.id);
+  }
 }
 
 export default FilterMenu;
