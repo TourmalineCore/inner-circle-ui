@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { ReactComponent as IconAnalytics } from '../../../assets/icons/analytics.svg';
-import { ReactComponent as IconAnalyticsActive } from '../../../assets/icons/analytics-active.svg';
-import { ReactComponent as IconBurger } from '../../../assets/icons/burger.svg';
-import { ReactComponent as IconCross } from '../../../assets/icons/cross.svg';
+import { ReactComponent as IconAnalytics } from '../../../assets/icons/icon-analytics.svg';
+import { ReactComponent as IconAnalyticsActive } from '../../../assets/icons/icon-analytics-active.svg';
+import { ReactComponent as IconBurger } from '../../../assets/icons/icon-burger.svg';
+import { ReactComponent as IconCross } from '../../../assets/icons/icon-cross.svg';
 
 function MobileControlsPanel({
   prevPath,

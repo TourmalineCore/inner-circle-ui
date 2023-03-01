@@ -1,7 +1,7 @@
 .indicators {
   display: flex;
   flex-wrap: wrap;
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat, Rubik, sans-serif;
 }
 
 .indicators > div:nth-child(n) {
