@@ -10,10 +10,6 @@ function EmployeeList({
   isLoading: boolean;
   employees: Employee[];
 }) {
-  if (isLoading) {
-    <div>Loading...</div>;
-  }
-
   return (
     <ul className="employee-list">
       {isLoading && (<Skeleton className="employee-list__skeleton" count={4} />)}
