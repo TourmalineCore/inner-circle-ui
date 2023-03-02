@@ -1,10 +1,12 @@
 import {
-  MouseEvent, SetStateAction, useEffect, useState,
+  MouseEvent, useContext, useEffect,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import clsx from 'clsx';
+import { observer } from 'mobx-react-lite';
+import EmployeesStateContext from '../../context/EmployeesStateContext';
 
 const filterElements = [
   {
@@ -25,24 +27,23 @@ const filterElements = [
   },
 ];
 
-function FilterMenu({
-  isBlankEmployees,
-  setFilter,
-}: {
-  isBlankEmployees: boolean;
-  setFilter: (value: SetStateAction<string>) => void;
-}) {
+function FilterMenu() {
+  const employeesState = useContext(EmployeesStateContext);
+
   const [params, setParams] = useSearchParams();
-  const [filterElement, setFilterElement] = useState(params.get('filter') || 'current');
 
   useEffect(() => {
-    if (filterElement === 'blank' && !isBlankEmployees) {
+    if (employeesState.filterTerm === 'blank' && !employeesState.isBlankEmployees) {
       params.delete('filter');
       setParams(params, {
         replace: true,
       });
     }
-  }, [isBlankEmployees]);
+  }, [employeesState.isBlankEmployees, employeesState.filterTerm]);
+
+  useEffect(() => {
+    employeesState.updateFilterTerm(params.get('filter') || 'current');
+  }, [employeesState.filterTerm]);
 
   return (
     <div>
@@ -50,8 +51,8 @@ function FilterMenu({
         <Button
           type="button"
           className={clsx({
-            'button-active': item.id === filterElement,
-            'is-hidden': !isBlankEmployees && item.id === 'blank',
+            'button-active': item.id === employeesState.filterTerm,
+            'is-hidden': !employeesState.isBlankEmployees && item.id === 'blank',
           })}
           key={item.id}
           id={item.id}
@@ -79,9 +80,8 @@ function FilterMenu({
       });
     }
 
-    setFilter(event.currentTarget.id);
-    setFilterElement(event.currentTarget.id);
+    employeesState.updateFilterTerm(event.currentTarget.id);
   }
 }
 
-export default FilterMenu;
+export default observer(FilterMenu);

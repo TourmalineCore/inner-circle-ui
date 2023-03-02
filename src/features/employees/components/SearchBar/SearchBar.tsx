@@ -1,14 +1,10 @@
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
-import { ChangeEvent, SetStateAction } from 'react';
+import { observer } from 'mobx-react-lite';
+import { ChangeEvent, useContext } from 'react';
+import EmployeesStateContext from '../../context/EmployeesStateContext';
 
-function SearchBar({
-  setSearch,
-}: {
-  setSearch: (value: SetStateAction<string>) => void;
-}) {
-  const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
+function SearchBar() {
+  const employeesState = useContext(EmployeesStateContext);
 
   return (
     <div>
@@ -19,6 +15,10 @@ function SearchBar({
       />
     </div>
   );
+
+  function searchHandler(event: ChangeEvent<HTMLInputElement>) {
+    employeesState.updateSearchTerm(event.target.value);
+  }
 }
 
-export default SearchBar;
+export default observer(SearchBar);

@@ -1,47 +1,41 @@
-/* eslint-disable no-nested-ternary */
 import {
-  SetStateAction, useState, useEffect,
+  useState, useEffect, useContext,
 } from 'react';
 import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import clsx from 'clsx';
+import EmployeesStateContext from '../../context/EmployeesStateContext';
 
-function SortMenu({
-  setSortBy,
-}: {
-  setSortBy: (value: SetStateAction<string>) => void;
-}) {
-  const [isDess, setIsDess] = useState<number>(0);
-  const [sort, setSort] = useState('');
+function SortMenu() {
+  const [count, setCount] = useState<number>(0);
+
+  const employeesState = useContext(EmployeesStateContext);
 
   const sortHandler = () => {
-    if (isDess > 2) {
-      setIsDess(0);
+    if (count > 2) {
+      setCount(0);
     }
 
-    setIsDess((prev) => prev += 1);
+    setCount((prev) => prev += 1);
   };
 
   useEffect(() => {
-    sortElement();
-  }, [isDess]);
+    getSortElement();
+  }, [count]);
 
-  function sortElement() {
-    switch (isDess) {
+  function getSortElement() {
+    switch (count) {
       case 1: {
-        setSort('asc');
-        setSortBy('asc');
+        employeesState.updateSortTerm('asc');
 
         break;
       }
       case 2: {
-        setSort('desc');
-        setSortBy('desc');
+        employeesState.updateSortTerm('desc');
 
         break;
       }
       default: {
-        setSort('default');
-        setSortBy('default');
+        employeesState.updateSortTerm('default');
 
         break;
       }
@@ -52,16 +46,16 @@ function SortMenu({
     <div className="sort-menu">
       <Button
         type="button"
-        id={sort}
+        id={employeesState.sortTerm}
         onClick={sortHandler}
       >
         <span className="sort-menu__inner">
           Sort by Name
           <div className="sort-menu__box">
-            <span className={clsx({ 'sort-menu__unselected': sort === 'desc' })}>
+            <span className={clsx({ 'sort-menu__unselected': employeesState.sortTerm === 'desc' })}>
               ▲
             </span>
-            <span className={clsx({ 'sort-menu__unselected': sort === 'asc' })}>
+            <span className={clsx({ 'sort-menu__unselected': employeesState.sortTerm === 'asc' })}>
               ▼
             </span>
           </div>

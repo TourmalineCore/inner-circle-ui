@@ -54,8 +54,8 @@ export type EditedEmployee = {
   gitLab: string | null;
   ratePerHour: number | null;
   fullSalary: number | null;
-  employmentType: number;
-  parking: number;
+  employmentType: number | null;
+  parking: number | null;
   hireDate: Date | null;
   dismissalDate?: Date | null;
   isEmployedOfficially: boolean;
@@ -74,7 +74,7 @@ export type Employee = {
   netSalary: number | null;
   ratePerHour: number | null;
   fullSalary: number | null;
-  employmentType: number;
+  employmentType: number | null;
   parking: number | null;
   personnelNumber: string | null;
   hireDate: string | null;
