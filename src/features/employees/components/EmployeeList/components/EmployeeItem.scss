@@ -3,10 +3,21 @@
   border: 1px solid #000;
   border-radius: 10px;
   padding: 10px;
+  font-weight: 500;
   font-size: 14px;
   color: #000;
   gap: 30px;
   grid-template-columns: repeat(3, 1fr) auto 100px;
+
+  &__name {
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  &__corporate-email {
+    font-size: 16px;
+  }
 
   &__circle {
     display: inline-block;
@@ -18,7 +29,7 @@
   }
 
   &__contacts-list {
-    margin-top: 20px;
+    margin-top: 16px;
   }
 
   &__contacts-item {
@@ -30,14 +41,20 @@
     }
   }
 
+  &__net-salary {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__salary-list {
-    margin-top: 20px;
+    margin-top: 24px;
   }
 
   &__salary-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #838383;
 
     & + & {
       margin-top: 6px;

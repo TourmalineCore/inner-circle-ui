@@ -21,7 +21,7 @@ function EmployeeItem({
       })}
     >
       <div>
-        <div>{employee.fullName}</div>
+        <div className="employee-item__name">{employee.fullName}</div>
         <div>{employee.corporateEmail}</div>
       </div>
 
@@ -56,7 +56,7 @@ function EmployeeItem({
       </div>
 
       <div>
-        <div>
+        <div className="employee-item__net-salary">
           Net salary
           {' '}
           <NumericFormat
