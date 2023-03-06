@@ -1,0 +1,17 @@
+.sort-menu {
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    color: #000;
+  }
+
+  &__unselected {
+    color: var(--color-grey);
+  }
+}

@@ -13,8 +13,11 @@
 // Features
 @import "../features/profile/ProfilePage";
 @import "../features/profile/components/InfoComponent/InfoComponent";
+@import "../features/employees/components/EmployeeList/EmployeeList";
+@import "../features/employees/components/EmployeeList/components/EmployeeItem";
 @import "../features/employees/components/EmployeeEdit/EmployeeEdit";
 @import "../features/employees/EmployeesPage";
+@import "../features/employees/components/SortMenu/SortMenu";
 
 // Template
 @import "../template/components/Breadcrumbs/Breadcrumbs";
