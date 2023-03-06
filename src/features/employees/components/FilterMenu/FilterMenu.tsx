@@ -46,12 +46,12 @@ function FilterMenu() {
   }, [employeesState.filterTerm]);
 
   return (
-    <div>
+    <div className="filter-menu">
       {filterElements.map((item) => (
         <Button
           type="button"
           className={clsx({
-            'button-active': item.id === employeesState.filterTerm,
+            'filter-menu__button-active': item.id === employeesState.filterTerm,
             'is-hidden': !employeesState.isBlankEmployees && item.id === 'blank',
           })}
           key={item.id}

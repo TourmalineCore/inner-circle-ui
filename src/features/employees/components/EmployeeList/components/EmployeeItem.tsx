@@ -34,15 +34,13 @@ function EmployeeItem({
           </li>
           <li className="employee-item__contacts-item">
             <span className="employee-item__circle" />
-            <span>
-              <PatternFormat
-                type="tel"
-                displayType="text"
-                allowEmptyFormatting
-                format={employee.phone ? '+# (###) ### ## ##' : '--'}
-                value={employee.phone}
-              />
-            </span>
+            <PatternFormat
+              type="tel"
+              displayType="text"
+              allowEmptyFormatting
+              format={employee.phone ? '+# (###) ### ## ##' : '--'}
+              value={employee.phone}
+            />
           </li>
           <li className="employee-item__contacts-item">
             <span className="employee-item__circle" />
@@ -58,7 +56,6 @@ function EmployeeItem({
       <div>
         <div className="employee-item__net-salary">
           Net salary
-          {' '}
           <NumericFormat
             displayType="text"
             thousandSeparator=","
@@ -72,68 +69,54 @@ function EmployeeItem({
         <ul className="employee-item__salary-list">
           <li className="employee-item__salary-item">
             <span className="employee-item__salary-label">Rate Per Hour</span>
-            {' '}
-            <span>
-              <NumericFormat
-                displayType="text"
-                thousandSeparator=","
-                decimalScale={1}
-                value={employee.ratePerHour}
-                valueIsNumericString
-                renderText={(value) => <span>{ value || '--'}</span>}
-              />
-            </span>
+            <NumericFormat
+              displayType="text"
+              thousandSeparator=","
+              decimalScale={1}
+              value={employee.ratePerHour}
+              valueIsNumericString
+              renderText={(value) => <span>{ value || '--'}</span>}
+            />
           </li>
           <li className="employee-item__salary-item">
             <span className="employee-item__salary-label">Full Salary</span>
-            {' '}
-            <span>
-              <NumericFormat
-                displayType="text"
-                thousandSeparator=","
-                decimalScale={1}
-                value={employee.fullSalary}
-                valueIsNumericString
-                renderText={(value) => <span>{ value || '--'}</span>}
-              />
-            </span>
+            <NumericFormat
+              displayType="text"
+              thousandSeparator=","
+              decimalScale={1}
+              value={employee.fullSalary}
+              valueIsNumericString
+              renderText={(value) => <span>{ value || '--'}</span>}
+            />
           </li>
           <li className="employee-item__salary-item">
             <span className="employee-item__salary-label">Employment Type</span>
-            {' '}
             <span>{getEmploymentType(employee.employmentType) || '--'}</span>
           </li>
           <li className="employee-item__salary-item">
             <span className="employee-item__salary-label">Parking</span>
-            {' '}
-            <span>
-              <NumericFormat
-                displayType="text"
-                thousandSeparator=","
-                decimalScale={1}
-                value={employee.parking}
-                valueIsNumericString
-                renderText={(value) => <span>{ value || '--'}</span>}
-              />
-            </span>
+            <NumericFormat
+              displayType="text"
+              thousandSeparator=","
+              decimalScale={1}
+              value={employee.parking}
+              valueIsNumericString
+              renderText={(value) => <span>{ value || '--'}</span>}
+            />
           </li>
         </ul>
       </div>
 
-      <div>
-        <ul className="employee-item__official-documents-list">
-          <li className="employee-item__official-documents-item">
-            <span>Personnel Number</span>
-            {' '}
-            {employee.personnelNumber || '--'}
-          </li>
-          <li className="employee-item__official-documents-item">
-            <span>Hire date</span>
-            {' '}
-            {employee.hireDate ? moment(employee.hireDate).format('DD.MM.YYYY') : '--'}
-          </li>
-        </ul>
-      </div>
+      <ul className="employee-item__official-documents-list">
+        <li className="employee-item__official-documents-item">
+          <span>Personnel Number</span>
+          <span>{employee.personnelNumber || '--'}</span>
+        </li>
+        <li className="employee-item__official-documents-item">
+          <span>Hire date</span>
+          <span>{employee.hireDate ? moment(employee.hireDate).format('DD.MM.YYYY') : '--'}</span>
+        </li>
+      </ul>
 
       <Button
         className="employee-item__button"

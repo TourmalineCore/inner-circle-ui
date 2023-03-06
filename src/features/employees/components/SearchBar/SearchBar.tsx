@@ -7,13 +7,11 @@ function SearchBar() {
   const employeesState = useContext(EmployeesStateContext);
 
   return (
-    <div>
-      <Input
-        type="text"
-        placeholder="Search for employee.."
-        onChange={searchHandler}
-      />
-    </div>
+    <Input
+      type="text"
+      placeholder="Search for employee.."
+      onChange={searchHandler}
+    />
   );
 
   function searchHandler(event: ChangeEvent<HTMLInputElement>) {

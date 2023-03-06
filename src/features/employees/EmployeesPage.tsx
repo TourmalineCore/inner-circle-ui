@@ -34,7 +34,7 @@ function EmployeesPage() {
           <h1>Employees</h1>
 
           <div className="employees-page__box">
-            <SearchBar />
+            <div><SearchBar /></div>
             <FilterMenu />
             <SortMenu />
           </div>
