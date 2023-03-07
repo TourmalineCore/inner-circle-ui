@@ -30,6 +30,8 @@ spec:
             name: {{ template "chart.fullname" . }}-secret
         ports:
         - containerPort: 80
+        resources:
+            {{- toYaml .Values.resources | nindent 12 }}
       nodeSelector:
         kubernetes.io/os: linux
       imagePullSecrets:
