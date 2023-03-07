@@ -56,4 +56,14 @@
     border-bottom: 1px solid var(--color-grey);
     padding-bottom: 20px;
   }
+
+  &__notification {
+    margin: 0 auto;
+    border: 1px solid #aaa;
+    padding: 8px 40px;
+    max-width: fit-content;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+  }
 }
