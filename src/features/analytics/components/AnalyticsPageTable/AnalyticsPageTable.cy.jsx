@@ -8,6 +8,10 @@ describe('AnalyticsPageTable tests', () => {
     mountAnalyticsPageTable();
     waitResponse();
   });
+
+  it('mock test', () => {
+    expect(true).equal(true);
+  })
 })
 
 function mountAnalyticsPageTable() {
