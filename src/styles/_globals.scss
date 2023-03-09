@@ -4,6 +4,7 @@
   --mobile-controls-panel-height: 56px;
   --color-white: #fff;
   --color-text: #172f3d;
+  --color-grey: #c2c2c2;
   --color-accent-first: #0c8bb4;
   --color-accent-last: #f53893;
   --color-link: var(--color-accent-first);
@@ -51,4 +52,8 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.is-hidden {
+  display: none;
 }

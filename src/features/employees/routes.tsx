@@ -21,11 +21,6 @@ export const employeesRoutes = [
     breadcrumb: 'Edit contact details',
     Component: EmployeeEdit,
   },
-  {
-    path: '/employees/salary',
-    breadcrumb: 'Edit salary data',
-    Component: EmployeeEdit,
-  },
 ];
 
 export const employeesSidebarRoutes = [

@@ -1,53 +1,27 @@
-/* eslint-disable react/no-unstable-nested-components */
-import {
-  Button,
-} from '@tourmalinecore/react-tc-ui-kit';
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../common/api';
-import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
-
+import { observer } from 'mobx-react-lite';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
+import SearchBar from './components/SearchBar/SearchBar';
+import { mockData } from './mock';
 
-import EmployeesContactDetailsTable from './components/EmployeeContactDetailsTable/EmployeesContactDetailsTable';
-import EmployeesSalaryDataTable from './components/EmployeeSalaryDataTable/EmployeesSalaryDataTable';
-import { ColleagueContactsType, ColleagueFinancesDtoType, ColleaguesType } from './types';
+import EmployeeList from './components/EmployeeList/EmployeeList';
+import FilterMenu from './components/FilterMenu/FilterMenu';
+import SortMenu from './components/SortMenu/SortMenu';
+import EmployeesStateContext from './context/EmployeesStateContext';
+import EmployeesState from './context/EmployeesState';
 
 function EmployeesPage() {
-  const [employeesContact, setEmployeesContact] = useState<ColleagueContactsType[]>([]);
-  const [employeesSalary, setEmployeesSalary] = useState<ColleagueFinancesDtoType[]>([]);
-
-  const navigate = useNavigate();
+  const employeesState = useMemo(() => new EmployeesState(), []);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadEmployeesAsync();
   }, []);
 
   return (
-    <>
-      <ContentCard
-        style={{ margin: 20 }}
-        isStickyHead
-        headerContent={(
-          <DefaultCardHeader>Contact details</DefaultCardHeader>
-        )}
-      >
-        <div style={{ paddingTop: 4 }}>
-          <EmployeesContactDetailsTable
-            employeesContact={employeesContact}
-            loadEmployeesAsync={loadEmployeesAsync}
-          />
-        </div>
-        <Button
-          style={{ marginTop: 20 }}
-          onClick={() => { navigate('/employees/add'); }}
-        >
-          Аdd an employee
-
-        </Button>
-      </ContentCard>
+    <EmployeesStateContext.Provider value={employeesState}>
       <ContentCard
         style={{ margin: 20 }}
         isStickyHead
@@ -55,18 +29,44 @@ function EmployeesPage() {
           <DefaultCardHeader>Salary data</DefaultCardHeader>
         )}
       >
-        <div className="table" style={{ paddingTop: 4 }}>
-          <EmployeesSalaryDataTable employeesSalary={employeesSalary} />
-        </div>
+
+        <section className="employees-page">
+          <h1>Employees</h1>
+
+          <div className="employees-page__box">
+            <div><SearchBar /></div>
+            <FilterMenu />
+            <SortMenu />
+          </div>
+
+          <div>
+            <EmployeeList
+              isLoading={isLoading}
+              employees={employeesState.allEmployees}
+            />
+          </div>
+        </section>
       </ContentCard>
-    </>
+    </EmployeesStateContext.Provider>
   );
 
   async function loadEmployeesAsync() {
-    const { data } = await api.get<ColleaguesType>(`${LINK_TO_SALARY_SERVICE}employees/get-colleagues`);
-    setEmployeesContact(data.colleagueContacts);
-    setEmployeesSalary(data.colleagueFinancesDto);
+    setIsLoading(true);
+
+    // mock
+    employeesState.changeEmployees(mockData);
+    setIsLoading(false);
+
+    try {
+      // const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
+
+      // employeesState.changeEmployees(data);
+
+      // setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
-export default EmployeesPage;
+export default observer(EmployeesPage);
