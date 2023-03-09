@@ -22,6 +22,7 @@
       uses: ./.github/workflows/test.yml
     deploy-to-dev-k8s:
       name: Deploy UI to k8s for development environment
+      needs: [component-tests]
       if: github.event_name == 'push'
       runs-on: ubuntu-18.04
 
