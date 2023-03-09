@@ -1,9 +1,9 @@
-name: component and snapshot testing by jest and cypress
+name: Component tests
 
 on:
     push:
         branches:
-            - feature/*
+            - feature/861m8j2pw-setting-component-testing
             - develop
 jobs:
     component-tests:
