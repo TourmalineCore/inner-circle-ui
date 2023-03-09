@@ -1,6 +1,5 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/valid-expect-in-promise */
-/// <reference types="@testing-library/cypress" />
 import { MemoryRouter } from 'react-router-dom';
 
 import EmployeeAddPage from './EmployeeAddPage';

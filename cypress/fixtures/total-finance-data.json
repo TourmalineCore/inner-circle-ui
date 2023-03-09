@@ -1,0 +1,27 @@
+{
+  "reserveFinance": {
+    "reserveForQuarter": 1,
+    "reserveForHalfYear": 2,
+    "reserveForYear": 3
+  },
+  "totalExpenses": {
+    "payrollExpense": 4,
+    "officeExpense": 5,
+    "totalExpense": 6
+  },
+  "desiredFinancialMetrics": {
+    "desiredIncome": 7,
+    "desiredProfit": 8,
+    "desiredProfitability": 9
+  },
+  "workingDays": {
+    "workingDaysInYear": 10,
+    "workingDaysInYearWithoutVacation": 11,
+    "workingDaysInYearWithoutVacationAndSick": 12,
+    "workingDaysInMonth": 13,
+    "workingHoursInMonth": 14
+  },
+  "incomeTaxPercent": 0.15,
+  "districtCoefficient": 0.16,
+  "minimumWage": 0.17
+}

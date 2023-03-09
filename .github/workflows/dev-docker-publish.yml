@@ -1,7 +1,9 @@
   name: deploy UI to dev k8s
 
   on:
-    push:
+    workflow_run: 
+      workflows:
+        - "Component tests"
       branches:
         - develop
 
