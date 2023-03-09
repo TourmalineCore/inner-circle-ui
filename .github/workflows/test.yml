@@ -1,10 +1,6 @@
 name: Component tests
 
-on:
-    push:
-        branches:
-            - feature/861m8j2pw-setting-component-testing
-            - develop
+on: [workflow_call]
 jobs:
     component-tests:
         name: Component testing

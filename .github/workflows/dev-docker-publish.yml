@@ -1,13 +1,14 @@
   name: deploy UI to dev k8s
 
   on:
-    workflow_run: 
-      workflows: [Component tests]
-    # push:
-    #   branches:
-    #     - develop
-      types:
-      - completed
+    # workflow_run: 
+      # workflows: [Component tests]
+    push:
+      branches:
+        - develop
+        - feature/861m8j2pw-setting-component-testing
+      # types:
+      # - completed
       tags:
         - v*
 
@@ -17,6 +18,8 @@
     GUTHUB_REGISTRY: ghcr.io
 
   jobs:
+    component-tests:
+      uses: ./.github/workflows/test.yml
     deploy-to-dev-k8s:
       name: Deploy UI to k8s for development environment
       if: github.event_name == 'push'
@@ -25,22 +28,22 @@
       steps:
         - name: checkout 
           uses: actions/checkout@v1
-        - name: Build and push image
-          run: |
-              docker login ${{ env.GUTHUB_REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GH_REGISTRY_TOKEN }}
-              docker build -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:latest -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:${{ github.sha }} .
-              docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:latest
-              docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:${{ github.sha }}
-        - name: Deploy
-          uses: WyriHaximus/github-action-helm3@v2
-          with:
-            exec: helm upgrade --namespace dev-inner-circle --create-namespace --install dev-inner-circle-ui 
-                    --set "domain=${{ secrets.DEV_HOST }}"
-                    --set "apiLinks.LINK_TO_SALARY_SERVICE=${{ secrets.LINK_TO_SALARY_SERVICE }}"
-                    --set "apiLinks.LINK_TO_ACCOUNT_SERVICE=${{ secrets.LINK_TO_ACCOUNT_SERVICE }}"
-                    --set "imageCredentials.username=${{ github.actor }}" 
-                    --set "imageCredentials.password=${{ secrets.GH_REGISTRY_TOKEN }}" 
-                    --set "image.tag=${{ github.sha }}"
-                    --set "envKey=Development"
-                    ./ci/chart
-            kubeconfig: '${{ secrets.DEV_KUBECONFIG }}'
+        # - name: Build and push image
+        #   run: |
+        #       docker login ${{ env.GUTHUB_REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GH_REGISTRY_TOKEN }}
+        #       docker build -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:latest -t $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:${{ github.sha }} .
+        #       docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:latest
+        #       docker push $GUTHUB_REGISTRY/tourmalinecore/inner-circle/dev-inner-circle-ui:${{ github.sha }}
+        # - name: Deploy
+        #   uses: WyriHaximus/github-action-helm3@v2
+        #   with:
+        #     exec: helm upgrade --namespace dev-inner-circle --create-namespace --install dev-inner-circle-ui 
+        #             --set "domain=${{ secrets.DEV_HOST }}"
+        #             --set "apiLinks.LINK_TO_SALARY_SERVICE=${{ secrets.LINK_TO_SALARY_SERVICE }}"
+        #             --set "apiLinks.LINK_TO_ACCOUNT_SERVICE=${{ secrets.LINK_TO_ACCOUNT_SERVICE }}"
+        #             --set "imageCredentials.username=${{ github.actor }}" 
+        #             --set "imageCredentials.password=${{ secrets.GH_REGISTRY_TOKEN }}" 
+        #             --set "image.tag=${{ github.sha }}"
+        #             --set "envKey=Development"
+        #             ./ci/chart
+        #     kubeconfig: '${{ secrets.DEV_KUBECONFIG }}'
