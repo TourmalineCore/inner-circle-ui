@@ -2,11 +2,12 @@
 
   on:
     workflow_run: 
-      workflows:
-        - "Component tests"
-      branches:
-        - develop
-
+      workflows: [Component tests]
+    # push:
+    #   branches:
+    #     - develop
+      types:
+      - completed
       tags:
         - v*
 
