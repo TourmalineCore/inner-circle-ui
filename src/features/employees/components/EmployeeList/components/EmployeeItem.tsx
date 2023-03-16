@@ -121,7 +121,7 @@ function EmployeeItem({
       <Button
         className="employee-item__button"
         type="button"
-        onClick={() => { navigate(`/employees/edit?${employee.employeeId}`); }}
+        onClick={() => { navigate(`/employees/edit?id=${employee.employeeId}`); }}
       >
         Edit
       </Button>
