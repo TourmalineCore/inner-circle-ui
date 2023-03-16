@@ -55,7 +55,7 @@ function EmployeeEdit() {
   const id = param.get('id');
 
   useEffect(() => {
-    loadEmployeesAsync();
+    loadEmployeeAsync();
   }, []);
 
   const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -268,7 +268,7 @@ function EmployeeEdit() {
     </section>
   );
 
-  async function loadEmployeesAsync() {
+  async function loadEmployeeAsync() {
     const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
 
     const initialData = {
@@ -276,6 +276,7 @@ function EmployeeEdit() {
       phone: typeof data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
       hireDate: typeof data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
       dismissalDate: typeof data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
+      personnelNumber: typeof data.personnelNumber === 'string' ? data.personnelNumber.replace('/', '') : data.personnelNumber,
     };
 
     setEmployee(initialData);
@@ -286,6 +287,10 @@ function EmployeeEdit() {
       ...employee,
       phone: `+7${employee.phone}`,
     };
+
+    if (updateEmployee.isEmployedOfficially) {
+      updateEmployee.personnelNumber = `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`;
+    }
 
     delete updateEmployee.isFired;
     delete updateEmployee.dismissalDate;
