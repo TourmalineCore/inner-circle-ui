@@ -58,10 +58,10 @@ function EmployeesPage() {
       const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
 
       employeesState.changeEmployees(data);
-
-      setIsLoading(false);
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   }
 }

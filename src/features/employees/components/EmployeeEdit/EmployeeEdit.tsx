@@ -40,10 +40,10 @@ function EmployeeEdit() {
     phone: null,
     gitHub: null,
     gitLab: null,
-    ratePerHour: null,
+    ratePerHour: 0,
     fullSalary: null,
     employmentType: null,
-    parking: null,
+    parking: 0,
     hireDate: null,
     dismissalDate: new Date(),
     isEmployedOfficially: true,
@@ -286,11 +286,10 @@ function EmployeeEdit() {
     const updateEmployee = {
       ...employee,
       phone: `+7${employee.phone}`,
+      ratePerHour: employee.ratePerHour || 0,
+      parking: employee.parking || 0,
+      personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
     };
-
-    if (updateEmployee.isEmployedOfficially) {
-      updateEmployee.personnelNumber = `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`;
-    }
 
     delete updateEmployee.isFired;
     delete updateEmployee.dismissalDate;
