@@ -4,13 +4,14 @@ import { observer } from 'mobx-react-lite';
 import ContentCard from '../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import SearchBar from './components/SearchBar/SearchBar';
-import { mockData } from './mock';
 
 import EmployeeList from './components/EmployeeList/EmployeeList';
 import FilterMenu from './components/FilterMenu/FilterMenu';
 import SortMenu from './components/SortMenu/SortMenu';
 import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
+import { api } from '../../common/api';
 
 function EmployeesPage() {
   const employeesState = useMemo(() => new EmployeesState(), []);
@@ -56,19 +57,14 @@ function EmployeesPage() {
   async function loadEmployeesAsync() {
     setIsLoading(true);
 
-    // mock
-    employeesState.changeEmployees(mockData);
-    setIsLoading(false);
-
     try {
-      // const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
+      const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
 
-      // employeesState.changeEmployees(data);
-
+      employeesState.changeEmployees(data);
     } catch (e) {
       console.log(e);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   }
 }
