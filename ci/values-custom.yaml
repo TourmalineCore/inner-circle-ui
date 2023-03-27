@@ -85,6 +85,7 @@ extraSecretEnvVarsEncoded: |
 extraEnvVarsCM: "{{ include \"common.names.fullname\" . }}"
 ## @param extraEnvVarsSecret Secret with extra environment variables
 ##
+
 # If you need secrets, than use commented line below 
 # extraEnvVarsSecret: "{{ include \"common.names.fullname\" . }}"
 # else use
@@ -187,11 +188,12 @@ extraDeploy:
       {{- include "common.tplvalues.render" ( dict "value" .Values.extraConfigMapEnvVars "context" $ ) | nindent 6 }}
       {{- end }}
   - |
-    {{- if .Values.extraEnvVarsSecret }}
+    {{ $secret_name := printf "%s" ( include "common.names.fullname" .) }}
+    {{- if eq ( tpl .Values.extraEnvVarsSecret . ) $secret_name }}
     apiVersion: v1
     kind: Secret
     metadata:
-      name: {{ include "common.names.fullname" . }}
+      name: {{ $secret_name }}
       namespace: {{ include "common.names.namespace" . | quote }}
       labels: {{- include "common.labels.standard" . | nindent 6 }}
         {{- if .Values.commonLabels }}
