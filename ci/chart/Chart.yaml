@@ -1,5 +1,0 @@
-apiVersion: v1
-name: inner-circle-ui
-description: Chart for Inner Circle I
-type: application
-version: 1.0.0
