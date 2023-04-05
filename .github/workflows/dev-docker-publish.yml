@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature/fix-deploy-ci
   pull_request:
 
 env:
@@ -31,7 +32,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: Deploy
-        uses: WyriHaximus/github-action-helm3@v2
+        uses: WyriHaximus/github-action-helm3@v3
         with:
           exec: |
             RELEASE_NAME=ui
