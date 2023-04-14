@@ -18,10 +18,10 @@ function SidebarItem({
   sidebarContainerRef,
   className,
   icon,
+  isWindowRedirectNecessary = false,
   iconActive,
   iconMini,
   label,
-  windowPath,
   path,
   isActive,
   counter,
@@ -39,8 +39,8 @@ function SidebarItem({
   iconActive?: (() => JSX.Element) | ReactNode;
   iconMini?: ReactNode;
   label: string;
-  windowPath?: string;
   path?: string;
+  isWindowRedirectNecessary?: boolean;
   isActive?: boolean;
   counter?: string;
   routes?: SidebarProps[];
@@ -63,7 +63,7 @@ function SidebarItem({
   };
 
   const windowLinkProps = {
-    href: windowPath,
+    href: path,
   };
 
   return (
@@ -185,7 +185,7 @@ function SidebarItem({
       resultTagName = Link;
     }
 
-    if (windowPath) {
+    if (isWindowRedirectNecessary) {
       resultTagName = 'a';
     }
 

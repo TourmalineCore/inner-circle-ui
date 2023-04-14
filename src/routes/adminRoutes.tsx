@@ -4,6 +4,7 @@ import { SidebarRoutesProps } from '../types';
 import { employeesRoutes, employeesSidebarRoutes } from '../features/employees/routes';
 import { analyticsRoutes, analyticsSidebarRoutes } from '../features/analytics/routes';
 import { homeRoutes } from '../features/home/routes';
+import { accountManagementSidebarRoutes } from '../features/account-management/routers';
 
 export const adminRoutes: {
   path: string;
@@ -20,4 +21,5 @@ export const sidebarRoutes: SidebarRoutesProps[] = [
   ...profileSidebarRoutes,
   ...analyticsSidebarRoutes,
   ...employeesSidebarRoutes,
+  ...accountManagementSidebarRoutes,
 ];

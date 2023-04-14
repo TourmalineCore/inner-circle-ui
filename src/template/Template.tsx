@@ -55,7 +55,8 @@ function Template() {
                 <SidebarItem
                   icon={<IconLogout />}
                   iconActive={<IconLogoutActive />}
-                  windowPath="/auth/logout"
+                  isWindowRedirectNecessary
+                  path="/auth/logout"
                   label="Sign Out"
                 />
               </>
