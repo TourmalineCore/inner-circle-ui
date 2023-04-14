@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature/recover-ci
   pull_request:
 
 env:
@@ -42,9 +43,9 @@ jobs:
             --set "ingress.hostname=${{ secrets.DEV_HOST }}" \
             --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ secrets.DEV_LINK_TO_SALARY_SERVICE }}" \
             --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}" \
-            --set "extraConfigMapEnvVars.API_ROOT=\/api" \
-            --set "extraConfigMapEnvVars.API_ROOT_AUTH=\/api\/auth" \
-            --set "extraConfigMapEnvVars.ENV_KEY=Development" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.ENV_KEY=${{ secrets.DEV_ENV }}" \
             "${RELEASE_NAME}" \
             bitnami/nginx
           kubeconfig: "${{ secrets.DEV_KUBECONFIG }}"
