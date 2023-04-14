@@ -13,7 +13,6 @@ npm start
 ```
 
 ## Run cypress tests
-
 ```
 npm run cy:run
 ```
