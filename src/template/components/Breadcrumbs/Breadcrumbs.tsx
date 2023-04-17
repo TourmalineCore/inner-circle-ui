@@ -31,14 +31,14 @@ function Breadcrumbs({
             {
               i !== list.length - 1
                 ? (
-                  <span>
+                  <>
                     <Link className="breadcrumbs__link" to={key}>{breadcrumb}</Link>
                     {list.length > 1 && (
                       <span className="breadcrumbs__icon">
                         <IconBreadcrumbs />
                       </span>
                     )}
-                  </span>
+                  </>
                 )
                 : (
                   <span
