@@ -32,6 +32,9 @@ function EmployeesPage() {
       >
 
         <section className="employees-page">
+
+          {employeesState.isBlankEmployees && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+
           <h1>Employees</h1>
 
           <div className="employees-page__box">
