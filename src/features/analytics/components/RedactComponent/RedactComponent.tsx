@@ -19,14 +19,8 @@ function RedactComponent({
   onChange?: (number: number) => void,
 }) {
   const [editableValue, setRedValue] = useState(value.toString());
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
   const [isFocus, setIsFocus] = useState(false);
-
-  function onFocus() {
-    setIsFocus(true);
-    setRedValue(editableValue);
-  }
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   function onAccept() {
     if (isEditable && (Number(value) !== Number(editableValue))) {
@@ -75,7 +69,7 @@ function RedactComponent({
           setRedValue(values.value);
         }}
         suffix={isFocus ? undefined : sumbol}
-        onFocus={() => onFocus()}
+        onFocus={() => setIsFocus(true)}
         onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => handleKeyUp(event)}
         onBlur={() => onCancel()}
       />
