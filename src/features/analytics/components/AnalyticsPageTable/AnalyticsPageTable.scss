@@ -1,0 +1,22 @@
+.analytics-page-table {
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-bottom: 10px;
+  }
+
+  &__total {
+    font-weight: 500;
+  }
+
+  &__select {
+    outline: none;
+    border: none;
+    width: 100%;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    background-color: transparent;
+  }
+}

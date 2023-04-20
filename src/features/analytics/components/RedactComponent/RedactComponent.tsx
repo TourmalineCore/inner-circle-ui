@@ -1,54 +1,36 @@
-// ToDo: rename RedactComponent, get rid of inline styles for delta (using classname)
+import clsx from 'clsx';
 
-import {
-  ChangeEvent, useEffect, useRef, useState,
-} from 'react';
-import { formatMoney, reformatMoney } from '../../../../common/utils/formatMoney';
-
-import './RedactComponent.css';
+import { KeyboardEvent, useRef, useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 function RedactComponent({
   value,
   valueDelta,
-  onChange = () => {},
   isEditable = false,
+  isPercent = false,
+  className,
+  onChange = () => {},
 } : {
-  value : string,
+  value: number,
   valueDelta?: number,
-  onChange?: (number: number) => void,
   isEditable?: boolean,
+  isPercent?: boolean,
+  className?: string,
+  onChange?: (number: number) => void,
 }) {
-  const [editableValue, setRedValue] = useState(value);
-  const [isPercent, setIsPercent] = useState(false);
+  const [editableValue, setRedValue] = useState(value.toString());
+  const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (editableValue.includes('%')) {
-      setIsPercent(true);
-    }
-  }, []);
-
-  function onFocus() {
-    setRedValue(reformatMoney(editableValue));
-  }
-
-  function onCheckPercent(number : string) {
-    if (isPercent) {
-      setRedValue(`${number}%`);
-    } else {
-      setRedValue(formatMoney(Number(number)));
-    }
-  }
-
   function onAccept() {
-    onCheckPercent(editableValue.replace(',', '.'));
-    if (isEditable && (Number(reformatMoney(value)) !== Number(reformatMoney(editableValue)))) {
+    if (isEditable && (Number(value) !== Number(editableValue))) {
       onChange(Number(editableValue));
     }
   }
 
   function onCancel() {
-    setRedValue(value);
+    setRedValue(value.toString());
+    setIsFocus(false);
   }
 
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -66,37 +48,47 @@ function RedactComponent({
     }
   }
 
+  const sumbol = isPercent ? ' %' : ' ₽';
+
   return (
     <div className="component">
-      {
-        isEditable
-          ? (
-            <input
-              ref={inputRef}
-              className="component-input"
-              type="text"
-              value={editableValue}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setRedValue(e.target.value)}
-              onFocus={onFocus}
-              onKeyUp={handleKeyUp}
-              onBlur={onCancel}
-            />
-          ) : <div>{value}</div>
-      }
+      <NumericFormat
+        title="Click for update"
+        getInputRef={inputRef}
+        type="text"
+        displayType={isEditable ? 'input' : 'text'}
+        className={clsx('component-input', className, {
+          'component-input--is-editable': isEditable,
+        })}
+        value={editableValue}
+        valueIsNumericString
+        allowLeadingZeros
+        thousandsGroupStyle="thousand"
+        thousandSeparator=","
+        onValueChange={(values) => {
+          setRedValue(values.value);
+        }}
+        suffix={isFocus ? undefined : sumbol}
+        onFocus={() => setIsFocus(true)}
+        onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => handleKeyUp(event)}
+        onBlur={() => onCancel()}
+      />
+
       {valueDelta
         ? (
           <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
-            {getTotal(valueDelta)}
+            <NumericFormat
+              displayType="text"
+              value={valueDelta}
+              allowLeadingZeros
+              prefix={valueDelta >= 1 ? '+' : ''}
+              thousandSeparator=","
+              suffix={sumbol}
+            />
           </div>
-        )
-        : null}
+        ) : null}
     </div>
   );
-
-  function getTotal(delta: number) {
-    const plus = delta >= 1 ? '+' : '';
-    return `${plus}${isPercent ? `${delta}%` : formatMoney(delta)}`;
-  }
 }
 
 export default RedactComponent;
