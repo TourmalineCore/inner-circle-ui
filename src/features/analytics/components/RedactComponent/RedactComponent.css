@@ -8,9 +8,13 @@
   font-size: 18px;
   line-height: 1.15;
   background-color: inherit;
-  cursor: pointer;
+  cursor: default;
 }
 
 .component-input:focus {
   border-bottom: 2px solid #000;
+}
+
+.component-input--is-editable {
+  cursor: pointer;
 }

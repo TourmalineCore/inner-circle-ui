@@ -5,16 +5,19 @@ import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
-import { formatMoney } from '../../../../common/utils/formatMoney';
 import ContentCard from '../../../../components/ContentCard/ContentCard';
 import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
-import { GetPreviewType, PutPreviewType } from '../../types';
-import RedactComponent from '../RedactComponent/RedactComponent';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import {
-  CellTable, ColumnType, FooterTable, Row,
+  AnalyticsType,
+  CellTable,
+  ColumnType,
+  Metrics,
+  GetTableType,
+  Row,
 } from './types/AnalyticsPageTable';
+import RedactComponent from '../RedactComponent/RedactComponent';
 
 const checkFormatColumnsData = {
   1: 'All',
@@ -27,10 +30,14 @@ const employeeTypeData = {
 };
 
 function AnalyticsPageTable() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialEmployees, setInitialEmployees] = useState<(GetPreviewType)[]>([]);
-  const [employees, setEmployees] = useState<(GetPreviewType)[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
+
+  const [newEmployees, setNewEmployees] = useState<AnalyticsType>({
+    // @ts-ignore
+    total: {},
+    rows: [],
+  });
 
   useEffect(() => {
     loadEmployeesAsync();
@@ -39,27 +46,23 @@ function AnalyticsPageTable() {
   const columnForMain: ColumnType[] = [
     {
       Header: 'Employee',
-      accessor: 'fullName',
+      accessor: 'employeeFullName',
       principalFilterableColumn: true,
       Footer: () => 'Total',
     },
     {
       Header: 'Rate/h',
-      accessor: 'ratePerHour',
+      accessor: (row) => row.metrics.ratePerHour,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const {
-          id: employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth, ratePerHourDelta,
-        } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(ratePerHour)}
-            valueDelta={ratePerHourDelta}
+            value={metrics.ratePerHour}
+            valueDelta={metricsDiff?.ratePerHour}
             onChange={(ratePerHour: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
+              updateEmployeesAsync({ ...row.original, metrics: { ...metrics, ratePerHour } });
             }}
             isEditable
           />
@@ -68,21 +71,17 @@ function AnalyticsPageTable() {
     },
     {
       Header: 'Pay',
-      accessor: 'pay',
+      accessor: (row) => row.metrics.pay,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const {
-          id: employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth, payDelta,
-        } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(pay)}
-            valueDelta={payDelta}
+            value={metrics.pay}
+            valueDelta={metricsDiff?.pay}
             onChange={(pay: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
+              updateEmployeesAsync({ ...row.original, metrics: { ...metrics, pay } });
             }}
             isEditable
           />
@@ -91,24 +90,21 @@ function AnalyticsPageTable() {
     },
     {
       Header: 'Employment type',
-      accessor: 'employmentType',
+      accessor: (row) => row.metrics.employmentType,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const {
-          employmentType, id: employeeId, ratePerHour, pay, parkingCostPerMonth,
-        } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics } = row.original;
 
         return (
           <div className="cell-component">
             <select
-              value={employmentType}
+              value={metrics.employmentType}
               className="cell-component__select"
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                 event.preventDefault();
                 const employmentType = Number(event.target.value);
-                return updateEmployeesAsync({
-                  employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-                });
+
+                return updateEmployeesAsync({ ...row.original, metrics: { ...metrics, employmentType } });
               }}
             >
               <option value={0.5}>{employeeTypeData[1]}</option>
@@ -120,347 +116,298 @@ function AnalyticsPageTable() {
     },
     {
       Header: 'Salary',
-      accessor: 'salary',
+      accessor: (row) => row.metrics.salary,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { salary, salaryDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(salary)}
-            valueDelta={salaryDelta}
+            value={metrics.salary}
+            valueDelta={metricsDiff?.salary}
           />
         );
       },
     },
     {
       Header: 'Hourly Cost (By Fact)',
-      accessor: 'hourlyCostFact',
+      accessor: (row) => row.metrics.hourlyCostFact,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { hourlyCostFact, hourlyCostFactDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
+
         return (
           <RedactComponent
-            value={formatMoney(hourlyCostFact)}
-            valueDelta={hourlyCostFactDelta}
+            value={metrics.hourlyCostFact}
+            valueDelta={metricsDiff?.hourlyCostFact}
           />
         );
       },
     },
     {
       Header: 'Hourly Cost (On Hand)',
-      accessor: 'hourlyCostHand',
+      accessor: (row) => row.metrics.hourlyCostHand,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { hourlyCostHand, hourlyCostHandDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
+
         return (
           <RedactComponent
-            value={formatMoney(hourlyCostHand)}
-            valueDelta={hourlyCostHandDelta}
+            value={metrics.hourlyCostHand}
+            valueDelta={metricsDiff?.hourlyCostHand}
           />
         );
       },
     },
     {
       Header: 'Earnings',
-      accessor: 'earnings',
+      accessor: (row) => row.metrics.earnings,
       disableFilters: true,
       minWidth: 160,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { earnings, earningsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(earnings)}
-            valueDelta={earningsDelta}
+            value={metrics.earnings}
+            valueDelta={metricsDiff?.earnings}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('earnings', row.page),
-        getSumForTotal('earningsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="earnings" />,
     },
     {
       Header: 'Expenses',
-      accessor: 'expenses',
+      accessor: (row) => row.metrics.expenses,
       disableFilters: true,
       minWidth: 160,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { expenses, expensesDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(expenses)}
-            valueDelta={expensesDelta}
+            value={metrics.expenses}
+            valueDelta={metricsDiff?.expenses}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('expenses', row.page),
-        getSumForTotal('expensesDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="expenses" />,
     },
     {
       Header: 'Profit',
-      accessor: 'profit',
+      accessor: (row) => row.metrics.profit,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { profit, profitDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(profit)}
-            valueDelta={profitDelta}
+            value={metrics.profit}
+            valueDelta={metricsDiff?.profit}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('profit', row.page),
-        getSumForTotal('profitDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="profit" />,
     },
     {
       Header: 'Profitability',
-      accessor: 'profitAbility',
+      accessor: (row) => row.metrics.profitAbility,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { profitAbility, profitAbilityDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={`${profitAbility.toFixed(2)}%`}
-            valueDelta={profitAbilityDelta ? Number(profitAbilityDelta.toFixed(2)) : undefined}
+            value={metrics.profitAbility}
+            valueDelta={metricsDiff?.profitAbility}
+            isPercent
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => {
-        const sumValue = getSumForTotal('profit', row.page) / getSumForTotal('earnings', row.page);
-
-        const sumDelta = sumValue - (getSumForTotal('profit', row.page) - getSumForTotal('profitDelta', row.page))
-            / (getSumForTotal('earnings', row.page) - getSumForTotal('earningsDelta', row.page));
-
-        return getTotalCost(
-          sumValue,
-          sumDelta,
-          true,
-        );
-      },
+      Footer: () => <TableFooter value="profitAbility" percent />,
     },
   ];
 
-  type SumTotal = {
-    original: GetPreviewType,
-  };
   const columnForAll: ColumnType[] = [
     ...columnForMain,
     {
       Header: 'District coefficient',
-      accessor: 'districtCoefficient',
+      accessor: (row) => row.metrics.districtCoefficient,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { districtCoefficient, districtCoefficientDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(districtCoefficient)}
-            valueDelta={districtCoefficientDelta}
+            value={metrics.districtCoefficient}
+            valueDelta={metricsDiff?.districtCoefficient}
           />
         );
       },
     },
     {
       Header: 'Gross salary',
-      accessor: 'grossSalary',
+      accessor: (row) => row.metrics.grossSalary,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { grossSalary, grossSalaryDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(grossSalary)}
-            valueDelta={grossSalaryDelta}
+            value={metrics.grossSalary}
+            valueDelta={metricsDiff?.grossSalary}
           />
         );
       },
     },
     {
       Header: 'Prepayment',
-      accessor: 'prepayment',
+      accessor: (row) => row.metrics.prepayment,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { prepayment, prepaymentDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(prepayment)}
-            valueDelta={prepaymentDelta}
+            value={metrics.prepayment}
+            valueDelta={metricsDiff?.prepayment}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('prepayment', row.page),
-        getSumForTotal('prepaymentDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="prepayment" />,
     },
     {
       Header: 'Income tax',
-      accessor: 'incomeTaxContributions',
+      accessor: (row) => row.metrics.incomeTaxContributions,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { incomeTaxContributions, incomeTaxContributionsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(incomeTaxContributions)}
-            valueDelta={incomeTaxContributionsDelta}
+            value={metrics.incomeTaxContributions}
+            valueDelta={metricsDiff?.incomeTaxContributions}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('incomeTaxContributions', row.page),
-        getSumForTotal('incomeTaxContributionsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="incomeTaxContributions" />,
     },
     {
       Header: 'Net Salary',
-      accessor: 'netSalary',
+      accessor: (row) => row.metrics.netSalary,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { netSalary, netSalaryDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(netSalary)}
-            valueDelta={netSalaryDelta}
+            value={metrics.netSalary}
+            valueDelta={metricsDiff?.netSalary}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('netSalary', row.page),
-        getSumForTotal('netSalaryDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="netSalary" />,
     },
     {
       Header: 'Pension contributions',
-      accessor: 'pensionContributions',
+      accessor: (row) => row.metrics.pensionContributions,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { pensionContributions, pensionContributionsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(pensionContributions)}
-            valueDelta={pensionContributionsDelta}
+            value={metrics.pensionContributions}
+            valueDelta={metricsDiff?.pensionContributions}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('pensionContributions', row.page),
-        getSumForTotal('pensionContributionsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="pensionContributions" />,
     },
     {
       Header: 'Medical contributions',
-      accessor: 'medicalContributions',
+      accessor: (row) => row.metrics.medicalContributions,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { medicalContributions, medicalContributionsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(medicalContributions)}
-            valueDelta={medicalContributionsDelta}
+            value={metrics.medicalContributions}
+            valueDelta={metricsDiff?.medicalContributions}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('medicalContributions', row.page),
-        getSumForTotal('medicalContributionsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="medicalContributions" />,
     },
     {
       Header: 'Social insurance contributions',
-      accessor: 'socialInsuranceContributions',
+      accessor: (row) => row.metrics.socialInsuranceContributions,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { socialInsuranceContributions, socialInsuranceContributionsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(socialInsuranceContributions)}
-            valueDelta={socialInsuranceContributionsDelta}
+            value={metrics.socialInsuranceContributions}
+            valueDelta={metricsDiff?.socialInsuranceContributions}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('socialInsuranceContributions', row.page),
-        getSumForTotal('socialInsuranceContributionsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="socialInsuranceContributions" />,
     },
     {
       Header: 'Injury contributions',
-      accessor: 'injuriesContributions',
+      accessor: (row) => row.metrics.injuriesContributions,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { injuriesContributions, injuriesContributionsDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(injuriesContributions)}
-            valueDelta={injuriesContributionsDelta}
+            value={metrics.accountingPerMonth}
+            valueDelta={metricsDiff?.accountingPerMonth}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('injuriesContributions', row.page),
-        getSumForTotal('injuriesContributionsDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="injuriesContributions" />,
     },
     {
       Header: 'Accounting',
-      accessor: 'accountingCostPerMonth',
+      accessor: (row) => row.metrics.accountingCostPerMonth,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
-        const { accountingPerMonth, accountingPerMonthDelta } = row.original;
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics, metricsDiff } = row.original;
         return (
           <RedactComponent
-            value={formatMoney(accountingPerMonth)}
-            valueDelta={accountingPerMonthDelta}
+            value={metrics.accountingPerMonth}
+            valueDelta={metricsDiff?.accountingPerMonth}
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('accountingPerMonth', row.page),
-        getSumForTotal('accountingPerMonthDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="accountingPerMonth" />,
     },
     {
       Header: 'Parking',
-      accessor: 'parkingCostPerMonth',
+      accessor: (row) => row.metrics.parkingCostPerMonth,
       disableFilters: true,
-      Cell: ({ row }: CellTable<GetPreviewType>) => {
+      Cell: ({ row }: CellTable<GetTableType>) => {
         const {
-          parkingCostPerMonth, parkingCostPerMonthDelta, id: employeeId, employmentType, ratePerHour, pay,
+          metrics, metricsDiff,
         } = row.original;
 
         return (
           <RedactComponent
-            value={formatMoney(parkingCostPerMonth)}
-            valueDelta={parkingCostPerMonthDelta}
+            value={metrics.parkingCostPerMonth}
+            valueDelta={metricsDiff?.parkingCostPerMonth}
             onChange={(parkingCostPerMonth: number) => {
-              updateEmployeesAsync({
-                employeeId, ratePerHour, pay, employmentType, parkingCostPerMonth,
-              });
+              updateEmployeesAsync({ ...row.original, metrics: { ...metrics, parkingCostPerMonth } });
             }}
             isEditable
           />
         );
       },
-      Footer: (row: FooterTable<GetPreviewType>) => getTotalCost(
-        getSumForTotal('parkingCostPerMonth', row.page),
-        getSumForTotal('parkingCostPerMonthDelta', row.page),
-      ),
+      Footer: () => <TableFooter value="parkingCostPerMonth" />,
     },
   ];
 
@@ -490,16 +437,17 @@ function AnalyticsPageTable() {
           ))}
         </div>
       </div>
+
       <div style={{ paddingTop: 4 }}>
         <ClientTable
           tableId="analytics-salary-table"
-          data={employees}
+          data={newEmployees.rows}
           order={{
             id: 'weightForSorting',
             desc: true,
           }}
           loading={isLoading}
-          renderMobileTitle={(row : Row<{ fullName: string }>) => row.original.fullName}
+          renderMobileTitle={(row : Row<{ employeeFullName: string }>) => row.original.employeeFullName}
           enableTableStatePersistance
           maxStillMobileBreakpoint={800}
           actions={[
@@ -507,7 +455,7 @@ function AnalyticsPageTable() {
               name: 'duplicate-row-action',
               show: () => true,
               renderText: () => 'Duplicate',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => {
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetTableType>) => {
                 const { original } = row;
                 duplicateEmployee(original);
               },
@@ -516,7 +464,7 @@ function AnalyticsPageTable() {
               name: 'delete-row-action',
               show: () => true,
               renderText: () => 'Delete',
-              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetPreviewType>) => { deleteEmployee(row.original.id); },
+              onClick: (e: MouseEventHandler<HTMLInputElement>, row: Row<GetTableType>) => { deleteEmployee(row.original); },
             },
           ]}
           columns={selectedViewColumns === '1' ? columnForAll : columnForMain}
@@ -526,98 +474,105 @@ function AnalyticsPageTable() {
     </ContentCard>
   );
 
-  function getSumForTotal(key: string, data: SumTotal[]) {
-    const sum = data.map((el) => el.original[key as keyof GetPreviewType] as number)
-      .reduce((pre: number, current: number) => pre += (current || 0), 0);
+  async function duplicateEmployee(employee: GetTableType) {
+    const copyEmployee = {
+      ...employee,
+      employeeId: `${employee.employeeId}__copy`,
+      employeeFullName: `${employee.employeeFullName} (Copy)`,
+      isCopy: true,
+    };
 
-    return sum;
+    const newDataWithCopyEmployee = [...newEmployees.rows, copyEmployee];
+
+    try {
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, newDataWithCopyEmployee.map((item) => ({
+        employeeId: item.employeeId,
+        employeeFullName: item.employeeFullName,
+        ratePerHour: item.metrics.ratePerHour,
+        pay: item.metrics.pay,
+        employmentType: item.metrics.employmentType,
+        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+        isCopy: item.isCopy,
+      })));
+
+      setNewEmployees(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  function getTotalCost(sumOfEmployeesValues: number, sumOfEmployeesValuesDelta?: number, isPercent: boolean = false) {
-    if (isPercent) {
-      sumOfEmployeesValues *= 100;
-      sumOfEmployeesValuesDelta = sumOfEmployeesValuesDelta ? sumOfEmployeesValuesDelta * 100 : undefined;
-    }
+  async function deleteEmployee(employee: GetTableType) {
+    setIsLoading(true);
 
+    const copyData = { ...newEmployees };
+
+    const newData = copyData.rows.filter((row) => employee.employeeId !== row.employeeId);
+
+    try {
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, newData.map((item) => ({
+        employeeId: item.employeeId,
+        employeeFullName: item.employeeFullName,
+        ratePerHour: item.metrics.ratePerHour,
+        pay: item.metrics.pay,
+        employmentType: item.metrics.employmentType,
+        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+      })));
+
+      setNewEmployees(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function TableFooter({
+    value,
+    percent = false,
+  }: {
+    value: keyof Metrics;
+    percent?: boolean;
+  }) {
     return (
       <RedactComponent
-        value={isPercent ? `${Number(sumOfEmployeesValues.toFixed(2))}%` : formatMoney(Number(sumOfEmployeesValues.toFixed(2)))}
-        valueDelta={sumOfEmployeesValuesDelta ? Number(sumOfEmployeesValuesDelta.toFixed(2)) : undefined}
+        // @ts-ignore
+        value={newEmployees.total.metrics[value]}
+        // @ts-ignore
+        valueDelta={newEmployees.total.metricsDiff?.[value]}
+        isPercent={percent}
       />
     );
   }
 
-  function duplicateEmployee(data: GetPreviewType) {
-    let update: GetPreviewType = data;
+  async function updateEmployeesAsync(employee: GetTableType) {
+    setIsLoading(true);
 
-    for (const el of Object.keys(data)) {
-      if (el.toLowerCase().includes('delta')) {
-        update = {
-          ...update,
-          [el]: 0,
-        };
-      } else {
-        update = {
-          ...update,
-          [el]: data[el as keyof GetPreviewType],
-        };
+    const copyUpdate = [...newEmployees.rows.map((row) => {
+      if (row.employeeId === employee.employeeId) {
+        return employee;
       }
-    }
 
-    update = {
-      ...update,
-      id: `${data.id}_duplicate`,
-      fullName: `(Copy)\n ${update.fullName}`,
-    };
+      return row;
+    })];
 
-    setEmployees([...employees, update]);
-    setInitialEmployees([...initialEmployees, update]);
-  }
+    try {
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, copyUpdate.map((item) => ({
+        employeeId: item.employeeId,
+        employeeFullName: item.employeeFullName,
+        ratePerHour: item.metrics.ratePerHour,
+        pay: item.metrics.pay,
+        employmentType: item.metrics.employmentType,
+        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+        isCopy: item.isCopy,
+      })));
 
-  async function deleteEmployee(idEmployee: number | string) {
-    const copyEmployee = employees.find((el) => el.id === idEmployee);
-    const copyEmployeeInitial = initialEmployees.find((el) => el.id === idEmployee);
-
-    if (copyEmployee) {
-      let newEmployees = employees.slice();
-      newEmployees.splice(employees.indexOf(copyEmployee), 1);
-
-      setEmployees(newEmployees);
-
-      // todo
-      newEmployees = initialEmployees.slice();
-      newEmployees.splice(initialEmployees.indexOf(copyEmployeeInitial!), 1);
-
-      setInitialEmployees(newEmployees);
-    }
-  }
-
-  function getDeltaForEmployee(oldData:GetPreviewType, newData:GetPreviewType): GetPreviewType {
-    let update: GetPreviewType = newData;
-
-    for (const el of Object.keys(oldData)) {
-      if (newData[el as keyof GetPreviewType] !== oldData[el as keyof GetPreviewType]) {
-        update = {
-          ...update,
-          [`${el}Delta`]: Number(newData[el as keyof GetPreviewType]) - Number(oldData[el as keyof GetPreviewType]),
-        };
-      }
-    }
-
-    return update;
-  }
-
-  async function updateEmployeesAsync(employee: PutPreviewType) {
-    const { data } = await api.post<GetPreviewType>(`${LINK_TO_SALARY_SERVICE}finance/get-preview`, employee);
-
-    const index = employees.find((el) => el.id === employee.employeeId);
-    const indexInitial = initialEmployees.find((el) => el.id === employee.employeeId);
-
-    if (index) {
-      const newemp = employees.slice();
-      newemp[newemp.indexOf(index)] = getDeltaForEmployee(indexInitial!, { ...data, fullName: index.fullName, id: index.id });
-
-      setEmployees(newemp);
+      setNewEmployees(data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -625,12 +580,10 @@ function AnalyticsPageTable() {
     setIsLoading(true);
 
     try {
-      const { data } = await api.get<GetPreviewType[]>(`${LINK_TO_SALARY_SERVICE}finance/get-analytic`);
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, {});
 
-      setEmployees(data);
-      setInitialEmployees(data);
-      setIsLoading(false);
-    } catch {
+      setNewEmployees(data);
+    } finally {
       setIsLoading(false);
     }
   }
