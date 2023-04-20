@@ -10,12 +10,7 @@ import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultC
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import {
-  AnalyticsType,
-  CellTable,
-  ColumnType,
-  Metrics,
-  GetTableType,
-  Row,
+  AnalyticsType, CellTable, ColumnType, Metrics, GetTableType, Row,
 } from './types/AnalyticsPageTable';
 import RedactComponent from '../RedactComponent/RedactComponent';
 
@@ -32,8 +27,7 @@ const employeeTypeData = {
 function AnalyticsPageTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedViewColumns, setSelectedViewColumns] = useState('2');
-
-  const [newEmployees, setNewEmployees] = useState<AnalyticsType>({
+  const [employees, setEmployees] = useState<AnalyticsType>({
     // @ts-ignore
     total: {},
     rows: [],
@@ -48,7 +42,13 @@ function AnalyticsPageTable() {
       Header: 'Employee',
       accessor: 'employeeFullName',
       principalFilterableColumn: true,
-      Footer: () => 'Total',
+      Footer: () => (
+        <div className="analytics-page-table__total">
+          {employees.rows.length}
+          {' '}
+          column total
+        </div>
+      ),
     },
     {
       Header: 'Rate/h',
@@ -96,10 +96,10 @@ function AnalyticsPageTable() {
         const { metrics } = row.original;
 
         return (
-          <div className="cell-component">
+          <div>
             <select
               value={metrics.employmentType}
-              className="cell-component__select"
+              className="analytics-page-table__select"
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                 event.preventDefault();
                 const employmentType = Number(event.target.value);
@@ -224,7 +224,7 @@ function AnalyticsPageTable() {
           />
         );
       },
-      Footer: () => <TableFooter value="profitAbility" percent />,
+      Footer: () => <TableFooter value="profitAbility" isPercent />,
     },
   ];
 
@@ -365,8 +365,8 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
-            value={metrics.accountingPerMonth}
-            valueDelta={metricsDiff?.accountingPerMonth}
+            value={metrics.injuriesContributions}
+            valueDelta={metricsDiff?.injuriesContributions}
           />
         );
       },
@@ -418,7 +418,7 @@ function AnalyticsPageTable() {
         <DefaultCardHeader>Analytics</DefaultCardHeader>
       )}
     >
-      <div className="analitycs-page--btns">
+      <div className="analytics-page-table__buttons">
         <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
         <div>
           {Object.entries(checkFormatColumnsData).map(([value, label]) => (
@@ -441,7 +441,7 @@ function AnalyticsPageTable() {
       <div style={{ paddingTop: 4 }}>
         <ClientTable
           tableId="analytics-salary-table"
-          data={newEmployees.rows}
+          data={employees.rows}
           order={{
             id: 'weightForSorting',
             desc: true,
@@ -482,20 +482,12 @@ function AnalyticsPageTable() {
       isCopy: true,
     };
 
-    const newDataWithCopyEmployee = [...newEmployees.rows, copyEmployee];
+    const newData = [...employees.rows, copyEmployee];
 
     try {
-      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, newDataWithCopyEmployee.map((item) => ({
-        employeeId: item.employeeId,
-        employeeFullName: item.employeeFullName,
-        ratePerHour: item.metrics.ratePerHour,
-        pay: item.metrics.pay,
-        employmentType: item.metrics.employmentType,
-        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
-        isCopy: item.isCopy,
-      })));
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, mappingData(newData));
 
-      setNewEmployees(data);
+      setEmployees(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -506,21 +498,12 @@ function AnalyticsPageTable() {
   async function deleteEmployee(employee: GetTableType) {
     setIsLoading(true);
 
-    const copyData = { ...newEmployees };
-
-    const newData = copyData.rows.filter((row) => employee.employeeId !== row.employeeId);
+    const newData = [...employees.rows.filter((row) => employee.employeeId !== row.employeeId)];
 
     try {
-      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, newData.map((item) => ({
-        employeeId: item.employeeId,
-        employeeFullName: item.employeeFullName,
-        ratePerHour: item.metrics.ratePerHour,
-        pay: item.metrics.pay,
-        employmentType: item.metrics.employmentType,
-        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
-      })));
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, mappingData(newData));
 
-      setNewEmployees(data);
+      setEmployees(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -530,18 +513,19 @@ function AnalyticsPageTable() {
 
   function TableFooter({
     value,
-    percent = false,
+    isPercent = false,
   }: {
     value: keyof Metrics;
-    percent?: boolean;
+    isPercent?: boolean;
   }) {
     return (
       <RedactComponent
         // @ts-ignore
-        value={newEmployees.total.metrics[value]}
+        value={employees.total.metrics[value]}
         // @ts-ignore
-        valueDelta={newEmployees.total.metricsDiff?.[value]}
-        isPercent={percent}
+        valueDelta={employees.total.metricsDiff?.[value]}
+        className="analytics-page-table__total"
+        isPercent={isPercent}
       />
     );
   }
@@ -549,7 +533,7 @@ function AnalyticsPageTable() {
   async function updateEmployeesAsync(employee: GetTableType) {
     setIsLoading(true);
 
-    const copyUpdate = [...newEmployees.rows.map((row) => {
+    const newData = [...employees.rows.map((row) => {
       if (row.employeeId === employee.employeeId) {
         return employee;
       }
@@ -558,22 +542,26 @@ function AnalyticsPageTable() {
     })];
 
     try {
-      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, copyUpdate.map((item) => ({
-        employeeId: item.employeeId,
-        employeeFullName: item.employeeFullName,
-        ratePerHour: item.metrics.ratePerHour,
-        pay: item.metrics.pay,
-        employmentType: item.metrics.employmentType,
-        parkingCostPerMonth: item.metrics.parkingCostPerMonth,
-        isCopy: item.isCopy,
-      })));
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, mappingData(newData));
 
-      setNewEmployees(data);
+      setEmployees(data);
     } catch (e) {
       console.log(e);
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function mappingData(data: GetTableType[]) {
+    return data.map((item) => ({
+      employeeId: item.employeeId,
+      employeeFullName: item.employeeFullName,
+      ratePerHour: item.metrics.ratePerHour,
+      pay: item.metrics.pay,
+      employmentType: item.metrics.employmentType,
+      parkingCostPerMonth: item.metrics.parkingCostPerMonth,
+      isCopy: item.isCopy,
+    }));
   }
 
   async function loadEmployeesAsync() {
@@ -582,7 +570,7 @@ function AnalyticsPageTable() {
     try {
       const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, {});
 
-      setNewEmployees(data);
+      setEmployees(data);
     } finally {
       setIsLoading(false);
     }

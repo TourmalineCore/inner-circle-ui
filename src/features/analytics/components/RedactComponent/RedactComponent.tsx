@@ -3,19 +3,19 @@ import clsx from 'clsx';
 import { KeyboardEvent, useRef, useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 
-import './RedactComponent.css';
-
 function RedactComponent({
   value,
   valueDelta,
   isEditable = false,
   isPercent = false,
+  className,
   onChange = () => {},
 } : {
   value: number,
   valueDelta?: number,
   isEditable?: boolean,
   isPercent?: boolean,
+  className?: string,
   onChange?: (number: number) => void,
 }) {
   const [editableValue, setRedValue] = useState(value.toString());
@@ -59,10 +59,11 @@ function RedactComponent({
   return (
     <div className="component">
       <NumericFormat
+        title="Click for update"
         getInputRef={inputRef}
         type="text"
         displayType={isEditable ? 'input' : 'text'}
-        className={clsx('component-input', {
+        className={clsx('component-input', className, {
           'component-input--is-editable': isEditable,
         })}
         value={editableValue}

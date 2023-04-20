@@ -7,7 +7,6 @@ import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Employee, EmployeeUpdateType } from '../../types/Profile';
 import { api } from '../../../../common/api';
-import '../../../analytics/components/RedactComponent/RedactComponent.css';
 import InfoComponent from '../InfoComponent/InfoComponent';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
