@@ -142,10 +142,6 @@
       background-color: currentColor;
     }
   }
-
-  @include desktop-xl {
-    margin-bottom: 16px;
-  }
 }
 
 .sidebar--collapsed .sidebar-item__mini-container {

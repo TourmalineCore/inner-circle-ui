@@ -1,13 +1,13 @@
 .sidebar-logo {
   display: flex;
-  padding: 16px;
+  padding: 10px 16px 16px 18px;
   text-decoration: none;
   color: inherit;
 
   &__image {
     display: block;
     flex: none;
-    width: 36px;
+    width: 32px;
     height: 44px;
   }
 
@@ -26,7 +26,7 @@
   }
 
   @include desktop-xl {
-    padding: 24px 16px;
+    padding: 16px 20px 24px;
   }
 }
 

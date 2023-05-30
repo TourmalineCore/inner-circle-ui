@@ -57,7 +57,7 @@ function Template() {
                   iconActive={<IconLogoutActive />}
                   isWindowRedirectNecessary
                   path="/auth/logout"
-                  label="Sign Out"
+                  label="LogOut"
                 />
               </>
             )}
