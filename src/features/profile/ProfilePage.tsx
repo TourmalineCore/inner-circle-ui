@@ -20,7 +20,6 @@ import { ReactComponent as IconOutlineEmail } from '../../assets/icons/icon-outl
 import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.svg';
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
-// import CustomPatternFormat from '../employees/components/EmployeeEdit/components/CustomPatternFormat/CustomPatternFormat';
 
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>(
@@ -90,7 +89,7 @@ function ProfilePage() {
                       setTriedToSubmit(false);
                     }}
                     >
-                      Cansel
+                      Cancel
                     </Button>
                   </>
                 )}
@@ -132,22 +131,36 @@ function ProfilePage() {
                 icon={<IconMessage />}
               />
               <InfoComponent
-                value={!isEdit ? employee.gitHub : (
-                  <Input
-                    value={employee.gitHub}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
-                  />
+                value={!isEdit ? (`@${employee.gitHub}`) : (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  >
+                    @
+                    <Input
+                      value={employee.gitHub}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
+                    />
+                  </div>
                 )}
                 isError={!employee.gitHub && triedToSubmit}
                 label="Personal GitHub"
                 icon={<IconGithub />}
               />
               <InfoComponent
-                value={!isEdit ? employee.gitLab : (
-                  <Input
-                    value={employee.gitLab}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
-                  />
+                value={!isEdit ? `@${employee.gitLab}` : (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  >
+                    @
+                    <Input
+                      value={employee.gitLab}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
+                    />
+                  </div>
                 )}
                 isError={!employee.gitLab && triedToSubmit}
                 label="Personal GitLab"
