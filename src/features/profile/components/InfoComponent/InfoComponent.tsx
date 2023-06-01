@@ -23,7 +23,7 @@ function InfoComponent({
         </div>
 
         <span className="info-component__value">
-          {value}
+          {value || 'I will be...'}
         </span>
       </div>
 

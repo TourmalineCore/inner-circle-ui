@@ -21,30 +21,23 @@ import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.s
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
 
-function ProfilePage() {
-  const [employee, setEmployee] = useState<Employee>(
-    {
-      id: 0,
-      fullName: '',
-      corporateEmail: '',
-      personalEmail: '',
-      phone: '',
-      gitHub: '',
-      gitLab: '',
-    },
-  );
+const initialValues = {
+  id: 0,
+  fullName: '',
+  corporateEmail: '',
+  personalEmail: '',
+  phone: '',
+  gitHub: '',
+  gitLab: '',
+  fullSalary: 0,
+  districtCoefficient: 0,
+  incomeTax: 0,
+  netSalary: 0,
+};
 
-  const [initEmployee, initSetEmployee] = useState<Employee>(
-    {
-      id: 0,
-      fullName: '',
-      corporateEmail: '',
-      personalEmail: '',
-      phone: '',
-      gitHub: '',
-      gitLab: '',
-    },
-  );
+function ProfilePage() {
+  const [employee, setEmployee] = useState<Employee>(initialValues);
+  const [initEmployee, initSetEmployee] = useState<Employee>(initialValues);
 
   const [triedToSubmit, setTriedToSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -126,7 +119,6 @@ function ProfilePage() {
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
                   />
                 )}
-                isError={!employee.personalEmail && triedToSubmit}
                 label="Personal Email"
                 icon={<IconMessage />}
               />
@@ -144,7 +136,6 @@ function ProfilePage() {
                     />
                   </div>
                 )}
-                isError={!employee.gitHub && triedToSubmit}
                 label="Personal GitHub"
                 icon={<IconGithub />}
               />
@@ -162,7 +153,6 @@ function ProfilePage() {
                     />
                   </div>
                 )}
-                isError={!employee.gitLab && triedToSubmit}
                 label="Personal GitLab"
                 icon={<IconGitlab />}
               />
@@ -180,7 +170,7 @@ function ProfilePage() {
                   <NumericFormat
                     type="text"
                     displayType="text"
-                    value={20000}
+                    value={employee.fullSalary}
                     valueIsNumericString
                     allowLeadingZeros
                     thousandSeparator=","
@@ -195,7 +185,7 @@ function ProfilePage() {
                   <NumericFormat
                     type="text"
                     displayType="text"
-                    value={20000}
+                    value={employee.districtCoefficient}
                     valueIsNumericString
                     allowLeadingZeros
                     style={{
@@ -213,7 +203,7 @@ function ProfilePage() {
                 value={(
                   <NumericFormat
                     displayType="text"
-                    value={20000}
+                    value={employee.incomeTax}
                     valueIsNumericString
                     allowLeadingZeros
                     style={{
@@ -231,7 +221,7 @@ function ProfilePage() {
                 value={(
                   <NumericFormat
                     displayType="text"
-                    value={20000}
+                    value={employee.netSalary}
                     valueIsNumericString
                     thousandSeparator=","
                     suffix=" ₽"
@@ -249,6 +239,7 @@ function ProfilePage() {
 
   async function loadEmployeeAsync() {
     setIsLoading(true);
+
     try {
       const { data } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`);
 
@@ -268,17 +259,19 @@ function ProfilePage() {
     setTriedToSubmit(true);
 
     const updateEmployee = {
-      ...employee,
+      personalEmail: employee.personalEmail,
+      gitHub: employee.gitHub,
+      gitLab: employee.gitLab,
       phone: `+7${employee.phone}`,
     };
 
     try {
-      await api.post<Employee>(`${LINK_TO_SALARY_SERVICE}employees/edit-profile`, updateEmployee);
+      await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee);
+
       loadEmployeeAsync();
       setIsEdit(false);
+    } finally {
       setTriedToSubmit(false);
-    } catch (error) {
-      console.log(error);
     }
   }
 }
