@@ -7,12 +7,21 @@
     margin: 0 auto;
   }
 
+  &__heading {
+    margin-bottom: 16px;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.5;
+  }
+
   &__buttons {
     display: flex;
     margin-top: 30px;
   }
 
   &__button {
+    @include tc-button-reset;
+
     min-width: 200px;
 
     & + & {

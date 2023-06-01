@@ -38,7 +38,7 @@ function ProfileEdit() {
   return (
     <div className="profile">
       <div className="profile__inner">
-        <h2>{employee.fullName}</h2>
+        <h2 className="heading">{employee.fullName}</h2>
         <InfoComponent
           value={employee.corporateEmail}
           icon={<FontAwesomeIcon size={'xl' as SizeProp} icon={faEnvelope} />}

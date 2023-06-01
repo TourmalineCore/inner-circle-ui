@@ -1,4 +1,6 @@
 .sort-menu {
+  flex-shrink: 0;
+
   &__inner {
     display: flex;
     align-items: center;
@@ -8,10 +10,21 @@
     display: flex;
     flex-direction: column;
     margin-left: 8px;
+    font-size: 10px;
     color: #000;
   }
 
   &__unselected {
     color: var(--color-grey);
+  }
+
+  &__button {
+    @include tc-button-reset;
+
+    &:hover {
+      &::before {
+        border-width: 1px;
+      }
+    }
   }
 }

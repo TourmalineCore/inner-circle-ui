@@ -75,6 +75,8 @@
   }
 
   &__button {
+    @include tc-button-reset;
+
     height: max-content;
     min-width: 0;
   }

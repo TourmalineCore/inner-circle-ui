@@ -19,4 +19,8 @@
     font-size: inherit;
     background-color: transparent;
   }
+
+  &__button {
+    @include tc-button-reset;
+  }
 }
