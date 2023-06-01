@@ -2,18 +2,12 @@ import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.s
 import { ReactComponent as IconProfileActive } from '../../assets/icons/icon-profile-active.svg';
 
 import ProfilePage from './ProfilePage';
-import ProfileEdit from './components/ProfileEdit/ProfileEdit';
 
 export const profileRoutes = [
   {
     path: '/profile',
     breadcrumb: 'Profile',
     Component: ProfilePage,
-  },
-  {
-    path: '/profile/edit',
-    breadcrumb: 'Edit',
-    Component: ProfileEdit,
   },
 ];
 
