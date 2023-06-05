@@ -19,9 +19,14 @@ const checkFormatColumnsData = {
   2: 'Main parameters',
 };
 
-const employeeTypeData = {
+const employeeWorkingHours = {
   1: 'Half Time',
   2: 'Full Time',
+};
+
+const employmentType = {
+  1: 'Freelance',
+  2: 'Officially',
 };
 
 function AnalyticsPageTable() {
@@ -49,6 +54,33 @@ function AnalyticsPageTable() {
           column total
         </div>
       ),
+    },
+    {
+      Header: 'Employed',
+      accessor: (row) => row.metrics.isEmployedOfficially,
+      disableFilters: true,
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { metrics } = row.original;
+
+        return (
+          <div>
+            <select
+              value={Number(metrics.isEmployedOfficially)}
+              className="analytics-page-table__select"
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                event.preventDefault();
+
+                const isEmployedOfficially = Boolean(event.target.value);
+
+                return updateEmployeesAsync({ ...row.original, metrics: { ...metrics, isEmployedOfficially } });
+              }}
+            >
+              <option value={0}>{employmentType[1]}</option>
+              <option value={1}>{employmentType[2]}</option>
+            </select>
+          </div>
+        );
+      },
     },
     {
       Header: 'Rate/h',
@@ -107,8 +139,8 @@ function AnalyticsPageTable() {
                 return updateEmployeesAsync({ ...row.original, metrics: { ...metrics, employmentType } });
               }}
             >
-              <option value={0.5}>{employeeTypeData[1]}</option>
-              <option value={1}>{employeeTypeData[2]}</option>
+              <option value={0.5}>{employeeWorkingHours[1]}</option>
+              <option value={1}>{employeeWorkingHours[2]}</option>
             </select>
           </div>
         );
