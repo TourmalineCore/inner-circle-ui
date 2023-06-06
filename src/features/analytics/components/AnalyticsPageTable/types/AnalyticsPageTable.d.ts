@@ -31,6 +31,7 @@ export type ColumnType = {
 export type Metrics = {
   pay: number,
   ratePerHour: number,
+  isEmployedOfficially: boolean,
   employmentType: number,
   salary: number,
   parkingCostPerMonth: number,
@@ -58,7 +59,7 @@ export type GetTableType = {
   isCopy?: boolean
   employeeFullName: string,
   metrics: Metrics,
-  metricsDiff: Omit<Metrics, 'employmentType'> | null,
+  metricsDiff: Omit<Metrics, 'employmentType', 'isEmployedOfficially'> | null,
 };
 
 type TotalTableType = {
