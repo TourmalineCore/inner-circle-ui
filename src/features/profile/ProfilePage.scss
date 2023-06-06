@@ -33,4 +33,12 @@
   &__buttons {
     display: flex;
   }
+
+  &__button {
+    @include tc-button-reset;
+
+    & + & {
+      margin-left: 10px;
+    }
+  }
 }

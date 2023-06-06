@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     justify-content: end;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   &__total {
@@ -22,5 +22,10 @@
 
   &__button {
     @include tc-button-reset;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
   }
 }

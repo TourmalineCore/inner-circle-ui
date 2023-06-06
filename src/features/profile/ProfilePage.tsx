@@ -49,7 +49,7 @@ function ProfilePage() {
 
   return (
     <div className="profile">
-      <h1>My Profile</h1>
+      <h1 className="heading">My Profile</h1>
       <div className="profile__inner">
         <div className="profile__box">
           <h2>General information</h2>
@@ -67,19 +67,30 @@ function ProfilePage() {
             <h2>Contacts</h2>
             {!isLoading && (
               <div className="profile__buttons">
-                {!isEdit ? (<Button onClick={() => setIsEdit(true)}>Edit</Button>) : (
+                {!isEdit ? (
+                  <Button
+                    className="profile__button"
+                    onClick={() => setIsEdit(true)}
+                  >
+                    Edit
+                  </Button>
+                ) : (
                   <>
-                    <Button onClick={() => {
-                      editEmployeeAsync();
-                    }}
+                    <Button
+                      className="profile__button"
+                      onClick={() => {
+                        editEmployeeAsync();
+                      }}
                     >
                       Save
                     </Button>
-                    <Button onClick={() => {
-                      setIsEdit(false);
-                      setEmployee(initEmployee);
-                      setTriedToSubmit(false);
-                    }}
+                    <Button
+                      className="profile__button"
+                      onClick={() => {
+                        setIsEdit(false);
+                        setEmployee(initEmployee);
+                        setTriedToSubmit(false);
+                      }}
                     >
                       Cancel
                     </Button>
