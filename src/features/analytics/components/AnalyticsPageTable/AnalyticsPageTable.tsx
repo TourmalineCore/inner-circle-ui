@@ -70,7 +70,7 @@ function AnalyticsPageTable() {
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                 event.preventDefault();
 
-                const isEmployedOfficially = Boolean(event.target.value);
+                const isEmployedOfficially = Boolean(Number(event.target.value));
 
                 return updateEmployeesAsync({ ...row.original, metrics: { ...metrics, isEmployedOfficially } });
               }}
@@ -593,6 +593,7 @@ function AnalyticsPageTable() {
       employmentType: item.metrics.employmentType,
       parkingCostPerMonth: item.metrics.parkingCostPerMonth,
       isCopy: item.isCopy,
+      isEmployedOfficially: item.metrics.isEmployedOfficially,
     }));
   }
 
@@ -600,7 +601,7 @@ function AnalyticsPageTable() {
     setIsLoading(true);
 
     try {
-      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, {});
+      const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, []);
 
       setEmployees(data);
     } finally {
