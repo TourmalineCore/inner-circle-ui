@@ -59,7 +59,7 @@ export type EditedEmployee = {
   hireDate: Date | null;
   dismissalDate?: Date | null;
   isEmployedOfficially: boolean;
-  isFired?: boolean;
+  isCurrentEmployee?: boolean;
   personnelNumber: string | null;
 };
 

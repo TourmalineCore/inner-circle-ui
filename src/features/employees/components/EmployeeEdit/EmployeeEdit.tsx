@@ -26,7 +26,7 @@ const employeeTypeData = {
 
 const employedData = {
   officially: 'Officially',
-  unofficially: 'Unofficially',
+  freelance: 'Freelance',
 };
 
 function EmployeeEdit() {
@@ -47,7 +47,7 @@ function EmployeeEdit() {
     hireDate: null,
     dismissalDate: new Date(),
     isEmployedOfficially: true,
-    isFired: false,
+    isCurrentEmployee: true,
     personnelNumber: '',
   });
 
@@ -197,7 +197,7 @@ function EmployeeEdit() {
           <span className="employee-edit__label">Employee Status *</span>
           <div>
             {Object.entries(employeeStatusData).map(([value, label]) => {
-              const valueEmployedFired = employee.isFired ? 'fired' : 'current';
+              const valueEmployedFired = employee.isCurrentEmployee ? employeeStatusData.current : employeeStatusData.fired;
 
               return (
                 <CheckField
@@ -208,13 +208,13 @@ function EmployeeEdit() {
                   viewType="radio"
                   label={label}
                   checked={value === valueEmployedFired}
-                  onChange={() => setEmployee({ ...employee, isFired: value === 'fired' })}
+                  onChange={() => setEmployee({ ...employee, isCurrentEmployee: value === employeeStatusData.current })}
                 />
               );
             })}
           </div>
         </li>
-        {employee.isFired && (
+        {!employee.isCurrentEmployee && (
           <li className="employee-edit__item">
             <span className="employee-edit__label">Date of Dismissal *</span>
             <div className="employee-edit__control">
@@ -230,7 +230,7 @@ function EmployeeEdit() {
           <span className="employee-edit__label">Employed *</span>
           <div>
             {Object.entries(employedData).map(([value, label]) => {
-              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'unofficially';
+              const valueEmployedOfficially = employee.isEmployedOfficially ? employedData.officially : employedData.freelance;
 
               return (
                 <CheckField
@@ -273,10 +273,10 @@ function EmployeeEdit() {
 
     const initialData = {
       ...data,
-      phone: typeof data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
-      hireDate: typeof data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
-      dismissalDate: typeof data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
-      personnelNumber: typeof data.personnelNumber === 'string' ? data.personnelNumber.replace('/', '') : data.personnelNumber,
+      phone: data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
+      hireDate: data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
+      dismissalDate: data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
+      personnelNumber: data.personnelNumber === 'string' ? data.personnelNumber.replace('/', '') : data.personnelNumber,
     };
 
     setEmployee(initialData);
@@ -291,18 +291,19 @@ function EmployeeEdit() {
       personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
     };
 
-    delete updateEmployee.isFired;
     delete updateEmployee.dismissalDate;
 
     setTriedToSubmit(true);
 
-    try {
-      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
+    if (updateEmployee.phone.length > 9) {
+      try {
+        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
 
-      setTriedToSubmit(false);
-      navigate('/employees');
-    } catch {
-      console.log('Error');
+        setTriedToSubmit(false);
+        navigate('/employees');
+      } catch {
+        console.log('Error');
+      }
     }
   }
 }
