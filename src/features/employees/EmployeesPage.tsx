@@ -14,11 +14,11 @@ import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
-import RoutesStateContext from '../../routes/state/RoutesStateContext';
+import AccessBasedOnPemissionsStateContext from '../../routes/state/AccessBasedOnPemissionsStateContext';
 
 function EmployeesPage() {
   const employeesState = useMemo(() => new EmployeesState(), []);
-  const routesState = useContext(RoutesStateContext);
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,14 +39,14 @@ function EmployeesPage() {
         <section className="employees-page">
 
           {employeesState.isBlankEmployees
-          && routesState.accessPermissions.get('ViewSalaryAndDocumentsData')
+          && accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
           && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
           <h1>Employees</h1>
 
           <div className="employees-page__box">
             <div><SearchBar /></div>
-            { routesState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
+            { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
             <SortMenu />
           </div>
 
@@ -62,7 +62,7 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
-    if (routesState.accessPermissions.get('ViewContacts') && !routesState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+    if (accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
       employeesState.updateFilterTerm('all');
     }
 

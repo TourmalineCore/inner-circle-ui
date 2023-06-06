@@ -6,7 +6,7 @@ import moment from 'moment';
 import { useContext } from 'react';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
-import RoutesStateContext from '../../../../../routes/state/RoutesStateContext';
+import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
 
 function EmployeeItem({
   employee,
@@ -14,14 +14,14 @@ function EmployeeItem({
   employee: Employee,
 }) {
   const navigate = useNavigate();
-  const accessToChanges = useContext(RoutesStateContext);
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
 
   return (
     <li
       key={employee.employeeId}
       className={clsx('employee-item', {
         'employee-item--is-blank': employee.isBlankEmployee,
-        'employee-item--half-width': !accessToChanges.accessPermissions.get('ViewSalaryAndDocumentsData'),
+        'employee-item--half-width': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
       })}
     >
       <div className="employee-item__inner">
@@ -30,7 +30,7 @@ function EmployeeItem({
           <div>{employee.corporateEmail}</div>
         </div>
 
-        {accessToChanges.accessPermissions.get('ViewContacts') && (
+        {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
           <div>
             <div>Contacts</div>
             <ul className="employee-item__contacts-list">
@@ -59,7 +59,7 @@ function EmployeeItem({
             </ul>
           </div>
         )}
-        {accessToChanges.accessPermissions.get('ViewSalaryAndDocumentsData') && (
+        {accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && (
           <>
             <div>
               <div className="employee-item__net-salary">
@@ -127,7 +127,7 @@ function EmployeeItem({
           </>
         )}
 
-        {accessToChanges.accessPermissions.get('EditFullEmployeesData') && (
+        {accessBasedOnPemissionsState.accessPermissions.get('EditFullEmployeesData') && (
           <Button
             className="employee-item__button"
             type="button"

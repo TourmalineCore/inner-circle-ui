@@ -1,4 +1,4 @@
-import { Permission } from '../../../routes/state/RoutesState';
+import { Permission } from '../../../routes/state/AccessBasedOnPemissionsState';
 
 export function parseJwt(token: string): { permissions: Array<keyof typeof Permission> } {
   const base64Url = token.split('.')[1];

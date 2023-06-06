@@ -7,18 +7,18 @@ import {
 import { useMemo } from 'react';
 import { withPrivateRoute } from './common/withPrivateRoute';
 import Template from './template/Template';
-import RoutesState from './routes/state/RoutesState';
-import RoutesStateContext from './routes/state/RoutesStateContext';
+import AccessBasedOnPemissionsState from './routes/state/AccessBasedOnPemissionsState';
+import AccessBasedOnPemissionsStateContext from './routes/state/AccessBasedOnPemissionsStateContext';
 
 const WithPrivateRoute = withPrivateRoute(Template);
 
 export default function App() {
   const routesState = useMemo(
-    () => new RoutesState(),
+    () => new AccessBasedOnPemissionsState(),
     [],
   );
   return (
-    <RoutesStateContext.Provider value={routesState}>
+    <AccessBasedOnPemissionsStateContext.Provider value={routesState}>
       <BrowserRouter>
         <Routes>
           <Route
@@ -27,6 +27,6 @@ export default function App() {
           />
         </Routes>
       </BrowserRouter>
-    </RoutesStateContext.Provider>
+    </AccessBasedOnPemissionsStateContext.Provider>
   );
 }

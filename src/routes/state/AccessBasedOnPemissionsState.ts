@@ -13,7 +13,7 @@ export enum Permission {
   ManageRoles = 'ManageRoles',
 }
 
-class RoutesState {
+class AccessBasedOnPemissionsState {
   private _accessPermissions = new Map<keyof typeof Permission, boolean>();
 
   constructor() {
@@ -38,4 +38,4 @@ class RoutesState {
     });
   }
 }
-export default RoutesState;
+export default AccessBasedOnPemissionsState;

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useContext } from 'react';
 import { Employee } from '../../types';
 import EmployeeItem from './components/EmployeeItem';
-import RoutesStateContext from '../../../../routes/state/RoutesStateContext';
+import AccessBasedOnPemissionsStateContext from '../../../../routes/state/AccessBasedOnPemissionsStateContext';
 
 function EmployeeList({
   isLoading,
@@ -13,10 +13,10 @@ function EmployeeList({
   isLoading: boolean;
   employees: Employee[];
 }) {
-  const accessToChanges = useContext(RoutesStateContext);
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
   return (
     <ul className={clsx('employee-list', {
-      'employee-list--two-column': !accessToChanges.accessPermissions.get('ViewSalaryAndDocumentsData'),
+      'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
     })}
     >
       {isLoading && (<Skeleton className="employee-list__skeleton" count={4} />)}

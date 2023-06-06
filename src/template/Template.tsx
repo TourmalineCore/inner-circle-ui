@@ -17,15 +17,15 @@ import TemplatePages from './components/TemplatePages/TemplatePages';
 import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
-import RoutesStateContext from '../routes/state/RoutesStateContext';
+import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
 
 function Template() {
   const location = useLocation();
 
-  const routesStateContext = useContext(RoutesStateContext);
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
 
-  const parsedSidebarRoutes = useSidebarRoutes(getSidebarRoutes(routesStateContext.accessPermissions), location);
-  const adminRoutes = getAdminRoutes(routesStateContext.accessPermissions);
+  const parsedSidebarRoutes = useSidebarRoutes(getSidebarRoutes(accessBasedOnPemissionsState.accessPermissions), location);
+  const adminRoutes = getAdminRoutes(accessBasedOnPemissionsState.accessPermissions);
 
   const breadcrumbs = useBreadcrumbs(adminRoutes as BreadcrumbsRoute<string>[], { excludePaths: ['/'] });
 
