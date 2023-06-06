@@ -451,7 +451,12 @@ function AnalyticsPageTable() {
       )}
     >
       <div className="analytics-page-table__buttons">
-        <Button className="analytics-page-table__button" onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
+        <Button
+          className="analytics-page-table__button"
+          onClick={() => { loadEmployeesAsync(); }}
+        >
+          Reset changes
+        </Button>
         <div className="analytics-page-table__checkbox">
           {Object.entries(checkFormatColumnsData).map(([value, label]) => (
             <CheckField

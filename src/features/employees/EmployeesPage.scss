@@ -3,6 +3,10 @@
   align-items: center;
   flex-direction: column;
 
+  &__title {
+    text-align: center;
+  }
+
   &__data {
     :nth-child(n) {
       margin-top: 5px;
