@@ -62,6 +62,10 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
+    if (routesState.accessPermissions.get('ViewContacts') && !routesState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+      employeesState.updateFilterTerm('all');
+    }
+
     setIsLoading(true);
 
     try {
