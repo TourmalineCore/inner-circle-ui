@@ -5,12 +5,13 @@ import EmployeesPage from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
 import EmployeeEdit from './components/EmployeeEdit/EmployeeEdit';
 
-export const employeesRoutes = [
-  {
-    path: '/employees',
-    breadcrumb: 'Employees',
-    Component: EmployeesPage,
-  },
+export const employeesViewRoutes = {
+  path: '/employees',
+  breadcrumb: 'Employees',
+  Component: EmployeesPage,
+};
+
+export const employeesManageRoutes = [
   {
     path: '/employees/add',
     breadcrumb: 'Add an employee',

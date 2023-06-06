@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { memo, useContext, useState } from 'react';
 import useBreadcrumbs, { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
 
 import { useLocation } from 'react-router-dom';
@@ -16,12 +16,16 @@ import TemplatePages from './components/TemplatePages/TemplatePages';
 
 import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 
-import { adminRoutes, sidebarRoutes } from '../routes/adminRoutes';
+import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
+import RoutesStateContext from '../routes/state/RoutesStateContext';
 
 function Template() {
   const location = useLocation();
 
-  const parsedSidebarRoutes = useSidebarRoutes(sidebarRoutes, location);
+  const routesStateContext = useContext(RoutesStateContext);
+
+  const parsedSidebarRoutes = useSidebarRoutes(getSidebarRoutes(routesStateContext.accessPermissions), location);
+  const adminRoutes = getAdminRoutes(routesStateContext.accessPermissions);
 
   const breadcrumbs = useBreadcrumbs(adminRoutes as BreadcrumbsRoute<string>[], { excludePaths: ['/'] });
 
@@ -90,4 +94,4 @@ function Template() {
   );
 }
 
-export default Template;
+export default memo(Template);

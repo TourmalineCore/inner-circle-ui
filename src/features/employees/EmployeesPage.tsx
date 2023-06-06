@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useContext, useEffect, useMemo, useState,
+} from 'react';
 
 import { observer } from 'mobx-react-lite';
 import ContentCard from '../../components/ContentCard/ContentCard';
@@ -12,9 +14,12 @@ import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
+import RoutesStateContext from '../../routes/state/RoutesStateContext';
 
 function EmployeesPage() {
   const employeesState = useMemo(() => new EmployeesState(), []);
+  const routesState = useContext(RoutesStateContext);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -33,13 +38,15 @@ function EmployeesPage() {
 
         <section className="employees-page">
 
-          {employeesState.isBlankEmployees && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+          {employeesState.isBlankEmployees
+          && routesState.accessPermissions.get('ViewSalaryAndDocumentsData')
+          && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
           <h1>Employees</h1>
 
           <div className="employees-page__box">
             <div><SearchBar /></div>
-            <FilterMenu />
+            { routesState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
             <SortMenu />
           </div>
 
