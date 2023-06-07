@@ -6,6 +6,7 @@ import { Input, CheckField, Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues } from 'react-number-format';
 
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
+import { ReactComponent as IconMail } from '../../../../assets/icons/icon-message.svg';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import { EditedEmployee } from '../../types';
@@ -73,11 +74,15 @@ function EmployeeEdit() {
     <section className="employee-edit">
       <h1>Employee Profile</h1>
       <div className="employee-edit__info">
-        <span className="employee-edit__icon"><IconProfile /></span>
+        <span className="employee-edit__icon">
+          <IconProfile />
+        </span>
         {employee.fullName}
       </div>
       <div className="employee-edit__info">
-        <span className="employee-edit__icon"><IconProfile /></span>
+        <span className="employee-edit__icon">
+          <IconMail />
+        </span>
         {employee.corporateEmail}
       </div>
 
@@ -111,6 +116,7 @@ function EmployeeEdit() {
             <Input
               className="employee-edit__control"
               name="gitHub"
+              placeholder="gitHub"
               value={employee.gitHub || ''}
               onChange={handleFormChange}
             />
@@ -123,6 +129,7 @@ function EmployeeEdit() {
             <Input
               className="employee-edit__control"
               name="gitLab"
+              placeholder="gitLab"
               value={employee.gitLab || ''}
               onChange={handleFormChange}
             />
@@ -197,7 +204,7 @@ function EmployeeEdit() {
           <span className="employee-edit__label">Employee Status *</span>
           <div>
             {Object.entries(employeeStatusData).map(([value, label]) => {
-              const valueEmployedFired = employee.isCurrentEmployee ? employeeStatusData.current : employeeStatusData.fired;
+              const valueEmployedFired = employee.isCurrentEmployee ? 'current' : 'fired';
 
               return (
                 <CheckField
@@ -208,7 +215,7 @@ function EmployeeEdit() {
                   viewType="radio"
                   label={label}
                   checked={value === valueEmployedFired}
-                  onChange={() => setEmployee({ ...employee, isCurrentEmployee: value === employeeStatusData.current })}
+                  onChange={() => setEmployee({ ...employee, isCurrentEmployee: value === 'current' })}
                 />
               );
             })}
@@ -230,7 +237,7 @@ function EmployeeEdit() {
           <span className="employee-edit__label">Employed *</span>
           <div>
             {Object.entries(employedData).map(([value, label]) => {
-              const valueEmployedOfficially = employee.isEmployedOfficially ? employedData.officially : employedData.freelance;
+              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'freelance';
 
               return (
                 <CheckField
@@ -269,14 +276,14 @@ function EmployeeEdit() {
   );
 
   async function loadEmployeeAsync() {
-    const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
+    const { data } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
 
     const initialData = {
       ...data,
-      phone: data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
-      hireDate: data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
-      dismissalDate: data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
-      personnelNumber: data.personnelNumber === 'string' ? data.personnelNumber.replace('/', '') : data.personnelNumber,
+      phone: data.phone ? data.phone.split('').slice(2).join('') : null,
+      hireDate: data.hireDate ? new Date(data.hireDate) : new Date(),
+      dismissalDate: data.dismissalDate ? new Date(data.dismissalDate) : new Date(),
+      personnelNumber: data.personnelNumber ? data.personnelNumber.replace('/', '') : data.personnelNumber,
     };
 
     setEmployee(initialData);
