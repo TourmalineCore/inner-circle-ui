@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../../../common/api';
-import ContentCard from '../../../../components/ContentCard/ContentCard';
-import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
 import { IndicatorsType } from '../../types';
 import { formatMoney } from '../../../../common/utils/formatMoney';
 
@@ -45,12 +43,9 @@ function Indicators() {
   }, []);
 
   return (
-    <ContentCard
-      isStickyHead
-      headerContent={(
-        <DefaultCardHeader>Indicators</DefaultCardHeader>
-      )}
-    >
+    <>
+      <h2 className="heading">Indicators</h2>
+
       <div className="indicators">
 
         <IndicatorComponent head="Reserve for the">
@@ -95,7 +90,7 @@ function Indicators() {
         </IndicatorComponent>
 
       </div>
-    </ContentCard>
+    </>
   );
 
   async function getTotalIndicatorsAsync() {
