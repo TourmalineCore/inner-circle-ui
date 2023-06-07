@@ -46,7 +46,6 @@ function AnalyticsPageTable() {
     {
       Header: 'Employee',
       accessor: 'employeeFullName',
-      principalFilterableColumn: true,
       Footer: () => (
         <div className="analytics-page-table__total">
           {employees.rows.length}
@@ -91,6 +90,7 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.ratePerHour}
             valueDelta={metricsDiff?.ratePerHour}
             onChange={(ratePerHour: number) => {
@@ -124,6 +124,7 @@ function AnalyticsPageTable() {
       Header: 'Employment type',
       accessor: (row) => row.metrics.employmentType,
       disableFilters: true,
+      minWidth: 240,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics } = row.original;
 
@@ -150,6 +151,7 @@ function AnalyticsPageTable() {
       Header: 'Salary',
       accessor: (row) => row.metrics.salary,
       disableFilters: true,
+      minWidth: 180,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -165,6 +167,7 @@ function AnalyticsPageTable() {
       Header: 'Hourly Cost (By Fact)',
       accessor: (row) => row.metrics.hourlyCostFact,
       disableFilters: true,
+      minWidth: 250,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -180,6 +183,7 @@ function AnalyticsPageTable() {
       Header: 'Hourly Cost (On Hand)',
       accessor: (row) => row.metrics.hourlyCostHand,
       disableFilters: true,
+      minWidth: 250,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -195,24 +199,25 @@ function AnalyticsPageTable() {
       Header: 'Earnings',
       accessor: (row) => row.metrics.earnings,
       disableFilters: true,
-      minWidth: 160,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.earnings}
             valueDelta={metricsDiff?.earnings}
           />
         );
       },
-      Footer: () => <TableFooter value="earnings" />,
+      Footer: () => <TableFooter value="earnings" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Expenses',
       accessor: (row) => row.metrics.expenses,
       disableFilters: true,
-      minWidth: 160,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -229,17 +234,19 @@ function AnalyticsPageTable() {
       Header: 'Profit',
       accessor: (row) => row.metrics.profit,
       disableFilters: true,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profit}
             valueDelta={metricsDiff?.profit}
           />
         );
       },
-      Footer: () => <TableFooter value="profit" />,
+      Footer: () => <TableFooter value="profit" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Profitability',
@@ -250,13 +257,14 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profitAbility}
             valueDelta={metricsDiff?.profitAbility}
             isPercent
           />
         );
       },
-      Footer: () => <TableFooter value="profitAbility" isPercent />,
+      Footer: () => <TableFooter value="profitAbility" isPositiveDeltaGoodForClient={false} isPercent />,
     },
   ];
 
@@ -546,12 +554,15 @@ function AnalyticsPageTable() {
   function TableFooter({
     value,
     isPercent = false,
+    isPositiveDeltaGoodForClient = true,
   }: {
     value: keyof Metrics;
     isPercent?: boolean;
+    isPositiveDeltaGoodForClient?: boolean;
   }) {
     return (
       <RedactComponent
+        isPositiveDeltaGoodForClient={isPositiveDeltaGoodForClient}
         // @ts-ignore
         value={employees.total.metrics[value]}
         // @ts-ignore
