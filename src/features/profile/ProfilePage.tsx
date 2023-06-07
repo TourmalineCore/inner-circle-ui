@@ -116,6 +116,7 @@ function ProfilePage() {
                 value={!isEdit ? employee.personalEmail : (
                   <Input
                     value={employee.personalEmail}
+                    maxLength={40}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
                   />
                 )}
@@ -132,6 +133,7 @@ function ProfilePage() {
                     @
                     <Input
                       value={employee.gitHub}
+                      maxLength={39}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
                     />
                   </div>
@@ -149,6 +151,7 @@ function ProfilePage() {
                     @
                     <Input
                       value={employee.gitLab}
+                      maxLength={39}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
                     />
                   </div>
