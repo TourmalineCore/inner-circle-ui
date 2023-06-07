@@ -90,7 +90,7 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
-            isPositiveDeltaIsGreatForClient={false}
+            isPositiveDeltaGoodForClient={false}
             value={metrics.ratePerHour}
             valueDelta={metricsDiff?.ratePerHour}
             onChange={(ratePerHour: number) => {
@@ -205,13 +205,13 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
-            isPositiveDeltaIsGreatForClient={false}
+            isPositiveDeltaGoodForClient={false}
             value={metrics.earnings}
             valueDelta={metricsDiff?.earnings}
           />
         );
       },
-      Footer: () => <TableFooter value="earnings" isPositiveDeltaIsGreatForClient={false} />,
+      Footer: () => <TableFooter value="earnings" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Expenses',
@@ -240,13 +240,13 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
-            isPositiveDeltaIsGreatForClient={false}
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profit}
             valueDelta={metricsDiff?.profit}
           />
         );
       },
-      Footer: () => <TableFooter value="profit" isPositiveDeltaIsGreatForClient={false} />,
+      Footer: () => <TableFooter value="profit" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Profitability',
@@ -257,14 +257,14 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
-            isPositiveDeltaIsGreatForClient={false}
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profitAbility}
             valueDelta={metricsDiff?.profitAbility}
             isPercent
           />
         );
       },
-      Footer: () => <TableFooter value="profitAbility" isPositiveDeltaIsGreatForClient={false} isPercent />,
+      Footer: () => <TableFooter value="profitAbility" isPositiveDeltaGoodForClient={false} isPercent />,
     },
   ];
 
@@ -554,15 +554,15 @@ function AnalyticsPageTable() {
   function TableFooter({
     value,
     isPercent = false,
-    isPositiveDeltaIsGreatForClient = true,
+    isPositiveDeltaGoodForClient = true,
   }: {
     value: keyof Metrics;
     isPercent?: boolean;
-    isPositiveDeltaIsGreatForClient?: boolean;
+    isPositiveDeltaGoodForClient?: boolean;
   }) {
     return (
       <RedactComponent
-        isPositiveDeltaIsGreatForClient={isPositiveDeltaIsGreatForClient}
+        isPositiveDeltaGoodForClient={isPositiveDeltaGoodForClient}
         // @ts-ignore
         value={employees.total.metrics[value]}
         // @ts-ignore

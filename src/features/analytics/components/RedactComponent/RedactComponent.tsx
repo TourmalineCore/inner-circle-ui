@@ -9,14 +9,14 @@ function RedactComponent({
   isEditable = false,
   isPercent = false,
   className,
-  isPositiveDeltaIsGreatForClient = true,
+  isPositiveDeltaGoodForClient = true,
   onChange = () => {},
 } : {
   value: number,
   valueDelta?: number,
   isEditable?: boolean,
   isPercent?: boolean,
-  isPositiveDeltaIsGreatForClient?: boolean,
+  isPositiveDeltaGoodForClient?: boolean,
   className?: string,
   onChange?: (number: number) => void,
 }) {
@@ -54,7 +54,7 @@ function RedactComponent({
 
   let colorDelta;
 
-  if (!isPositiveDeltaIsGreatForClient) {
+  if (!isPositiveDeltaGoodForClient) {
     colorDelta = valueDelta! > 0 ? 'green' : 'red';
   } else {
     colorDelta = valueDelta! > 0 ? 'red' : 'green';
