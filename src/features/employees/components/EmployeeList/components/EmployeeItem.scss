@@ -1,13 +1,19 @@
 .employee-item {
-  display: grid;
-  border: 1px solid #000;
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: 500;
-  font-size: 14px;
-  color: #000;
-  gap: 30px;
-  grid-template-columns: repeat(3, 1fr) auto 100px;
+  $this: &;
+
+  padding: 8px;
+
+  &__inner {
+    display: grid;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #000;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr) auto 100px;
+  }
 
   &__name {
     margin-bottom: 8px;
@@ -80,10 +86,16 @@
   }
 
   &--is-blank {
-    border-left: 8px solid #aaa;
+    #{$this}__inner {
+      border-left: 8px solid #aaa;
+    }
   }
 
-  & + & {
-    margin-top: 10px;
+  &--half-width {
+    width: 50%;
+
+    #{$this}__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
