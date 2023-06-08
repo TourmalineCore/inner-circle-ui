@@ -3,8 +3,6 @@ import {
 } from 'react';
 
 import { observer } from 'mobx-react-lite';
-import ContentCard from '../../components/ContentCard/ContentCard';
-import DefaultCardHeader from '../../components/DefaultCardHeader/DefaultCardHeader';
 import SearchBar from './components/SearchBar/SearchBar';
 
 import EmployeeList from './components/EmployeeList/EmployeeList';
@@ -28,36 +26,28 @@ function EmployeesPage() {
 
   return (
     <EmployeesStateContext.Provider value={employeesState}>
-      <ContentCard
-        style={{ margin: 20 }}
-        isStickyHead
-        headerContent={(
-          <DefaultCardHeader>Salary data</DefaultCardHeader>
-        )}
-      >
 
-        <section className="employees-page">
+      <section className="employees-page">
 
-          {employeesState.isBlankEmployees
+        {employeesState.isBlankEmployees
           && accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
           && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
-          <h1>Employees</h1>
+        <h1 className="heading">Employees</h1>
 
-          <div className="employees-page__box">
-            <div><SearchBar /></div>
-            { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
-            <SortMenu />
-          </div>
+        <div className="employees-page__box">
+          <div><SearchBar /></div>
+          { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
+          <SortMenu />
+        </div>
 
-          <div>
-            <EmployeeList
-              isLoading={isLoading}
-              employees={employeesState.allEmployees}
-            />
-          </div>
-        </section>
-      </ContentCard>
+        <div>
+          <EmployeeList
+            isLoading={isLoading}
+            employees={employeesState.allEmployees}
+          />
+        </div>
+      </section>
     </EmployeesStateContext.Provider>
   );
 

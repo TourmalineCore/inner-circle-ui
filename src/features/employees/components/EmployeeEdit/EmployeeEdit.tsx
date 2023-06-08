@@ -71,7 +71,7 @@ function EmployeeEdit() {
 
   return (
     <section className="employee-edit">
-      <h1>Employee Profile</h1>
+      <h1 className="heading employee-edit__title">Employee Profile</h1>
       <div className="employee-edit__info">
         <span className="employee-edit__icon"><IconProfile /></span>
         {employee.fullName}

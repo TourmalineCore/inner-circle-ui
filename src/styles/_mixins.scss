@@ -1,0 +1,7 @@
+@mixin tc-button-reset() {
+  border-radius: 0;
+
+  &::before {
+    border-radius: 0;
+  }
+}

@@ -32,7 +32,9 @@
 
   &__content {
     flex: 1 1 auto;
+    padding-right: 40px;
     padding-bottom: var(--mobile-controls-panel-height);
+    padding-left: 40px;
     width: 100%;
 
     @include desktop {
@@ -44,7 +46,7 @@
     margin: 10px 0;
     padding: 8px 16px;
     width: 100%;
-    min-height: 50px;
+    min-height: 48px;
     box-shadow: 0 0 43px rgb(24 14 54 / 10%);
     background-color: var(--color-white);
 
@@ -61,7 +63,7 @@
     @include tablet {
       margin: 20px 0;
       padding: 16px;
-      min-height: 66px;
+      min-height: 64px;
 
       &--top {
         margin-top: 0;

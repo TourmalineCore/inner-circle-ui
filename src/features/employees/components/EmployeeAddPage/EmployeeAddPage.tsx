@@ -42,7 +42,7 @@ function EmployeeAddPage() {
 
   return (
     <div className="employee">
-      <h3 className="employee__title">
+      <h3 className="heading employee__title">
         Create a user
       </h3>
       <div className="employee__data">

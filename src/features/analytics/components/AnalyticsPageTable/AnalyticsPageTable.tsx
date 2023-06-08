@@ -5,8 +5,6 @@ import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
-import ContentCard from '../../../../components/ContentCard/ContentCard';
-import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import {
@@ -452,15 +450,17 @@ function AnalyticsPageTable() {
   ];
 
   return (
-    <ContentCard
-      isStickyHead
-      headerContent={(
-        <DefaultCardHeader>Analytics</DefaultCardHeader>
-      )}
-    >
+    <>
+      <h2 className="heading">Analytics</h2>
+
       <div className="analytics-page-table__buttons">
-        <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
-        <div>
+        <Button
+          className="analytics-page-table__button"
+          onClick={() => { loadEmployeesAsync(); }}
+        >
+          Reset changes
+        </Button>
+        <div className="analytics-page-table__checkbox">
           {Object.entries(checkFormatColumnsData).map(([value, label]) => (
             <CheckField
               key={value}
@@ -511,7 +511,7 @@ function AnalyticsPageTable() {
         />
       </div>
 
-    </ContentCard>
+    </>
   );
 
   async function duplicateEmployee(employee: GetTableType) {
