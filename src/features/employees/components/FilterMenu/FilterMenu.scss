@@ -1,5 +1,11 @@
 .filter-menu {
-  &__button-active {
-    background-color: #f5f5f5;
+  &__button {
+    @include tc-button-reset;
+
+    margin-left: 10px;
+
+    &--active {
+      background-color: #f5f5f5;
+    }
   }
 }

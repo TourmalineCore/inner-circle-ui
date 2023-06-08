@@ -43,7 +43,7 @@ html.is-sidebar-mobile-opened {
     display: none;
     outline: none;
     border: none;
-    padding: 12px 14px;
+    padding: 7px 9px;
     width: 100%;
     box-shadow: none;
     font-family: inherit;
@@ -91,9 +91,9 @@ html.is-sidebar-mobile-opened {
     &::after {
       content: "";
       position: absolute;
-      left: 20px;
-      right: 20px;
-      bottom: 0;
+      left: 12px;
+      right: 12px;
+      width: calc(100% - 24px);
       height: 1px;
       background-color: var(--color-white);
     }
@@ -142,10 +142,6 @@ html.is-sidebar-mobile-opened {
     &:last-child {
       margin-bottom: 0;
     }
-
-    @include desktop-xl {
-      margin-bottom: 16px;
-    }
   }
 
   &__bottom {
@@ -156,15 +152,15 @@ html.is-sidebar-mobile-opened {
     &::before {
       content: "";
       position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 0;
+      left: 12px;
+      right: 12px;
+      width: calc(100% - 24px);
       height: 1px;
       background-color: var(--color-white);
     }
 
     @include desktop-xl {
-      padding: 16px 16px 32px 8px;
+      padding: 16px 8px 24px;
     }
   }
 

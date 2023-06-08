@@ -1,4 +1,3 @@
-// import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { authService } from '../authService';
 
 let isRefreshing = false;

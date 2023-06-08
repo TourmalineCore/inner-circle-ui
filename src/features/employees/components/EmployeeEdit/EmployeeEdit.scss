@@ -2,6 +2,10 @@
   margin: 0 auto;
   max-width: 600px;
 
+  &__title {
+    text-align: center;
+  }
+
   &__info {
     display: flex;
     align-items: center;

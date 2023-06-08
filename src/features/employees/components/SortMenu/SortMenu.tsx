@@ -45,6 +45,7 @@ function SortMenu() {
   return (
     <div className="sort-menu">
       <Button
+        className="sort-menu__button"
         type="button"
         id={employeesState.sortTerm}
         onClick={sortHandler}

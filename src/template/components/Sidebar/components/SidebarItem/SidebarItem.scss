@@ -64,7 +64,7 @@
     display: none;
     flex: none;
     width: 24px;
-    height: 18px;
+    height: 24px;
     font-size: 18px;
     text-align: center;
   }
@@ -98,6 +98,7 @@
   }
 
   &__nested #{$this} {
+    padding: 8px;
     padding-left: 52px;
     min-height: 18px;
     font-size: 14px;
@@ -111,6 +112,10 @@
 
   &__nested #{$this}__icon {
     font-size: 14px;
+  }
+
+  &__nested #{$this}__icon-container {
+    flex: none;
   }
 
   &:hover,
@@ -142,10 +147,6 @@
       background-color: currentColor;
     }
   }
-
-  @include desktop-xl {
-    margin-bottom: 16px;
-  }
 }
 
 .sidebar--collapsed .sidebar-item__mini-container {
@@ -169,7 +170,7 @@
 
 .sidebar--collapsed .sidebar-item__nested .sidebar-item {
   @include desktop {
-    padding-left: 10px;
+    padding-left: 14px;
   }
 }
 
