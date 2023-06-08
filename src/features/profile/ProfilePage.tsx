@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, Fragment, useEffect, useState,
+  ChangeEvent, useEffect, useState,
 } from 'react';
 
 import { Button, Input } from '@tourmalinecore/react-tc-ui-kit';
@@ -106,7 +106,7 @@ function ProfilePage() {
               <InfoComponent
                 value={(
                   <PatternFormat
-                    className=""
+                    className="profile__contacts-info"
                     type="tel"
                     format="+7 (###) ### ## ##"
                     customInput={Input}
@@ -123,7 +123,7 @@ function ProfilePage() {
                 icon={<IconPhone />}
               />
               <InfoComponent
-                value={!isEdit ? employee.personalEmail : (
+                value={!isEdit ? (<span className="profile__contacts-info">{employee.personalEmail}</span>) : (
                   <Input
                     value={employee.personalEmail}
                     maxLength={40}
@@ -134,7 +134,12 @@ function ProfilePage() {
                 icon={<IconMessage />}
               />
               <InfoComponent
-                value={!isEdit ? (`@${employee.gitHub}`) : (
+                value={!isEdit ? (
+                  <span className="profile__contacts-info">
+                    @
+                    {employee.gitHub}
+                  </span>
+                ) : (
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -152,7 +157,12 @@ function ProfilePage() {
                 icon={<IconGithub />}
               />
               <InfoComponent
-                value={!isEdit ? `@${employee.gitLab}` : (
+                value={!isEdit ? (
+                  <span className="profile__contacts-info">
+                    @
+                    {employee.gitLab}
+                  </span>
+                ) : (
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -161,7 +171,6 @@ function ProfilePage() {
                     @
                     <Input
                       value={employee.gitLab}
-                      maxLength={39}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
                     />
                   </div>
