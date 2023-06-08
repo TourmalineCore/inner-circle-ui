@@ -5,8 +5,6 @@ import { ClientTable } from '@tourmalinecore/react-table-responsive';
 import {
   Button, CheckField,
 } from '@tourmalinecore/react-tc-ui-kit';
-import ContentCard from '../../../../components/ContentCard/ContentCard';
-import DefaultCardHeader from '../../../../components/DefaultCardHeader/DefaultCardHeader';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import {
@@ -46,7 +44,6 @@ function AnalyticsPageTable() {
     {
       Header: 'Employee',
       accessor: 'employeeFullName',
-      principalFilterableColumn: true,
       Footer: () => (
         <div className="analytics-page-table__total">
           {employees.rows.length}
@@ -91,6 +88,7 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.ratePerHour}
             valueDelta={metricsDiff?.ratePerHour}
             onChange={(ratePerHour: number) => {
@@ -124,6 +122,7 @@ function AnalyticsPageTable() {
       Header: 'Employment type',
       accessor: (row) => row.metrics.employmentType,
       disableFilters: true,
+      minWidth: 240,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics } = row.original;
 
@@ -150,6 +149,7 @@ function AnalyticsPageTable() {
       Header: 'Salary',
       accessor: (row) => row.metrics.salary,
       disableFilters: true,
+      minWidth: 180,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -165,6 +165,7 @@ function AnalyticsPageTable() {
       Header: 'Hourly Cost (By Fact)',
       accessor: (row) => row.metrics.hourlyCostFact,
       disableFilters: true,
+      minWidth: 250,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -180,6 +181,7 @@ function AnalyticsPageTable() {
       Header: 'Hourly Cost (On Hand)',
       accessor: (row) => row.metrics.hourlyCostHand,
       disableFilters: true,
+      minWidth: 250,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -195,24 +197,25 @@ function AnalyticsPageTable() {
       Header: 'Earnings',
       accessor: (row) => row.metrics.earnings,
       disableFilters: true,
-      minWidth: 160,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.earnings}
             valueDelta={metricsDiff?.earnings}
           />
         );
       },
-      Footer: () => <TableFooter value="earnings" />,
+      Footer: () => <TableFooter value="earnings" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Expenses',
       accessor: (row) => row.metrics.expenses,
       disableFilters: true,
-      minWidth: 160,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
@@ -229,17 +232,19 @@ function AnalyticsPageTable() {
       Header: 'Profit',
       accessor: (row) => row.metrics.profit,
       disableFilters: true,
+      minWidth: 200,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics, metricsDiff } = row.original;
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profit}
             valueDelta={metricsDiff?.profit}
           />
         );
       },
-      Footer: () => <TableFooter value="profit" />,
+      Footer: () => <TableFooter value="profit" isPositiveDeltaGoodForClient={false} />,
     },
     {
       Header: 'Profitability',
@@ -250,13 +255,14 @@ function AnalyticsPageTable() {
 
         return (
           <RedactComponent
+            isPositiveDeltaGoodForClient={false}
             value={metrics.profitAbility}
             valueDelta={metricsDiff?.profitAbility}
             isPercent
           />
         );
       },
-      Footer: () => <TableFooter value="profitAbility" isPercent />,
+      Footer: () => <TableFooter value="profitAbility" isPositiveDeltaGoodForClient={false} isPercent />,
     },
   ];
 
@@ -444,15 +450,17 @@ function AnalyticsPageTable() {
   ];
 
   return (
-    <ContentCard
-      isStickyHead
-      headerContent={(
-        <DefaultCardHeader>Analytics</DefaultCardHeader>
-      )}
-    >
+    <>
+      <h2 className="heading">Analytics</h2>
+
       <div className="analytics-page-table__buttons">
-        <Button onClick={() => { loadEmployeesAsync(); }}>Reset changes</Button>
-        <div>
+        <Button
+          className="analytics-page-table__button"
+          onClick={() => { loadEmployeesAsync(); }}
+        >
+          Reset changes
+        </Button>
+        <div className="analytics-page-table__checkbox">
           {Object.entries(checkFormatColumnsData).map(([value, label]) => (
             <CheckField
               key={value}
@@ -503,7 +511,7 @@ function AnalyticsPageTable() {
         />
       </div>
 
-    </ContentCard>
+    </>
   );
 
   async function duplicateEmployee(employee: GetTableType) {
@@ -546,12 +554,15 @@ function AnalyticsPageTable() {
   function TableFooter({
     value,
     isPercent = false,
+    isPositiveDeltaGoodForClient = true,
   }: {
     value: keyof Metrics;
     isPercent?: boolean;
+    isPositiveDeltaGoodForClient?: boolean;
   }) {
     return (
       <RedactComponent
+        isPositiveDeltaGoodForClient={isPositiveDeltaGoodForClient}
         // @ts-ignore
         value={employees.total.metrics[value]}
         // @ts-ignore

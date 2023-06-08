@@ -15,11 +15,10 @@ function SidebarTooltip({
   const sidebarRect = sidebarContainerRef.current!.getBoundingClientRect();
   const itemRect = sidebarItemRef.current!.getBoundingClientRect();
 
-  const top = itemRect.top - sidebarRect.top;
-  const { height } = itemRect;
+  const top = itemRect.top - sidebarRect.top + 10;
 
   return (
-    <div className="sidebar-tooltip" style={{ top, height }}>{content}</div>
+    <div className="sidebar-tooltip" style={{ top, height: '40px' }}>{content}</div>
   );
 }
 
