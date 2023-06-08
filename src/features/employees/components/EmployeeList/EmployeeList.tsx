@@ -1,7 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import Skeleton from 'react-loading-skeleton';
+import clsx from 'clsx';
+import { useContext } from 'react';
 import { Employee } from '../../types';
 import EmployeeItem from './components/EmployeeItem';
+import AccessBasedOnPemissionsStateContext from '../../../../routes/state/AccessBasedOnPemissionsStateContext';
 
 function EmployeeList({
   isLoading,
@@ -10,8 +13,12 @@ function EmployeeList({
   isLoading: boolean;
   employees: Employee[];
 }) {
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
   return (
-    <ul className="employee-list">
+    <ul className={clsx('employee-list', {
+      'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
+    })}
+    >
       {isLoading && (<Skeleton className="employee-list__skeleton" count={4} />)}
       {employees.length === 0 && (<li>List empty</li>)}
       {employees.length > 0 && employees.map((employee) => (

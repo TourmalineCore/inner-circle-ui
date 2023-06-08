@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useContext, useEffect, useMemo, useState,
+} from 'react';
 
 import { observer } from 'mobx-react-lite';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -10,9 +12,12 @@ import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
+import AccessBasedOnPemissionsStateContext from '../../routes/state/AccessBasedOnPemissionsStateContext';
 
 function EmployeesPage() {
   const employeesState = useMemo(() => new EmployeesState(), []);
+  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -24,13 +29,15 @@ function EmployeesPage() {
 
       <section className="employees-page">
 
-        {employeesState.isBlankEmployees && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+        {employeesState.isBlankEmployees
+          && accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
+          && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
         <h1 className="heading">Employees</h1>
 
         <div className="employees-page__box">
           <div><SearchBar /></div>
-          <FilterMenu />
+          { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
           <SortMenu />
         </div>
 
@@ -45,6 +52,10 @@ function EmployeesPage() {
   );
 
   async function loadEmployeesAsync() {
+    if (accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+      employeesState.updateFilterTerm('all');
+    }
+
     setIsLoading(true);
 
     try {

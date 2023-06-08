@@ -9,12 +9,14 @@ function RedactComponent({
   isEditable = false,
   isPercent = false,
   className,
+  isPositiveDeltaGoodForClient = true,
   onChange = () => {},
 } : {
   value: number,
   valueDelta?: number,
   isEditable?: boolean,
   isPercent?: boolean,
+  isPositiveDeltaGoodForClient?: boolean,
   className?: string,
   onChange?: (number: number) => void,
 }) {
@@ -50,6 +52,14 @@ function RedactComponent({
 
   const sumbol = isPercent ? ' %' : ' ₽';
 
+  let colorDelta;
+
+  if (!isPositiveDeltaGoodForClient) {
+    colorDelta = valueDelta! > 0 ? 'green' : 'red';
+  } else {
+    colorDelta = valueDelta! > 0 ? 'red' : 'green';
+  }
+
   return (
     <div className="component">
       <NumericFormat
@@ -76,7 +86,7 @@ function RedactComponent({
 
       {valueDelta
         ? (
-          <div style={{ color: valueDelta > 0 ? 'green' : 'red' }}>
+          <div style={{ color: colorDelta }}>
             <NumericFormat
               displayType="text"
               value={valueDelta}
