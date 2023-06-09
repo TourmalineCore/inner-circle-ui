@@ -269,8 +269,8 @@ function EmployeeEdit() {
       </ul>
 
       <div className="employee-edit__box-buttons">
-        <Button onClick={() => navigate('/employees')}>Cancel</Button>
-        <Button onClick={() => updateEmployeesAsync()}>Save Changes</Button>
+        <Button onClick={() => navigate('/employees')} className="employee-edit__button">Cancel</Button>
+        <Button onClick={() => updateEmployeesAsync()} className="employee-edit__button">Save Changes</Button>
       </div>
     </section>
   );
@@ -302,7 +302,7 @@ function EmployeeEdit() {
 
     setTriedToSubmit(true);
 
-    if (updateEmployee.phone.length > 9) {
+    if (updateEmployee.phone.length > 9 && employee.personnelNumber!.length >= 4) {
       try {
         await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
 
