@@ -27,7 +27,7 @@ function EmployeeItem({
       <div className="employee-item__inner">
         <div>
           <div className="employee-item__name">{employee.fullName}</div>
-          <div>{employee.corporateEmail}</div>
+          <a href={`mailto:${employee.corporateEmail}`} title="click to email">{employee.corporateEmail}</a>
         </div>
 
         {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
@@ -36,7 +36,10 @@ function EmployeeItem({
             <ul className="employee-item__contacts-list">
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle" />
-                <span>{employee.personalEmail || '--'}</span>
+                <span>
+                  {employee.personalEmail ? <a href={`mailto:${employee.personalEmail}`} title="click to email">{employee.personalEmail}</a>
+                    : '--'}
+                </span>
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle" />
@@ -46,15 +49,31 @@ function EmployeeItem({
                   allowEmptyFormatting
                   format={employee.phone ? '+# (###) ### ## ##' : '--'}
                   value={employee.phone}
+                  renderText={(value) => {
+                    if (value !== '--') {
+                      return <a href={`tel:${employee.phone}`} title="click to call">{value}</a>;
+                    }
+
+                    return '--';
+                  }}
                 />
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle" />
-                <span>{employee.gitHub || '--'}</span>
+                <span>
+                  {employee.gitHub
+                    ? <a href={`https://github.com/${employee.gitHub}`} title="link to gitHub" target="_blank" rel="noreferrer">{employee.gitHub}</a>
+                    : '--'}
+
+                </span>
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle" />
-                <span>{employee.gitLab || '--'}</span>
+                <span>
+                  {employee.gitLab
+                    ? <a href={`https://gitlab.com/${employee.gitLab}`} title="link to gitLab" target="_blank" rel="noreferrer">{employee.gitLab}</a>
+                    : '--'}
+                </span>
               </li>
             </ul>
           </div>
