@@ -15,10 +15,10 @@ import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
 import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
 import CustomPatternFormat from './components/CustomPatternFormat/CustomPatternFormat';
 
-const employeeStatusData = {
-  current: 'Current/Active',
-  fired: 'Fired',
-};
+// const employeeStatusData = {
+//   current: 'Current/Active',
+//   fired: 'Fired',
+// };
 
 const employeeTypeData = {
   1: 'Full time',
@@ -200,7 +200,7 @@ function EmployeeEdit() {
             />
           </div>
         </li>
-        <li className="employee-edit__item employee-edit__item--radio-list">
+        {/* <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employee Status *</span>
           <div>
             {Object.entries(employeeStatusData).map(([value, label]) => {
@@ -232,7 +232,7 @@ function EmployeeEdit() {
               />
             </div>
           </li>
-        )}
+        )} */}
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employed *</span>
           <div>
