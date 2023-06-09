@@ -32,7 +32,7 @@
     }
 
     & + & {
-      margin-top: 34px;
+      margin-top: 44px;
     }
   }
 
@@ -61,5 +61,9 @@
     button + button {
       margin-left: 12px;
     }
+  }
+
+  &__button {
+    @include tc-button-reset;
   }
 }
