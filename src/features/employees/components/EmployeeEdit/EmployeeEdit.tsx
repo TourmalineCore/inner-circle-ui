@@ -6,6 +6,7 @@ import { Input, CheckField, Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues } from 'react-number-format';
 
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
+import { ReactComponent as IconMail } from '../../../../assets/icons/icon-message.svg';
 import { api } from '../../../../common/api';
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 import { EditedEmployee } from '../../types';
@@ -14,10 +15,10 @@ import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
 import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
 import CustomPatternFormat from './components/CustomPatternFormat/CustomPatternFormat';
 
-const employeeStatusData = {
-  current: 'Current/Active',
-  fired: 'Fired',
-};
+// const employeeStatusData = {
+//   current: 'Current/Active',
+//   fired: 'Fired',
+// };
 
 const employeeTypeData = {
   1: 'Full time',
@@ -26,7 +27,7 @@ const employeeTypeData = {
 
 const employedData = {
   officially: 'Officially',
-  unofficially: 'Unofficially',
+  freelance: 'Freelance',
 };
 
 function EmployeeEdit() {
@@ -47,7 +48,7 @@ function EmployeeEdit() {
     hireDate: null,
     dismissalDate: new Date(),
     isEmployedOfficially: true,
-    isFired: false,
+    isCurrentEmployee: true,
     personnelNumber: '',
   });
 
@@ -73,11 +74,15 @@ function EmployeeEdit() {
     <section className="employee-edit">
       <h1 className="heading employee-edit__title">Employee Profile</h1>
       <div className="employee-edit__info">
-        <span className="employee-edit__icon"><IconProfile /></span>
+        <span className="employee-edit__icon">
+          <IconProfile />
+        </span>
         {employee.fullName}
       </div>
       <div className="employee-edit__info">
-        <span className="employee-edit__icon"><IconProfile /></span>
+        <span className="employee-edit__icon">
+          <IconMail />
+        </span>
         {employee.corporateEmail}
       </div>
 
@@ -111,6 +116,7 @@ function EmployeeEdit() {
             <Input
               className="employee-edit__control"
               name="gitHub"
+              placeholder="gitHub"
               value={employee.gitHub || ''}
               onChange={handleFormChange}
             />
@@ -123,6 +129,7 @@ function EmployeeEdit() {
             <Input
               className="employee-edit__control"
               name="gitLab"
+              placeholder="gitLab"
               value={employee.gitLab || ''}
               onChange={handleFormChange}
             />
@@ -193,11 +200,11 @@ function EmployeeEdit() {
             />
           </div>
         </li>
-        <li className="employee-edit__item employee-edit__item--radio-list">
+        {/* <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employee Status *</span>
           <div>
             {Object.entries(employeeStatusData).map(([value, label]) => {
-              const valueEmployedFired = employee.isFired ? 'fired' : 'current';
+              const valueEmployedFired = employee.isCurrentEmployee ? 'current' : 'fired';
 
               return (
                 <CheckField
@@ -208,13 +215,13 @@ function EmployeeEdit() {
                   viewType="radio"
                   label={label}
                   checked={value === valueEmployedFired}
-                  onChange={() => setEmployee({ ...employee, isFired: value === 'fired' })}
+                  onChange={() => setEmployee({ ...employee, isCurrentEmployee: value === 'current' })}
                 />
               );
             })}
           </div>
         </li>
-        {employee.isFired && (
+        {!employee.isCurrentEmployee && (
           <li className="employee-edit__item">
             <span className="employee-edit__label">Date of Dismissal *</span>
             <div className="employee-edit__control">
@@ -225,12 +232,12 @@ function EmployeeEdit() {
               />
             </div>
           </li>
-        )}
+        )} */}
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employed *</span>
           <div>
             {Object.entries(employedData).map(([value, label]) => {
-              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'unofficially';
+              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'freelance';
 
               return (
                 <CheckField
@@ -262,21 +269,21 @@ function EmployeeEdit() {
       </ul>
 
       <div className="employee-edit__box-buttons">
-        <Button onClick={() => navigate('/employees')}>Cancel</Button>
-        <Button onClick={() => updateEmployeesAsync()}>Save Changes</Button>
+        <Button onClick={() => navigate('/employees')} className="employee-edit__button">Cancel</Button>
+        <Button onClick={() => updateEmployeesAsync()} className="employee-edit__button">Save Changes</Button>
       </div>
     </section>
   );
 
   async function loadEmployeeAsync() {
-    const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
+    const { data } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
 
     const initialData = {
       ...data,
-      phone: typeof data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
-      hireDate: typeof data.hireDate === 'string' ? new Date(data.hireDate) : data.hireDate,
-      dismissalDate: typeof data.dismissalDate === 'string' ? new Date(data.dismissalDate) : data.dismissalDate,
-      personnelNumber: typeof data.personnelNumber === 'string' ? data.personnelNumber.replace('/', '') : data.personnelNumber,
+      phone: data.phone ? data.phone.split('').slice(2).join('') : null,
+      hireDate: data.hireDate ? new Date(data.hireDate) : new Date(),
+      dismissalDate: data.dismissalDate ? new Date(data.dismissalDate) : new Date(),
+      personnelNumber: data.personnelNumber ? data.personnelNumber.replace('/', '') : data.personnelNumber,
     };
 
     setEmployee(initialData);
@@ -291,18 +298,19 @@ function EmployeeEdit() {
       personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
     };
 
-    delete updateEmployee.isFired;
     delete updateEmployee.dismissalDate;
 
     setTriedToSubmit(true);
 
-    try {
-      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
+    if (updateEmployee.phone.length > 9 && employee.personnelNumber!.length >= 4) {
+      try {
+        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
 
-      setTriedToSubmit(false);
-      navigate('/employees');
-    } catch {
-      console.log('Error');
+        setTriedToSubmit(false);
+        navigate('/employees');
+      } catch {
+        console.log('Error');
+      }
     }
   }
 }
