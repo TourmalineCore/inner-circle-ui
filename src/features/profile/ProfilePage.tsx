@@ -33,7 +33,11 @@ const initialValues = {
   districtCoefficient: 0,
   incomeTax: 0,
   netSalary: 0,
+  isSalaryInfoFilled: false,
+  isEmployedOfficially: false,
 };
+
+const PLACEHOLDER_TEXT = 'I will be...';
 
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>(initialValues);
@@ -56,8 +60,8 @@ function ProfilePage() {
           {isLoading && <Skeleton className="profile__skeleton" count={2} containerTestId="loading-general-information" />}
           {!isLoading && (
             <div>
-              <InfoComponent value={employee.fullName} label="Name" icon={<IconProfile />} />
-              <InfoComponent value={employee.corporateEmail} label="Corporate Email" icon={<IconOutlineEmail />} />
+              <InfoComponent isHaveValue={!employee.fullName} value={employee.fullName} label="Name" icon={<IconProfile />} />
+              <InfoComponent isHaveValue={!employee.corporateEmail} value={employee.corporateEmail} label="Corporate Email" icon={<IconOutlineEmail />} />
             </div>
           )}
         </div>
@@ -104,6 +108,7 @@ function ProfilePage() {
           {!isLoading && (
             <div>
               <InfoComponent
+                isHaveValue={employee.phone.length < 9}
                 value={(
                   <PatternFormat
                     className="profile__contacts-info"
@@ -116,6 +121,13 @@ function ProfilePage() {
                     mask="_"
                     allowEmptyFormatting
                     valueIsNumericString
+                    renderText={(formattedValue) => {
+                      if (formattedValue === '+7 (___) ___ __ __') {
+                        return PLACEHOLDER_TEXT;
+                      }
+
+                      return formattedValue;
+                    }}
                   />
                 )}
                 isError={!(employee.phone && employee.phone.length > 9) && triedToSubmit}
@@ -123,58 +135,57 @@ function ProfilePage() {
                 icon={<IconPhone />}
               />
               <InfoComponent
-                value={!isEdit ? (<span className="profile__contacts-info">{employee.personalEmail}</span>) : (
-                  <Input
-                    value={employee.personalEmail}
-                    maxLength={40}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
-                  />
-                )}
+                isHaveValue={!employee.personalEmail}
+                value={!isEdit
+                  ? employee.personalEmail
+                  : (
+                    <Input
+                      value={employee.personalEmail}
+                      maxLength={40}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
+                    />
+                  )}
                 label="Personal Email"
                 icon={<IconMessage />}
               />
               <InfoComponent
-                value={!isEdit ? (
-                  <span className="profile__contacts-info">
-                    @
-                    {employee.gitHub}
-                  </span>
-                ) : (
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  >
-                    @
-                    <Input
-                      value={employee.gitHub}
-                      maxLength={39}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
-                    />
-                  </div>
-                )}
+                isHaveValue={!employee.gitHub}
+                value={!isEdit
+                  ? employee.gitHub
+                  : (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                    >
+                      @
+                      <Input
+                        value={employee.gitHub}
+                        maxLength={39}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
+                      />
+                    </div>
+                  )}
                 label="Personal GitHub"
                 icon={<IconGithub />}
               />
               <InfoComponent
-                value={!isEdit ? (
-                  <span className="profile__contacts-info">
-                    @
-                    {employee.gitLab}
-                  </span>
-                ) : (
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  >
-                    @
-                    <Input
-                      value={employee.gitLab}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
-                    />
-                  </div>
-                )}
+                isHaveValue={!employee.gitLab}
+                value={!isEdit
+                  ? employee.gitLab
+                  : (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                    >
+                      @
+                      <Input
+                        value={employee.gitLab}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
+                      />
+                    </div>
+                  )}
                 label="Personal GitLab"
                 icon={<IconGitlab />}
               />
@@ -187,71 +198,90 @@ function ProfilePage() {
           {isLoading && <Skeleton className="profile__skeleton" count={4} containerTestId="loading-salary" />}
           {!isLoading && (
             <div>
-              <InfoComponent
-                value={(
-                  <NumericFormat
-                    type="text"
-                    displayType="text"
-                    value={employee.fullSalary}
-                    valueIsNumericString
-                    allowLeadingZeros
-                    thousandSeparator=","
-                    suffix=" ₽"
+              {employee.isSalaryInfoFilled ? (
+                <>
+                  <InfoComponent
+                    isHaveValue={employee.fullSalary < 0}
+                    value={(
+                      <NumericFormat
+                        type="text"
+                        displayType="text"
+                        value={employee.fullSalary}
+                        valueIsNumericString
+                        allowLeadingZeros
+                        thousandSeparator=","
+                        suffix=" ₽"
+                      />
+                    )}
+                    label="Full Salary"
+                    icon={<IconMoney />}
                   />
-                )}
-                label="Full Salary"
-                icon={<IconMoney />}
-              />
-              <InfoComponent
-                value={(
-                  <NumericFormat
-                    type="text"
-                    displayType="text"
-                    value={employee.districtCoefficient}
-                    valueIsNumericString
-                    allowLeadingZeros
-                    style={{
-                      color: '#1ED400',
-                    }}
-                    prefix="+ "
-                    thousandSeparator=","
-                    suffix=" ₽"
-                  />
-                )}
-                label="District Coefficient (15 %)"
-                icon={<IconPercent />}
-              />
-              <InfoComponent
-                value={(
-                  <NumericFormat
-                    displayType="text"
-                    value={employee.incomeTax}
-                    valueIsNumericString
-                    allowLeadingZeros
-                    style={{
-                      color: '#DA2228',
-                    }}
-                    prefix="- "
-                    thousandSeparator=","
-                    suffix=" ₽"
-                  />
-                )}
-                label="Income Tax (13 %)"
-                icon={<IconBoxPercent />}
-              />
-              <InfoComponent
-                value={(
-                  <NumericFormat
-                    displayType="text"
-                    value={employee.netSalary}
-                    valueIsNumericString
-                    thousandSeparator=","
-                    suffix=" ₽"
-                  />
-                )}
-                label="Net Salary"
-                icon={<IconVirginmoney />}
-              />
+                  {employee.isEmployedOfficially && (
+                    <InfoComponent
+                      isHaveValue={employee.districtCoefficient < 0}
+                      value={(
+                        <NumericFormat
+                          type="text"
+                          displayType="text"
+                          value={employee.districtCoefficient}
+                          valueIsNumericString
+                          allowLeadingZeros
+                          style={{
+                            color: '#1ED400',
+                          }}
+                          prefix="+ "
+                          thousandSeparator=","
+                          suffix=" ₽"
+                        />
+                      )}
+                      label="District Coefficient (15 %)"
+                      icon={<IconPercent />}
+                    />
+                  )}
+                  {employee.isEmployedOfficially && (
+                    <InfoComponent
+                      isHaveValue={employee.incomeTax < 0}
+                      value={(
+                        <NumericFormat
+                          displayType="text"
+                          value={employee.incomeTax}
+                          valueIsNumericString
+                          allowLeadingZeros
+                          style={{
+                            color: '#DA2228',
+                          }}
+                          prefix="- "
+                          thousandSeparator=","
+                          suffix=" ₽"
+                        />
+                      )}
+                      label="Income Tax (13 %)"
+                      icon={<IconBoxPercent />}
+                    />
+                  )}
+                  {employee.isEmployedOfficially && (
+                    <InfoComponent
+                      isHaveValue={employee.netSalary < 0}
+                      value={(
+                        <NumericFormat
+                          displayType="text"
+                          value={employee.netSalary}
+                          valueIsNumericString
+                          thousandSeparator=","
+                          suffix=" ₽"
+                        />
+                      )}
+                      label="Net Salary"
+                      icon={<IconVirginmoney />}
+                    />
+                  )}
+                </>
+              ) : (
+                <span style={{ opacity: 0.5 }}>
+                  Your salary will be filled soon..
+                </span>
+              )}
+
             </div>
           )}
         </div>
