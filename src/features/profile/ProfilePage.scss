@@ -1,6 +1,4 @@
 .profile {
-  padding: 20px;
-
   &__inner {
     display: flex;
     align-items: start;
@@ -32,6 +30,10 @@
 
   &__buttons {
     display: flex;
+  }
+
+  &__contacts-info {
+    word-break: break-all;
   }
 
   &__button {

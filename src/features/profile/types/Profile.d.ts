@@ -10,6 +10,8 @@ export type Employee = {
   districtCoefficient: number;
   incomeTax: number;
   netSalary: number;
+  isSalaryInfoFilled: boolean;
+  isEmployedOfficially: boolean;
 };
 
 export type EmployeeUpdateType = {

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import clsx from 'clsx';
 import InfoTip from '../../../../components/InfoTip/InfoTip';
 import { ReactComponent as IconError } from '../../../../assets/icons/icon-error.svg';
 
@@ -7,10 +8,12 @@ function InfoComponent({
   icon,
   label,
   isError = false,
+  isHaveValue,
 }: {
   label: string;
-  value: string | ReactNode,
+  value: ReactNode,
   icon?: ReactNode,
+  isHaveValue: boolean;
   isError?: boolean;
 }) {
   return (
@@ -22,8 +25,11 @@ function InfoComponent({
           <span className="info-component__icon">{icon}</span>
         </div>
 
-        <span className="info-component__value">
-          {value || 'I will be...'}
+        <span className={clsx('info-component__value', {
+          'info-component__value--not-filled': !isHaveValue,
+        })}
+        >
+          {isHaveValue ? value : 'not filled...'}
         </span>
       </div>
 
