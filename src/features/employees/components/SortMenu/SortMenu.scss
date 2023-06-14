@@ -21,7 +21,8 @@
   &__button {
     @include tc-button-reset;
 
-    &:hover {
+    &:hover,
+    &:focus {
       &::before {
         border-width: 1px;
       }
