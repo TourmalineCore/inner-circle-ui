@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import {
   ChangeEvent, useEffect, useState,
 } from 'react';
@@ -37,8 +38,6 @@ const initialValues = {
   isEmployedOfficially: false,
 };
 
-const PLACEHOLDER_TEXT = 'I will be...';
-
 function ProfilePage() {
   const [employee, setEmployee] = useState<Employee>(initialValues);
   const [initEmployee, initSetEmployee] = useState<Employee>(initialValues);
@@ -60,8 +59,8 @@ function ProfilePage() {
           {isLoading && <Skeleton className="profile__skeleton" count={2} containerTestId="loading-general-information" />}
           {!isLoading && (
             <div>
-              <InfoComponent isHaveValue={!employee.fullName} value={employee.fullName} label="Name" icon={<IconProfile />} />
-              <InfoComponent isHaveValue={!employee.corporateEmail} value={employee.corporateEmail} label="Corporate Email" icon={<IconOutlineEmail />} />
+              <InfoComponent isHaveValue={!!employee.fullName} value={employee.fullName} label="Name" icon={<IconProfile />} />
+              <InfoComponent isHaveValue={!!employee.corporateEmail} value={employee.corporateEmail} label="Corporate Email" icon={<IconOutlineEmail />} />
             </div>
           )}
         </div>
@@ -108,7 +107,7 @@ function ProfilePage() {
           {!isLoading && (
             <div>
               <InfoComponent
-                isHaveValue={employee.phone.length < 9}
+                isHaveValue={isEdit ? isEdit : !!(employee.phone && employee.phone.length > 9)}
                 value={(
                   <PatternFormat
                     className="profile__contacts-info"
@@ -121,13 +120,6 @@ function ProfilePage() {
                     mask="_"
                     allowEmptyFormatting
                     valueIsNumericString
-                    renderText={(formattedValue) => {
-                      if (formattedValue === '+7 (___) ___ __ __') {
-                        return PLACEHOLDER_TEXT;
-                      }
-
-                      return formattedValue;
-                    }}
                   />
                 )}
                 isError={!(employee.phone && employee.phone.length > 9) && triedToSubmit}
@@ -135,12 +127,12 @@ function ProfilePage() {
                 icon={<IconPhone />}
               />
               <InfoComponent
-                isHaveValue={!employee.personalEmail}
+                isHaveValue={isEdit ? isEdit : !!employee.personalEmail}
                 value={!isEdit
                   ? employee.personalEmail
                   : (
                     <Input
-                      value={employee.personalEmail}
+                      value={employee.personalEmail || ''}
                       maxLength={40}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
                     />
@@ -149,7 +141,7 @@ function ProfilePage() {
                 icon={<IconMessage />}
               />
               <InfoComponent
-                isHaveValue={!employee.gitHub}
+                isHaveValue={isEdit ? isEdit : !!employee.gitHub}
                 value={!isEdit
                   ? employee.gitHub
                   : (
@@ -160,7 +152,7 @@ function ProfilePage() {
                     >
                       @
                       <Input
-                        value={employee.gitHub}
+                        value={employee.gitHub || ''}
                         maxLength={39}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
                       />
@@ -170,7 +162,7 @@ function ProfilePage() {
                 icon={<IconGithub />}
               />
               <InfoComponent
-                isHaveValue={!employee.gitLab}
+                isHaveValue={isEdit ? isEdit : !!employee.gitLab}
                 value={!isEdit
                   ? employee.gitLab
                   : (
@@ -181,7 +173,7 @@ function ProfilePage() {
                     >
                       @
                       <Input
-                        value={employee.gitLab}
+                        value={employee.gitLab || ''}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
                       />
                     </div>
@@ -201,7 +193,7 @@ function ProfilePage() {
               {employee.isSalaryInfoFilled ? (
                 <>
                   <InfoComponent
-                    isHaveValue={employee.fullSalary < 0}
+                    isHaveValue={employee.fullSalary > 0}
                     value={(
                       <NumericFormat
                         type="text"
@@ -218,7 +210,7 @@ function ProfilePage() {
                   />
                   {employee.isEmployedOfficially && (
                     <InfoComponent
-                      isHaveValue={employee.districtCoefficient < 0}
+                      isHaveValue={employee.districtCoefficient > 0}
                       value={(
                         <NumericFormat
                           type="text"
@@ -240,7 +232,7 @@ function ProfilePage() {
                   )}
                   {employee.isEmployedOfficially && (
                     <InfoComponent
-                      isHaveValue={employee.incomeTax < 0}
+                      isHaveValue={employee.incomeTax > 0}
                       value={(
                         <NumericFormat
                           displayType="text"
@@ -261,7 +253,7 @@ function ProfilePage() {
                   )}
                   {employee.isEmployedOfficially && (
                     <InfoComponent
-                      isHaveValue={employee.netSalary < 0}
+                      isHaveValue={employee.netSalary > 0}
                       value={(
                         <NumericFormat
                           displayType="text"
@@ -278,7 +270,7 @@ function ProfilePage() {
                 </>
               ) : (
                 <span style={{ opacity: 0.5 }}>
-                  Your salary will be filled soon..
+                  Your salary will be filled soon...
                 </span>
               )}
 
