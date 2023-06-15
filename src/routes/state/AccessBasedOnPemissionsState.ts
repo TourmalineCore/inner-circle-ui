@@ -2,7 +2,6 @@ import { makeAutoObservable } from 'mobx';
 
 export enum Permission {
   ViewPersonalProfile = 'ViewPersonalProfile',
-  EditPersonalProfile = 'EditPersonalProfile',
   ViewContacts = 'ViewContacts',
   ViewSalaryAndDocumentsData = 'ViewSalaryAndDocumentsData',
   EditFullEmployeesData = 'EditFullEmployeesData',
