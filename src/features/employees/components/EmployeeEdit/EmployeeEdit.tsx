@@ -162,18 +162,22 @@ function EmployeeEdit() {
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employment Type *</span>
           <div className="employee-edit__control">
-            {Object.entries(employeeTypeData).map(([value, label]) => (
-              <CheckField
-                key={value}
-                style={{
-                  marginBottom: 16,
-                }}
-                viewType="radio"
-                label={label}
-                checked={value === String(employee.employmentType)}
-                onChange={() => setEmployee({ ...employee, employmentType: Number(value) })}
-              />
-            ))}
+            {Object.entries(employeeTypeData).map(([value, label]) => {
+              const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 ? '1' : '0.5';
+
+              return (
+                <CheckField
+                  key={value}
+                  style={{
+                    marginBottom: 16,
+                  }}
+                  viewType="radio"
+                  label={label}
+                  checked={value === employmentTypeValue}
+                  onChange={() => setEmployee({ ...employee, employmentType: Number(value) })}
+                />
+              );
+            })}
           </div>
         </li>
         <li className="employee-edit__item">
@@ -292,6 +296,7 @@ function EmployeeEdit() {
   async function updateEmployeesAsync() {
     const updateEmployee = {
       ...employee,
+      employmentType: employee.employmentType === null ? 1 : employee.employmentType,
       phone: `+7${employee.phone}`,
       ratePerHour: employee.ratePerHour || 0,
       parking: employee.parking || 0,
@@ -302,7 +307,9 @@ function EmployeeEdit() {
 
     setTriedToSubmit(true);
 
-    if (updateEmployee.phone.length > 9 && employee.personnelNumber!.length >= 4) {
+    const isValidPersonnelNumber = employee.isEmployedOfficially ? employee.personnelNumber!.length >= 4 : true;
+
+    if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
       try {
         await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
 
