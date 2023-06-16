@@ -309,13 +309,15 @@ function ProfilePage() {
       phone: `+7${employee.phone}`,
     };
 
-    try {
-      await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee);
+    if (employee.phone.length > 9) {
+      try {
+        await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee);
 
-      loadEmployeeAsync();
-      setIsEdit(false);
-    } finally {
-      setTriedToSubmit(false);
+        loadEmployeeAsync();
+        setIsEdit(false);
+      } finally {
+        setTriedToSubmit(false);
+      }
     }
   }
 }
