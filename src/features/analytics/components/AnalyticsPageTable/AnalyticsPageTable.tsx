@@ -44,6 +44,7 @@ function AnalyticsPageTable() {
     {
       Header: 'Employee',
       accessor: 'employeeFullName',
+      minWidth: 300,
       Footer: () => (
         <div className="analytics-page-table__total">
           {employees.rows.length}
@@ -51,11 +52,27 @@ function AnalyticsPageTable() {
           column total
         </div>
       ),
+      Cell: ({ row }: CellTable<GetTableType>) => {
+        const { employeeFullName } = row.original;
+
+        return (
+          <div
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {employeeFullName}
+          </div>
+        );
+      },
     },
     {
       Header: 'Employed',
-      accessor: (row) => row.metrics.isEmployedOfficially,
+      accessor: (row) => Number(row.metrics.isEmployedOfficially),
       disableFilters: true,
+      minWidth: 170,
       Cell: ({ row }: CellTable<GetTableType>) => {
         const { metrics } = row.original;
 

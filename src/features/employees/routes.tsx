@@ -19,7 +19,7 @@ export const employeesManageRoutes = [
   },
   {
     path: '/employees/edit',
-    breadcrumb: 'Edit contact details',
+    breadcrumb: 'Edit',
     Component: EmployeeEdit,
   },
 ];

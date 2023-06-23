@@ -37,8 +37,12 @@
     align-items: center;
     flex: none;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: 8px;
     text-align: center;
+
+    @include tablet {
+      margin-right: 16px;
+    }
   }
 
   &__counter {
