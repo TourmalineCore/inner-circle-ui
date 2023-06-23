@@ -10,7 +10,6 @@ import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
 import Copyright from './components/Copyright/Copyright';
 import MobileControlsPanel from './components/MobileControlsPanel/MobileControlsPanel';
 import SidebarItem from './components/Sidebar/components/SidebarItem/SidebarItem';
-import SidebarSettingsControl from './components/Sidebar/components/SidebarSettings/SidebarSettingsControl';
 import Sidebar from './components/Sidebar/Sidebar';
 import TemplatePages from './components/TemplatePages/TemplatePages';
 
@@ -52,18 +51,16 @@ function Template() {
             onCollapseToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             onOverlayClick={() => setIsMobileSidebarOpened(false)}
             onMenuLinkClick={() => setIsMobileSidebarOpened(false)}
-            renderBottomComponent={(props : { portalTarget: HTMLDivElement | null }) => (
-              <>
-                <SidebarSettingsControl portalTarget={props.portalTarget} />
+            renderBottomComponent={() => (
 
-                <SidebarItem
-                  icon={<IconLogout />}
-                  iconActive={<IconLogoutActive />}
-                  isWindowRedirectNecessary
-                  path="/auth/logout"
-                  label="LogOut"
-                />
-              </>
+              <SidebarItem
+                className="template__logout"
+                icon={<IconLogout />}
+                iconActive={<IconLogoutActive />}
+                isWindowRedirectNecessary
+                path="/auth/logout"
+                label="LogOut"
+              />
             )}
           />
         </div>

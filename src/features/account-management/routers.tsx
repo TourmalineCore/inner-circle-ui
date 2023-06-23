@@ -1,6 +1,4 @@
 import { ReactComponent as IconAccountManagement } from '../../assets/icons/icon-account-management.svg';
-import { ReactComponent as IconAnalytics } from '../../assets/icons/icon-analytics.svg';
-import { ReactComponent as IconAnalyticsActive } from '../../assets/icons/icon-analytics-active.svg';
 
 export const sidebarAccountManagement : {
   path: string;
@@ -14,9 +12,9 @@ export const sidebarAccountManagement : {
   }[]
 } = {
   path: '/',
-  label: 'Account management',
-  icon: <IconAnalytics />,
-  iconActive: <IconAnalyticsActive />,
+  label: 'Management',
+  icon: <IconAccountManagement />,
+  iconActive: <IconAccountManagement />,
   routes: [],
 };
 
