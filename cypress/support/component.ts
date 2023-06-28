@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import './commands';
-import './env-config';
+import '../env-config';
 // import '../../public/env-config';
 
 /// <reference types="cypress" />
