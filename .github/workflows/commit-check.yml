@@ -52,7 +52,7 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: dist
+          path: build
   
   components-test:
     runs-on: ubuntu-22.04 
