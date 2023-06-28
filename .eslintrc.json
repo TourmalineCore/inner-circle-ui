@@ -5,24 +5,22 @@
   "plugins": [
     "@typescript-eslint",
     "react",
-    "jest",
-    "cypress"
+    "eslint-plugin-cypress"
   ],
   "env": {
     "browser": true,
     "es2021": true,
-    "jest/globals": true
+    "cypress/globals":true
   },
   "extends": [
     "plugin:react/recommended",
-    "plugin:jest/recommended",
-    "plugin:cypress/recommended",
     "airbnb",
-    "airbnb-typescript"
+    "airbnb-typescript",
+    "plugin:cypress/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
+    "project": ["./tsconfig.json"],
     "ecmaFeatures": {
       "tsx": true
     },

@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react-jsx",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"],
+    "noImplicitAny": true,
+  }, 
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+  ]  
+} 

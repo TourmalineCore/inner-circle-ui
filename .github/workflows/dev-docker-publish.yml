@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - develop
-      - feature/recover-ci
-  pull_request:
 
 env:
   GITHUB_REGISTRY: ghcr.io
