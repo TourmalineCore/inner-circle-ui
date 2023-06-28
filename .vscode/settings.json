@@ -1,10 +1,12 @@
 {
   "eslint.alwaysShowStatus": true,
   "eslint.options": {
-    "extensions": [ ".jsx" ]
+    "extensions": [ ".jsx, .ts, .tsx, .js" ]
   },
   "eslint.validate": [
-    "javascript"
+    "javascript",
+    "typescript", 
+    "typescriptreact",
   ],
   "[javascript]": {
     "editor.formatOnSave": false

@@ -25,8 +25,9 @@
   "include": [
     "**/*.d.ts",
     "src",
+    "./.eslintrc.json",
     "cypress",
-    "cypress.config.js",
+    "cypress.config.ts",
     "helpers"
   ]
 }
