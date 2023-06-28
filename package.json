@@ -64,7 +64,7 @@
     "start": "run-s create-config:dev start-devserver",
     "start:local": "run-s create-config:local start-devserver",
     "start-devserver": "react-scripts start",
-    "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build": "cross-env DISABLE_ESLINT_PLUGIN=true CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "standard-version",
