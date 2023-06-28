@@ -1,33 +1,29 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "module": "ES2020",
+    // "module": "ESNext",
+    "target": "ESNext",
     "downlevelIteration": true,
     "importHelpers": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
   "include": [
-    "**/*.d.ts",
     "src",
+    "**/*.d.ts",
     "./.eslintrc.json",
     "cypress",
-    "cypress.config.ts",
-    "helpers"
+    "local-config-builder.js"
   ]
 }
