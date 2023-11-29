@@ -3,7 +3,7 @@ ENV PATH /node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 # COPY .npmrc ./
-RUN npm ci --production
+RUN npm ci
 COPY . ./
 RUN npm run build
 
