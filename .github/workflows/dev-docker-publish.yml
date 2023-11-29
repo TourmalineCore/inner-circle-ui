@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - feature/change-ci-vars-to-deploy-to-new-cluster
 
 env:
   GITHUB_REGISTRY: ghcr.io
