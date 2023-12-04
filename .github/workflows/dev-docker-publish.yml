@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature/deploy-to-new-cluster
 
 env:
   GITHUB_REGISTRY: ghcr.io
