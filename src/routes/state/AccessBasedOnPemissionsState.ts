@@ -10,6 +10,8 @@ export enum Permission {
   ManageAccounts = 'ManageAccounts',
   ViewRoles = 'ViewRoles',
   ManageRoles = 'ManageRoles',
+  ViewPersonalCompensations = 'ViewPersonalCompensations',
+  CanManageCompensations = 'CanManageCompensations',
 }
 
 class AccessBasedOnPemissionsState {
