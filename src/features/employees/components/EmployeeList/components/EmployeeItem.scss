@@ -5,12 +5,13 @@
 
   &__inner {
     display: grid;
-    border: 1px solid #000;
+    border: 1px solid #e4ecf0;
     border-radius: 10px;
     padding: 10px;
     font-weight: 500;
     font-size: 14px;
     color: #000;
+    background-color: #fff;
     gap: 30px;
     grid-template-columns: repeat(3, 1fr) auto 100px;
   }
