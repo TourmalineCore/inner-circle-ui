@@ -16,7 +16,7 @@ export function getRouteForCompensations(permission: string) {
   if (permission === 'ViewPersonalCompensations') {
     return [{
       isWindowRedirectNecessary: true,
-      path: `${LINK_TO_DASHBOARD}compensations/personal`,
+      path: `${LINK_TO_DASHBOARD}compensations/my`,
       label: 'Compensations',
       icon: <IconProfile />,
       iconActive: <IconProfileActive />,
@@ -42,8 +42,8 @@ export const compensationsAllAccessSidebarRoutes = [
     routes: [
       {
         isWindowRedirectNecessary: true,
-        path: `${LINK_TO_DASHBOARD}compensations/personal`,
-        label: 'Personal',
+        path: `${LINK_TO_DASHBOARD}compensations/my`,
+        label: 'My',
         iconMini: <IconProfile />,
       },
       {
