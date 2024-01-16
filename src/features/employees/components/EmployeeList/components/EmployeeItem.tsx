@@ -7,6 +7,10 @@ import { useContext } from 'react';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
 import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
+import { ReactComponent as IconPhone } from '../../../../../assets/icons/icon-phone.svg';
+import { ReactComponent as IconGithub } from '../../../../../assets/icons/icon-github.svg';
+import { ReactComponent as IconGitlab } from '../../../../../assets/icons/icon-gitlab.svg';
+import { ReactComponent as IconMessage } from '../../../../../assets/icons/icon-outline-email.svg';
 
 function EmployeeItem({
   employee,
@@ -35,14 +39,14 @@ function EmployeeItem({
             <div>Contacts</div>
             <ul className="employee-item__contacts-list">
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle" />
+                <span className="employee-item__circle"><IconMessage /></span>
                 <span>
                   {employee.personalEmail ? <a href={`mailto:${employee.personalEmail}`} title="click to email">{employee.personalEmail}</a>
                     : '--'}
                 </span>
               </li>
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle" />
+                <span className="employee-item__circle"><IconPhone /></span>
                 <PatternFormat
                   type="tel"
                   displayType="text"
@@ -59,7 +63,7 @@ function EmployeeItem({
                 />
               </li>
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle" />
+                <span className="employee-item__circle"><IconGithub /></span>
                 <span>
                   {employee.gitHub
                     ? <a href={`https://github.com/${employee.gitHub}`} title="link to gitHub" target="_blank" rel="noreferrer">{employee.gitHub}</a>
@@ -68,7 +72,7 @@ function EmployeeItem({
                 </span>
               </li>
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle" />
+                <span className="employee-item__circle"><IconGitlab /></span>
                 <span>
                   {employee.gitLab
                     ? <a href={`https://gitlab.com/${employee.gitLab}`} title="link to gitLab" target="_blank" rel="noreferrer">{employee.gitLab}</a>
