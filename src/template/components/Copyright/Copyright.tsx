@@ -12,7 +12,9 @@ function Copyright() {
         Tourmaline Core
       </a>
       {' '}
-      2022
+      2022 -
+      {' '}
+      {new Date().getFullYear()}
     </div>
   );
 }
