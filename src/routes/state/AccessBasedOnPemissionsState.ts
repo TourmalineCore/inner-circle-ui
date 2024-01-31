@@ -10,7 +10,7 @@ export enum Permission {
   ManageAccounts = 'ManageAccounts',
   ViewRoles = 'ViewRoles',
   ManageRoles = 'ManageRoles',
-  ViewPersonalCompensations = 'ViewPersonalCompensations',
+  CanRequestCompensations = 'CanRequestCompensations',
   CanManageCompensations = 'CanManageCompensations',
 }
 
