@@ -12,7 +12,7 @@ export const compensationsSidebarRoutes = [
 ];
 
 export function getRouteForCompensations(permission: string) {
-  if (permission === 'ViewPersonalCompensations') {
+  if (permission === 'CanRequestCompensations') {
     return [{
       isWindowRedirectNecessary: true,
       path: '/compensations/my',

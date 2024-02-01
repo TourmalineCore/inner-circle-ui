@@ -59,15 +59,15 @@ export function getSidebarRoutes(accessPermissions: Map<keyof typeof Permission,
     routes.push(...employeesSidebarRoutes);
   }
 
-  if (accessPermissions.get('ViewPersonalCompensations') && accessPermissions.get('CanManageCompensations')) {
+  if (accessPermissions.get('CanRequestCompensations') && accessPermissions.get('CanManageCompensations')) {
     routes.push(...compensationsAllAccessSidebarRoutes);
   }
 
-  if (accessPermissions.get('ViewPersonalCompensations') && !accessPermissions.get('CanManageCompensations')) {
-    routes.push(...getRouteForCompensations('ViewPersonalCompensations'));
+  if (accessPermissions.get('CanRequestCompensations') && !accessPermissions.get('CanManageCompensations')) {
+    routes.push(...getRouteForCompensations('CanRequestCompensations'));
   }
 
-  if (accessPermissions.get('CanManageCompensations') && !accessPermissions.get('ViewPersonalCompensations')) {
+  if (accessPermissions.get('CanManageCompensations') && !accessPermissions.get('CanRequestCompensations')) {
     routes.push(...getRouteForCompensations('CanManageCompensations'));
   }
 
