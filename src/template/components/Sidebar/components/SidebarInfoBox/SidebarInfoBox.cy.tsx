@@ -8,6 +8,10 @@ const initialDataSecond = {
   name: 'anklastname',
 };
 
+const initialDataThird = {
+  name: 'yulastname',
+};
+
 describe('SidebarInfoBox', () => {
   it(`
   GIVEN one of ui pages
@@ -31,6 +35,18 @@ describe('SidebarInfoBox', () => {
     });
 
     cy.getByData('sidebar-infobox').should('have.text', 'Klastname A.');
+  });
+
+  it(`
+  GIVEN one of ui pages 
+  WHEN open sidebar
+  THEN render user fullName
+  `, () => {
+    mountComponent({
+      infoBoxData: initialDataThird,
+    });
+
+    cy.getByData('sidebar-infobox').should('have.text', 'Lastname Y.');
   });
 });
 
