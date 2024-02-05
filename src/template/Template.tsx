@@ -1,22 +1,20 @@
 import clsx from 'clsx';
 import { memo, useContext, useState } from 'react';
 import useBreadcrumbs, { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
-
 import { useLocation } from 'react-router-dom';
 import { ReactComponent as IconLogoutActive } from '../assets/icons/icon-logout-active.svg';
 import { ReactComponent as IconLogout } from '../assets/icons/icon-logout.svg';
-
 import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
 import Copyright from './components/Copyright/Copyright';
 import MobileControlsPanel from './components/MobileControlsPanel/MobileControlsPanel';
 import SidebarItem from './components/Sidebar/components/SidebarItem/SidebarItem';
 import Sidebar from './components/Sidebar/Sidebar';
 import TemplatePages from './components/TemplatePages/TemplatePages';
-
 import { useSidebarRoutes } from './hooks/useSidebarRoutes';
-
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
 import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
+import { parseJwt } from '../features/employees/utils/utilsForPermissions';
+import { authService } from '../common/authService';
 
 function Template() {
   const location = useLocation();
@@ -35,6 +33,10 @@ function Template() {
     ? breadcrumbs[breadcrumbs.length - 2].key
     : null;
 
+  // @ts-ignore
+  const [token] = useContext(authService.AuthContext);
+  const infoBoxDataName = parseJwt(token).corporateEmail.split('@')[0];
+
   return (
     <>
       <div
@@ -44,7 +46,7 @@ function Template() {
       >
         <div className="template__sidebar">
           <Sidebar
-            infoBoxData={{}}
+            infoBoxData={{ name: infoBoxDataName }}
             menuData={parsedSidebarRoutes}
             isCollapsed={isSidebarCollapsed}
             isMobileOpened={isMobileSidebarOpened}
