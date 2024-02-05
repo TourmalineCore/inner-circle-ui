@@ -23,6 +23,11 @@ export function SidebarInfoBox({
       const lastName = word.substring(2);
       return `${lastName[0].toUpperCase() + word.slice(3)} ${firstName}.`;
     }
+    if (word.substring(0, 2) === 'yu') {
+      const firstName = word[0].toUpperCase();
+      const lastName = word.substring(2);
+      return `${lastName[0].toUpperCase() + word.slice(3)} ${firstName}.`;
+    }
     const firstName = word[0].toUpperCase();
     const lastName = word.substring(1);
     return `${lastName[0].toUpperCase() + word.slice(2)} ${firstName}.`;
