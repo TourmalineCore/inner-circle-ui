@@ -2,17 +2,13 @@ import {
   useRef, useEffect, CSSProperties, ReactNode, MouseEvent,
 } from 'react';
 import clsx from 'clsx';
-
-import SidebarInfoBox from './components/SidebarInfoBox/SidebarInfoBox';
 import SidebarItem from './components/SidebarItem/SidebarItem';
-
 import { useSidebarSwipe } from '../../hooks/useSidebarSwipe';
-
 import { SidebarProps } from '../../types/Template';
 import SidebarLogo from './components/SidebarLogo/SidebarLogo';
-
 import { ReactComponent as IconAngleDoubleRight } from '../../../assets/icons/icon-angle-double-right.svg';
 import { ReactComponent as IconAngleDoubleLight } from '../../../assets/icons/icon-angle-double-left.svg';
+import { SidebarInfoBox } from './components/SidebarInfoBox/SidebarInfoBox';
 
 const OPENED_DOCUMENT_CLASSNAME = 'is-sidebar-mobile-opened';
 
@@ -36,7 +32,7 @@ function Sidebar({
   menuData: SidebarProps[];
   infoBoxData: {
     photoUrl?: string;
-    name?: string;
+    name: string;
     email?: string;
   };
   renderBottomComponent?: ({ portalTarget }: { portalTarget: HTMLDivElement | null }) => JSX.Element;
