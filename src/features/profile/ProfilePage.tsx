@@ -52,10 +52,9 @@ function ProfilePage() {
 
   return (
     <div className="profile">
-      <h1 className="heading">My Profile</h1>
       <div className="profile__inner">
         <div className="profile__box">
-          <h2>General information</h2>
+          <h2 className="profile__head">General information</h2>
           {isLoading && <Skeleton className="profile__skeleton" count={2} containerTestId="loading-general-information" />}
           {!isLoading && (
             <div>
@@ -67,7 +66,7 @@ function ProfilePage() {
 
         <div className="profile__box">
           <div className="profile__edit-box">
-            <h2>Contacts</h2>
+            <h2 className="profile__head">Contacts</h2>
             {!isLoading && (
               <div className="profile__buttons">
                 {!isEdit ? (
@@ -186,7 +185,7 @@ function ProfilePage() {
         </div>
 
         <div className="profile__box">
-          <h2>Salary</h2>
+          <h2 className="profile__head">Salary</h2>
           {isLoading && <Skeleton className="profile__skeleton" count={4} containerTestId="loading-salary" />}
           {!isLoading && (
             <div>
