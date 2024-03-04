@@ -12,6 +12,7 @@ export enum Permission {
   ManageRoles = 'ManageRoles',
   CanRequestCompensations = 'CanRequestCompensations',
   CanManageCompensations = 'CanManageCompensations',
+  CanManageDocuments = 'CanManageDocuments',
 }
 
 class AccessBasedOnPemissionsState {
