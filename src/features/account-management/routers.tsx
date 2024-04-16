@@ -31,3 +31,10 @@ export const rolesSidebarRoutes = {
   label: 'Roles',
   iconMini: <IconAccountManagement />,
 };
+
+export const tenantsSidebarRoutes = {
+  isWindowRedirectNecessary: true,
+  path: '/account-management/tenants',
+  label: 'Tenants',
+  iconMini: <IconAccountManagement />,
+};
