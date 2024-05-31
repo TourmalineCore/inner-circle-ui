@@ -16,6 +16,7 @@ export const CopyToClipboardButton = observer(({
       className={`copy-item--${notificationPosition}`}
       data-cy="copy-item"
     >
+
       <CopyToClipboard
         text={text}
         onCopy={handleCopy}

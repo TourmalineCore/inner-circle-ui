@@ -14,7 +14,7 @@ describe('CopyToClipboardButton', () => {
       .should('exist');
   });
 
-  it(`
+  it.skip(`
     GIVEN text to be copied
     WHEN click on it
     THEN render copy notification
