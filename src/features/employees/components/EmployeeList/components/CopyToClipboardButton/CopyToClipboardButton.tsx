@@ -11,13 +11,6 @@ export const CopyToClipboardButton = observer(({
 }) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2500);
-  };
-
   return (
     <div
       className={`copy-item--${notificationPosition}`}
@@ -46,4 +39,11 @@ export const CopyToClipboardButton = observer(({
       )}
     </div>
   );
+
+  function handleCopy() {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2500);
+  }
 });
