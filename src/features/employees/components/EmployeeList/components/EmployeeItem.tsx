@@ -4,7 +4,7 @@ import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import moment from 'moment';
 import { useContext } from 'react';
-import { CopyToClipboardButton } from './CopyToClipboardButton';
+import { CopyToClipboardButton } from './CopyToClipboardButton/CopyToClipboardButton';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
 import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
