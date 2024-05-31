@@ -19,16 +19,30 @@ export const CopyToClipboardButton = observer(({
   };
 
   return (
-    <div className={`copy-item--${notificationPosition}`}>
+    <div
+      className={`copy-item--${notificationPosition}`}
+      data-cy="copy-item"
+    >
       <CopyToClipboard
         text={text}
         onCopy={handleCopy}
+        data-cy="copy-text"
       >
-        <span title="click to email to copy it" className="copy-item__text">{text}</span>
+        <span
+          title="click to email to copy it"
+          className="copy-item__text"
+        >
+          {text}
+        </span>
       </CopyToClipboard>
 
       {copied && (
-        <span className={`copy-item__notification copy-item__notification--${notificationPosition}`}>Copied!</span>
+        <span
+          className={`copy-item__notification copy-item__notification--${notificationPosition}`}
+          data-cy="copy-notification"
+        >
+          Copied!
+        </span>
       )}
     </div>
   );
