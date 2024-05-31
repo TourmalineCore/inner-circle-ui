@@ -4,6 +4,7 @@ import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import moment from 'moment';
 import { useContext } from 'react';
+import { CopyToClipboardButton } from './CopyToClipboardButton';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
 import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
@@ -31,7 +32,7 @@ function EmployeeItem({
       <div className="employee-item__inner">
         <div>
           <div className="employee-item__name">{employee.fullName}</div>
-          <a href={`mailto:${employee.corporateEmail}`} title="click to email">{employee.corporateEmail}</a>
+          <CopyToClipboardButton text={employee.corporateEmail} notificationPosition="bottom" />
         </div>
 
         {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
@@ -41,7 +42,7 @@ function EmployeeItem({
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle"><IconMessage /></span>
                 <span>
-                  {employee.personalEmail ? <a href={`mailto:${employee.personalEmail}`} title="click to email">{employee.personalEmail}</a>
+                  {employee.personalEmail ? <CopyToClipboardButton text={employee.personalEmail} notificationPosition="right" />
                     : '--'}
                 </span>
               </li>
