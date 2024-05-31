@@ -2,7 +2,13 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-export const CopyToClipboardButton = observer(({ text, notificationPosition }: any) => {
+export const CopyToClipboardButton = observer(({
+  text,
+  notificationPosition,
+}: {
+  text: string;
+  notificationPosition: string;
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
