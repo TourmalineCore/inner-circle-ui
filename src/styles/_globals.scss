@@ -15,6 +15,8 @@
   --auth-bg-accent-color-first: #81b4ff;
   --auth-bg-accent-color-last: #ffc1ee;
   --sidebar-background-gradient: linear-gradient(0deg, rgb(224 223 246 / 50%), rgb(224 223 246 / 50%));
+  --filter-color-light-gray: #f1f5f7;
+  --filter-color-gray: #e4ecf0;
 
   @include tablet-xl {
     --sidebar-width: 256px;
