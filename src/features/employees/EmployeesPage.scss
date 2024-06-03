@@ -56,18 +56,21 @@
   &__box {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--color-grey);
-    padding-bottom: 20px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e4ecf0;
+    padding-bottom: 16px;
   }
 
   &__notification {
     margin: 0 auto;
-    border: 1px solid #aaa;
+    margin-bottom: 8px;
+    border: 1px solid #e4ecf0;
+    border-radius: 12px;
     padding: 8px 40px;
     max-width: fit-content;
     font-weight: 500;
     font-size: 20px;
     line-height: 1.4;
+    background: #fff;
   }
 }

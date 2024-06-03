@@ -1,11 +1,32 @@
 .filter-menu {
-  &__button {
-    @include tc-button-reset;
+  display: flex;
+  margin: 0;
+  border: 1px solid var(--filter-color-gray);
+  border-radius: 12px;
+  padding: 0;
+  max-height: 40px;
+  background: var(--color-white);
 
-    margin-left: 10px;
+  &__button {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    min-width: 98px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #000;
+    background: var(--color-white);
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      opacity: 0.75;
+    }
 
     &--active {
-      background-color: var(--comp-color-light-gray);
+      background: var(--filter-color-light-gray);
     }
   }
 }

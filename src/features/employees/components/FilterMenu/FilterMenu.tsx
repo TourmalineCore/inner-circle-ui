@@ -2,8 +2,6 @@ import {
   MouseEvent, useContext, useEffect,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import EmployeesStateContext from '../../context/EmployeesStateContext';
@@ -27,7 +25,7 @@ const filterElements = [
   },
 ];
 
-function FilterMenu() {
+export const FilterMenu = observer(() => {
   const employeesState = useContext(EmployeesStateContext);
 
   const [params, setParams] = useSearchParams();
@@ -48,7 +46,7 @@ function FilterMenu() {
   return (
     <div className="filter-menu">
       {filterElements.map((item) => (
-        <Button
+        <button
           type="button"
           className={clsx('filter-menu__button', {
             'filter-menu__button--active': item.id === employeesState.filterTerm,
@@ -59,7 +57,7 @@ function FilterMenu() {
           onClick={sortHandler}
         >
           {item.name}
-        </Button>
+        </button>
       ))}
     </div>
   );
@@ -82,6 +80,4 @@ function FilterMenu() {
 
     employeesState.updateFilterTerm(event.currentTarget.id);
   }
-}
-
-export default observer(FilterMenu);
+});

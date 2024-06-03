@@ -1,20 +1,18 @@
 import {
   useContext, useEffect, useMemo, useState,
 } from 'react';
-
 import { observer } from 'mobx-react-lite';
-import SearchBar from './components/SearchBar/SearchBar';
-
+import { SearchBar } from './components/SearchBar/SearchBar';
 import EmployeeList from './components/EmployeeList/EmployeeList';
-import FilterMenu from './components/FilterMenu/FilterMenu';
-import SortMenu from './components/SortMenu/SortMenu';
+import { SortMenu } from './components/SortMenu/SortMenu';
 import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
 import AccessBasedOnPemissionsStateContext from '../../routes/state/AccessBasedOnPemissionsStateContext';
+import { FilterMenu } from './components/FilterMenu/FilterMenu';
 
-function EmployeesPage() {
+export const EmployeesPage = observer(() => {
   const employeesState = useMemo(() => new EmployeesState(), []);
   const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
 
@@ -66,6 +64,4 @@ function EmployeesPage() {
       setIsLoading(false);
     }
   }
-}
-
-export default observer(EmployeesPage);
+});
