@@ -1,11 +1,10 @@
 import {
   useState, useEffect, useContext,
 } from 'react';
-import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import clsx from 'clsx';
 import EmployeesStateContext from '../../context/EmployeesStateContext';
 
-function SortMenu() {
+export function SortMenu() {
   const [count, setCount] = useState<number>(0);
 
   const employeesState = useContext(EmployeesStateContext);
@@ -44,7 +43,7 @@ function SortMenu() {
 
   return (
     <div className="sort-menu">
-      <Button
+      <button
         className="sort-menu__button"
         type="button"
         id={employeesState.sortTerm}
@@ -61,9 +60,7 @@ function SortMenu() {
             </span>
           </div>
         </span>
-      </Button>
+      </button>
     </div>
   );
 }
-
-export default SortMenu;
