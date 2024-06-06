@@ -1,13 +1,13 @@
-import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.svg';
-import { ReactComponent as IconProfileActive } from '../../assets/icons/icon-profile-active.svg';
+import { ReactComponent as IconCompensations } from '../../assets/icons/icon-compensations.svg';
+import { ReactComponent as IconCompensationsActive } from '../../assets/icons/icon-compensations-active.svg';
 
 export const compensationsSidebarRoutes = [
   {
     isWindowRedirectNecessary: true,
     path: '/compensations',
     label: 'Compensations',
-    icon: <IconProfile />,
-    iconActive: <IconProfileActive />,
+    icon: <IconCompensations />,
+    iconActive: <IconCompensationsActive />,
   },
 ];
 
@@ -17,8 +17,8 @@ export function getRouteForCompensations(permission: string) {
       isWindowRedirectNecessary: true,
       path: '/compensations/my',
       label: 'Compensations',
-      icon: <IconProfile />,
-      iconActive: <IconProfileActive />,
+      icon: <IconCompensations />,
+      iconActive: <IconCompensationsActive />,
     }];
   }
 
@@ -26,8 +26,8 @@ export function getRouteForCompensations(permission: string) {
     isWindowRedirectNecessary: true,
     path: '/compensations/all',
     label: 'Compensations',
-    icon: <IconProfile />,
-    iconActive: <IconProfileActive />,
+    icon: <IconCompensations />,
+    iconActive: <IconCompensationsActive />,
   }];
 }
 
@@ -36,20 +36,20 @@ export const compensationsAllAccessSidebarRoutes = [
     isWindowRedirectNecessary: true,
     path: '/compensations',
     label: 'Compensations',
-    icon: <IconProfile />,
-    iconActive: <IconProfile />,
+    icon: <IconCompensations />,
+    iconActive: <IconCompensationsActive />,
     routes: [
       {
         isWindowRedirectNecessary: true,
         path: '/compensations/my',
         label: 'My',
-        iconMini: <IconProfile />,
+        iconMini: <IconCompensations />,
       },
       {
         isWindowRedirectNecessary: true,
         path: '/compensations/all',
         label: 'All',
-        iconMini: <IconProfile />,
+        iconMini: <IconCompensations />,
       }],
   },
 ];
