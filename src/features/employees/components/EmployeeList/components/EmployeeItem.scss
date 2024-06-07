@@ -81,10 +81,21 @@
   }
 
   &__button {
-    @include tc-button-reset;
-
-    height: max-content;
+    display: block;
+    margin: 0;
+    border: 1px solid #e4ecf0;
+    border-radius: 12px;
+    padding: 8px 32px;
+    min-width: 120px;
     min-width: 0;
+    max-height: 40px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.15;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
   }
 
   &--is-blank {
