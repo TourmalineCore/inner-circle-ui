@@ -3,7 +3,7 @@ import {
   ChangeEvent, useEffect, useState,
 } from 'react';
 
-import { Button, Input } from '@tourmalinecore/react-tc-ui-kit';
+import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import Skeleton from 'react-loading-skeleton';
 import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
@@ -70,23 +70,26 @@ function ProfilePage() {
             {!isLoading && (
               <div className="profile__buttons">
                 {!isEdit ? (
-                  <Button
+                  <button
+                    type="button"
                     className="profile__button"
                     onClick={() => setIsEdit(true)}
                   >
                     Edit
-                  </Button>
+                  </button>
                 ) : (
                   <>
-                    <Button
+                    <button
+                      type="button"
                       className="profile__button"
                       onClick={() => {
                         editEmployeeAsync();
                       }}
                     >
                       Save
-                    </Button>
-                    <Button
+                    </button>
+                    <button
+                      type="button"
                       className="profile__button"
                       onClick={() => {
                         setIsEdit(false);
@@ -95,7 +98,7 @@ function ProfilePage() {
                       }}
                     >
                       Cancel
-                    </Button>
+                    </button>
                   </>
                 )}
               </div>
