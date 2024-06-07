@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import moment from 'moment';
 import { useContext } from 'react';
@@ -152,13 +151,13 @@ function EmployeeItem({
         )}
 
         {accessBasedOnPemissionsState.accessPermissions.get('EditFullEmployeesData') && (
-          <Button
+          <button
             className="employee-item__button"
             type="button"
             onClick={() => { navigate(`/employees/edit?id=${employee.employeeId}`); }}
           >
             Edit
-          </Button>
+          </button>
         )}
       </div>
     </li>
