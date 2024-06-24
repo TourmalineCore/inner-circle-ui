@@ -12,6 +12,10 @@ const initialDataThird = {
   name: 'yulastname',
 };
 
+const initialDataFourth = {
+  name: 'snllastname',
+};
+
 describe('SidebarInfoBox', () => {
   it(`
   GIVEN email starts at first letter of the name and then last name 
@@ -53,6 +57,20 @@ describe('SidebarInfoBox', () => {
     cy
       .getByData('sidebar-infobox')
       .should('have.text', 'Lastname Y.');
+  });
+
+  it(`
+    GIVEN exception email starts at snl and then last name without first letter
+    WHEN open sidebar
+    THEN render correct user fullName
+    `, () => {
+    mountComponent({
+      infoBoxData: initialDataFourth,
+    });
+
+    cy
+      .getByData('sidebar-infobox')
+      .should('have.text', 'Llastname S.');
   });
 });
 
