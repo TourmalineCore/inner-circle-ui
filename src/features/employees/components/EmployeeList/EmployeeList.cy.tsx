@@ -19,13 +19,24 @@ describe('EmployeeList', () => {
   GIVEN employee list component
   WHEN isLoading property is true 
   THEN see skeleton
-    `, () => {
+  `, () => {
     mountComponent({
       isLoading: true,
     });
 
     cy.get('.employee-list__skeleton')
       .should('exist');
+  });
+
+  it(`
+  GIVEN employee list component
+  WHEN employee list is empty 
+  THEN see text about it
+  `, () => {
+    mountComponent();
+
+    cy.getByData('employee-list-empty')
+      .contains('List empty');
   });
 });
 

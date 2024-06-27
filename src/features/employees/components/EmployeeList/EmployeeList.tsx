@@ -33,7 +33,7 @@ export const EmployeeList = observer(({
       }
       {
         employees.length === 0 && (
-          <li>List empty</li>
+          <li data-cy="employee-list-empty">List empty</li>
         )
       }
       {
