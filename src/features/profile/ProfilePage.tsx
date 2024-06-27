@@ -9,7 +9,7 @@ import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-f
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
-import InfoComponent from './components/InfoComponent/InfoComponent';
+import { InfoComponent } from './components/InfoComponent/InfoComponent';
 
 import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconBoxPercent } from '../../assets/icons/icon-box-percent.svg';

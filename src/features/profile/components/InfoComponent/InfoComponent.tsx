@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import InfoTip from '../../../../components/InfoTip/InfoTip';
 import { ReactComponent as IconError } from '../../../../assets/icons/icon-error.svg';
 
-function InfoComponent({
+export function InfoComponent({
   value,
   icon,
   label,
@@ -18,7 +18,6 @@ function InfoComponent({
 }) {
   return (
     <div className="info-component">
-
       <div className="info-component__card">
         <div className="info-component__header">
           <span className="info-component__name">{label}</span>
@@ -29,20 +28,24 @@ function InfoComponent({
           'info-component__value--not-filled': !isHaveValue,
         })}
         >
-          {isHaveValue ? value : 'not filled...'}
+          {
+            isHaveValue
+              ? value
+              : 'not filled...'
+          }
         </span>
       </div>
 
-      {isError && (
-        <InfoTip
-          className="info-component__info-tip"
-          content="Please fill this field."
-          classNameContent="info-component__info-content"
-          icon={<IconError />}
-        />
-      )}
+      {
+        isError && (
+          <InfoTip
+            className="info-component__info-tip"
+            content="Please fill this field."
+            classNameContent="info-component__info-content"
+            icon={<IconError />}
+          />
+        )
+      }
     </div>
   );
 }
-
-export default InfoComponent;
