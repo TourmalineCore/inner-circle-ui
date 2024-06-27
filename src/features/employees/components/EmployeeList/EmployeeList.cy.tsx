@@ -75,6 +75,75 @@ describe('EmployeeList', () => {
       .getByData('employee-item')
       .should('have.length', 1);
   });
+
+  it(`
+  GIVEN employee list component
+  WHEN there are three employee 
+  THEN see 3 items in list
+  `, () => {
+    mountComponent({
+      employees: [
+        {
+          employeeId: 1,
+          fullName: 'name',
+          corporateEmail: 'email',
+          personalEmail: null,
+          phone: null,
+          gitHub: null,
+          gitLab: null,
+          netSalary: null,
+          ratePerHour: null,
+          fullSalary: null,
+          employmentType: null,
+          parking: null,
+          personnelNumber: null,
+          hireDate: null,
+          isCurrentEmployee: true,
+          isBlankEmployee: false,
+        },
+        {
+          employeeId: 2,
+          fullName: 'name2',
+          corporateEmail: 'email2',
+          personalEmail: null,
+          phone: null,
+          gitHub: null,
+          gitLab: null,
+          netSalary: null,
+          ratePerHour: null,
+          fullSalary: null,
+          employmentType: null,
+          parking: null,
+          personnelNumber: null,
+          hireDate: null,
+          isCurrentEmployee: true,
+          isBlankEmployee: false,
+        },
+        {
+          employeeId: 3,
+          fullName: 'name3',
+          corporateEmail: 'email3',
+          personalEmail: null,
+          phone: null,
+          gitHub: null,
+          gitLab: null,
+          netSalary: null,
+          ratePerHour: null,
+          fullSalary: null,
+          employmentType: null,
+          parking: null,
+          personnelNumber: null,
+          hireDate: null,
+          isCurrentEmployee: true,
+          isBlankEmployee: false,
+        },
+      ],
+    });
+
+    cy
+      .getByData('employee-item')
+      .should('have.length', 3);
+  });
 });
 
 function mountComponent({
