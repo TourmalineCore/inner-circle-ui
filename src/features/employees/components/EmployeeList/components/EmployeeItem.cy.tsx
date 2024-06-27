@@ -124,6 +124,21 @@ describe('EmployeeItem', () => {
       .getByData('employee-item-button')
       .should('exist');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN has not EditFullEmployeesData permission
+  THEN do not see edit button
+  `, () => {
+    mountComponent({
+      hasEditFullEmployeesDataPermission: false,
+      employee: getEmployee({}),
+    });
+
+    cy
+      .getByData('employee-item-button')
+      .should('not.exist');
+  });
 });
 
 function mountComponent({
