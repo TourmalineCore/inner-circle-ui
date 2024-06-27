@@ -4,24 +4,26 @@ import AccessBasedOnPermissionsStateContext from '../../../../../routes/state/Ac
 import { Employee } from '../../../types';
 import EmployeeItem from './EmployeeItem';
 
-const EMPLOYEE = {
-  employeeId: 1,
-  fullName: 'name',
-  corporateEmail: 'email',
-  personalEmail: null,
-  phone: null,
-  gitHub: null,
-  gitLab: null,
-  netSalary: null,
-  ratePerHour: null,
-  fullSalary: null,
-  employmentType: null,
-  parking: null,
-  personnelNumber: null,
-  hireDate: null,
-  isCurrentEmployee: true,
-  isBlankEmployee: false,
-};
+function getEmployee({ ...props }: Partial<Employee>) {
+  return {
+    employeeId: 1,
+    fullName: 'name',
+    corporateEmail: 'email',
+    personalEmail: null,
+    phone: null,
+    gitHub: null,
+    gitLab: null,
+    netSalary: null,
+    ratePerHour: null,
+    fullSalary: null,
+    employmentType: null,
+    parking: null,
+    personnelNumber: null,
+    hireDate: null,
+    isCurrentEmployee: true,
+    isBlankEmployee: props.isBlankEmployee ?? false,
+  };
+}
 
 describe('EmployeeItem', () => {
   it(`
@@ -30,11 +32,29 @@ describe('EmployeeItem', () => {
   THEN see it
   `, () => {
     mountComponent({
-      employee: EMPLOYEE,
+      employee: getEmployee({}),
     });
 
     cy
       .getByData('employee-item')
+      .should('exist');
+  });
+
+  it(`
+  GIVEN employee item component
+  WHEN employee is blank 
+  THEN employee item has another style
+  `, () => {
+    mountComponent({
+      employee: getEmployee(
+        {
+          isBlankEmployee: true,
+        },
+      ),
+    });
+
+    cy
+      .get('.employee-item--is-blank')
       .should('exist');
   });
 });
