@@ -3,15 +3,12 @@ import {
   Input, Button, NativeSelect,
 } from '@tourmalinecore/react-tc-ui-kit';
 import { useNavigate } from 'react-router-dom';
-
 import { useState } from 'react';
-
 import { EmployeeType, EmployeeTypeSwitch } from '../../types/index';
 import { api } from '../../../../common/api';
-
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
 
-function EmployeeAddPage() {
+export function EmployeeAddPage() {
   const [employee, setEmployee] = useState<EmployeeType>({
     name: '',
     surname: '',
@@ -30,7 +27,10 @@ function EmployeeAddPage() {
   const navigate = useNavigate();
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const {
+      name,
+      value,
+    } = event.target;
 
     const updatedForm: EmployeeType = {
       ...employee,
@@ -120,17 +120,31 @@ function EmployeeAddPage() {
               onChange={handleFormChange}
             />
             <NativeSelect
-              options={[{ label: EmployeeTypeSwitch[0.5], value: 0.5 }, { label: EmployeeTypeSwitch[1], value: 1 }]}
+              options={[{
+                label: EmployeeTypeSwitch[0.5],
+                value: 0.5,
+              },
+              {
+                label: EmployeeTypeSwitch[1],
+                value: 1,
+              }]}
               label="Employment Type*"
               name="employmentType"
               value={employee.employmentType}
-              onChange={(option: { label: EmployeeTypeSwitch; value: number }) => {
+              onChange={(option: {
+                label: EmployeeTypeSwitch;
+                value: number
+              }) => {
                 setEmployee({
                   ...employee,
                   employmentType: option.value,
                 });
               }}
-              style={{ maxWidth: 300, width: 250, marginTop: 0 }}
+              style={{
+                maxWidth: 300,
+                width: 250,
+                marginTop: 0,
+              }}
             />
             <Input
               name="parkingCostPerMonth"
@@ -162,8 +176,12 @@ function EmployeeAddPage() {
       ...employee,
       corporateEmail: `${employee.corporateEmail}@tourmalinecore.com`,
       phone: employee.phone || null,
-      gitHub: employee.gitHub ? `${employee.gitHub}` : null,
-      gitLab: employee.gitLab ? `${employee.gitLab}` : null,
+      gitHub: employee.gitHub
+        ? `${employee.gitHub}`
+        : null,
+      gitLab: employee.gitLab
+        ? `${employee.gitLab}`
+        : null,
       ratePerHour: Number(employee.ratePerHour),
       pay: Number(employee.pay),
       parkingCostPerMonth: Number(employee.parkingCostPerMonth),
@@ -176,5 +194,3 @@ function EmployeeAddPage() {
     navigate('/employees');
   }
 }
-
-export default EmployeeAddPage;
