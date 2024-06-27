@@ -110,21 +110,38 @@ describe('EmployeeItem', () => {
 
     cy.contains('11.11.2023');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN has EditFullEmployeesData permission
+  THEN see edit button
+  `, () => {
+    mountComponent({
+      employee: getEmployee({}),
+    });
+
+    cy
+      .getByData('employee-item-button')
+      .should('exist');
+  });
 });
 
 function mountComponent({
   hasViewContactsPermission = true,
   hasViewSalaryAndDocumentsDataPermission = true,
+  hasEditFullEmployeesDataPermission = true,
   employee,
 }: {
   hasViewContactsPermission?: boolean,
   hasViewSalaryAndDocumentsDataPermission?: boolean,
+  hasEditFullEmployeesDataPermission?: boolean,
   employee: Employee;
 }) {
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const accessOnPermissionsState = new AccessBasedOnPermissionsState();
   accessOnPermissionsState.accessPermissions.set('ViewContacts', hasViewContactsPermission);
   accessOnPermissionsState.accessPermissions.set('ViewSalaryAndDocumentsData', hasViewSalaryAndDocumentsDataPermission);
+  accessOnPermissionsState.accessPermissions.set('EditFullEmployeesData', hasEditFullEmployeesDataPermission);
 
   cy.mount(
 

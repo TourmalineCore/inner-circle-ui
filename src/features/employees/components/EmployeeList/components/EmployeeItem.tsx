@@ -227,6 +227,7 @@ export function EmployeeItem({
         {hasEditFullEmployeesDataPermission && (
           <button
             className="employee-item__button"
+            data-cy="employee-item-button"
             type="button"
             onClick={() => { navigate(`/employees/edit?id=${employee.employeeId}`); }}
           >
