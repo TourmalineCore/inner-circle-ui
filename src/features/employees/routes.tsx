@@ -3,7 +3,7 @@ import { ReactComponent as IconEmployeesActive } from '../../assets/icons/icon-e
 
 import { EmployeesPage } from './EmployeesPage';
 import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
-import EmployeeEdit from './components/EmployeeEdit/EmployeeEdit';
+import { EmployeeEdit } from './components/EmployeeEdit/EmployeeEdit';
 
 export const employeesViewRoutes = {
   path: '/employees',

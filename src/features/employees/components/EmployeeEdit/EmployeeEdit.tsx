@@ -30,7 +30,7 @@ const employedData = {
   freelance: 'Freelance',
 };
 
-function EmployeeEdit() {
+export function EmployeeEdit() {
   const navigate = useNavigate();
 
   const [triedToSubmit, setTriedToSubmit] = useState(false);
@@ -73,12 +73,14 @@ function EmployeeEdit() {
   return (
     <section className="employee-edit">
       <h1 className="heading employee-edit__title">Employee Profile</h1>
+
       <div className="employee-edit__info">
         <span className="employee-edit__icon">
           <IconProfile />
         </span>
         {employee.fullName}
       </div>
+
       <div className="employee-edit__info">
         <span className="employee-edit__icon">
           <IconMail />
@@ -99,6 +101,7 @@ function EmployeeEdit() {
             onChange={(event: NumberFormatValues) => setEmployee({ ...employee, phone: event.value })}
           />
         </li>
+
         <li className="employee-edit__item">
           <span className="employee-edit__label">Personal Email</span>
           <Input
@@ -109,6 +112,7 @@ function EmployeeEdit() {
             onChange={handleFormChange}
           />
         </li>
+
         <li className="employee-edit__item">
           <span className="employee-edit__label">Personal GitHub</span>
           <div className="employee-edit__git employee-edit__control">
@@ -122,6 +126,7 @@ function EmployeeEdit() {
             />
           </div>
         </li>
+
         <li className="employee-edit__item">
           <span className="employee-edit__label">Personal GitLab</span>
           <div className="employee-edit__git employee-edit__control">
@@ -149,6 +154,7 @@ function EmployeeEdit() {
             />
           </div>
         </li>
+
         <li className="employee-edit__item">
           <span className="employee-edit__label">Full Salary *</span>
           <div className="employee-edit__control">
@@ -159,11 +165,14 @@ function EmployeeEdit() {
             />
           </div>
         </li>
+
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employment Type *</span>
           <div className="employee-edit__control">
             {Object.entries(employeeTypeData).map(([value, label]) => {
-              const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 ? '1' : '0.5';
+              const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1
+                ? '1'
+                : '0.5';
 
               return (
                 <CheckField
@@ -180,6 +189,7 @@ function EmployeeEdit() {
             })}
           </div>
         </li>
+
         <li className="employee-edit__item">
           <span className="employee-edit__label">Parking *</span>
           <div className="employee-edit__control">
@@ -204,6 +214,7 @@ function EmployeeEdit() {
             />
           </div>
         </li>
+
         {/* <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employee Status *</span>
           <div>
@@ -237,11 +248,14 @@ function EmployeeEdit() {
             </div>
           </li>
         )} */}
+
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employed *</span>
           <div>
             {Object.entries(employedData).map(([value, label]) => {
-              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'freelance';
+              const valueEmployedOfficially = employee.isEmployedOfficially
+                ? 'officially'
+                : 'freelance';
 
               return (
                 <CheckField
@@ -258,36 +272,60 @@ function EmployeeEdit() {
             })}
           </div>
         </li>
-        {employee.isEmployedOfficially && (
-          <li className="employee-edit__item">
-            <span className="employee-edit__label">Personnel Number *</span>
-            <CustomPatternFormat
-              className="employee-edit__control"
-              format="##/##"
-              value={employee.personnelNumber}
-              isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({ ...employee, personnelNumber: event.value })}
-            />
-          </li>
-        )}
+
+        {
+          employee.isEmployedOfficially && (
+            <li className="employee-edit__item">
+              <span className="employee-edit__label">Personnel Number *</span>
+              <CustomPatternFormat
+                className="employee-edit__control"
+                format="##/##"
+                value={employee.personnelNumber}
+                isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && triedToSubmit}
+                onChange={(event: NumberFormatValues) => setEmployee({ ...employee, personnelNumber: event.value })}
+              />
+            </li>
+          )
+        }
       </ul>
 
       <div className="employee-edit__box-buttons">
-        <Button onClick={() => navigate('/employees')} className="employee-edit__button">Cancel</Button>
-        <Button onClick={() => updateEmployeesAsync()} className="employee-edit__button">Save Changes</Button>
+        <Button
+          onClick={() => navigate('/employees')}
+          className="employee-edit__button"
+        >
+          Cancel
+        </Button>
+
+        <Button
+          onClick={() => updateEmployeesAsync()}
+          className="employee-edit__button"
+        >
+          Save Changes
+        </Button>
       </div>
     </section>
   );
 
   async function loadEmployeeAsync() {
-    const { data } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
+    const {
+      data,
+    } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
 
     const initialData = {
       ...data,
-      phone: data.phone ? data.phone.split('').slice(2).join('') : null,
-      hireDate: data.hireDate ? new Date(data.hireDate) : new Date(),
-      dismissalDate: data.dismissalDate ? new Date(data.dismissalDate) : new Date(),
-      personnelNumber: data.personnelNumber ? data.personnelNumber.replace('/', '') : data.personnelNumber,
+      phone: data.phone
+        ? data.phone.split('').slice(2).join('')
+        : null,
+      hireDate: data.hireDate
+        ? new Date(data.hireDate)
+        : new Date(),
+      dismissalDate: data.dismissalDate
+        ? new Date(data.dismissalDate)
+        : new Date(),
+      personnelNumber: data.personnelNumber
+        ? data.personnelNumber.replace('/', '')
+        : data.personnelNumber,
     };
 
     setEmployee(initialData);
@@ -296,18 +334,24 @@ function EmployeeEdit() {
   async function updateEmployeesAsync() {
     const updateEmployee = {
       ...employee,
-      employmentType: employee.employmentType === null ? 1 : employee.employmentType,
+      employmentType: employee.employmentType === null
+        ? 1
+        : employee.employmentType,
       phone: `+7${employee.phone}`,
       ratePerHour: employee.ratePerHour || 0,
       parking: employee.parking || 0,
-      personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
+      personnelNumber: employee.isEmployedOfficially
+        ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`
+        : null,
     };
 
     delete updateEmployee.dismissalDate;
 
     setTriedToSubmit(true);
 
-    const isValidPersonnelNumber = employee.isEmployedOfficially ? employee.personnelNumber!.length >= 4 : true;
+    const isValidPersonnelNumber = employee.isEmployedOfficially
+      ? employee.personnelNumber!.length >= 4
+      : true;
 
     if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
       try {
@@ -321,5 +365,3 @@ function EmployeeEdit() {
     }
   }
 }
-
-export default EmployeeEdit;
