@@ -31,8 +31,13 @@ function EmployeeItem({
     >
       <div className="employee-item__inner">
         <div>
-          <div className="employee-item__name">{employee.fullName}</div>
-          <CopyToClipboardButton text={employee.corporateEmail} notificationPosition="bottom" />
+          <div className="employee-item__name">
+            {employee.fullName}
+          </div>
+          <CopyToClipboardButton
+            text={employee.corporateEmail}
+            notificationPosition="bottom"
+          />
         </div>
 
         {accessBasedOnPermissionsState.accessPermissions.get('ViewContacts') && (

@@ -9,19 +9,20 @@ function getEmployee({ ...props }: Partial<Employee>) {
     employeeId: 1,
     fullName: 'name',
     corporateEmail: 'email',
-    personalEmail: null,
-    phone: null,
-    gitHub: null,
-    gitLab: null,
-    netSalary: null,
-    ratePerHour: null,
-    fullSalary: null,
-    employmentType: null,
-    parking: null,
-    personnelNumber: null,
-    hireDate: null,
+    personalEmail: 'personal email',
+    phone: '79111111111',
+    gitHub: 'github',
+    gitLab: 'gitlab',
+    netSalary: 100,
+    ratePerHour: 101,
+    fullSalary: 102,
+    employmentType: 0.5,
+    parking: 103,
+    personnelNumber: '11/23',
+    hireDate: '11.11.23',
     isCurrentEmployee: true,
-    isBlankEmployee: props.isBlankEmployee ?? false,
+    isBlankEmployee: false,
+    ...props,
   };
 }
 
@@ -64,7 +65,7 @@ describe('EmployeeItem', () => {
   THEN employee item has half width
   `, () => {
     mountComponent({
-      hasPermission: false,
+      hasViewSalaryAndDocumentsDataPermission: false,
       employee: getEmployee({}),
     });
 
@@ -72,18 +73,58 @@ describe('EmployeeItem', () => {
       .get('.employee-item--half-width')
       .should('exist');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN render the component 
+  AND has all permissions
+  THEN see all employee information data
+  `, () => {
+    mountComponent({
+      employee: getEmployee({}),
+    });
+
+    cy.contains('name');
+
+    cy.contains('email');
+
+    cy.contains('personal email');
+
+    cy.contains('+7 (911) 111 11 11');
+
+    cy.contains('github');
+
+    cy.contains('gitlab');
+
+    cy.contains('100');
+
+    cy.contains('101');
+
+    cy.contains('102');
+
+    cy.contains('Half Time');
+
+    cy.contains('103');
+
+    cy.contains('11/23');
+
+    cy.contains('11.11.2023');
+  });
 });
 
 function mountComponent({
-  hasPermission = true,
+  hasViewContactsPermission = true,
+  hasViewSalaryAndDocumentsDataPermission = true,
   employee,
 }: {
-  hasPermission?: boolean,
+  hasViewContactsPermission?: boolean,
+  hasViewSalaryAndDocumentsDataPermission?: boolean,
   employee: Employee;
 }) {
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const accessOnPermissionsState = new AccessBasedOnPermissionsState();
-  accessOnPermissionsState.accessPermissions.set('ViewSalaryAndDocumentsData', hasPermission);
+  accessOnPermissionsState.accessPermissions.set('ViewContacts', hasViewContactsPermission);
+  accessOnPermissionsState.accessPermissions.set('ViewSalaryAndDocumentsData', hasViewSalaryAndDocumentsDataPermission);
 
   cy.mount(
 
