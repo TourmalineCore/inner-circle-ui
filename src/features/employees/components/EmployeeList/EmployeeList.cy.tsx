@@ -14,6 +14,19 @@ describe('EmployeeList', () => {
     cy.getByData('employee-list')
       .should('exist');
   });
+
+  it(`
+  GIVEN employee list component
+  WHEN isLoading property is true 
+  THEN see skeleton
+    `, () => {
+    mountComponent({
+      isLoading: true,
+    });
+
+    cy.get('.employee-list__skeleton')
+      .should('exist');
+  });
 });
 
 function mountComponent({

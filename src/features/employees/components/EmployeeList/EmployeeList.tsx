@@ -26,7 +26,6 @@ export const EmployeeList = observer(({
       {
         isLoading && (
           <Skeleton
-            data-cy="employee-list-skeleton"
             className="employee-list__skeleton"
             count={4}
           />
