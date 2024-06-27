@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router-dom';
 import AccessBasedOnPermissionsState from '../../../../routes/state/AccessBasedOnPermissionsState';
 import AccessBasedOnPermissionsStateContext from '../../../../routes/state/AccessBasedOnPermissionsStateContext';
 import { Employee } from '../../types';
@@ -11,7 +12,8 @@ describe('EmployeeList', () => {
   `, () => {
     mountComponent();
 
-    cy.getByData('employee-list')
+    cy
+      .getByData('employee-list')
       .should('exist');
   });
 
@@ -24,7 +26,8 @@ describe('EmployeeList', () => {
       isLoading: true,
     });
 
-    cy.get('.employee-list__skeleton')
+    cy
+      .get('.employee-list__skeleton')
       .should('exist');
   });
 
@@ -35,8 +38,42 @@ describe('EmployeeList', () => {
   `, () => {
     mountComponent();
 
-    cy.getByData('employee-list-empty')
+    cy
+      .getByData('employee-list-empty')
       .contains('List empty');
+  });
+
+  it(`
+  GIVEN employee list component
+  WHEN there is one employee 
+  THEN see 1 item in list
+  `, () => {
+    mountComponent({
+      employees: [
+        {
+          employeeId: 1,
+          fullName: 'name',
+          corporateEmail: 'email',
+          personalEmail: null,
+          phone: null,
+          gitHub: null,
+          gitLab: null,
+          netSalary: null,
+          ratePerHour: null,
+          fullSalary: null,
+          employmentType: null,
+          parking: null,
+          personnelNumber: null,
+          hireDate: null,
+          isCurrentEmployee: true,
+          isBlankEmployee: false,
+        },
+      ],
+    });
+
+    cy
+      .getByData('employee-item')
+      .should('have.length', 1);
   });
 });
 
@@ -52,11 +89,14 @@ function mountComponent({
   accessOnPermissionsState.accessPermissions.set('ViewSalaryAndDocumentsData', true);
 
   cy.mount(
+
     <AccessBasedOnPermissionsStateContext.Provider value={accessOnPermissionsState}>
-      <EmployeeList
-        isLoading={isLoading}
-        employees={employees}
-      />
+      <BrowserRouter>
+        <EmployeeList
+          isLoading={isLoading}
+          employees={employees}
+        />
+      </BrowserRouter>
     </AccessBasedOnPermissionsStateContext.Provider>,
   );
 }

@@ -23,6 +23,7 @@ function EmployeeItem({
   return (
     <li
       key={employee.employeeId}
+      data-cy="employee-item"
       className={clsx('employee-item', {
         'employee-item--is-blank': employee.isBlankEmployee,
         'employee-item--half-width': !accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
