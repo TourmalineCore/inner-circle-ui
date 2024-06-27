@@ -57,6 +57,21 @@ describe('EmployeeItem', () => {
       .get('.employee-item--is-blank')
       .should('exist');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN has not permission ViewSalaryAndDocumentsData
+  THEN employee item has half width
+  `, () => {
+    mountComponent({
+      hasPermission: false,
+      employee: getEmployee({}),
+    });
+
+    cy
+      .get('.employee-item--half-width')
+      .should('exist');
+  });
 });
 
 function mountComponent({
