@@ -3,18 +3,18 @@ import {
 } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SearchBar } from './components/SearchBar/SearchBar';
-import EmployeeList from './components/EmployeeList/EmployeeList';
+import { EmployeeList } from './components/EmployeeList/EmployeeList';
 import { SortMenu } from './components/SortMenu/SortMenu';
 import EmployeesStateContext from './context/EmployeesStateContext';
 import EmployeesState from './context/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
-import AccessBasedOnPemissionsStateContext from '../../routes/state/AccessBasedOnPemissionsStateContext';
+import AccessBasedOnPermissionsStateContext from '../../routes/state/AccessBasedOnPermissionsStateContext';
 import { FilterMenu } from './components/FilterMenu/FilterMenu';
 
 export const EmployeesPage = observer(() => {
   const employeesState = useMemo(() => new EmployeesState(), []);
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,12 +28,12 @@ export const EmployeesPage = observer(() => {
       <section className="employees-page">
 
         {employeesState.isBlankEmployees
-          && accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
+          && accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
           && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
         <div className="employees-page__box">
           <div><SearchBar /></div>
-          { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
+          { accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
           <SortMenu />
         </div>
 
@@ -48,7 +48,7 @@ export const EmployeesPage = observer(() => {
   );
 
   async function loadEmployeesAsync() {
-    if (accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+    if (accessBasedOnPermissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
       employeesState.updateFilterTerm('all');
     }
 

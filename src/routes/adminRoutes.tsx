@@ -8,7 +8,7 @@ import {
   analyticsRoutes,
   // analyticsSidebarRoutes,
 } from '../features/analytics/routes';
-import { Permission } from './state/AccessBasedOnPemissionsState';
+import { Permission } from './state/AccessBasedOnPermissionsState';
 import {
   accountsSidebarRoutes,
   rolesSidebarRoutes,

@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { CopyToClipboardButton } from './CopyToClipboardButton/CopyToClipboardButton';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
-import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
+import AccessBasedOnPermissionsStateContext from '../../../../../routes/state/AccessBasedOnPermissionsStateContext';
 import { ReactComponent as IconPhone } from '../../../../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconGithub } from '../../../../../assets/icons/icon-github.svg';
 import { ReactComponent as IconGitlab } from '../../../../../assets/icons/icon-gitlab.svg';
@@ -18,14 +18,14 @@ function EmployeeItem({
   employee: Employee,
 }) {
   const navigate = useNavigate();
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
 
   return (
     <li
       key={employee.employeeId}
       className={clsx('employee-item', {
         'employee-item--is-blank': employee.isBlankEmployee,
-        'employee-item--half-width': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
+        'employee-item--half-width': !accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
       })}
     >
       <div className="employee-item__inner">
@@ -34,7 +34,7 @@ function EmployeeItem({
           <CopyToClipboardButton text={employee.corporateEmail} notificationPosition="bottom" />
         </div>
 
-        {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
+        {accessBasedOnPermissionsState.accessPermissions.get('ViewContacts') && (
           <div>
             <div>Contacts</div>
             <ul className="employee-item__contacts-list">
@@ -82,7 +82,7 @@ function EmployeeItem({
             </ul>
           </div>
         )}
-        {accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && (
+        {accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && (
           <>
             <div>
               <div className="employee-item__net-salary">
@@ -150,7 +150,7 @@ function EmployeeItem({
           </>
         )}
 
-        {accessBasedOnPemissionsState.accessPermissions.get('EditFullEmployeesData') && (
+        {accessBasedOnPermissionsState.accessPermissions.get('EditFullEmployeesData') && (
           <button
             className="employee-item__button"
             type="button"
