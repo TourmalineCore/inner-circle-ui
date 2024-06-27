@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import clsx from 'clsx';
 import { useContext } from 'react';
 import { Employee } from '../../types';
-import EmployeeItem from './components/EmployeeItem';
+import { EmployeeItem } from './components/EmployeeItem';
 import AccessBasedOnPermissionsStateContext from '../../../../routes/state/AccessBasedOnPermissionsStateContext';
 
 export const EmployeeList = observer(({

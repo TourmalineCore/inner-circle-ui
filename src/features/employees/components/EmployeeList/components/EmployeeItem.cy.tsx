@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AccessBasedOnPermissionsState from '../../../../../routes/state/AccessBasedOnPermissionsState';
 import AccessBasedOnPermissionsStateContext from '../../../../../routes/state/AccessBasedOnPermissionsStateContext';
 import { Employee } from '../../../types';
-import EmployeeItem from './EmployeeItem';
+import { EmployeeItem } from './EmployeeItem';
 
 function getEmployee({ ...props }: Partial<Employee>) {
   return {
