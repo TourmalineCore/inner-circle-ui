@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import EmployeesStateContext from '../../context/EmployeesStateContext';
 
-const filterElements = [
+const FILTER_ELEMENTS = [
   {
     id: 'all',
     name: 'View All',
@@ -37,28 +37,36 @@ export const FilterMenu = observer(() => {
         replace: true,
       });
     }
-  }, [employeesState.isBlankEmployees, employeesState.filterTerm]);
+  }, [
+    employeesState.isBlankEmployees,
+    employeesState.filterTerm,
+  ]);
 
   useEffect(() => {
     employeesState.updateFilterTerm(params.get('filter') || 'current');
-  }, [employeesState.filterTerm]);
+  }, [
+    employeesState.filterTerm,
+  ]);
 
   return (
     <div className="filter-menu">
-      {filterElements.map((item) => (
-        <button
-          type="button"
-          className={clsx('filter-menu__button', {
-            'filter-menu__button--active': item.id === employeesState.filterTerm,
-            'is-hidden': !employeesState.isBlankEmployees && item.id === 'blank',
-          })}
-          key={item.id}
-          id={item.id}
-          onClick={sortHandler}
-        >
-          {item.name}
-        </button>
-      ))}
+      {
+        FILTER_ELEMENTS
+          .map((item) => (
+            <button
+              type="button"
+              className={clsx('filter-menu__button', {
+                'filter-menu__button--active': item.id === employeesState.filterTerm,
+                'is-hidden': !employeesState.isBlankEmployees && item.id === 'blank',
+              })}
+              key={item.id}
+              id={item.id}
+              onClick={sortHandler}
+            >
+              {item.name}
+            </button>
+          ))
+      }
     </div>
   );
 
@@ -67,6 +75,7 @@ export const FilterMenu = observer(() => {
 
     if (buttonId === 'current') {
       params.delete('filter');
+
       setParams(params, {
         replace: true,
       });
