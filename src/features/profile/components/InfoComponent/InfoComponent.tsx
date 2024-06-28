@@ -17,7 +17,10 @@ export function InfoComponent({
   isError?: boolean;
 }) {
   return (
-    <div className="info-component">
+    <div
+      className="info-component"
+      data-cy="info-component"
+    >
       <div className="info-component__card">
         <div className="info-component__header">
           <span className="info-component__name">{label}</span>
