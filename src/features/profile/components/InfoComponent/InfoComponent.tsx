@@ -27,14 +27,16 @@ export function InfoComponent({
           <span className="info-component__icon">{icon}</span>
         </div>
 
-        <span className={clsx('info-component__value', {
-          'info-component__value--not-filled': !isHaveValue,
-        })}
+        <span
+          data-cy="info-component-value"
+          className={clsx('info-component__value', {
+            'info-component__value--not-filled': !isHaveValue,
+          })}
         >
           {
             isHaveValue
               ? value
-              : 'not filled...'
+              : 'not filled..'
           }
         </span>
       </div>
