@@ -32,4 +32,19 @@ describe('EmployeesState', () => {
     employeesState.updateFilterTerm('blank');
     expect(employeesState.filterTerm).eq('blank');
   });
+
+  it(`
+  GIVEN employees page 
+  WHEN called update sorting
+  THEN get update sorting elements
+  `, () => {
+    employeesState.updateSortTerm('default');
+    expect(employeesState.sortTerm).eq('default');
+
+    employeesState.updateSortTerm('desc');
+    expect(employeesState.sortTerm).eq('desc');
+
+    employeesState.updateSortTerm('asc');
+    expect(employeesState.sortTerm).eq('asc');
+  });
 });
