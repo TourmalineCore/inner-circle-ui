@@ -47,4 +47,13 @@ describe('EmployeesState', () => {
     employeesState.updateSortTerm('asc');
     expect(employeesState.sortTerm).eq('asc');
   });
+
+  it(`
+  GIVEN employees page 
+  WHEN called update search
+  THEN get update search elements
+  `, () => {
+    employeesState.updateSearchTerm('text');
+    expect(employeesState.searchTerm).eq('text');
+  });
 });

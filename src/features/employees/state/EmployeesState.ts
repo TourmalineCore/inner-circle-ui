@@ -31,6 +31,10 @@ class EmployeesState {
     return this._filterTerm;
   }
 
+  get searchTerm() {
+    return this._searchTerm;
+  }
+
   get isBlankEmployees() {
     return this._allEmployees.some((employee) => employee.isBlankEmployee);
   }
