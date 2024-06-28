@@ -56,4 +56,15 @@ describe('EmployeesState', () => {
     employeesState.updateSearchTerm('text');
     expect(employeesState.searchTerm).eq('text');
   });
+
+  it(`
+  GIVEN not blank employee 
+  WHEN called isBlankEmployee property
+  THEN return false
+  `, () => {
+    employeesState.changeEmployees([
+      getEmployee({}),
+    ]);
+    expect(employeesState.isBlankEmployees).eq(false);
+  });
 });
