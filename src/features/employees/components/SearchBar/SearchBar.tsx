@@ -9,6 +9,7 @@ export const SearchBar = observer(() => {
     <input
       placeholder="Search for employee.."
       className="search-bar-input"
+      data-cy="search-bar"
       type="text"
       data-listener-added_4a42d730="true"
       onChange={searchHandler}
