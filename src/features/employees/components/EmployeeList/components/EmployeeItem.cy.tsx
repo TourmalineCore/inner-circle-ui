@@ -158,6 +158,34 @@ describe('EmployeeItem', () => {
       .getByData('employee-item')
       .should('not.contain', '11.11.2023');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN render the component 
+  AND has no ViewContacts permission
+  THEN do not see employee contacts data
+  `, () => {
+    mountComponent({
+      hasViewContactsPermission: false,
+      employee: getEmployee({}),
+    });
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', 'personal email');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '+7 (911) 111 11 11');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', 'github');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', 'gitlab');
+  });
 });
 
 function mountComponent({
