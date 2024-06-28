@@ -1,4 +1,4 @@
-import { getEmployee } from '../components/EmployeeList/components/EmployeeItem.cy';
+import { getEmployee } from '../utils/utilsForTests';
 import EmployeesState from './EmployeesState';
 
 const employeesState = new EmployeesState();
