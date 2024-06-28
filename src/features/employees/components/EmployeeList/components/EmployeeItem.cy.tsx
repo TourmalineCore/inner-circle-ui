@@ -118,6 +118,46 @@ describe('EmployeeItem', () => {
       .getByData('employee-item-button')
       .should('not.exist');
   });
+
+  it(`
+  GIVEN employee item component
+  WHEN render the component 
+  AND has no ViewSalaryAndDocumentsData permission
+  THEN do not see employee salary and documents data
+  `, () => {
+    mountComponent({
+      hasViewSalaryAndDocumentsDataPermission: false,
+      employee: getEmployee({}),
+    });
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '100');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '101');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '102');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', 'Half Time');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '103');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '11/23');
+
+    cy
+      .getByData('employee-item')
+      .should('not.contain', '11.11.2023');
+  });
 });
 
 function mountComponent({
