@@ -51,7 +51,7 @@ export function ProfilePage() {
   }, []);
 
   return (
-    <div className="profile">
+    <div className="profile" data-cy="profile">
       <div className="profile__inner">
         <div className="profile__box">
           <h2 className="profile__head">General information</h2>
