@@ -28,11 +28,31 @@ describe('InfoComponent', () => {
       .getByData('info-component-value')
       .should('have.text', 'not filled..');
   });
+
+  it(`
+  GIVEN info component
+  WHEN render the component with all data
+  THEN see all data
+  `, () => {
+    mountComponent();
+
+    cy
+      .getByData('info-component')
+      .contains('label text');
+
+    cy
+      .getByData('info-component')
+      .contains('value text');
+
+    cy
+      .getByData('info-component')
+      .contains('(icon)');
+  });
 });
 
 function mountComponent({
-  label = '',
-  value = <>value</>,
+  label = 'label text',
+  value = <>value text</>,
   icon = <>(icon)</>,
   isHaveValue = true,
   isError = false,
