@@ -13,6 +13,21 @@ describe('InfoComponent', () => {
       .getByData('info-component')
       .should('exist');
   });
+
+  it(`
+  GIVEN info component
+  WHEN isHaveValue property is false 
+  THEN does not see value  
+  AND see text about it
+  `, () => {
+    mountComponent({
+      isHaveValue: false,
+    });
+
+    cy
+      .getByData('info-component-value')
+      .should('have.text', 'not filled..');
+  });
 });
 
 function mountComponent({
