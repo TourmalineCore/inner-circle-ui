@@ -16,6 +16,9 @@ export const EmployeesPage = observer(() => {
   const employeesState = useMemo(() => new EmployeesState(), []);
   const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
 
+  const hasViewSalaryAndDocumentsDataPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData');
+  const hasViewContactsPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewContacts');
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -27,13 +30,22 @@ export const EmployeesPage = observer(() => {
 
       <section className="employees-page">
 
-        {employeesState.isBlankEmployees
-          && accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
-          && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+        {
+          employeesState.isBlankEmployees
+          && hasViewSalaryAndDocumentsDataPermission
+          && (
+            <div className="employees-page__notification">
+              You have blank employees. Please fill in their profiles.
+            </div>
+          )
+        }
 
         <div className="employees-page__box">
           <div><SearchBar /></div>
-          { accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
+          {
+            hasViewSalaryAndDocumentsDataPermission
+            && <FilterMenu />
+          }
           <SortMenu />
         </div>
 
@@ -48,14 +60,16 @@ export const EmployeesPage = observer(() => {
   );
 
   async function loadEmployeesAsync() {
-    if (accessBasedOnPermissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+    if (hasViewContactsPermission && !hasViewSalaryAndDocumentsDataPermission) {
       employeesState.updateFilterTerm('all');
     }
 
     setIsLoading(true);
 
     try {
-      const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
+      const {
+        data,
+      } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
 
       employeesState.changeEmployees(data);
     } catch (e) {
