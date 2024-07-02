@@ -10,17 +10,16 @@ import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
 
-import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconBoxPercent } from '../../assets/icons/icon-box-percent.svg';
 import { ReactComponent as IconGithub } from '../../assets/icons/icon-github.svg';
 import { ReactComponent as IconGitlab } from '../../assets/icons/icon-gitlab.svg';
 import { ReactComponent as IconMessage } from '../../assets/icons/icon-message.svg';
 import { ReactComponent as IconMoney } from '../../assets/icons/icon-money.svg';
-import { ReactComponent as IconOutlineEmail } from '../../assets/icons/icon-outline-email.svg';
 import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.svg';
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
 import { InfoCard } from './components/info-card/InfoCard';
+import { EmployeeGeneralInfo } from './components/info-card/employee-general-info/EmployeeGeneralInfo';
 
 const initialValues = {
   id: 0,
@@ -53,33 +52,18 @@ export function ProfilePage() {
   return (
     <div className="profile" data-cy="profile">
       <div className="profile__inner">
+
         <div className="profile__box">
           <h2 className="profile__head">General information</h2>
           {
-            isLoading && (
+            isLoading ? (
               <Skeleton
                 className="profile__skeleton"
                 count={2}
                 containerTestId="loading-general-information"
               />
-            )
-          }
-          {
-            !isLoading && (
-              <div>
-                <InfoCard
-                  isHaveValue={!!employee.fullName}
-                  value={employee.fullName}
-                  label="Name"
-                  icon={<IconProfile />}
-                />
-                <InfoCard
-                  isHaveValue={!!employee.corporateEmail}
-                  value={employee.corporateEmail}
-                  label="Corporate Email"
-                  icon={<IconOutlineEmail />}
-                />
-              </div>
+            ) : (
+              <EmployeeGeneralInfo employee={employee} />
             )
           }
         </div>
