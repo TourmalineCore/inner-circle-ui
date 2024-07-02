@@ -19,7 +19,7 @@ import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.s
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
 import { InfoCard } from './components/info-card/InfoCard';
-import { EmployeeGeneralInfo } from './components/employee-general-info/EmployeeGeneralInfo';
+import { GeneralInfo } from './components/general-info/GeneralInfo';
 
 const initialValues = {
   id: 0,
@@ -63,7 +63,7 @@ export function ProfilePage() {
                 containerTestId="loading-general-information"
               />
             ) : (
-              <EmployeeGeneralInfo employee={employee} />
+              <GeneralInfo employee={employee} />
             )
           }
         </div>

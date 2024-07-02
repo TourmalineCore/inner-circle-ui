@@ -3,7 +3,7 @@ import { ReactComponent as IconOutlineEmail } from '../../../../assets/icons/ico
 import { Employee } from '../../types/Profile';
 import { InfoCard } from '../info-card/InfoCard';
 
-export const EmployeeGeneralInfo = ({
+export const GeneralInfo = ({
   employee,
 } : {
   employee: Employee
