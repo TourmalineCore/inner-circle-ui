@@ -19,7 +19,7 @@ import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.s
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
 import { InfoCard } from './components/info-card/InfoCard';
-import { EmployeeGeneralInfo } from './components/info-card/employee-general-info/EmployeeGeneralInfo';
+import { EmployeeGeneralInfo } from './components/employee-general-info/EmployeeGeneralInfo';
 
 const initialValues = {
   id: 0,
