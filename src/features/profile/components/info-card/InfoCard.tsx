@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import InfoTip from '../../../../components/InfoTip/InfoTip';
 import { ReactComponent as IconError } from '../../../../assets/icons/icon-error.svg';
 
-export function InfoComponent({
+export function InfoCard({
   value,
   icon,
   label,
@@ -18,19 +18,19 @@ export function InfoComponent({
 }) {
   return (
     <div
-      className="info-component"
-      data-cy="info-component"
+      className="info-card"
+      data-cy="info-card"
     >
-      <div className="info-component__card">
-        <div className="info-component__header">
-          <span className="info-component__name">{label}</span>
-          <span className="info-component__icon">{icon}</span>
+      <div className="info-card__card">
+        <div className="info-card__header">
+          <span className="info-card__name">{label}</span>
+          <span className="info-card__icon">{icon}</span>
         </div>
 
         <span
-          data-cy="info-component-value"
-          className={clsx('info-component__value', {
-            'info-component__value--not-filled': !isHaveValue,
+          data-cy="info-card-value"
+          className={clsx('info-card__value', {
+            'info-card__value--not-filled': !isHaveValue,
           })}
         >
           {
@@ -44,9 +44,9 @@ export function InfoComponent({
       {
         isError && (
           <InfoTip
-            className="info-component__info-tip"
+            className="info-card__info-tip"
             content="Please fill this field."
-            classNameContent="info-component__info-content"
+            classNameContent="info-card__info-content"
             icon={<IconError />}
           />
         )

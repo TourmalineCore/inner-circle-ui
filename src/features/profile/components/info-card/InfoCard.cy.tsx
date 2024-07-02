@@ -1,21 +1,21 @@
 import { ReactNode } from 'react';
-import { InfoComponent } from './InfoComponent';
+import { InfoCard } from './InfoCard';
 
-describe('InfoComponent', () => {
+describe('InfoCard', () => {
   it(`
-  GIVEN info component
+  GIVEN info card
   WHEN render the component 
   THEN see it
   `, () => {
     mountComponent();
 
     cy
-      .getByData('info-component')
+      .getByData('info-card')
       .should('exist');
   });
 
   it(`
-  GIVEN info component
+  GIVEN info card
   WHEN isHaveValue property is false 
   THEN does not see value  
   AND see text about it
@@ -25,27 +25,27 @@ describe('InfoComponent', () => {
     });
 
     cy
-      .getByData('info-component-value')
+      .getByData('info-card-value')
       .should('have.text', 'not filled..');
   });
 
   it(`
-  GIVEN info component
+  GIVEN info card
   WHEN render the component with all data
   THEN see all data
   `, () => {
     mountComponent();
 
     cy
-      .getByData('info-component')
+      .getByData('info-card')
       .contains('label text');
 
     cy
-      .getByData('info-component')
+      .getByData('info-card')
       .contains('value text');
 
     cy
-      .getByData('info-component')
+      .getByData('info-card')
       .contains('(icon)');
   });
 });
@@ -64,7 +64,7 @@ function mountComponent({
   isError?: boolean;
 } = {}) {
   cy.mount(
-    <InfoComponent
+    <InfoCard
       label={label}
       value={value}
       icon={icon}

@@ -9,7 +9,6 @@ import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-f
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
-import { InfoComponent } from './components/InfoComponent/InfoComponent';
 
 import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconBoxPercent } from '../../assets/icons/icon-box-percent.svg';
@@ -21,6 +20,7 @@ import { ReactComponent as IconOutlineEmail } from '../../assets/icons/icon-outl
 import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.svg';
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
+import { InfoCard } from './components/info-card/InfoCard';
 
 const initialValues = {
   id: 0,
@@ -67,13 +67,13 @@ export function ProfilePage() {
           {
             !isLoading && (
               <div>
-                <InfoComponent
+                <InfoCard
                   isHaveValue={!!employee.fullName}
                   value={employee.fullName}
                   label="Name"
                   icon={<IconProfile />}
                 />
-                <InfoComponent
+                <InfoCard
                   isHaveValue={!!employee.corporateEmail}
                   value={employee.corporateEmail}
                   label="Corporate Email"
@@ -140,7 +140,7 @@ export function ProfilePage() {
           {
             !isLoading && (
               <div>
-                <InfoComponent
+                <InfoCard
                   isHaveValue={
                     isEdit
                       ? isEdit
@@ -168,7 +168,7 @@ export function ProfilePage() {
                   label="Phone Number"
                   icon={<IconPhone />}
                 />
-                <InfoComponent
+                <InfoCard
                   isHaveValue={
                     isEdit
                       ? isEdit
@@ -188,7 +188,7 @@ export function ProfilePage() {
                   label="Personal Email"
                   icon={<IconMessage />}
                 />
-                <InfoComponent
+                <InfoCard
                   isHaveValue={
                     isEdit
                       ? isEdit
@@ -215,7 +215,7 @@ export function ProfilePage() {
                   label="Personal GitHub"
                   icon={<IconGithub />}
                 />
-                <InfoComponent
+                <InfoCard
                   isHaveValue={
                     isEdit
                       ? isEdit
@@ -264,7 +264,7 @@ export function ProfilePage() {
                   employee.isSalaryInfoFilled
                     ? (
                       <>
-                        <InfoComponent
+                        <InfoCard
                           isHaveValue={employee.fullSalary > 0}
                           value={(
                             <NumericFormat
@@ -282,7 +282,7 @@ export function ProfilePage() {
                         />
                         {
                           employee.isEmployedOfficially && (
-                            <InfoComponent
+                            <InfoCard
                               isHaveValue={employee.districtCoefficient > 0}
                               value={(
                                 <NumericFormat
@@ -306,7 +306,7 @@ export function ProfilePage() {
                         }
                         {
                           employee.isEmployedOfficially && (
-                            <InfoComponent
+                            <InfoCard
                               isHaveValue={employee.incomeTax > 0}
                               value={(
                                 <NumericFormat
@@ -329,7 +329,7 @@ export function ProfilePage() {
                         }
                         {
                           employee.isEmployedOfficially && (
-                            <InfoComponent
+                            <InfoCard
                               isHaveValue={employee.netSalary > 0}
                               value={(
                                 <NumericFormat
