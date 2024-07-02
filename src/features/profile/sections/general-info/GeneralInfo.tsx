@@ -1,7 +1,7 @@
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconOutlineEmail } from '../../../../assets/icons/icon-outline-email.svg';
 import { Employee } from '../../types/Profile';
-import { InfoCard } from '../info-card/InfoCard';
+import { InfoCard } from '../components/info-card/InfoCard';
 
 export const GeneralInfo = ({
   employee,

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import InfoTip from '../../../../components/InfoTip/InfoTip';
-import { ReactComponent as IconError } from '../../../../assets/icons/icon-error.svg';
+import InfoTip from '../../../../../components/InfoTip/InfoTip';
+import { ReactComponent as IconError } from '../../../../../assets/icons/icon-error.svg';
 
 export function InfoCard({
   value,

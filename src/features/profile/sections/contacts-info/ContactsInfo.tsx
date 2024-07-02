@@ -2,11 +2,11 @@ import { ChangeEvent } from 'react';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues, PatternFormat } from 'react-number-format';
 import { Employee } from '../../types/Profile';
-import { InfoCard } from '../info-card/InfoCard';
 import { ReactComponent as IconPhone } from '../../../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconMessage } from '../../../../assets/icons/icon-message.svg';
 import { ReactComponent as IconGithub } from '../../../../assets/icons/icon-github.svg';
 import { ReactComponent as IconGitlab } from '../../../../assets/icons/icon-gitlab.svg';
+import { InfoCard } from '../components/info-card/InfoCard';
 
 export const ContactsInfo = ({
   employee,

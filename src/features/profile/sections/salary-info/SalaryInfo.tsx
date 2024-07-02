@@ -1,6 +1,6 @@
 import { NumericFormat } from 'react-number-format';
 import { Employee } from '../../types/Profile';
-import { InfoCard } from '../info-card/InfoCard';
+import { InfoCard } from '../components/info-card/InfoCard';
 import { ReactComponent as IconMoney } from '../../../../assets/icons/icon-money.svg';
 import { ReactComponent as IconPercent } from '../../../../assets/icons/icon-percent.svg';
 import { ReactComponent as IconBoxPercent } from '../../../../assets/icons/icon-box-percent.svg';

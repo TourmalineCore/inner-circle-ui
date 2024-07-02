@@ -6,9 +6,9 @@ import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { Employee } from './types/Profile';
 import { api } from '../../common/api';
 
-import { GeneralInfo } from './components/general-info/GeneralInfo';
-import { ContactsInfo } from './components/contacts-info/ContactsInfo';
-import { SalaryInfo } from './components/salary-info/SalaryInfo';
+import { GeneralInfo } from './sections/general-info/GeneralInfo';
+import { ContactsInfo } from './sections/contacts-info/ContactsInfo';
+import { SalaryInfo } from './sections/salary-info/SalaryInfo';
 
 const initialValues = {
   id: 0,
