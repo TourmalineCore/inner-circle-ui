@@ -41,21 +41,10 @@ export function ProfilePage() {
   return (
     <div className="profile" data-cy="profile">
       <div className="profile__inner">
-
-        <div className="profile__box">
-          <h2 className="profile__head">General information</h2>
-          {
-            isLoading ? (
-              <Skeleton
-                className="profile__skeleton"
-                count={2}
-                containerTestId="loading-general-information"
-              />
-            ) : (
-              <GeneralInfo employee={employee} />
-            )
-          }
-        </div>
+        <GeneralInfo
+          employee={employee}
+          isLoading={isLoading}
+        />
 
         <div className="profile__box">
           <div className="profile__edit-box">
@@ -119,20 +108,10 @@ export function ProfilePage() {
           }
         </div>
 
-        <div className="profile__box">
-          <h2 className="profile__head">Salary</h2>
-          {
-            isLoading ? (
-              <Skeleton
-                className="profile__skeleton"
-                count={4}
-                containerTestId="loading-salary"
-              />
-            ) : (
-              <SalaryInfo employee={employee} />
-            )
-          }
-        </div>
+        <SalaryInfo
+          employee={employee}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );
