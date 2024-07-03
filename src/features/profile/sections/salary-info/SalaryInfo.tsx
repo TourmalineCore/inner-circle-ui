@@ -1,5 +1,4 @@
 import { NumericFormat } from 'react-number-format';
-import Skeleton from 'react-loading-skeleton';
 import { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { InfoCard } from '../components/info-card/InfoCard';
@@ -8,6 +7,7 @@ import { ReactComponent as IconPercent } from '../../../../assets/icons/icon-per
 import { ReactComponent as IconBoxPercent } from '../../../../assets/icons/icon-box-percent.svg';
 import { ReactComponent as IconVirginmoney } from '../../../../assets/icons/icon-virginmoney.svg';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
+import { ProfileSkeleton } from '../components/skeleton/ProfileSkeleton';
 
 export const SalaryInfo = observer(() => {
   const profileState = useContext(ProfileStateContext);
@@ -19,10 +19,8 @@ export const SalaryInfo = observer(() => {
       <h2 className="profile__head">Salary</h2>
       {
         profileState.isLoading ? (
-          <Skeleton
-            className="profile__skeleton"
-            count={4}
-            containerTestId="loading-salary"
+          <ProfileSkeleton
+            id="loading-salary"
           />
         ) : (
           <div>

@@ -1,10 +1,10 @@
-import Skeleton from 'react-loading-skeleton';
 import { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconOutlineEmail } from '../../../../assets/icons/icon-outline-email.svg';
 import { InfoCard } from '../components/info-card/InfoCard';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
+import { ProfileSkeleton } from '../components/skeleton/ProfileSkeleton';
 
 export const GeneralInfo = observer(() => {
   const profileState = useContext(ProfileStateContext);
@@ -16,10 +16,9 @@ export const GeneralInfo = observer(() => {
       <h2 className="profile__head">General information</h2>
       {
         profileState.isLoading ? (
-          <Skeleton
-            className="profile__skeleton"
+          <ProfileSkeleton
             count={2}
-            containerTestId="loading-general-information"
+            id="loading-general-information"
           />
         ) : (
           <>

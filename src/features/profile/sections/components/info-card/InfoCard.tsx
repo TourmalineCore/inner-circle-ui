@@ -9,7 +9,7 @@ export function InfoCard({
   label,
   isError = false,
   isHaveValue,
-}: {
+} : {
   label: string;
   value: ReactNode,
   icon?: ReactNode,

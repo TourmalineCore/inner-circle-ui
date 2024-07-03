@@ -1,7 +1,6 @@
 import { ChangeEvent, useContext } from 'react';
 import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues, PatternFormat } from 'react-number-format';
-import Skeleton from 'react-loading-skeleton';
 import { observer } from 'mobx-react-lite';
 import { ReactComponent as IconPhone } from '../../../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconMessage } from '../../../../assets/icons/icon-message.svg';
@@ -9,6 +8,7 @@ import { ReactComponent as IconGithub } from '../../../../assets/icons/icon-gith
 import { ReactComponent as IconGitlab } from '../../../../assets/icons/icon-gitlab.svg';
 import { InfoCard } from '../components/info-card/InfoCard';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
+import { ProfileSkeleton } from '../components/skeleton/ProfileSkeleton';
 
 export const ContactsInfo = observer(({
   editEmployeeAsync,
@@ -66,10 +66,8 @@ export const ContactsInfo = observer(({
       </div>
       {
         profileState.isLoading ? (
-          <Skeleton
-            className="profile__skeleton"
-            count={4}
-            containerTestId="loading-contacts"
+          <ProfileSkeleton
+            id="loading-contacts"
           />
         ) : (
           <>
