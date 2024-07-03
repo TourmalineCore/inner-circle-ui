@@ -20,16 +20,18 @@ export const ContactsInfo = observer(({
   const profileState = useContext(ProfileStateContext);
 
   const employee = profileState.employeeInfo;
+  const isDataLoading = profileState.isLoading;
+  const isDataEdit = profileState.isEdit;
 
   return (
     <div className="profile__box">
       <div className="profile__edit-box">
         <h2 className="profile__head">Contacts</h2>
         {
-          !profileState.isLoading && (
+          !isDataLoading && (
             <div className="profile__buttons">
               {
-                !profileState.isEdit ? (
+                !isDataEdit ? (
                   <ContactsInfoButton
                     text="Edit"
                     onClick={() => profileState.setIsEdit(true)}
@@ -59,14 +61,14 @@ export const ContactsInfo = observer(({
         }
       </div>
       {
-        profileState.isLoading ? (
+        isDataLoading ? (
           <ProfileSkeleton
             id="loading-contacts"
           />
         ) : (
           <>
             <InfoCard
-              isHaveValue={profileState.isEdit || !!(employee.phone && employee.phone.length > 9)}
+              isHaveValue={isDataEdit || !!(employee.phone && employee.phone.length > 9)}
               value={(
                 <PatternFormat
                   className="profile__contacts-info"
@@ -74,7 +76,7 @@ export const ContactsInfo = observer(({
                   format="+7 (###) ### ## ##"
                   customInput={Input}
                   displayType={
-                    !profileState.isEdit
+                    !isDataEdit
                       ? 'text'
                       : 'input'
                   }
