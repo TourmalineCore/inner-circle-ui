@@ -1,24 +1,10 @@
 import { GeneralInfo } from './GeneralInfo';
 import { ProfileState } from '../../state/ProfileState';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
+import { getProfileInfo } from '../../utils/utilsForTests';
+import { Employee } from '../../types/Profile';
 
-const state = new ProfileState();
-
-const INITIAL_EMPLOYEE = {
-  id: 0,
-  fullName: '',
-  corporateEmail: '',
-  personalEmail: '',
-  phone: '',
-  gitHub: '',
-  gitLab: '',
-  fullSalary: 0,
-  districtCoefficient: 0,
-  incomeTax: 0,
-  netSalary: 0,
-  isSalaryInfoFilled: false,
-  isEmployedOfficially: false,
-};
+const employeeState = new ProfileState();
 
 describe('GeneralInfo', () => {
   it(`
@@ -53,7 +39,7 @@ describe('GeneralInfo', () => {
   `, () => {
     mountComponent();
 
-    state.setIsLoading(true);
+    employeeState.setIsLoading(true);
 
     cy
       .getByData('skeleton')
@@ -68,7 +54,7 @@ describe('GeneralInfo', () => {
   `, () => {
     mountComponent();
 
-    state.setIsLoading(false);
+    employeeState.setIsLoading(false);
 
     cy
       .getByData('general-info-cards')
@@ -81,13 +67,17 @@ describe('GeneralInfo', () => {
   });
 });
 
-function mountComponent() {
-  state.initialize({
-    employee: INITIAL_EMPLOYEE,
+function mountComponent({
+  employee = getProfileInfo({}),
+} : {
+  employee?: Employee
+} = {}) {
+  employeeState.initialize({
+    employee,
   });
 
   cy.mount(
-    <ProfileStateContext.Provider value={state}>
+    <ProfileStateContext.Provider value={employeeState}>
       <GeneralInfo />
     </ProfileStateContext.Provider>,
   );
