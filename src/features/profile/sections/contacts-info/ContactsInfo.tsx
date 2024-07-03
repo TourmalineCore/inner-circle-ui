@@ -10,6 +10,7 @@ import { InfoCard } from '../components/info-card/InfoCard';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
 import { ProfileSkeleton } from '../components/skeleton/ProfileSkeleton';
 import { InfoEditableCard } from './components/info-editable-card/InfoEditableCard';
+import { ContactsInfoButton } from './components/contacts-info-button/ContactsInfoButton';
 
 export const ContactsInfo = observer(({
   editEmployeeAsync,
@@ -29,35 +30,27 @@ export const ContactsInfo = observer(({
             <div className="profile__buttons">
               {
                 !profileState.isEdit ? (
-                  <button
-                    type="button"
-                    className="profile__button"
+                  <ContactsInfoButton
+                    text="Edit"
                     onClick={() => profileState.setIsEdit(true)}
-                  >
-                    Edit
-                  </button>
+                  />
                 ) : (
                   <>
-                    <button
-                      type="button"
-                      className="profile__button"
+                    <ContactsInfoButton
+                      text="Save"
                       onClick={() => {
                         editEmployeeAsync();
                       }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      className="profile__button"
+                    />
+
+                    <ContactsInfoButton
+                      text="Cancel"
                       onClick={() => {
                         profileState.setIsEdit(false);
                         profileState.setEmployee(employee);
                         profileState.setTriedToSubmit(false);
                       }}
-                    >
-                      Cancel
-                    </button>
+                    />
                   </>
                 )
               }
