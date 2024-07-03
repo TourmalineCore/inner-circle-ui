@@ -4,7 +4,7 @@ import { ProfileStateContext } from '../../state/ProfileStateContext';
 import { getProfileInfo } from '../../utils/utilsForTests';
 import { Employee } from '../../types/Profile';
 
-const employeeState = new ProfileState();
+const profileState = new ProfileState();
 
 describe('GeneralInfo', () => {
   it(`
@@ -39,7 +39,7 @@ describe('GeneralInfo', () => {
   `, () => {
     mountComponent();
 
-    employeeState.setIsLoading(true);
+    profileState.setIsLoading(true);
 
     cy
       .getByData('skeleton')
@@ -54,7 +54,7 @@ describe('GeneralInfo', () => {
   `, () => {
     mountComponent();
 
-    employeeState.setIsLoading(false);
+    profileState.setIsLoading(false);
 
     cy
       .getByData('general-info-cards')
@@ -72,12 +72,12 @@ function mountComponent({
 } : {
   employee?: Employee
 } = {}) {
-  employeeState.initialize({
+  profileState.initialize({
     employee,
   });
 
   cy.mount(
-    <ProfileStateContext.Provider value={employeeState}>
+    <ProfileStateContext.Provider value={profileState}>
       <GeneralInfo />
     </ProfileStateContext.Provider>,
   );

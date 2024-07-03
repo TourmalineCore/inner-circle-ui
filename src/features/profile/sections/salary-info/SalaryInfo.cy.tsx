@@ -4,7 +4,7 @@ import { Employee } from '../../types/Profile';
 import { getProfileInfo } from '../../utils/utilsForTests';
 import { SalaryInfo } from './SalaryInfo';
 
-const employeeState = new ProfileState();
+const profileState = new ProfileState();
 
 describe('SalaryInfo', () => {
   it(`
@@ -39,7 +39,7 @@ describe('SalaryInfo', () => {
   `, () => {
     mountComponent();
 
-    employeeState.setIsLoading(true);
+    profileState.setIsLoading(true);
 
     cy
       .getByData('skeleton')
@@ -55,7 +55,7 @@ describe('SalaryInfo', () => {
   `, () => {
     mountComponent();
 
-    employeeState.setIsLoading(false);
+    profileState.setIsLoading(false);
 
     cy
       .getByData('salary-info-cards')
@@ -78,7 +78,7 @@ describe('SalaryInfo', () => {
       ),
     });
 
-    employeeState.setIsLoading(false);
+    profileState.setIsLoading(false);
 
     cy
       .getByData('salary-info-cards')
@@ -107,7 +107,7 @@ describe('SalaryInfo', () => {
       ),
     });
 
-    employeeState.setIsLoading(false);
+    profileState.setIsLoading(false);
 
     cy
       .getByData('salary-info-cards')
@@ -135,7 +135,7 @@ describe('SalaryInfo', () => {
       ),
     });
 
-    employeeState.setIsLoading(false);
+    profileState.setIsLoading(false);
 
     cy
       .getByData('salary-info-cards')
@@ -148,12 +148,12 @@ function mountComponent({
 } : {
   employee?: Employee
 } = {}) {
-  employeeState.initialize({
+  profileState.initialize({
     employee,
   });
 
   cy.mount(
-    <ProfileStateContext.Provider value={employeeState}>
+    <ProfileStateContext.Provider value={profileState}>
       <SalaryInfo />
     </ProfileStateContext.Provider>,
   );
