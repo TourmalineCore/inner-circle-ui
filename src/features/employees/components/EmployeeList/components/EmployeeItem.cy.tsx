@@ -11,9 +11,7 @@ describe('EmployeeItem', () => {
   WHEN render the component 
   THEN see it
   `, () => {
-    mountComponent({
-      employee: getEmployee({}),
-    });
+    mountComponent();
 
     cy
       .getByData('employee-item')
@@ -45,7 +43,6 @@ describe('EmployeeItem', () => {
   `, () => {
     mountComponent({
       hasViewSalaryAndDocumentsDataPermission: false,
-      employee: getEmployee({}),
     });
 
     cy
@@ -59,9 +56,7 @@ describe('EmployeeItem', () => {
   AND has all permissions
   THEN see all employee information data
   `, () => {
-    mountComponent({
-      employee: getEmployee({}),
-    });
+    mountComponent();
 
     cy.contains('name');
 
@@ -95,9 +90,7 @@ describe('EmployeeItem', () => {
   WHEN has EditFullEmployeesData permission
   THEN see edit button
   `, () => {
-    mountComponent({
-      employee: getEmployee({}),
-    });
+    mountComponent();
 
     cy
       .getByData('employee-item-button')
@@ -111,7 +104,6 @@ describe('EmployeeItem', () => {
   `, () => {
     mountComponent({
       hasEditFullEmployeesDataPermission: false,
-      employee: getEmployee({}),
     });
 
     cy
@@ -127,7 +119,6 @@ describe('EmployeeItem', () => {
   `, () => {
     mountComponent({
       hasViewSalaryAndDocumentsDataPermission: false,
-      employee: getEmployee({}),
     });
 
     cy
@@ -167,7 +158,6 @@ describe('EmployeeItem', () => {
   `, () => {
     mountComponent({
       hasViewContactsPermission: false,
-      employee: getEmployee({}),
     });
 
     cy
@@ -192,13 +182,13 @@ function mountComponent({
   hasViewContactsPermission = true,
   hasViewSalaryAndDocumentsDataPermission = true,
   hasEditFullEmployeesDataPermission = true,
-  employee,
+  employee = getEmployee({}),
 }: {
   hasViewContactsPermission?: boolean,
   hasViewSalaryAndDocumentsDataPermission?: boolean,
   hasEditFullEmployeesDataPermission?: boolean,
-  employee: Employee;
-}) {
+  employee?: Employee;
+} = {}) {
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const accessOnPermissionsState = new AccessBasedOnPermissionsState();
   accessOnPermissionsState.accessPermissions.set('ViewContacts', hasViewContactsPermission);
