@@ -15,15 +15,23 @@ export const SalaryInfo = observer(() => {
   const employee = profileState.employeeInfo;
 
   return (
-    <div className="profile__box">
-      <h2 className="profile__head">Salary</h2>
+    <div
+      className="profile__box"
+      data-cy="salary-info"
+    >
+      <h2
+        className="profile__head"
+        data-cy="salary-info-head"
+      >
+        Salary
+      </h2>
       {
         profileState.isLoading ? (
           <ProfileSkeleton
             id="loading-salary"
           />
         ) : (
-          <div>
+          <div data-cy="salary-info-cards">
             {
               employee.isSalaryInfoFilled ? (
                 <>
