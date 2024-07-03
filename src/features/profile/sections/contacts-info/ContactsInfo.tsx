@@ -9,6 +9,7 @@ import { ReactComponent as IconGitlab } from '../../../../assets/icons/icon-gitl
 import { InfoCard } from '../components/info-card/InfoCard';
 import { ProfileStateContext } from '../../state/ProfileStateContext';
 import { ProfileSkeleton } from '../components/skeleton/ProfileSkeleton';
+import { InfoEditableCard } from './components/info-editable-card/InfoEditableCard';
 
 export const ContactsInfo = observer(({
   editEmployeeAsync,
@@ -72,9 +73,7 @@ export const ContactsInfo = observer(({
         ) : (
           <>
             <InfoCard
-              isHaveValue={
-                profileState.isEdit || !!(employee.phone && employee.phone.length > 9)
-              }
+              isHaveValue={profileState.isEdit || !!(employee.phone && employee.phone.length > 9)}
               value={(
                 <PatternFormat
                   className="profile__contacts-info"
@@ -97,72 +96,35 @@ export const ContactsInfo = observer(({
               label="Phone Number"
               icon={<IconPhone />}
             />
-            <InfoCard
-              isHaveValue={
-                profileState.isEdit || !!employee.personalEmail
-              }
-              value={
-                !profileState.isEdit
-                  ? employee.personalEmail
-                  : (
-                    <Input
-                      value={employee.personalEmail || ''}
-                      maxLength={40}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({ ...employee, personalEmail: event.target.value })}
-                    />
-                  )
-              }
+
+            <InfoEditableCard
+              value={employee.personalEmail}
               label="Personal Email"
               icon={<IconMessage />}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({
+                ...employee,
+                personalEmail: event.target.value,
+              })}
             />
-            <InfoCard
-              isHaveValue={
-                profileState.isEdit || !!employee.gitHub
-              }
-              value={
-                !profileState.isEdit
-                  ? employee.gitHub
-                  : (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                    >
-                      @
-                      <Input
-                        value={employee.gitHub || ''}
-                        maxLength={39}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({ ...employee, gitHub: event.target.value })}
-                      />
-                    </div>
-                  )
-              }
+
+            <InfoEditableCard
+              value={employee.gitHub}
               label="Personal GitHub"
               icon={<IconGithub />}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({
+                ...employee,
+                gitHub: event.target.value,
+              })}
             />
-            <InfoCard
-              isHaveValue={
-                profileState.isEdit || !!employee.gitLab
-              }
-              value={
-                !profileState.isEdit
-                  ? employee.gitLab
-                  : (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                    >
-                      @
-                      <Input
-                        value={employee.gitLab || ''}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({ ...employee, gitLab: event.target.value })}
-                      />
-                    </div>
-                  )
-              }
+
+            <InfoEditableCard
+              value={employee.gitLab}
               label="Personal GitLab"
               icon={<IconGitlab />}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => profileState.setEmployee({
+                ...employee,
+                gitLab: event.target.value,
+              })}
             />
           </>
         )
