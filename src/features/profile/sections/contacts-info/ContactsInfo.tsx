@@ -24,12 +24,23 @@ export const ContactsInfo = observer(({
   const isDataEdit = profileState.isEdit;
 
   return (
-    <div className="profile__box">
+    <div
+      className="profile__box"
+      data-cy="contacts-info"
+    >
       <div className="profile__edit-box">
-        <h2 className="profile__head">Contacts</h2>
+        <h2
+          className="profile__head"
+          data-cy="contacts-info-head"
+        >
+          Contacts
+        </h2>
         {
           !isDataLoading && (
-            <div className="profile__buttons">
+            <div
+              className="profile__buttons"
+              data-cy="contacts-info-buttons"
+            >
               {
                 !isDataEdit ? (
                   <ContactsInfoButton
@@ -66,7 +77,7 @@ export const ContactsInfo = observer(({
             id="loading-contacts"
           />
         ) : (
-          <>
+          <div data-cy="contacts-info-cards">
             <InfoCard
               isHaveValue={isDataEdit || !!(employee.phone && employee.phone.length > 9)}
               value={(
@@ -121,7 +132,7 @@ export const ContactsInfo = observer(({
                 gitLab: event.target.value,
               })}
             />
-          </>
+          </div>
         )
       }
     </div>
