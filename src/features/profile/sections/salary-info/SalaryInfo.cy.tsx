@@ -118,6 +118,29 @@ describe('SalaryInfo', () => {
       .children()
       .should('have.length', 4);
   });
+
+  it(`
+  GIVEN salary info
+  WHEN render cards
+  AND isLoading flag is false
+  AND isSalaryInfoFilled property is false
+  AND isEmployedOfficially property is true
+  THEN see no cards and text about it
+  `, () => {
+    mountComponent({
+      employee: getProfileInfo(
+        {
+          isEmployedOfficially: true,
+        },
+      ),
+    });
+
+    employeeState.setIsLoading(false);
+
+    cy
+      .getByData('salary-info-cards')
+      .should('have.text', 'Your salary will be filled soon..');
+  });
 });
 
 function mountComponent({
