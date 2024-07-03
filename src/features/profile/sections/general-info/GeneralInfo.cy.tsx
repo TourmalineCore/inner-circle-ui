@@ -61,11 +61,11 @@ describe('GeneralInfo', () => {
   });
 
   it(`
-    GIVEN general info
-    WHEN render cards
-    AND isLoading flag is false
-    THEN see two cards
-    `, () => {
+  GIVEN general info
+  WHEN render cards
+  AND isLoading flag is false
+  THEN see two cards
+  `, () => {
     mountComponent();
 
     state.setIsLoading(false);
