@@ -12,8 +12,16 @@ export const GeneralInfo = observer(() => {
   const employee = profileState.employeeInfo;
 
   return (
-    <div className="profile__box">
-      <h2 className="profile__head">General information</h2>
+    <div
+      className="profile__box"
+      data-cy="general-info"
+    >
+      <h2
+        className="profile__head"
+        data-cy="general-info-head"
+      >
+        General information
+      </h2>
       {
         profileState.isLoading ? (
           <ProfileSkeleton
@@ -21,7 +29,7 @@ export const GeneralInfo = observer(() => {
             id="loading-general-information"
           />
         ) : (
-          <>
+          <div data-cy="general-info-cards">
             <InfoCard
               isHaveValue={!!employee.fullName}
               value={employee.fullName}
@@ -34,7 +42,7 @@ export const GeneralInfo = observer(() => {
               label="Corporate Email"
               icon={<IconOutlineEmail />}
             />
-          </>
+          </div>
         )
       }
     </div>
