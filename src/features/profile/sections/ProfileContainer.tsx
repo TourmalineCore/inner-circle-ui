@@ -1,11 +1,9 @@
 import { useContext, useEffect } from 'react';
-
 import { observer } from 'mobx-react-lite';
-import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
-import { Employee } from './types/Profile';
-import { api } from '../../common/api';
-
-import { ProfileStateContext } from './state/ProfileStateContext';
+import { LINK_TO_SALARY_SERVICE } from '../../../common/config/config';
+import { Employee } from '../types/Profile';
+import { api } from '../../../common/api';
+import { ProfileStateContext } from '../state/ProfileStateContext';
 import { ProfileContent } from './ProfileContent';
 
 export const ProfileContainer = observer(() => {
