@@ -1,0 +1,16 @@
+.profile {
+  &__inner {
+    display: flex;
+    align-items: start;
+    gap: 40px;
+  }
+
+  &__head {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  &__box {
+    width: 100%;
+  }
+}

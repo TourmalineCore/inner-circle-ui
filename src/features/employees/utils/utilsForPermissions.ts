@@ -1,4 +1,4 @@
-import { Permission } from '../../../routes/state/AccessBasedOnPemissionsState';
+import { Permission } from '../../../routes/state/AccessBasedOnPermissionsState';
 
 export function parseJwt(token: string): {
   permissions: Array<keyof typeof Permission>;

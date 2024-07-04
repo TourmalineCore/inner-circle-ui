@@ -3,18 +3,21 @@ import {
 } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SearchBar } from './components/SearchBar/SearchBar';
-import EmployeeList from './components/EmployeeList/EmployeeList';
+import { EmployeeList } from './components/EmployeeList/EmployeeList';
 import { SortMenu } from './components/SortMenu/SortMenu';
-import EmployeesStateContext from './context/EmployeesStateContext';
-import EmployeesState from './context/EmployeesState';
+import EmployeesStateContext from './state/EmployeesStateContext';
+import EmployeesState from './state/EmployeesState';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
 import { api } from '../../common/api';
-import AccessBasedOnPemissionsStateContext from '../../routes/state/AccessBasedOnPemissionsStateContext';
+import AccessBasedOnPermissionsStateContext from '../../routes/state/AccessBasedOnPermissionsStateContext';
 import { FilterMenu } from './components/FilterMenu/FilterMenu';
 
 export const EmployeesPage = observer(() => {
   const employeesState = useMemo(() => new EmployeesState(), []);
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
+
+  const hasViewSalaryAndDocumentsDataPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData');
+  const hasViewContactsPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewContacts');
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,13 +30,22 @@ export const EmployeesPage = observer(() => {
 
       <section className="employees-page">
 
-        {employeesState.isBlankEmployees
-          && accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')
-          && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+        {
+          employeesState.isBlankEmployees
+          && hasViewSalaryAndDocumentsDataPermission
+          && (
+            <div className="employees-page__notification">
+              You have blank employees. Please fill in their profiles.
+            </div>
+          )
+        }
 
         <div className="employees-page__box">
           <div><SearchBar /></div>
-          { accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && <FilterMenu />}
+          {
+            hasViewSalaryAndDocumentsDataPermission
+            && <FilterMenu />
+          }
           <SortMenu />
         </div>
 
@@ -48,14 +60,16 @@ export const EmployeesPage = observer(() => {
   );
 
   async function loadEmployeesAsync() {
-    if (accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData')) {
+    if (hasViewContactsPermission && !hasViewSalaryAndDocumentsDataPermission) {
       employeesState.updateFilterTerm('all');
     }
 
     setIsLoading(true);
 
     try {
-      const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
+      const {
+        data,
+      } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
 
       employeesState.changeEmployees(data);
     } catch (e) {

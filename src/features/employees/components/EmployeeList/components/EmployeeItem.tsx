@@ -6,83 +6,146 @@ import { useContext } from 'react';
 import { CopyToClipboardButton } from './CopyToClipboardButton/CopyToClipboardButton';
 import { Employee } from '../../../types';
 import { getEmploymentType } from '../../../utils/utils';
-import AccessBasedOnPemissionsStateContext from '../../../../../routes/state/AccessBasedOnPemissionsStateContext';
+import AccessBasedOnPermissionsStateContext from '../../../../../routes/state/AccessBasedOnPermissionsStateContext';
 import { ReactComponent as IconPhone } from '../../../../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconGithub } from '../../../../../assets/icons/icon-github.svg';
 import { ReactComponent as IconGitlab } from '../../../../../assets/icons/icon-gitlab.svg';
 import { ReactComponent as IconMessage } from '../../../../../assets/icons/icon-outline-email.svg';
 
-function EmployeeItem({
+const EMPTY_INFORMATION = '--';
+
+export function EmployeeItem({
   employee,
 }: {
   employee: Employee,
 }) {
   const navigate = useNavigate();
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
+
+  const hasViewContactsPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewContacts');
+  const hasViewSalaryAndDocumentsDataPermission = accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData');
+  const hasEditFullEmployeesDataPermission = accessBasedOnPermissionsState.accessPermissions.get('EditFullEmployeesData');
 
   return (
     <li
       key={employee.employeeId}
+      data-cy="employee-item"
       className={clsx('employee-item', {
         'employee-item--is-blank': employee.isBlankEmployee,
-        'employee-item--half-width': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
+        'employee-item--half-width': !hasViewSalaryAndDocumentsDataPermission,
       })}
     >
       <div className="employee-item__inner">
         <div>
-          <div className="employee-item__name">{employee.fullName}</div>
-          <CopyToClipboardButton text={employee.corporateEmail} notificationPosition="bottom" />
+          <div className="employee-item__name">
+            {employee.fullName}
+          </div>
+          <CopyToClipboardButton
+            text={employee.corporateEmail}
+            notificationPosition="bottom"
+          />
         </div>
 
-        {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
+        {hasViewContactsPermission && (
           <div>
             <div>Contacts</div>
             <ul className="employee-item__contacts-list">
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconMessage /></span>
+                <span className="employee-item__circle">
+                  <IconMessage />
+                </span>
                 <span>
-                  {employee.personalEmail ? <CopyToClipboardButton text={employee.personalEmail} notificationPosition="right" />
-                    : '--'}
+                  {
+                    employee.personalEmail
+                      ? (
+                        <CopyToClipboardButton
+                          text={employee.personalEmail}
+                          notificationPosition="right"
+                        />
+                      )
+                      : EMPTY_INFORMATION
+                  }
                 </span>
               </li>
+
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconPhone /></span>
+                <span className="employee-item__circle">
+                  <IconPhone />
+                </span>
                 <PatternFormat
                   type="tel"
                   displayType="text"
                   allowEmptyFormatting
-                  format={employee.phone ? '+# (###) ### ## ##' : '--'}
+                  format={
+                    employee.phone
+                      ? '+# (###) ### ## ##'
+                      : EMPTY_INFORMATION
+                  }
                   value={employee.phone}
                   renderText={(value) => {
-                    if (value !== '--') {
-                      return <a href={`tel:${employee.phone}`} title="click to call">{value}</a>;
+                    if (value !== EMPTY_INFORMATION) {
+                      return (
+                        <a
+                          href={`tel:${employee.phone}`}
+                          title="click to call"
+                        >
+                          {value}
+                        </a>
+                      );
                     }
-
-                    return '--';
+                    return EMPTY_INFORMATION;
                   }}
                 />
               </li>
-              <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconGithub /></span>
-                <span>
-                  {employee.gitHub
-                    ? <a href={`https://github.com/${employee.gitHub}`} title="link to gitHub" target="_blank" rel="noreferrer">{employee.gitHub}</a>
-                    : '--'}
 
+              <li className="employee-item__contacts-item">
+                <span className="employee-item__circle">
+                  <IconGithub />
+                </span>
+                <span>
+                  {
+                    employee.gitHub
+                      ? (
+                        <a
+                          href={`https://github.com/${employee.gitHub}`}
+                          title="link to gitHub"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {employee.gitHub}
+                        </a>
+                      )
+                      : EMPTY_INFORMATION
+                  }
                 </span>
               </li>
+
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconGitlab /></span>
+                <span className="employee-item__circle">
+                  <IconGitlab />
+                </span>
                 <span>
-                  {employee.gitLab
-                    ? <a href={`https://gitlab.com/${employee.gitLab}`} title="link to gitLab" target="_blank" rel="noreferrer">{employee.gitLab}</a>
-                    : '--'}
+                  {
+                    employee.gitLab
+                      ? (
+                        <a
+                          href={`https://gitlab.com/${employee.gitLab}`}
+                          title="link to gitLab"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {employee.gitLab}
+                        </a>
+                      )
+                      : EMPTY_INFORMATION
+                  }
                 </span>
               </li>
             </ul>
           </div>
         )}
-        {accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && (
+
+        {hasViewSalaryAndDocumentsDataPermission && (
           <>
             <div>
               <div className="employee-item__net-salary">
@@ -93,7 +156,7 @@ function EmployeeItem({
                   decimalScale={1}
                   value={employee.netSalary}
                   valueIsNumericString
-                  renderText={(value) => <span>{ value || '--'}</span>}
+                  renderText={(value) => <span>{ value || EMPTY_INFORMATION}</span>}
                 />
               </div>
 
@@ -106,9 +169,10 @@ function EmployeeItem({
                     decimalScale={1}
                     value={employee.ratePerHour}
                     valueIsNumericString
-                    renderText={(value) => <span>{ value || '--'}</span>}
+                    renderText={(value) => <span>{ value || EMPTY_INFORMATION}</span>}
                   />
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Full Salary</span>
                   <NumericFormat
@@ -117,13 +181,15 @@ function EmployeeItem({
                     decimalScale={1}
                     value={employee.fullSalary}
                     valueIsNumericString
-                    renderText={(value) => <span>{ value || '--'}</span>}
+                    renderText={(value) => <span>{ value || EMPTY_INFORMATION}</span>}
                   />
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Employment Type</span>
-                  <span>{getEmploymentType(employee.employmentType) || '--'}</span>
+                  <span>{getEmploymentType(employee.employmentType) || EMPTY_INFORMATION}</span>
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Parking</span>
                   <NumericFormat
@@ -132,27 +198,36 @@ function EmployeeItem({
                     decimalScale={1}
                     value={employee.parking}
                     valueIsNumericString
-                    renderText={(value) => <span>{ value || '--'}</span>}
+                    renderText={(value) => <span>{ value || EMPTY_INFORMATION}</span>}
                   />
                 </li>
               </ul>
             </div>
+
             <ul className="employee-item__official-documents-list">
               <li className="employee-item__official-documents-item">
                 <span>Personnel Number</span>
-                <span>{employee.personnelNumber || '--'}</span>
+                <span>{employee.personnelNumber || EMPTY_INFORMATION}</span>
               </li>
+
               <li className="employee-item__official-documents-item">
                 <span>Hire date</span>
-                <span>{employee.hireDate ? moment(employee.hireDate).format('DD.MM.YYYY') : '--'}</span>
+                <span>
+                  {
+                    employee.hireDate
+                      ? moment(employee.hireDate).format('DD.MM.YYYY')
+                      : EMPTY_INFORMATION
+                  }
+                </span>
               </li>
             </ul>
           </>
         )}
 
-        {accessBasedOnPemissionsState.accessPermissions.get('EditFullEmployeesData') && (
+        {hasEditFullEmployeesDataPermission && (
           <button
             className="employee-item__button"
+            data-cy="employee-item-button"
             type="button"
             onClick={() => { navigate(`/employees/edit?id=${employee.employeeId}`); }}
           >
@@ -163,5 +238,3 @@ function EmployeeItem({
     </li>
   );
 }
-
-export default EmployeeItem;

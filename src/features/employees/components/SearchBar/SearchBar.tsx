@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, useContext } from 'react';
-import EmployeesStateContext from '../../context/EmployeesStateContext';
+import EmployeesStateContext from '../../state/EmployeesStateContext';
 
 export const SearchBar = observer(() => {
   const employeesState = useContext(EmployeesStateContext);
@@ -9,6 +9,7 @@ export const SearchBar = observer(() => {
     <input
       placeholder="Search for employee.."
       className="search-bar-input"
+      data-cy="search-bar"
       type="text"
       data-listener-added_4a42d730="true"
       onChange={searchHandler}

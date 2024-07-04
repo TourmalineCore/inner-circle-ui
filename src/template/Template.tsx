@@ -12,17 +12,17 @@ import Sidebar from './components/Sidebar/Sidebar';
 import TemplatePages from './components/TemplatePages/TemplatePages';
 import { useSidebarRoutes } from './hooks/useSidebarRoutes';
 import { getAdminRoutes, getSidebarRoutes } from '../routes/adminRoutes';
-import AccessBasedOnPemissionsStateContext from '../routes/state/AccessBasedOnPemissionsStateContext';
+import AccessBasedOnPermissionsStateContext from '../routes/state/AccessBasedOnPermissionsStateContext';
 import { parseJwt } from '../features/employees/utils/utilsForPermissions';
 import { authService } from '../common/authService';
 
 function Template() {
   const location = useLocation();
 
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
 
-  const parsedSidebarRoutes = useSidebarRoutes(getSidebarRoutes(accessBasedOnPemissionsState.accessPermissions), location);
-  const adminRoutes = getAdminRoutes(accessBasedOnPemissionsState.accessPermissions);
+  const parsedSidebarRoutes = useSidebarRoutes(getSidebarRoutes(accessBasedOnPermissionsState.accessPermissions), location);
+  const adminRoutes = getAdminRoutes(accessBasedOnPermissionsState.accessPermissions);
 
   const breadcrumbs = useBreadcrumbs(adminRoutes as BreadcrumbsRoute<string>[], { excludePaths: ['/'] });
 

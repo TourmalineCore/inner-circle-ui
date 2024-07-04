@@ -3,29 +3,48 @@ import Skeleton from 'react-loading-skeleton';
 import clsx from 'clsx';
 import { useContext } from 'react';
 import { Employee } from '../../types';
-import EmployeeItem from './components/EmployeeItem';
-import AccessBasedOnPemissionsStateContext from '../../../../routes/state/AccessBasedOnPemissionsStateContext';
+import { EmployeeItem } from './components/EmployeeItem';
+import AccessBasedOnPermissionsStateContext from '../../../../routes/state/AccessBasedOnPermissionsStateContext';
 
-function EmployeeList({
+export const EmployeeList = observer(({
   isLoading,
   employees = [],
 }: {
   isLoading: boolean;
   employees: Employee[];
-}) {
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+}) => {
+  const accessBasedOnPermissionsState = useContext(AccessBasedOnPermissionsStateContext);
+  const hasAccess = !accessBasedOnPermissionsState.accessPermissions.get('ViewSalaryAndDocumentsData');
+
   return (
-    <ul className={clsx('employee-list', {
-      'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),
-    })}
+    <ul
+      data-cy="employee-list"
+      className={clsx('employee-list', {
+        'employee-list--two-column': !hasAccess,
+      })}
     >
-      {isLoading && (<Skeleton className="employee-list__skeleton" count={4} />)}
-      {employees.length === 0 && (<li>List empty</li>)}
-      {employees.length > 0 && employees.map((employee) => (
-        <EmployeeItem key={employee.employeeId} employee={employee} />
-      ))}
+      {
+        isLoading && (
+          <Skeleton
+            className="employee-list__skeleton"
+            count={4}
+          />
+        )
+      }
+      {
+        employees.length === 0 && (
+          <li data-cy="employee-list-empty">List empty</li>
+        )
+      }
+      {
+        employees.length > 0 && employees
+          .map((employee) => (
+            <EmployeeItem
+              key={employee.employeeId}
+              employee={employee}
+            />
+          ))
+      }
     </ul>
   );
-}
-
-export default observer(EmployeeList);
+});

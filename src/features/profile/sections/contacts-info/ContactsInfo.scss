@@ -1,0 +1,15 @@
+.contacts-info {
+  &__edit-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__buttons {
+    display: flex;
+  }
+
+  &__telephone {
+    word-break: break-all;
+  }
+}
