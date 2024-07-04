@@ -6,7 +6,7 @@ export function getProfileInfo({ ...props }: Partial<Employee>) {
     fullName: 'name',
     corporateEmail: 'email',
     personalEmail: 'personal email',
-    phone: '79000000000',
+    phone: '+79000000000',
     gitHub: 'gitHub',
     gitLab: 'gitLab',
     fullSalary: 100,
