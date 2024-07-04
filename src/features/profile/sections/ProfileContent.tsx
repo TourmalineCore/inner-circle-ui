@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { GeneralInfo } from './sections/general-info/GeneralInfo';
-import { ContactsInfo } from './sections/contacts-info/ContactsInfo';
-import { SalaryInfo } from './sections/salary-info/SalaryInfo';
+import { GeneralInfo } from './general-info/GeneralInfo';
+import { ContactsInfo } from './contacts-info/ContactsInfo';
+import { SalaryInfo } from './salary-info/SalaryInfo';
 
 export const ProfileContent = observer(({
   editEmployeeAsync,
