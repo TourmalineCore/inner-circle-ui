@@ -9,7 +9,7 @@ export const ContactsInfoButton = observer(({
 }) => (
   <button
     type="button"
-    className="profile__button"
+    className="button"
     data-cy="button"
     onClick={onClick}
   >

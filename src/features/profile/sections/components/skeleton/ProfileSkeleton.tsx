@@ -10,7 +10,7 @@ export function ProfileSkeleton({
   return (
     <div data-cy="skeleton">
       <Skeleton
-        className="profile__skeleton"
+        className="skeleton"
         count={count}
         containerTestId={id}
       />

@@ -29,7 +29,7 @@ export const ContactsInfo = observer(({
       className="profile__box"
       data-cy="contacts-info"
     >
-      <div className="profile__edit-box">
+      <div className="contacts-info__edit-box">
         <h2
           className="profile__head"
           data-cy="contacts-info-head"
@@ -39,7 +39,7 @@ export const ContactsInfo = observer(({
         {
           !isDataLoading && (
             <div
-              className="profile__buttons"
+              className="contacts-info__buttons"
               data-cy="contacts-info-buttons"
             >
               {
@@ -83,7 +83,7 @@ export const ContactsInfo = observer(({
               isHaveValue={isDataEdit || !!(employee.phone && employee.phone.length > 9)}
               value={(
                 <PatternFormat
-                  className="profile__contacts-info"
+                  className="contacts-info__telephone"
                   type="tel"
                   format="+7 (###) ### ## ##"
                   customInput={Input}
