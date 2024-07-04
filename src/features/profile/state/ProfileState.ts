@@ -18,6 +18,10 @@ export class ProfileState {
     isEmployedOfficially: false,
   };
 
+  private _initEmployee: Employee = {
+    ...this._employee,
+  };
+
   private _isLoading: boolean = false;
 
   private _triedToSubmit: boolean = false;
@@ -34,10 +38,15 @@ export class ProfileState {
     employee: Employee
   }) {
     this._employee = employee;
+    this._initEmployee = { ...employee };
   }
 
   get employeeInfo() {
     return this._employee;
+  }
+
+  get initEmployee() {
+    return this._initEmployee;
   }
 
   get isLoading() {
@@ -62,6 +71,9 @@ export class ProfileState {
 
   setIsEdit(value: boolean) {
     this._isEdit = value;
+    if (!value) {
+      this._employee = { ...this._initEmployee };
+    }
   }
 
   setEmployee(employee: Employee) {

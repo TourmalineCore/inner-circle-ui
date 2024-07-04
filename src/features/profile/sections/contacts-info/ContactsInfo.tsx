@@ -20,6 +20,7 @@ export const ContactsInfo = observer(({
   const profileState = useContext(ProfileStateContext);
 
   const employee = profileState.employeeInfo;
+  const initialEmployee = profileState.initEmployee;
   const isDataLoading = profileState.isLoading;
   const isDataEdit = profileState.isEdit;
 
@@ -60,7 +61,7 @@ export const ContactsInfo = observer(({
                       text="Cancel"
                       onClick={() => {
                         profileState.setIsEdit(false);
-                        profileState.setEmployee(employee);
+                        profileState.setEmployee(initialEmployee);
                         profileState.setTriedToSubmit(false);
                       }}
                     />
