@@ -1,0 +1,20 @@
+{
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [ ".jsx, .ts, .tsx, .js" ]
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript", 
+    "typescriptreact",
+  ],
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "files.eol": "\n",
+  "stylelint.validate": ["css", "scss"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
+}

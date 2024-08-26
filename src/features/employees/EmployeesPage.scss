@@ -1,0 +1,76 @@
+.employee {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__data {
+    :nth-child(n) {
+      margin-top: 5px;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__row {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+
+    :nth-child(n) {
+      margin-right: 10px;
+    }
+
+    :last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+
+    :nth-child(n) {
+      margin-right: 40px;
+    }
+
+    :last-child {
+      margin-right: 0;
+    }
+  }
+
+  .input-signature {
+    padding-bottom: 10px;
+    font-size: 23px;
+  }
+}
+
+.employees-page {
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e4ecf0;
+    padding-bottom: 16px;
+  }
+
+  &__notification {
+    margin: 0 auto;
+    margin-bottom: 8px;
+    border: 1px solid #e4ecf0;
+    border-radius: 12px;
+    padding: 8px 40px;
+    max-width: fit-content;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    background: #fff;
+  }
+}

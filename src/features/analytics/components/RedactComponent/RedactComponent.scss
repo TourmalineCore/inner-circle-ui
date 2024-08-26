@@ -1,0 +1,20 @@
+.component-input {
+  outline: none;
+  outline-offset: 0;
+  border-style: none;
+  width: 100%;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 18px;
+  line-height: 1.15;
+  background-color: inherit;
+  cursor: default;
+
+  &:focus {
+    border-bottom: 2px solid #000;
+  }
+
+  &--is-editable {
+    cursor: pointer;
+  }
+}

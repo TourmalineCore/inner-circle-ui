@@ -1,0 +1,88 @@
+name: Check lint and cypress components test 
+
+on:
+  push:
+    branches: [ feature/* ]
+
+jobs:
+  check-lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js 18.14.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.14.1
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: |
+          npm i
+
+      - name: Check linting
+        run: npm run lint
+        continue-on-error: false
+
+  install:
+    runs-on: ubuntu-22.04
+    needs: check-lint
+    container:
+      image: cypress/browsers:node-18.14.1-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.54-1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+          build: npm run build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
+  
+  components-test:
+    runs-on: ubuntu-22.04 
+    container: cypress/browsers:node-18.14.1-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.54-1
+    strategy:
+      fail-fast: false
+      matrix:
+        # run 3 copies of the current job in parallel
+        containers: [1, 2, 3]
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
+      - name: Components test
+        uses: cypress-io/github-action@v5
+        with:
+          component: true
+          start: npm start
+          browser: chrome
+          record: true
+          parallel: true
+          group: "Chrome component"
+        env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}

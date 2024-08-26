@@ -1,0 +1,61 @@
+.info-component {
+  position: relative;
+  display: flex;
+
+  &__card {
+    border: 1px solid #e4ecf0;
+    border-radius: 20px;
+    padding: 24px 32px;
+    width: 100%;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    background-color: #fff;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__name {
+    color: #aaa;
+  }
+
+  &__icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  &__value {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+
+    &--not-filled {
+      opacity: 0.5;
+    }
+  }
+
+  &__info-tip {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    color: #da2228;
+    transform: translateY(-50%);
+  }
+
+  &__info-content {
+    color: #838383;
+  }
+
+  & + & {
+    margin-top: 24px;
+  }
+}

@@ -1,0 +1,14 @@
+.employee-list {
+  margin: -8px;
+
+  &__skeleton {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    height: 176px;
+  }
+
+  &--two-column {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

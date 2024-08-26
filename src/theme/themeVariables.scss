@@ -1,0 +1,29 @@
+/* required prefix (used in context provider): theme-color- */
+
+/* theme key ('pink', 'green'): configured in themeColors.js */
+
+.theme-color-pink {
+  --color-text: #172f3d;
+  --color-accent-first: #0c8bb4;
+  --color-accent-last: #f53893;
+  --color-link: var(--color-accent-first);
+  --color-copyright-link: var(--color-accent-last);
+  --accent-gradient-color-1: #fff0fc;
+  --accent-gradient-color-2: #eceaff;
+  --accent-gradient-color-3: #e1f1ff;
+  --auth-bg-accent-color-first: #81b4ff;
+  --auth-bg-accent-color-last: #ffc1ee;
+}
+
+.theme-color-green {
+  --color-text: #172f3d;
+  --color-accent-first: #8aad7e;
+  --color-accent-last: #c5c1fe;
+  --color-link: #0c8bb4;
+  --color-copyright-link: #f53893;
+  --accent-gradient-color-1: #e4e6ff;
+  --accent-gradient-color-2: #e6ffed;
+  --accent-gradient-color-3: #e7ffd5;
+  --auth-bg-accent-color-first: #cbf3bd;
+  --auth-bg-accent-color-last: #c5c1fe;
+}
