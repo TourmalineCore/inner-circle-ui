@@ -1,49 +1,49 @@
-name: deploy service to prod k8s
+name: deploy UI to prod k8s
 
 on:
   push:
     branches:
       - master
 
-    tags:
-      - v*
-
-  pull_request:
-
 env:
   GITHUB_REGISTRY: ghcr.io
 
 jobs:
-  deploy-to-dev-k8s:
-    name: Deploy service to k8s for production environment
-    if: github.event_name == 'push'
+  build-image:
+    name: Build and push service image  
     runs-on: ubuntu-22.04
-
     steps:
       - name: checkout
         uses: actions/checkout@v1
       - name: Build and push image
         run: |
-          docker login ${{ env.GITHUB_REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GH_REGISTRY_TOKEN }}
-          docker build -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/prod-inner-circle-ui:latest -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/prod-inner-circle-ui:${{ github.sha }} .
-          docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/prod-inner-circle-ui:latest
-          docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/prod-inner-circle-ui:${{ github.sha }}
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker build -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:latest -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:${{ github.sha }} .
+          docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:latest
+          docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:${{ github.sha }}
+  deploy-to-dev-k8s:
+    needs: build-image
+    name: Deploy service to k8s for prod environment  
+    if: github.event_name == 'push'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
       - name: Deploy
-        uses: WyriHaximus/github-action-helm3@v2
+        uses: WyriHaximus/github-action-helm3@v3
         with:
-          exec:
-            helm upgrade --namespace prod-inner-circle --create-namespace --install prod-inner-circle-ui
-            --set "aspnetcoreEnvironment=Production"
-            --set "ingress.host"=${{ secrets.PROD_HOST }}
-            --set "apiLinks.LINK_TO_SALARY_SERVICE=${{ secrets.PROD_LINK_TO_SALARY_SERVICE }}"
-            --set "apiLinks.LINK_TO_ACCOUNT_SERVICE=${{ secrets.PROD_LINK_TO_ACCOUNT_SERVICE }}"
-            --set "resources.limits.cpu=${{ secrets.PROD_APP_CPU_LIMIT }}"
-            --set "resources.limits.memory=${{ secrets.PROD_APP_MEMORY_LIMIT }}"
-            --set "resources.requests.cpu=${{ secrets.PROD_APP_CPU_REQUESTS }}"
-            --set "resources.requests.memory=${{ secrets.PROD_APP_MEMORY_REQUESTS }}"
-            --set "imageCredentials.username=${{ github.actor }}"
-            --set "imageCredentials.password=${{ secrets.GH_REGISTRY_TOKEN }}"
-            --set "image.tag=${{ github.sha }}"
-            --set "image.pullPolicy=Always"
-            ./ci/chart
-          kubeconfig: "${{ secrets.PROD_KUBECONFIG }}"
+          exec: |
+            RELEASE_NAME=ui
+            helm repo add bitnami https://charts.bitnami.com/bitnami
+            helm upgrade --install --namespace dev-inner-circle --create-namespace --values ./ci/values-custom.yaml \
+            --set "image.tag=${{ github.sha }}" \
+            --set "ingress.enabled=true" \
+            --set "ingress.hostname=${{ secrets.DEV_HOST }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ secrets.DEV_LINK_TO_SALARY_SERVICE }}" \
+            --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}" \
+            --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}" \
+            --set "extraConfigMapEnvVars.ENV_KEY=${{ secrets.DEV_ENV }}" \
+            "${RELEASE_NAME}" \
+            bitnami/nginx --version 15.0.2
+          kubeconfig: "${{ secrets.DEV_KUBECONFIG }}"
