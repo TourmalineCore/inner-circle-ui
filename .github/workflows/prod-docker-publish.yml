@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feature/decrease-limits
+  pull_request:
 
 env:
   GITHUB_REGISTRY: ghcr.io
@@ -22,7 +22,7 @@ jobs:
           docker build -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:latest -t $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:${{ github.sha }} .
           docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:latest
           docker push $GITHUB_REGISTRY/tourmalinecore/inner-circle/ui:${{ github.sha }}
-  deploy-to-dev-k8s:
+  deploy-to-prod-k8s:
     needs: build-image
     name: Deploy service to k8s for prod environment  
     if: github.event_name == 'push'
