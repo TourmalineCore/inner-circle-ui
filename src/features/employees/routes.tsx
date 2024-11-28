@@ -2,7 +2,6 @@ import { ReactComponent as IconEmployees } from '../../assets/icons/icon-employe
 import { ReactComponent as IconEmployeesActive } from '../../assets/icons/icon-employees-active.svg';
 
 import { EmployeesPage } from './EmployeesPage';
-import EmployeeAddPage from './components/EmployeeAddPage/EmployeeAddPage';
 import EmployeeEdit from './components/EmployeeEdit/EmployeeEdit';
 
 export const employeesViewRoutes = {
@@ -12,11 +11,6 @@ export const employeesViewRoutes = {
 };
 
 export const employeesManageRoutes = [
-  {
-    path: '/employees/add',
-    breadcrumb: 'Add an employee',
-    Component: EmployeeAddPage,
-  },
   {
     path: '/employees/edit',
     breadcrumb: 'Edit',
