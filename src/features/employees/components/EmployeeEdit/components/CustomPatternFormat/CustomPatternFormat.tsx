@@ -1,7 +1,6 @@
-import React from 'react';
 import { NumberFormatValues, PatternFormat } from 'react-number-format';
-import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import { InputPropPackage } from '../../types';
+import Input from '../../../../../../components/Input/Input';
 
 function CustomPatternFormat({
   className = '',

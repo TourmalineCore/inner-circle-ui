@@ -7,9 +7,9 @@ import { ru } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { PatternFormat } from 'react-number-format';
-import { Input } from '@tourmalinecore/react-tc-ui-kit';
 
 import { InputPropPackage } from '../../types';
+import Input from '../../../../../../components/Input/Input';
 
 function CustomDatePicker({
   date = null,
@@ -61,7 +61,6 @@ class ReadonlyInput extends Component {
       <Input
         {...this.props}
         placeholder="dd.mm.yyyy"
-        type="text"
       />
     );
   }

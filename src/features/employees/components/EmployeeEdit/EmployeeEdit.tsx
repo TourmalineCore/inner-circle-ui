@@ -2,7 +2,6 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Input, CheckField, Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues } from 'react-number-format';
 
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
@@ -14,6 +13,8 @@ import { EditedEmployee } from '../../types';
 import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
 import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
 import CustomPatternFormat from './components/CustomPatternFormat/CustomPatternFormat';
+import Input from '../../../../components/Input/Input';
+import CheckField from '../../../../components/CheckField/CheckField';
 
 // const employeeStatusData = {
 //   current: 'Current/Active',
@@ -273,8 +274,20 @@ function EmployeeEdit() {
       </ul>
 
       <div className="employee-edit__box-buttons">
-        <Button onClick={() => navigate('/employees')} className="employee-edit__button">Cancel</Button>
-        <Button onClick={() => updateEmployeesAsync()} className="employee-edit__button">Save Changes</Button>
+        <button
+          type="button"
+          onClick={() => navigate('/employees')}
+          className="employee-edit__button"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onClick={() => updateEmployeesAsync()}
+          className="employee-edit__button"
+        >
+          Save Changes
+        </button>
       </div>
     </section>
   );

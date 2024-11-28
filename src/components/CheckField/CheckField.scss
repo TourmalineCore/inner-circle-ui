@@ -1,0 +1,94 @@
+.tc-checkfield {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  font-weight: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  color: inherit;
+}
+
+.tc-checkfield * {
+  box-sizing: border-box;
+}
+
+.tc-checkfield__input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tc-checkfield__box {
+  display: flex;
+  align-items: center;
+  flex: none;
+  justify-content: center;
+  border: 2px solid currentColor;
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition-property: border-color, border-width;
+  transition-duration: 0.1s, 0.1s;
+  transition-timing-function: ease-out, ease-out;
+}
+
+.tc-checkfield__box--radio {
+  border-radius: 50%;
+}
+
+.tc-checkfield__box::before {
+  content: "";
+  display: block;
+  flex: none;
+  border-radius: 2px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  background-color: currentColor;
+  opacity: 0;
+  transition-property: opacity, background-color;
+  transition-duration: 0.1s, 0.1s;
+  transition-timing-function: ease-out, ease-out;
+}
+
+.tc-checkfield__box--radio::before {
+  border-radius: 50%;
+}
+
+.tc-checkfield__label {
+  margin-left: 16px;
+}
+
+.tc-checkfield__box:hover,
+.tc-checkfield__input:focus + .tc-checkfield__box {
+  border-color: #5887f3;
+  border-color: var(--tc-controls-primary-color, #5887f3);
+}
+
+.tc-checkfield__box:hover::before,
+.tc-checkfield__input:focus + .tc-checkfield__box::before {
+  background-color: #5887f3;
+  background-color: var(--tc-controls-primary-color, #5887f3);
+}
+
+.tc-checkfield__input:checked + .tc-checkfield__box::before {
+  opacity: 1;
+}
+
+.tc-checkfield__input[disabled] + .tc-checkfield__box {
+  border-color: currentColor;
+  opacity: 0.4;
+  cursor: auto;
+}
+
+.tc-checkfield__input[disabled] + .tc-checkfield__box::before {
+  background-color: currentColor;
+}
+
+.tc-checkfield__input[disabled] ~ .tc-checkfield__label {
+  opacity: 0.4;
+}

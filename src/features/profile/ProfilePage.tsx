@@ -3,7 +3,6 @@ import {
   ChangeEvent, useEffect, useState,
 } from 'react';
 
-import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import Skeleton from 'react-loading-skeleton';
 import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format';
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
@@ -21,6 +20,7 @@ import { ReactComponent as IconOutlineEmail } from '../../assets/icons/icon-outl
 import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.svg';
 import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
 import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
+import Input from '../../components/Input/Input';
 
 const initialValues = {
   id: 0,
@@ -134,8 +134,8 @@ function ProfilePage() {
                   ? employee.personalEmail
                   : (
                     <Input
+                      className="profile__contacts-info"
                       value={employee.personalEmail || ''}
-                      maxLength={40}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
                     />
                   )}
@@ -154,8 +154,8 @@ function ProfilePage() {
                     >
                       @
                       <Input
+                        className="profile__contacts-info"
                         value={employee.gitHub || ''}
-                        maxLength={39}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
                       />
                     </div>
@@ -175,6 +175,7 @@ function ProfilePage() {
                     >
                       @
                       <Input
+                        className="profile__contacts-info"
                         value={employee.gitLab || ''}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
                       />
