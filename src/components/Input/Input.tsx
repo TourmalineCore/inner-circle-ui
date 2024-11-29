@@ -24,9 +24,9 @@ export default function Input({
   placeholder?: string,
   isValid?: boolean,
   isInvalid?: boolean,
-  validationMessages?: any,
+  validationMessages?: string[],
   isMessagesAbsolute?: boolean,
-  onChange?: any,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
   const validClassname = isValid ? 'tc-input--valid' : '';
   const invalidClassname = isInvalid ? 'tc-input--invalid' : '';
@@ -56,7 +56,7 @@ export default function Input({
         />
       </div>
 
-      {isInvalid && validationMessages.length && (
+      {isInvalid && validationMessages.length > 0 && (
         <ul className={`tc-input__errors ${errorsAbsoluteClassname}`}>
           {validationMessages.map((validationMessage: any) => (
             <li key={validationMessage}>{validationMessage}</li>

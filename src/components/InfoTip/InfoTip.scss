@@ -67,7 +67,7 @@
     line-height: 1.2;
     text-align: start;
     color: var(--color-text-tooltip);
-    background-color: #fff;
+    background-color: var(--color-white);
     animation: messageAnim 0.1s ease-out forwards;
 
     &::before {
@@ -77,7 +77,7 @@
       bottom: 100%;
       border-style: solid;
       border-width: 0 7px 7px;
-      border-color: transparent transparent #fff;
+      border-color: transparent transparent var(--color-white);
       width: 0;
       height: 0;
     }

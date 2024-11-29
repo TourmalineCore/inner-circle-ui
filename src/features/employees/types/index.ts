@@ -7,6 +7,7 @@ export type ColleagueContactsType = {
   gitHub: string | null;
   gitLab: string | null;
 };
+
 export type ColleagueFinancesDtoType = {
   id: number;
   fullName: string;

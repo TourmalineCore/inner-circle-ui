@@ -14,7 +14,7 @@ export default function CheckField({
   label?: string;
   disabled?: boolean;
   checked?: boolean;
-  onChange: any,
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
   const viewTypeClassName = viewType === 'radio' ? 'tc-checkfield__box--radio' : '';
 

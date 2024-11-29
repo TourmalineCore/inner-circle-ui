@@ -29,7 +29,11 @@ function InfoComponent({
           'info-component__value--not-filled': !isHaveValue,
         })}
         >
-          {isHaveValue ? value : 'not filled...'}
+          {
+            isHaveValue
+              ? value
+              : 'not filled...'
+          }
         </span>
       </div>
 
