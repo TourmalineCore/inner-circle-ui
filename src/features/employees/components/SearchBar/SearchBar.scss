@@ -1,6 +1,6 @@
 .search-bar-input {
   display: block;
-  border: 1px solid #e4ecf0;
+  border: 1px solid var(--filter-color-gray);
   border-radius: 12px;
   padding: 10px 32px 10px 16px;
   width: 100%;
@@ -9,5 +9,5 @@
   font-weight: inherit;
   font-size: inherit;
   color: inherit;
-  background-color: #fff;
+  background-color: var(--color-white);
 }

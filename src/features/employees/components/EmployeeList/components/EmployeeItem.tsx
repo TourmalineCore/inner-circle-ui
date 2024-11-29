@@ -66,16 +66,33 @@ function EmployeeItem({
                 <span className="employee-item__circle"><IconGithub /></span>
                 <span>
                   {employee.gitHub
-                    ? <a href={`https://github.com/${employee.gitHub}`} title="link to gitHub" target="_blank" rel="noreferrer">{employee.gitHub}</a>
+                    ? (
+                      <a
+                        href={`https://github.com/${employee.gitHub}`}
+                        title="link to gitHub"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {employee.gitHub}
+                      </a>
+                    )
                     : '--'}
-
                 </span>
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle"><IconGitlab /></span>
                 <span>
                   {employee.gitLab
-                    ? <a href={`https://gitlab.com/${employee.gitLab}`} title="link to gitLab" target="_blank" rel="noreferrer">{employee.gitLab}</a>
+                    ? (
+                      <a
+                        href={`https://gitlab.com/${employee.gitLab}`}
+                        title="link to gitLab"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {employee.gitLab}
+                      </a>
+                    )
                     : '--'}
                 </span>
               </li>

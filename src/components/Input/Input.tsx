@@ -24,9 +24,9 @@ export default function Input({
   placeholder?: string,
   isValid?: boolean,
   isInvalid?: boolean,
-  validationMessages?: any,
+  validationMessages?: string[],
   isMessagesAbsolute?: boolean,
-  onChange?: any,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
   const validClassname = isValid ? 'tc-input--valid' : '';
   const invalidClassname = isInvalid ? 'tc-input--invalid' : '';

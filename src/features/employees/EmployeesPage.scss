@@ -57,20 +57,20 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 16px;
-    border-bottom: 1px solid #e4ecf0;
+    border-bottom: 1px solid var(--filter-color-gray);
     padding-bottom: 16px;
   }
 
   &__notification {
     margin: 0 auto;
     margin-bottom: 8px;
-    border: 1px solid #e4ecf0;
+    border: 1px solid var(--filter-color-gray);
     border-radius: 12px;
     padding: 8px 40px;
     max-width: fit-content;
     font-weight: 500;
     font-size: 20px;
     line-height: 1.4;
-    background: #fff;
+    background: var(--color-white);
   }
 }
