@@ -2,6 +2,7 @@ import {
   useContext, useEffect, useMemo, useState,
 } from 'react';
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import EmployeeList from './components/EmployeeList/EmployeeList';
 import { SortMenu } from './components/SortMenu/SortMenu';
@@ -58,8 +59,8 @@ export const EmployeesPage = observer(() => {
       const { data } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `);
 
       employeesState.changeEmployees(data);
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      toast.error(e.message);
     } finally {
       setIsLoading(false);
     }

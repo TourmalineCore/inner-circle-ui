@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { NumberFormatValues } from 'react-number-format';
 
+import { toast } from 'react-toastify';
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconMail } from '../../../../assets/icons/icon-message.svg';
 import { api } from '../../../../common/api';
@@ -328,8 +329,8 @@ function EmployeeEdit() {
 
         setTriedToSubmit(false);
         navigate('/employees');
-      } catch {
-        console.log('Error');
+      } catch (e:any) {
+        toast.error(e.message);
       }
     }
   }
