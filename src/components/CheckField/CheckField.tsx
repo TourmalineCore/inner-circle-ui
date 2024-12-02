@@ -16,22 +16,22 @@ export default function CheckField({
   checked?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
-  const viewTypeClassName = viewType === 'radio' ? 'tc-checkfield__box--radio' : '';
+  const viewTypeClassName = viewType === 'radio' ? 'checkfield__box--radio' : '';
 
   return (
-    <label style={style} className={`tc-checkfield ${className}`}>
+    <label style={style} className={`checkfield ${className}`}>
       <input
         type="checkbox"
-        className="tc-checkfield__input"
+        className="checkfield__input"
         disabled={disabled}
         checked={checked}
         onChange={onChange}
         {...props}
       />
-      <span className={`tc-checkfield__box ${viewTypeClassName}`} />
+      <span className={`checkfield__box ${viewTypeClassName}`} />
 
       {label && (
-        <span className="tc-checkfield__label">{label}</span>
+        <span className="checkfield__label">{label}</span>
       )}
     </label>
   );

@@ -28,26 +28,26 @@ export default function Input({
   isMessagesAbsolute?: boolean,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
-  const validClassname = isValid ? 'tc-input--valid' : '';
-  const invalidClassname = isInvalid ? 'tc-input--invalid' : '';
-  const errorsAbsoluteClassname = isMessagesAbsolute ? 'tc-input__errors--absolute' : '';
+  const validClassname = isValid ? 'input--valid' : '';
+  const invalidClassname = isInvalid ? 'input--invalid' : '';
+  const errorsAbsoluteClassname = isMessagesAbsolute ? 'input__errors--absolute' : '';
 
   return (
     <div
       style={style}
-      className={`tc-input ${className} ${invalidClassname} ${validClassname}`}
+      className={`input ${className} ${invalidClassname} ${validClassname}`}
     >
       {label && (
-        <label className="tc-input__label" htmlFor={id}>{label}</label>
+        <label className="input__label" htmlFor={id}>{label}</label>
       )}
 
-      <div className="tc-input__box">
+      <div className="input__box">
         <input
           name={name}
           ref={inputRef}
           id={id}
           placeholder={placeholder}
-          className="tc-input__control"
+          className="input__control"
           type="text"
           maxLength={40}
           value={value}
@@ -57,7 +57,7 @@ export default function Input({
       </div>
 
       {isInvalid && validationMessages.length > 0 && (
-        <ul className={`tc-input__errors ${errorsAbsoluteClassname}`}>
+        <ul className={`input__errors ${errorsAbsoluteClassname}`}>
           {validationMessages.map((validationMessage: any) => (
             <li key={validationMessage}>{validationMessage}</li>
           ))}
