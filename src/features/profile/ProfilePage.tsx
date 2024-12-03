@@ -272,7 +272,7 @@ function ProfilePage() {
                             suffix=" ₽"
                           />
                         )}
-                        label="District Coefficient (15 %)"
+                        label="Distr. Coef. (15 %)"
                         icon={<IconPercent />}
                       />
                     )}
@@ -293,7 +293,7 @@ function ProfilePage() {
                             suffix=" ₽"
                           />
                         )}
-                        label="Income Tax (13 %)"
+                        label="Inc. Tax (13 %)"
                         icon={<IconBoxPercent />}
                       />
                     )}
