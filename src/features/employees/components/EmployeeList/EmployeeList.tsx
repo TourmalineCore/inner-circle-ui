@@ -14,6 +14,7 @@ function EmployeeList({
   employees: Employee[];
 }) {
   const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext);
+
   return (
     <ul className={clsx('employee-list', {
       'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData'),

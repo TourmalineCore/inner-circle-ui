@@ -1,0 +1,82 @@
+.input {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+
+  &__label {
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  &__box {
+    position: relative;
+    width: 100%;
+  }
+
+  &__control {
+    display: block;
+    outline: none;
+    border: 1px solid var(--filter-color-gray);
+    border-radius: 10px;
+    padding: 0 16px;
+    width: 100%;
+    height: 42px;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-clip: padding-box; /* ios inner shadow fix */
+    background-color: var(--color-white);
+
+    &:disabled {
+      border-color: #bac4ca;
+      opacity: 0.5;
+    }
+
+    &:focus {
+      border-color: #2f3436;
+    }
+
+    &:hover {
+      border-color: #81898e;
+    }
+  }
+
+  &__errors {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 17px;
+    color: #e11961;
+
+    &--absolute {
+      position: absolute;
+      left: 0;
+      top: 100%;
+    }
+  }
+}
+
+.input * {
+  box-sizing: border-box;
+}
+
+.input--invalid .input__box::after,
+.input--valid .input__box::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+}
+
+.input--valid .input__box::after {
+  background-color: #0aaa7a;
+}
+
+.input--invalid .input__box::after {
+  background-color: #e11961;
+}

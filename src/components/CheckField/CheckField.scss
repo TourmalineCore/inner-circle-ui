@@ -1,0 +1,94 @@
+.checkfield {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  font-weight: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  color: inherit;
+
+  &__input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    flex: none;
+    justify-content: center;
+    border: 2px solid currentColor;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition-property: border-color, border-width;
+    transition-duration: 0.1s, 0.1s;
+    transition-timing-function: ease-out, ease-out;
+
+    &::before {
+      content: "";
+      display: block;
+      flex: none;
+      border-radius: 2px;
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      background-color: currentColor;
+      opacity: 0;
+      transition-property: opacity, background-color;
+      transition-duration: 0.1s, 0.1s;
+      transition-timing-function: ease-out, ease-out;
+    }
+
+    &--radio {
+      border-radius: 50%;
+
+      &::before {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__label {
+    margin-left: 16px;
+  }
+}
+
+.checkfield * {
+  box-sizing: border-box;
+}
+
+.checkfield__box:hover,
+.checkfield__input:focus + .checkfield__box {
+  border-color: #5887f3;
+  border-color: var(--tc-controls-primary-color, #5887f3);
+}
+
+.checkfield__box:hover::before,
+.checkfield__input:focus + .checkfield__box::before {
+  background-color: #5887f3;
+  background-color: var(--tc-controls-primary-color, #5887f3);
+}
+
+.checkfield__input:checked + .checkfield__box::before {
+  opacity: 1;
+}
+
+.checkfield__input[disabled] + .checkfield__box {
+  border-color: currentColor;
+  opacity: 0.4;
+  cursor: auto;
+}
+
+.checkfield__input[disabled] + .checkfield__box::before {
+  background-color: currentColor;
+}
+
+.checkfield__input[disabled] ~ .checkfield__label {
+  opacity: 0.4;
+}

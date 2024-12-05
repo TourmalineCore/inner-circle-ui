@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
-import { Input } from '@tourmalinecore/react-tc-ui-kit';
 import { InputPropPackage } from '../../types';
+import Input from '../../../../../../components/Input/Input';
 
 export default function CustomNumberFormat({
   value,

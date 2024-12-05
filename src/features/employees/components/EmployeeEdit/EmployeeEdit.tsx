@@ -2,9 +2,9 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Input, CheckField, Button } from '@tourmalinecore/react-tc-ui-kit';
 import { NumberFormatValues } from 'react-number-format';
 
+import { toast } from 'react-toastify';
 import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
 import { ReactComponent as IconMail } from '../../../../assets/icons/icon-message.svg';
 import { api } from '../../../../common/api';
@@ -14,6 +14,8 @@ import { EditedEmployee } from '../../types';
 import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
 import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
 import CustomPatternFormat from './components/CustomPatternFormat/CustomPatternFormat';
+import Input from '../../../../components/Input/Input';
+import CheckField from '../../../../components/CheckField/CheckField';
 
 // const employeeStatusData = {
 //   current: 'Current/Active',
@@ -273,8 +275,20 @@ function EmployeeEdit() {
       </ul>
 
       <div className="employee-edit__box-buttons">
-        <Button onClick={() => navigate('/employees')} className="employee-edit__button">Cancel</Button>
-        <Button onClick={() => updateEmployeesAsync()} className="employee-edit__button">Save Changes</Button>
+        <button
+          type="button"
+          onClick={() => navigate('/employees')}
+          className="employee-edit__button"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onClick={() => updateEmployeesAsync()}
+          className="employee-edit__button"
+        >
+          Save Changes
+        </button>
       </div>
     </section>
   );
@@ -315,8 +329,8 @@ function EmployeeEdit() {
 
         setTriedToSubmit(false);
         navigate('/employees');
-      } catch {
-        console.log('Error');
+      } catch (e:any) {
+        toast.error(e.message);
       }
     }
   }

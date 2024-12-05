@@ -1,7 +1,7 @@
 .profile {
   &__inner {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     gap: 40px;
   }
 
@@ -26,13 +26,6 @@
     justify-content: space-between;
   }
 
-  &__heading {
-    margin-bottom: 16px;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 1.5;
-  }
-
   &__buttons {
     display: flex;
   }
@@ -45,7 +38,7 @@
     display: block;
     margin: 0;
     margin-left: 10px;
-    border: 1px solid #e4ecf0;
+    border: 1px solid var(--filter-color-gray);
     border-radius: 12px;
     padding: 8px 32px;
     min-width: 120px;
@@ -55,7 +48,7 @@
     font-size: 16px;
     line-height: 1.15;
     text-align: center;
-    background-color: #fff;
+    background-color: var(--color-white);
     cursor: pointer;
   }
 }
