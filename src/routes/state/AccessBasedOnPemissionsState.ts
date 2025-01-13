@@ -13,8 +13,9 @@ export enum Permission {
   CanRequestCompensations = 'CanRequestCompensations',
   CanManageCompensations = 'CanManageCompensations',
   CanManageDocuments = 'CanManageDocuments',
-  CanManageTenants = 'Can Manage Tenants',
-  IsTenantsHardDeleteAllowed = 'Is Tenants Hard Delete Allowed',
+  CanManageTenants = 'CanManageTenants',
+  IsTenantsHardDeleteAllowed = 'IsTenantsHardDeleteAllowed',
+  IsCompensationsHardDeleteAllowed = 'IsCompensationsHardDeleteAllowed',
 }
 
 class AccessBasedOnPemissionsState {
