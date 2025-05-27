@@ -39,6 +39,10 @@ describe('EmployeeItem', () => {
       employee: initialData.employees,
     });
 
+    // Disable prompt that blocks the test
+    cy.window().then((win) => {
+      cy.stub(win, 'prompt').returns('');
+    });
     // spy on the execCommand method, which controls text editing operations,
     // and wait for the 'copy' command of this method to be called during the test
     cy.document().then((doc) => {
