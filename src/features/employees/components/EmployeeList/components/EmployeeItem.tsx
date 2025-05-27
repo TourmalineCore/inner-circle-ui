@@ -47,7 +47,7 @@ function EmployeeItem({
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle"><IconPhone /></span>
-                <span>
+                <span data-cy="employee-phone-number">
                   {employee.phone ? <CopyToClipboardButton text={employee.phone} notificationPosition="right" />
                     : '--'}
                 </span>
