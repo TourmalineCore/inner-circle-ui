@@ -39,7 +39,7 @@ describe('EmployeeItem', () => {
       employee: initialData.employees,
     });
 
-    // Disable prompt that blocks the test
+    // disable prompt that blocks the test
     cy.window().then((win) => {
       cy.stub(win, 'prompt').returns('');
     });
