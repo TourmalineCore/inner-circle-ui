@@ -22,7 +22,8 @@ export const CopyToClipboardButton = observer(({
         data-cy="copy-text"
       >
         <span
-          title="click to email to copy it"
+          title="click to this to copy it"
+          data-cy="copy-title"
           className="copy-item__text"
         >
           {text}

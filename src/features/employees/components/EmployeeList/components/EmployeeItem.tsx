@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { NumericFormat, PatternFormat } from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import moment from 'moment';
 import { useContext } from 'react';
 import { CopyToClipboardButton } from './CopyToClipboardButton/CopyToClipboardButton';
@@ -47,20 +47,10 @@ function EmployeeItem({
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle"><IconPhone /></span>
-                <PatternFormat
-                  type="tel"
-                  displayType="text"
-                  allowEmptyFormatting
-                  format={employee.phone ? '+# (###) ### ## ##' : '--'}
-                  value={employee.phone}
-                  renderText={(value) => {
-                    if (value !== '--') {
-                      return <a href={`tel:${employee.phone}`} title="click to call">{value}</a>;
-                    }
-
-                    return '--';
-                  }}
-                />
+                <span data-cy="employee-phone-number">
+                  {employee.phone ? <CopyToClipboardButton text={employee.phone} notificationPosition="right" />
+                    : '--'}
+                </span>
               </li>
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle"><IconGithub /></span>

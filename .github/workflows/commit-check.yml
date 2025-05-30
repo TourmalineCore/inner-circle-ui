@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js 18.14.1
+      - name: Set up Node.js 18.20.3
         uses: actions/setup-node@v3
         with:
-          node-version: 18.14.1
+          node-version: 18.20.3
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: check-lint
     container:
-      image: cypress/browsers:node-18.14.1-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.54-1
+      image: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -48,15 +48,15 @@ jobs:
           build: npm run build
 
       - name: Save build folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           if-no-files-found: error
           path: build
   
-  components-test:
+  component-test:
     runs-on: ubuntu-22.04 
-    container: cypress/browsers:node-18.14.1-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.54-1
+    container: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
     strategy:
       fail-fast: false
       matrix:
@@ -64,17 +64,17 @@ jobs:
         containers: [1, 2, 3]
     needs: install
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout ui
+        uses: actions/checkout@v4
 
       - name: Download the build folders
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
 
-      - name: Components test
-        uses: cypress-io/github-action@v5
+      - name: Cypress run component tests
+        uses: cypress-io/github-action@v6
         with:
           component: true
           start: npm start
