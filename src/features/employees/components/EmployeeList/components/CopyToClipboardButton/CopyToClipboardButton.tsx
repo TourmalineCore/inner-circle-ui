@@ -43,6 +43,7 @@ export const CopyToClipboardButton = observer(({
 
   function handleCopy() {
     setCopied(true);
+
     setTimeout(() => {
       setCopied(false);
     }, 2500);
