@@ -31,31 +31,44 @@ const initialData = {
 
 describe('EmployeeItem', () => {
   it(`
-    GIVEN employees page 
-    WHEN user click to the phone
-    THEN render massage "Copied!"
-    `, () => {
+  GIVEN employees page 
+  WHEN user click to the phone
+  THEN render massage "Copied!"
+  `, () => {
     mountComponent({
       employee: initialData.employees,
     });
 
     // disable prompt that blocks the test
-    cy.window().then((win) => {
-      cy.stub(win, 'prompt').returns('');
-    });
+    cy
+      .window()
+      .then((win) => {
+        cy
+          .stub(win, 'prompt')
+          .returns('');
+      });
+
     // spy on the execCommand method, which controls text editing operations,
     // and wait for the 'copy' command of this method to be called during the test
-    cy.document().then((doc) => {
-      cy.spy(doc, 'execCommand').as('execCommand');
-    });
+    cy
+      .document()
+      .then((doc) => {
+        cy
+          .spy(doc, 'execCommand')
+          .as('execCommand');
+      });
 
-    cy.getByData('employee-phone-number')
+    cy
+      .getByData('employee-phone-number')
       .click();
 
     // check call of copy command
-    cy.get('@execCommand').should('have.been.calledWith', 'copy');
+    cy
+      .get('@execCommand')
+      .should('have.been.calledWith', 'copy');
 
-    cy.getByData('copy-notification')
+    cy
+      .getByData('copy-notification')
       .should('exist');
   });
 });
@@ -66,6 +79,7 @@ function mountComponent({
   employee: Employee[];
 }) {
   const accessState = new AccessBasedOnPemissionsState();
+
   accessState.checkPermissionFromToken([
     Permission.ViewContacts,
   ]);
