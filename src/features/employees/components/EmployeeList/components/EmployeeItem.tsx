@@ -31,7 +31,10 @@ function EmployeeItem({
       <div className="employee-item__inner">
         <div>
           <div className="employee-item__name">{employee.fullName}</div>
-          <CopyToClipboardButton text={employee.corporateEmail} notificationPosition="bottom" />
+          <CopyToClipboardButton
+            text={employee.corporateEmail}
+            notificationPosition="bottom"
+          />
         </div>
 
         {accessBasedOnPemissionsState.accessPermissions.get('ViewContacts') && (
@@ -39,56 +42,92 @@ function EmployeeItem({
             <div>Contacts</div>
             <ul className="employee-item__contacts-list">
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconMessage /></span>
+                <span className="employee-item__circle">
+                  <IconMessage />
+                </span>
+
                 <span>
-                  {employee.personalEmail ? <CopyToClipboardButton text={employee.personalEmail} notificationPosition="right" />
-                    : '--'}
+                  {
+                    employee.personalEmail
+                      ? (
+                        <CopyToClipboardButton
+                          text={employee.personalEmail}
+                          notificationPosition="right"
+                        />
+                      )
+                      : '--'
+                  }
                 </span>
               </li>
+
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconPhone /></span>
+                <span className="employee-item__circle">
+                  <IconPhone />
+                </span>
+
                 <span data-cy="employee-phone-number">
-                  {employee.phone ? <CopyToClipboardButton text={employee.phone} notificationPosition="right" />
-                    : '--'}
+                  {
+                    employee.phone
+                      ? (
+                        <CopyToClipboardButton
+                          text={employee.phone}
+                          notificationPosition="right"
+                        />
+                      )
+                      : '--'
+                  }
                 </span>
               </li>
+
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconGithub /></span>
+                <span className="employee-item__circle">
+                  <IconGithub />
+                </span>
+
                 <span>
-                  {employee.gitHub
-                    ? (
-                      <a
-                        href={`https://github.com/${employee.gitHub}`}
-                        title="link to gitHub"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {employee.gitHub}
-                      </a>
-                    )
-                    : '--'}
+                  {
+                    employee.gitHub
+                      ? (
+                        <a
+                          href={`https://github.com/${employee.gitHub}`}
+                          title="link to gitHub"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {employee.gitHub}
+                        </a>
+                      )
+                      : '--'
+                  }
                 </span>
               </li>
+
               <li className="employee-item__contacts-item">
-                <span className="employee-item__circle"><IconGitlab /></span>
+                <span className="employee-item__circle">
+                  <IconGitlab />
+                </span>
+
                 <span>
-                  {employee.gitLab
-                    ? (
-                      <a
-                        href={`https://gitlab.com/${employee.gitLab}`}
-                        title="link to gitLab"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {employee.gitLab}
-                      </a>
-                    )
-                    : '--'}
+                  {
+                    employee.gitLab
+                      ? (
+                        <a
+                          href={`https://gitlab.com/${employee.gitLab}`}
+                          title="link to gitLab"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {employee.gitLab}
+                        </a>
+                      )
+                      : '--'
+                  }
                 </span>
               </li>
             </ul>
           </div>
         )}
+
         {accessBasedOnPemissionsState.accessPermissions.get('ViewSalaryAndDocumentsData') && (
           <>
             <div>
@@ -116,6 +155,7 @@ function EmployeeItem({
                     renderText={(value) => <span>{ value || '--'}</span>}
                   />
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Full Salary</span>
                   <NumericFormat
@@ -127,10 +167,12 @@ function EmployeeItem({
                     renderText={(value) => <span>{ value || '--'}</span>}
                   />
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Employment Type</span>
                   <span>{getEmploymentType(employee.employmentType) || '--'}</span>
                 </li>
+
                 <li className="employee-item__salary-item">
                   <span className="employee-item__salary-label">Parking</span>
                   <NumericFormat
@@ -149,9 +191,16 @@ function EmployeeItem({
                 <span>Personnel Number</span>
                 <span>{employee.personnelNumber || '--'}</span>
               </li>
+
               <li className="employee-item__official-documents-item">
                 <span>Hire date</span>
-                <span>{employee.hireDate ? moment(employee.hireDate).format('DD.MM.YYYY') : '--'}</span>
+                <span>
+                  {
+                    employee.hireDate
+                      ? moment(employee.hireDate).format('DD.MM.YYYY')
+                      : '--'
+                  }
+                </span>
               </li>
             </ul>
           </>
@@ -161,7 +210,9 @@ function EmployeeItem({
           <button
             className="employee-item__button"
             type="button"
-            onClick={() => { navigate(`/employees/edit?id=${employee.employeeId}`); }}
+            onClick={() => {
+              navigate(`/employees/edit?id=${employee.employeeId}`);
+            }}
           >
             Edit
           </button>
