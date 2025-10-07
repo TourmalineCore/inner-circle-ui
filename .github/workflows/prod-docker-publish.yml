@@ -44,7 +44,7 @@ jobs:
             --set "extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}" \
             --set "extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}" \
             --set "extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}" \
-            --set "extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL" }}
+            --set "extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}" \
             "${RELEASE_NAME}" \
             bitnami/nginx --version 15.0.2
           kubeconfig: "${{ secrets.DEV_KUBECONFIG }}"
