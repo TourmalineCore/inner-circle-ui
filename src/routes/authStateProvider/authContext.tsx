@@ -1,28 +1,32 @@
-import {
-  createContext, useState, useMemo, Dispatch, SetStateAction, ReactNode,
-} from 'react';
+import {createContext, useState, useMemo, Dispatch, SetStateAction, ReactNode} from 'react'
 
   type AuthProviderProps = {
-    isAuthenticated: boolean;
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+    isAuthenticated: boolean,
+    setIsAuthenticated: Dispatch<SetStateAction<boolean>>,
   };
 
 const AuthContext = createContext<AuthProviderProps>({
   isAuthenticated: true,
   setIsAuthenticated: () => false,
-});
+})
 
 function AuthProvider({
   children,
 }: {
-  children: ReactNode;
+  children: ReactNode,
 }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [
+    isAuthenticated,
+    setIsAuthenticated,
+  ] = useState(true)
 
   const value = useMemo(() => ({
     isAuthenticated,
     setIsAuthenticated,
-  }), [isAuthenticated, setIsAuthenticated]);
+  }), [
+    isAuthenticated,
+    setIsAuthenticated,
+  ])
 
   return (
     <AuthContext.Provider
@@ -30,10 +34,10 @@ function AuthProvider({
     >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
 export {
   AuthProvider,
   AuthContext,
-};
+}

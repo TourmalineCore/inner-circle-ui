@@ -1,13 +1,11 @@
-import Indicators from './components/Indicators/Indicators';
-import AnalyticsPageTable from './components/AnalyticsPageTable/AnalyticsPageTable';
+import { Indicators } from './components/Indicators/Indicators'
+import { AnalyticsPageTable } from './components/AnalyticsPageTable/AnalyticsPageTable'
 
-function AnalyticsPage() {
+export function AnalyticsPage() {
   return (
     <>
       <AnalyticsPageTable />
       <Indicators />
     </>
-  );
+  )
 }
-
-export default AnalyticsPage;

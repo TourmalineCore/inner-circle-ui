@@ -1,6 +1,6 @@
-import ThemeColorPicker from '../../../../../../components/ThemeColorPicker/ThemeColorPicker';
+import { ThemeColorPicker } from '../../../../../../components/ThemeColorPicker/ThemeColorPicker'
 
-function SidebarSettingsMenu() {
+export function SidebarSettingsMenu() {
   return (
     <div className="sidebar-settings-menu">
       <div className="sidebar-settings-menu__item">
@@ -8,7 +8,5 @@ function SidebarSettingsMenu() {
         <ThemeColorPicker />
       </div>
     </div>
-  );
+  )
 }
-
-export default SidebarSettingsMenu;

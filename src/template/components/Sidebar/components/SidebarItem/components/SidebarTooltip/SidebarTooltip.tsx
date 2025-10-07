@@ -1,25 +1,25 @@
-import {
-  MutableRefObject,
-  ReactNode,
-} from 'react';
+import {MutableRefObject,
+  ReactNode} from 'react'
 
-function SidebarTooltip({
+export function SidebarTooltip({
   sidebarItemRef,
   sidebarContainerRef,
   content,
 }: {
-  sidebarItemRef: MutableRefObject<HTMLElement | null>;
-  sidebarContainerRef: MutableRefObject<HTMLElement | null>;
-  content: ReactNode;
+  sidebarItemRef: MutableRefObject<HTMLElement | null>,
+  sidebarContainerRef: MutableRefObject<HTMLElement | null>,
+  content: ReactNode,
 }) {
-  const sidebarRect = sidebarContainerRef.current!.getBoundingClientRect();
-  const itemRect = sidebarItemRef.current!.getBoundingClientRect();
+  const sidebarRect = sidebarContainerRef.current!.getBoundingClientRect()
+  const itemRect = sidebarItemRef.current!.getBoundingClientRect()
 
-  const top = itemRect.top - sidebarRect.top + 10;
+  const top = itemRect.top - sidebarRect.top + 10
 
   return (
-    <div className="sidebar-tooltip" style={{ top, height: '40px' }}>{content}</div>
-  );
+    <div className="sidebar-tooltip"
+      style={{
+        top,
+        height: `40px`, 
+      }}>{content}</div>
+  )
 }
-
-export default SidebarTooltip;

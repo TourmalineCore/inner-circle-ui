@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 interface SidebarDataProps {
   iconMini?: ReactNode,
@@ -9,5 +9,5 @@ interface SidebarDataProps {
 }
 
 interface SidebarProps extends SidebarDataProps {
-  routes?: SidebarDataProps[];
+  routes?: SidebarDataProps[],
 }

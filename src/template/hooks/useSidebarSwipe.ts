@@ -1,47 +1,50 @@
-import { useRef, useEffect, MutableRefObject } from 'react';
+import { useRef, useEffect, MutableRefObject } from 'react'
 
 export function useSidebarSwipe({
   sidebarContainerRef,
   isMobileOpened = false,
   onClose,
 }: {
-  sidebarContainerRef: MutableRefObject<HTMLElement | null>;
-  isMobileOpened: boolean;
-  onClose: () => unknown;
+  sidebarContainerRef: MutableRefObject<HTMLElement | null>,
+  isMobileOpened: boolean,
+  onClose: () => unknown,
 }) {
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
 
   useEffect(() => {
-    touchStartX.current = null;
-    touchEndX.current = null;
+    touchStartX.current = null
+    touchEndX.current = null
 
     if (isMobileOpened) {
-      addOrRemoveEventListeners(true);
-    } else {
-      addOrRemoveEventListeners(false);
+      addOrRemoveEventListeners(true)
+    }
+    else {
+      addOrRemoveEventListeners(false)
     }
 
     return () => {
-      addOrRemoveEventListeners(false);
-    };
-  }, [isMobileOpened]);
+      addOrRemoveEventListeners(false)
+    }
+  }, [
+    isMobileOpened,
+  ])
 
   function addOrRemoveEventListeners(shouldAdd: boolean) {
     const eventsData = [
       {
-        eventName: 'touchstart',
+        eventName: `touchstart`,
         onEventAction: handleTouchStart,
       },
       {
-        eventName: 'touchmove',
+        eventName: `touchmove`,
         onEventAction: handleTouchMove,
       },
       {
-        eventName: 'touchend',
+        eventName: `touchend`,
         onEventAction: handleTouchEnd,
       },
-    ];
+    ]
 
     if (!shouldAdd) {
       if (sidebarContainerRef.current !== null) {
@@ -50,36 +53,39 @@ export function useSidebarSwipe({
             eventData.eventName,
             eventData.onEventAction,
           ),
-        );
+        )
       }
-    } else {
+    }
+    else {
       eventsData.forEach((eventData) => sidebarContainerRef.current!.addEventListener(
         eventData.eventName,
         eventData.onEventAction,
-        { passive: true },
-      ));
+        {
+          passive: true, 
+        },
+      ))
     }
   }
 
   function handleTouchStart(event: TouchEventInit) {
     if (event.targetTouches) {
-      touchStartX.current = event.targetTouches[0].clientX;
+      touchStartX.current = event.targetTouches[0].clientX
     }
   }
 
   function handleTouchMove(event: TouchEventInit) {
     if (event.targetTouches) {
-      touchEndX.current = event.targetTouches[0].clientX;
+      touchEndX.current = event.targetTouches[0].clientX
     }
   }
 
   function handleTouchEnd() {
     if (touchStartX.current === null || touchEndX.current === null) {
-      return;
+      return
     }
 
     if (touchStartX.current - touchEndX.current > 100) {
-      onClose();
+      onClose()
     }
   }
 }

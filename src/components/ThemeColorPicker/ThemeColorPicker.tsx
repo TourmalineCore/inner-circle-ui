@@ -1,14 +1,16 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../../theme/themeContext';
+import { useContext } from 'react'
+import { ThemeContext } from '../../theme/themeContext'
 
-function ThemeColorPicker() {
-  const { setThemeColor, themeColors } = useContext(ThemeContext);
+export function ThemeColorPicker() {
+  const {
+    setThemeColor, themeColors, 
+  } = useContext(ThemeContext)
 
   return (
     <div className="theme-color-picker">
       {themeColors.map((color: {
-        key: string;
-        pickerBtnColor: string;
+        key: string,
+        pickerBtnColor: string,
       }) => (
         <button
           key={color.key}
@@ -21,7 +23,5 @@ function ThemeColorPicker() {
         />
       ))}
     </div>
-  );
+  )
 }
-
-export default ThemeColorPicker;

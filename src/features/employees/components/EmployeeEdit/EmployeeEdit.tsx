@@ -1,21 +1,21 @@
 /* eslint-disable no-extra-boolean-cast */
-import { useEffect, useState, ChangeEvent } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useState, ChangeEvent } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { NumberFormatValues } from 'react-number-format';
+import { NumberFormatValues } from 'react-number-format'
 
-import { toast } from 'react-toastify';
-import { ReactComponent as IconProfile } from '../../../../assets/icons/icon-profile.svg';
-import { ReactComponent as IconMail } from '../../../../assets/icons/icon-message.svg';
-import { api } from '../../../../common/api';
-import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config';
-import { EditedEmployee } from '../../types';
+import { toast } from 'react-toastify'
+import IconProfile from '../../../../assets/icons/icon-profile.svg?react'
+import IconMail from '../../../../assets/icons/icon-message.svg?react'
+import { api } from '../../../../common/api'
+import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config'
+import { EditedEmployee } from '../../types'
 
-import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker';
-import CustomNumberFormat from './components/CustomNumberFormat/CustomNumberFormat';
-import CustomPatternFormat from './components/CustomPatternFormat/CustomPatternFormat';
-import Input from '../../../../components/Input/Input';
-import CheckField from '../../../../components/CheckField/CheckField';
+import { CustomDatePicker } from './components/CustomDatePicker/CustomDatePicker'
+import { CustomNumberFormat } from './components/CustomNumberFormat/CustomNumberFormat'
+import { CustomPatternFormat } from './components/CustomPatternFormat/CustomPatternFormat'
+import { Input } from '../../../../components/Input/Input'
+import { CheckField } from '../../../../components/CheckField/CheckField'
 
 // const employeeStatusData = {
 //   current: 'Current/Active',
@@ -23,22 +23,28 @@ import CheckField from '../../../../components/CheckField/CheckField';
 // };
 
 const employeeTypeData = {
-  1: 'Full time',
-  0.5: 'Half time',
-};
+  1: `Full time`,
+  0.5: `Half time`,
+}
 
 const employedData = {
-  officially: 'Officially',
-  freelance: 'Freelance',
-};
+  officially: `Officially`,
+  freelance: `Freelance`,
+}
 
-function EmployeeEdit() {
-  const navigate = useNavigate();
+export function EmployeeEdit() {
+  const navigate = useNavigate()
 
-  const [triedToSubmit, setTriedToSubmit] = useState(false);
-  const [employee, setEmployee] = useState<EditedEmployee>({
-    fullName: '',
-    corporateEmail: '',
+  const [
+    triedToSubmit,
+    setTriedToSubmit,
+  ] = useState(false)
+  const [
+    employee,
+    setEmployee,
+  ] = useState<EditedEmployee>({
+    fullName: ``,
+    corporateEmail: ``,
     personalEmail: null,
     phone: null,
     gitHub: null,
@@ -51,26 +57,30 @@ function EmployeeEdit() {
     dismissalDate: new Date(),
     isEmployedOfficially: true,
     isCurrentEmployee: true,
-    personnelNumber: '',
-  });
+    personnelNumber: ``,
+  })
 
-  const [param] = useSearchParams();
-  const id = param.get('id');
+  const [
+    param,
+  ] = useSearchParams()
+  const id = param.get(`id`)
 
   useEffect(() => {
-    loadEmployeeAsync();
-  }, []);
+    loadEmployeeAsync()
+  }, [])
 
   const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const {
+      name, value, 
+    } = event.target
 
     const updatedForm: EditedEmployee = {
       ...employee,
       [name]: value,
-    };
+    }
 
-    setEmployee(updatedForm);
-  };
+    setEmployee(updatedForm)
+  }
 
   return (
     <section className="employee-edit">
@@ -98,7 +108,10 @@ function EmployeeEdit() {
             format="+7 (###) ### ## ##"
             value={employee.phone}
             isInvalid={!(employee.phone && employee.phone.length > 9) && triedToSubmit}
-            onChange={(event: NumberFormatValues) => setEmployee({ ...employee, phone: event.value })}
+            onChange={(event: NumberFormatValues) => setEmployee({
+              ...employee,
+              phone: event.value, 
+            })}
           />
         </li>
         <li className="employee-edit__item">
@@ -107,7 +120,7 @@ function EmployeeEdit() {
             name="personalEmail"
             placeholder="email@mail.ru"
             className="employee-edit__control"
-            value={employee.personalEmail || ''}
+            value={employee.personalEmail || ``}
             onChange={handleFormChange}
           />
         </li>
@@ -119,7 +132,7 @@ function EmployeeEdit() {
               className="employee-edit__control"
               name="gitHub"
               placeholder="gitHub"
-              value={employee.gitHub || ''}
+              value={employee.gitHub || ``}
               onChange={handleFormChange}
             />
           </div>
@@ -132,7 +145,7 @@ function EmployeeEdit() {
               className="employee-edit__control"
               name="gitLab"
               placeholder="gitLab"
-              value={employee.gitLab || ''}
+              value={employee.gitLab || ``}
               onChange={handleFormChange}
             />
           </div>
@@ -147,7 +160,10 @@ function EmployeeEdit() {
             <CustomNumberFormat
               value={employee.ratePerHour || 0}
               isInvalid={!(employee.ratePerHour! >= 0) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({ ...employee, ratePerHour: Number(event.value) })}
+              onChange={(event: NumberFormatValues) => setEmployee({
+                ...employee,
+                ratePerHour: Number(event.value), 
+              })}
             />
           </div>
         </li>
@@ -155,31 +171,41 @@ function EmployeeEdit() {
           <span className="employee-edit__label">Full Salary *</span>
           <div className="employee-edit__control">
             <CustomNumberFormat
-              value={employee.fullSalary || ''}
+              value={employee.fullSalary || ``}
               isInvalid={!Boolean(employee.fullSalary) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({ ...employee, fullSalary: Number(event.value) })}
+              onChange={(event: NumberFormatValues) => setEmployee({
+                ...employee,
+                fullSalary: Number(event.value), 
+              })}
             />
           </div>
         </li>
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employment Type *</span>
           <div className="employee-edit__control">
-            {Object.entries(employeeTypeData).map(([value, label]) => {
-              const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 ? '1' : '0.5';
+            {Object.entries(employeeTypeData)
+              .map(([
+                value,
+                label,
+              ]) => {
+                const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 ? `1` : `0.5`
 
-              return (
-                <CheckField
-                  key={value}
-                  style={{
-                    marginBottom: 16,
-                  }}
-                  viewType="radio"
-                  label={label}
-                  checked={value === employmentTypeValue}
-                  onChange={() => setEmployee({ ...employee, employmentType: Number(value) })}
-                />
-              );
-            })}
+                return (
+                  <CheckField
+                    key={value}
+                    style={{
+                      marginBottom: 16,
+                    }}
+                    viewType="radio"
+                    label={label}
+                    checked={value === employmentTypeValue}
+                    onChange={() => setEmployee({
+                      ...employee,
+                      employmentType: Number(value), 
+                    })}
+                  />
+                )
+              })}
           </div>
         </li>
         <li className="employee-edit__item">
@@ -188,7 +214,10 @@ function EmployeeEdit() {
             <CustomNumberFormat
               value={employee.parking || 0}
               isInvalid={!(employee.parking! >= 0) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({ ...employee, parking: Number(event.value) })}
+              onChange={(event: NumberFormatValues) => setEmployee({
+                ...employee,
+                parking: Number(event.value), 
+              })}
             />
           </div>
         </li>
@@ -202,7 +231,10 @@ function EmployeeEdit() {
             <CustomDatePicker
               date={employee.hireDate}
               isInvalid={!Boolean(employee.hireDate) && triedToSubmit}
-              onChange={(date: Date) => setEmployee({ ...employee, hireDate: date })}
+              onChange={(date: Date) => setEmployee({
+                ...employee,
+                hireDate: date, 
+              })}
             />
           </div>
         </li>
@@ -242,22 +274,29 @@ function EmployeeEdit() {
         <li className="employee-edit__item employee-edit__item--radio-list">
           <span className="employee-edit__label">Employed *</span>
           <div>
-            {Object.entries(employedData).map(([value, label]) => {
-              const valueEmployedOfficially = employee.isEmployedOfficially ? 'officially' : 'freelance';
+            {Object.entries(employedData)
+              .map(([
+                value,
+                label,
+              ]) => {
+                const valueEmployedOfficially = employee.isEmployedOfficially ? `officially` : `freelance`
 
-              return (
-                <CheckField
-                  key={value}
-                  style={{
-                    marginBottom: 16,
-                  }}
-                  viewType="radio"
-                  label={label}
-                  checked={value === valueEmployedOfficially}
-                  onChange={() => setEmployee({ ...employee, isEmployedOfficially: value === 'officially' })}
-                />
-              );
-            })}
+                return (
+                  <CheckField
+                    key={value}
+                    style={{
+                      marginBottom: 16,
+                    }}
+                    viewType="radio"
+                    label={label}
+                    checked={value === valueEmployedOfficially}
+                    onChange={() => setEmployee({
+                      ...employee,
+                      isEmployedOfficially: value === `officially`, 
+                    })}
+                  />
+                )
+              })}
           </div>
         </li>
         {employee.isEmployedOfficially && (
@@ -268,7 +307,10 @@ function EmployeeEdit() {
               format="##/##"
               value={employee.personnelNumber}
               isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({ ...employee, personnelNumber: event.value })}
+              onChange={(event: NumberFormatValues) => setEmployee({
+                ...employee,
+                personnelNumber: event.value, 
+              })}
             />
           </li>
         )}
@@ -277,7 +319,7 @@ function EmployeeEdit() {
       <div className="employee-edit__box-buttons">
         <button
           type="button"
-          onClick={() => navigate('/employees')}
+          onClick={() => navigate(`/employees`)}
           className="employee-edit__button"
         >
           Cancel
@@ -291,20 +333,24 @@ function EmployeeEdit() {
         </button>
       </div>
     </section>
-  );
+  )
 
   async function loadEmployeeAsync() {
-    const { data } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`);
+    const {
+      data, 
+    } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`)
 
     const initialData = {
       ...data,
-      phone: data.phone ? data.phone.split('').slice(2).join('') : null,
+      phone: data.phone ? data.phone.split(``)
+        .slice(2)
+        .join(``) : null,
       hireDate: data.hireDate ? new Date(data.hireDate) : new Date(),
       dismissalDate: data.dismissalDate ? new Date(data.dismissalDate) : new Date(),
-      personnelNumber: data.personnelNumber ? data.personnelNumber.replace('/', '') : data.personnelNumber,
-    };
+      personnelNumber: data.personnelNumber ? data.personnelNumber.replace(`/`, ``) : data.personnelNumber,
+    }
 
-    setEmployee(initialData);
+    setEmployee(initialData)
   }
 
   async function updateEmployeesAsync() {
@@ -315,25 +361,24 @@ function EmployeeEdit() {
       ratePerHour: employee.ratePerHour || 0,
       parking: employee.parking || 0,
       personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
-    };
+    }
 
-    delete updateEmployee.dismissalDate;
+    delete updateEmployee.dismissalDate
 
-    setTriedToSubmit(true);
+    setTriedToSubmit(true)
 
-    const isValidPersonnelNumber = employee.isEmployedOfficially ? employee.personnelNumber!.length >= 4 : true;
+    const isValidPersonnelNumber = employee.isEmployedOfficially ? employee.personnelNumber!.length >= 4 : true
 
     if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
       try {
-        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee);
+        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
 
-        setTriedToSubmit(false);
-        navigate('/employees');
-      } catch (e:any) {
-        toast.error(e.message);
+        setTriedToSubmit(false)
+        navigate(`/employees`)
+      }
+      catch (e:any) {
+        toast.error(e.message)
       }
     }
   }
 }
-
-export default EmployeeEdit;

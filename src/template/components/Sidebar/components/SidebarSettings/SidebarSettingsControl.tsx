@@ -1,23 +1,24 @@
-import {
-  useState, useEffect, useRef,
-} from 'react';
-import ReactDOM from 'react-dom';
+import {useState, useEffect, useRef} from 'react'
+import ReactDOM from 'react-dom'
 
-import { ReactComponent as IconSetting } from '../../../../../assets/icons/icon-settings.svg';
-import { ReactComponent as IconSettingActive } from '../../../../../assets/icons/icon-settings-active.svg';
+import IconSetting from '../../../../../assets/icons/icon-settings.svg?react'
+import IconSettingActive from '../../../../../assets/icons/icon-settings-active.svg?react'
 
-import SidebarItem from '../SidebarItem/SidebarItem';
-import SidebarSettingsMenu from './SidebarSettingsMenu/SidebarSettingsMenu';
+import { SidebarItem } from '../SidebarItem/SidebarItem'
+import { SidebarSettingsMenu } from './SidebarSettingsMenu/SidebarSettingsMenu'
 
-function SidebarSettingsControl({
+export function SidebarSettingsControl({
   portalTarget,
 }: {
-  portalTarget: HTMLDivElement | null;
+  portalTarget: HTMLDivElement | null,
 }) {
-  const [isMenuOpened, setMenuOpened] = useState(false);
+  const [
+    isMenuOpened,
+    setMenuOpened,
+  ] = useState(false)
 
-  const containerRef = useRef<HTMLElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(
     () => {
@@ -28,22 +29,22 @@ function SidebarSettingsControl({
           || containerRef.current!.contains(event.target as Node)
           || dropdownRef.current!.contains(event.target as Node)
         ) {
-          return;
+          return
         }
 
-        setMenuOpened(false);
-      };
+        setMenuOpened(false)
+      }
 
-      document.addEventListener('mousedown', listener);
-      document.addEventListener('touchstart', listener);
+      document.addEventListener(`mousedown`, listener)
+      document.addEventListener(`touchstart`, listener)
 
       return () => {
-        document.removeEventListener('mousedown', listener);
-        document.removeEventListener('touchstart', listener);
-      };
+        document.removeEventListener(`mousedown`, listener)
+        document.removeEventListener(`touchstart`, listener)
+      }
     },
     [],
-  );
+  )
 
   return (
     <>
@@ -58,13 +59,12 @@ function SidebarSettingsControl({
       />
 
       {isMenuOpened && ReactDOM.createPortal(
-        <div ref={dropdownRef} className="sidebar-settings-control__dropdown">
+        <div ref={dropdownRef}
+          className="sidebar-settings-control__dropdown">
           <SidebarSettingsMenu />
         </div>,
         portalTarget!,
       )}
     </>
-  );
+  )
 }
-
-export default SidebarSettingsControl;

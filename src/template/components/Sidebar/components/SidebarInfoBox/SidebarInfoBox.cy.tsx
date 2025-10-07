@@ -1,22 +1,22 @@
-import { SidebarInfoBox } from './SidebarInfoBox';
+import { SidebarInfoBox } from './SidebarInfoBox'
 
 const initialData = {
-  name: 'nlastname',
-};
+  name: `nlastname`,
+}
 
 const initialDataSecond = {
-  name: 'anklastname',
-};
+  name: `anklastname`,
+}
 
 const initialDataThird = {
-  name: 'yulastname',
-};
+  name: `yulastname`,
+}
 
 const initialDataFourth = {
-  name: 'snllastname',
-};
+  name: `snllastname`,
+}
 
-describe('SidebarInfoBox', () => {
+describe(`SidebarInfoBox`, () => {
   it(`
   GIVEN email starts at first letter of the name and then last name 
   WHEN open sidebar
@@ -24,12 +24,12 @@ describe('SidebarInfoBox', () => {
   `, () => {
     mountComponent({
       infoBoxData: initialData,
-    });
+    })
 
     cy
-      .getByData('sidebar-infobox')
-      .should('have.text', 'Lastname N.');
-  });
+      .getByData(`sidebar-infobox`)
+      .should(`have.text`, `Lastname N.`)
+  })
 
   it(`
   GIVEN exception email starts at ank and then last name without first letter
@@ -38,12 +38,12 @@ describe('SidebarInfoBox', () => {
   `, () => {
     mountComponent({
       infoBoxData: initialDataSecond,
-    });
+    })
 
     cy
-      .getByData('sidebar-infobox')
-      .should('have.text', 'Klastname A.');
-  });
+      .getByData(`sidebar-infobox`)
+      .should(`have.text`, `Klastname A.`)
+  })
 
   it(`
   GIVEN exception email starts at yu and then last name 
@@ -52,12 +52,12 @@ describe('SidebarInfoBox', () => {
   `, () => {
     mountComponent({
       infoBoxData: initialDataThird,
-    });
+    })
 
     cy
-      .getByData('sidebar-infobox')
-      .should('have.text', 'Lastname Y.');
-  });
+      .getByData(`sidebar-infobox`)
+      .should(`have.text`, `Lastname Y.`)
+  })
 
   it(`
     GIVEN exception email starts at snl and then last name without first letter
@@ -66,24 +66,24 @@ describe('SidebarInfoBox', () => {
     `, () => {
     mountComponent({
       infoBoxData: initialDataFourth,
-    });
+    })
 
     cy
-      .getByData('sidebar-infobox')
-      .should('have.text', 'Llastname S.');
-  });
-});
+      .getByData(`sidebar-infobox`)
+      .should(`have.text`, `Llastname S.`)
+  })
+})
 
 function mountComponent({
   infoBoxData,
 }: {
   infoBoxData: {
-    photoUrl?: string;
-    name: string;
-    email?: string;
-  };
+    photoUrl?: string,
+    name: string,
+    email?: string,
+  },
 }) {
   cy.mount(
     <SidebarInfoBox {...infoBoxData} />,
-  );
+  )
 }

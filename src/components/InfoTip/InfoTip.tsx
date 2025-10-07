@@ -1,24 +1,27 @@
-import { useState, ReactNode } from 'react';
-import clsx from 'clsx';
+import { useState, ReactNode } from 'react'
+import clsx from 'clsx'
 
-export default function InfoTip({
-  className = '',
-  classNameContent = '',
-  title = '',
+export function InfoTip({
+  className = ``,
+  classNameContent = ``,
+  title = ``,
   icon,
   content,
 }: {
-  className?: string;
-  classNameContent?: string;
-  title?: string;
-  content: ReactNode;
-  icon: ReactNode;
+  className?: string,
+  classNameContent?: string,
+  title?: string,
+  content: ReactNode,
+  icon: ReactNode,
 }) {
-  const [isOpened, setOpened] = useState(false);
+  const [
+    isOpened,
+    setOpened,
+  ] = useState(false)
 
   return (
     <div
-      className={clsx('info-tip', className, {
+      className={clsx(`info-tip`, className, {
         'info-tip--opened': isOpened,
       })}
     >
@@ -32,7 +35,7 @@ export default function InfoTip({
         {icon}
       </button>
 
-      <div className={clsx('info-tip__content', classNameContent)}>{content}</div>
+      <div className={clsx(`info-tip__content`, classNameContent)}>{content}</div>
     </div>
-  );
+  )
 }

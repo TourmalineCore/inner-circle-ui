@@ -29,7 +29,7 @@
   "include": [
     "src",
     "**/*.d.ts",
-    "./.eslintrc.json",
+    ".eslintrc.cjs",
     "cypress",
     "local-config-builder.js"
   ],

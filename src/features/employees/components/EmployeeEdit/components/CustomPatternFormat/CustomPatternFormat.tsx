@@ -1,21 +1,21 @@
-import { NumberFormatValues, PatternFormat } from 'react-number-format';
-import { InputPropPackage } from '../../types';
-import Input from '../../../../../../components/Input/Input';
+import { NumberFormatValues, PatternFormat } from 'react-number-format'
+import { InputPropPackage } from '../../types'
+import { Input } from '../../../../../../components/Input/Input'
 
-function CustomPatternFormat({
-  className = '',
+export function CustomPatternFormat({
+  className = ``,
   type,
-  format = '',
+  format = ``,
   value,
   isInvalid,
   onChange = () => {},
 }: {
-  className?: string;
-  type?: 'text' | 'tel' | 'password';
-  format: string;
-  value: string | number | null;
-  isInvalid?: boolean;
-  onChange: (event: NumberFormatValues) => void;
+  className?: string,
+  type?: 'text' | 'tel' | 'password',
+  format: string,
+  value: string | number | null,
+  isInvalid?: boolean,
+  onChange: (event: NumberFormatValues) => void,
 }) {
   return (
     <PatternFormat<InputPropPackage>
@@ -29,10 +29,10 @@ function CustomPatternFormat({
       mask="_"
       allowEmptyFormatting
       valueIsNumericString
-      validationMessages={['This field is required. Please fill it up.']}
+      validationMessages={[
+        `This field is required. Please fill it up.`,
+      ]}
       isMessagesAbsolute
     />
-  );
+  )
 }
-
-export default CustomPatternFormat;

@@ -1,17 +1,17 @@
 export type Employee = {
-  id: number
-  fullName: string;
-  corporateEmail: string;
-  personalEmail: string | null;
-  phone: string;
-  gitHub: string | null;
-  gitLab: string | null;
-  fullSalary: number;
-  districtCoefficient: number;
-  incomeTax: number;
-  netSalary: number;
-  isSalaryInfoFilled: boolean;
-  isEmployedOfficially: boolean;
+  id: number,
+  fullName: string,
+  corporateEmail: string,
+  personalEmail: string | null,
+  phone: string,
+  gitHub: string | null,
+  gitLab: string | null,
+  fullSalary: number,
+  districtCoefficient: number,
+  incomeTax: number,
+  netSalary: number,
+  isSalaryInfoFilled: boolean,
+  isEmployedOfficially: boolean,
 };
 
 export type EmployeeUpdateType = {
@@ -19,5 +19,5 @@ export type EmployeeUpdateType = {
   personalEmail: string,
   phone: string | null,
   gitHub: string | null,
-  gitLab: string | null
+  gitLab: string | null,
 };

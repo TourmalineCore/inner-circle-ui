@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable react/no-unstable-nested-components */
-import React, {
-  // MouseEventHandler,
-  useEffect,
-  // useState,
-} from 'react';
+import { useEffect } from "react"
 // import { ClientTable } from '@tourmalinecore/react-table-responsive';
 // import { Button, CheckField } from '@tourmalinecore/react-tc-ui-kit';
 // import { api } from '../../../../common/api';
@@ -27,7 +21,7 @@ import React, {
 //   2: 'Officially',
 // };
 
-function AnalyticsPageTable() {
+export function AnalyticsPageTable() {
   // const [isLoading, setIsLoading] = useState(false);
   // const [selectedViewColumns, setSelectedViewColumns] = useState('2');
   // const [employees, setEmployees] = useState<AnalyticsType>({
@@ -37,8 +31,8 @@ function AnalyticsPageTable() {
   // });
 
   useEffect(() => {
-    loadEmployeesAsync();
-  }, []);
+    loadEmployeesAsync()
+  }, [])
 
   // const columnForMain: ColumnType[] = [
   //   {
@@ -495,7 +489,9 @@ function AnalyticsPageTable() {
         </div>
       </div>
 
-      <div style={{ paddingTop: 4 }}>
+      <div style={{
+        paddingTop: 4, 
+      }}>
         {/* <ClientTable
           tableId="analytics-salary-table"
           data={employees.rows}
@@ -529,7 +525,7 @@ function AnalyticsPageTable() {
       </div>
 
     </>
-  );
+  )
 
   // async function duplicateEmployee(employee: GetTableType) {
   //   const copyEmployee = {
@@ -632,10 +628,9 @@ function AnalyticsPageTable() {
       // const { data } = await api.post<AnalyticsType>(`${LINK_TO_SALARY_SERVICE}finance/get-analytics`, []);
 
       // setEmployees(data);
-    } finally {
+    }
+    finally {
       // setIsLoading(false);
     }
   }
 }
-
-export default AnalyticsPageTable;

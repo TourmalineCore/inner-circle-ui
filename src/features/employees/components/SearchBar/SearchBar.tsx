@@ -1,9 +1,9 @@
-import { observer } from 'mobx-react-lite';
-import { ChangeEvent, useContext } from 'react';
-import EmployeesStateContext from '../../context/EmployeesStateContext';
+import { observer } from 'mobx-react-lite'
+import { ChangeEvent, useContext } from 'react'
+import { EmployeesStateContext } from '../../context/EmployeesStateContext'
 
 export const SearchBar = observer(() => {
-  const employeesState = useContext(EmployeesStateContext);
+  const employeesState = useContext(EmployeesStateContext)
 
   return (
     <input
@@ -13,9 +13,9 @@ export const SearchBar = observer(() => {
       data-listener-added_4a42d730="true"
       onChange={searchHandler}
     />
-  );
+  )
 
   function searchHandler(event: ChangeEvent<HTMLInputElement>) {
-    employeesState.updateSearchTerm(event.target.value);
+    employeesState.updateSearchTerm(event.target.value)
   }
-});
+})

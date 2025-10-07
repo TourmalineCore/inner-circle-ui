@@ -1,18 +1,16 @@
-import {
-  useRef, useEffect, CSSProperties, ReactNode, MouseEvent,
-} from 'react';
-import clsx from 'clsx';
-import SidebarItem from './components/SidebarItem/SidebarItem';
-import { useSidebarSwipe } from '../../hooks/useSidebarSwipe';
-import { SidebarProps } from '../../types/Template';
-import SidebarLogo from './components/SidebarLogo/SidebarLogo';
-import { ReactComponent as IconAngleDoubleRight } from '../../../assets/icons/icon-angle-double-right.svg';
-import { ReactComponent as IconAngleDoubleLight } from '../../../assets/icons/icon-angle-double-left.svg';
-import { SidebarInfoBox } from './components/SidebarInfoBox/SidebarInfoBox';
+import {useRef, useEffect, CSSProperties, ReactNode, MouseEvent} from 'react'
+import clsx from 'clsx'
+import { SidebarItem } from './components/SidebarItem/SidebarItem'
+import { useSidebarSwipe } from '../../hooks/useSidebarSwipe'
+import { SidebarProps } from '../../types/Template'
+import { SidebarLogo } from './components/SidebarLogo/SidebarLogo'
+import IconAngleDoubleRight from '../../../assets/icons/icon-angle-double-right.svg?react'
+import IconAngleDoubleLight from '../../../assets/icons/icon-angle-double-left.svg?react'
+import { SidebarInfoBox } from './components/SidebarInfoBox/SidebarInfoBox'
 
-const OPENED_DOCUMENT_CLASSNAME = 'is-sidebar-mobile-opened';
+const OPENED_DOCUMENT_CLASSNAME = `is-sidebar-mobile-opened`
 
-function Sidebar({
+export function Sidebar({
   style = {},
   className,
   isMobileOpened = false,
@@ -25,44 +23,50 @@ function Sidebar({
   onOverlayClick = () => {},
   onMenuLinkClick = () => {},
 }: {
-  style?: CSSProperties;
-  className?: string;
-  isMobileOpened?: boolean;
-  isCollapsed?: boolean;
-  menuData: SidebarProps[];
+  style?: CSSProperties,
+  className?: string,
+  isMobileOpened?: boolean,
+  isCollapsed?: boolean,
+  menuData: SidebarProps[],
   infoBoxData: {
-    photoUrl?: string;
-    name: string;
-    email?: string;
-  };
-  renderBottomComponent?: ({ portalTarget }: { portalTarget: HTMLDivElement | null }) => JSX.Element;
-  renderTopComponent?: ReactNode;
-  onCollapseToggle?: () => unknown;
-  onOverlayClick?: () => unknown;
-  onMenuLinkClick?: () => unknown;
+    photoUrl?: string,
+    name: string,
+    email?: string,
+  },
+  renderBottomComponent?: ({
+    portalTarget, 
+  }: { portalTarget: HTMLDivElement | null, }) => JSX.Element,
+  renderTopComponent?: ReactNode,
+  onCollapseToggle?: () => unknown,
+  onOverlayClick?: () => unknown,
+  onMenuLinkClick?: () => unknown,
 }) {
-  const sidebarContainerRef = useRef<HTMLDivElement | null>(null);
+  const sidebarContainerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    toggleDocumentClassnameOnOpen(isMobileOpened);
-  }, [isMobileOpened]);
+    toggleDocumentClassnameOnOpen(isMobileOpened)
+  }, [
+    isMobileOpened,
+  ])
 
   useSidebarSwipe({
     sidebarContainerRef,
     isMobileOpened,
     onClose: onOverlayClick,
-  });
+  })
 
   return (
     <div
       ref={sidebarContainerRef}
       style={style}
-      className={clsx('sidebar', className, {
+      className={clsx(`sidebar`, className, {
         'sidebar--collapsed': isCollapsed,
         'sidebar--mobile-opened': isMobileOpened,
       })}
     >
-      <div className="sidebar__overlay" role="presentation" onClick={onOverlayClick} />
+      <div className="sidebar__overlay"
+        role="presentation"
+        onClick={onOverlayClick} />
 
       <div className="sidebar__inner">
         <div className="sidebar__top">
@@ -104,11 +108,11 @@ function Sidebar({
         )}
       </div>
     </div>
-  );
+  )
 
   function handleCollapseToggleClick(event: MouseEvent<HTMLButtonElement>) {
-    onCollapseToggle();
-    event.currentTarget.blur();
+    onCollapseToggle()
+    event.currentTarget.blur()
   }
 
   function renderMenu() {
@@ -116,12 +120,13 @@ function Sidebar({
       <ul className="sidebar__navsection">
         {menuData.map((menuItem) => renderMenuItem(menuItem))}
       </ul>
-    );
+    )
   }
 
   function renderMenuItem(item: SidebarProps) {
     return (
-      <li key={item.path} className="sidebar__navitem">
+      <li key={item.path}
+        className="sidebar__navitem">
         <SidebarItem
           {...item}
           sidebarContainerRef={sidebarContainerRef}
@@ -129,16 +134,15 @@ function Sidebar({
           onItemClick={onMenuLinkClick}
         />
       </li>
-    );
+    )
   }
 
   function toggleDocumentClassnameOnOpen(isOpened: boolean) {
     if (isOpened) {
-      document.documentElement.classList.add(OPENED_DOCUMENT_CLASSNAME);
-    } else {
-      document.documentElement.classList.remove(OPENED_DOCUMENT_CLASSNAME);
+      document.documentElement.classList.add(OPENED_DOCUMENT_CLASSNAME)
+    }
+    else {
+      document.documentElement.classList.remove(OPENED_DOCUMENT_CLASSNAME)
     }
   }
 }
-
-export default Sidebar;

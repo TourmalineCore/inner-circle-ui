@@ -1,22 +1,20 @@
-import {
-  BrowserRouter,
+import {BrowserRouter,
   Routes,
-  Route,
-} from 'react-router-dom';
+  Route} from 'react-router-dom'
 
-import { useMemo } from 'react';
-import { withPrivateRoute } from './common/withPrivateRoute';
-import Template from './template/Template';
-import AccessBasedOnPemissionsState from './routes/state/AccessBasedOnPemissionsState';
-import AccessBasedOnPemissionsStateContext from './routes/state/AccessBasedOnPemissionsStateContext';
+import { useMemo } from 'react'
+import { withPrivateRoute } from './common/withPrivateRoute'
+import { Template } from './template/Template'
+import { AccessBasedOnPemissionsState } from './routes/state/AccessBasedOnPemissionsState'
+import { AccessBasedOnPemissionsStateContext } from './routes/state/AccessBasedOnPemissionsStateContext'
 
-const WithPrivateRoute = withPrivateRoute(Template);
+const WithPrivateRoute = withPrivateRoute(Template)
 
-export default function App() {
+export function App() {
   const routesState = useMemo(
     () => new AccessBasedOnPemissionsState(),
     [],
-  );
+  )
   return (
     <AccessBasedOnPemissionsStateContext.Provider value={routesState}>
       <BrowserRouter>
@@ -28,5 +26,5 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </AccessBasedOnPemissionsStateContext.Provider>
-  );
+  )
 }

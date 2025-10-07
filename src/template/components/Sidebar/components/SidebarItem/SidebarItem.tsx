@@ -1,19 +1,18 @@
-import {
-  useState, useRef, MutableRefObject, ChangeEvent, ElementType, ReactNode,
-} from 'react';
-import ReactDOM from 'react-dom';
+import {useState, useRef, MutableRefObject, ChangeEvent, ElementType, ReactNode} from 'react'
+import ReactDOM from 'react-dom'
 
-import { Link } from 'react-router-dom';
-import clsx from 'clsx';
+import { Link } from 'react-router-dom'
+import clsx from 'clsx'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
-import SidebarTooltip from './components/SidebarTooltip/SidebarTooltip';
-import { SidebarProps } from '../../../../types/Template';
+import { SidebarTooltip } from './components/SidebarTooltip/SidebarTooltip'
+import { SidebarProps } from '../../../../types/Template'
 
-function SidebarItem({
-  tagName = 'div',
+export function SidebarItem({
+  tagName = `div`,
   itemRef,
   sidebarContainerRef,
   className,
@@ -31,46 +30,54 @@ function SidebarItem({
   onItemClick = () => {},
   onNestedBlockCollapseToggle = () => {},
 }: {
-  tagName?: ElementType;
-  itemRef?: MutableRefObject<HTMLElement | null>;
-  sidebarContainerRef?: MutableRefObject<HTMLElement | null>;
-  className?: string;
-  icon?: ReactNode;
-  iconActive?: (() => JSX.Element) | ReactNode;
-  iconMini?: ReactNode;
-  label: string;
-  path?: string;
-  isWindowRedirectNecessary?: boolean;
-  isActive?: boolean;
-  counter?: string;
-  routes?: SidebarProps[];
-  isNestedRoutesCollapsed?: boolean;
-  isSidebarCollapsed?: boolean;
-  onItemClick?: () => unknown;
-  onNestedBlockCollapseToggle?: () => unknown;
+  tagName?: ElementType,
+  itemRef?: MutableRefObject<HTMLElement | null>,
+  sidebarContainerRef?: MutableRefObject<HTMLElement | null>,
+  className?: string,
+  icon?: ReactNode,
+  iconActive?: (() => ReactNode) | ReactNode,
+  iconMini?: ReactNode,
+  label: string,
+  path?: string,
+  isWindowRedirectNecessary?: boolean,
+  isActive?: boolean,
+  counter?: string,
+  routes?: SidebarProps[],
+  isNestedRoutesCollapsed?: boolean,
+  isSidebarCollapsed?: boolean,
+  onItemClick?: () => unknown,
+  onNestedBlockCollapseToggle?: () => unknown,
 }) {
-  const hasNestedElements = routes && !!routes.length;
+  const hasNestedElements = routes && !!routes.length
 
-  const currentItemRef = itemRef || useRef<HTMLElement>(null);
+  const defaultItemRef = useRef<HTMLElement>(null)
 
-  const [nestedBlockCollapsed, setNestedBlockCollapsed] = useState(isNestedRoutesCollapsed);
-  const [isHovered, setIsHovered] = useState(false);
+  const currentItemRef = itemRef || defaultItemRef
 
-  const TagName = getProperTagName();
+  const [   
+    nestedBlockCollapsed,
+    setNestedBlockCollapsed,
+  ] = useState(isNestedRoutesCollapsed)
+  const [
+    isHovered,
+    setIsHovered,
+  ] = useState(false)
+
+  const TagName = getProperTagName()
 
   const linkProps = {
     to: path,
-  };
+  }
 
   const windowLinkProps = {
     href: path,
-  };
+  }
 
   return (
     <>
       <TagName
         ref={currentItemRef}
-        className={clsx('sidebar-item', className, {
+        className={clsx(`sidebar-item`, className, {
           'sidebar-item--has-nested': hasNestedElements,
           'sidebar-item--active': isActive,
         })}
@@ -85,20 +92,18 @@ function SidebarItem({
             {!isActive
               ? (
                 <div className="sidebar-item__icon">
-                  {icon }
+                  {icon}
                 </div>
               )
               : (
                 <div className="sidebar-item__icon">
                   {iconActive
-                    ? (
-                      <span>
-                        {iconActive }
-                      </span>
+                    ? ( 
+                      <span>{typeof iconActive === `function` ? iconActive() : iconActive}</span>
                     )
                     : (
                       <span>
-                        {icon }
+                        {icon}
                       </span>
                     )}
                 </div>
@@ -112,7 +117,7 @@ function SidebarItem({
 
         {iconMini && (
           <span className="sidebar-item__mini-container">
-            { iconMini }
+            {iconMini}
           </span>
         )}
 
@@ -122,7 +127,7 @@ function SidebarItem({
           {hasNestedElements && (
             <FontAwesomeIcon
               fixedWidth
-              icon={nestedBlockCollapsed ? faChevronDown : faChevronUp}
+              icon={nestedBlockCollapsed ? faChevronDown as IconProp : faChevronUp as IconProp}
               className="sidebar-item__drop-arrow"
             />
           )}
@@ -155,46 +160,44 @@ function SidebarItem({
         )
       )}
     </>
-  );
+  )
 
   function handleClick(event: ChangeEvent<HTMLElement>) {
     if (hasNestedElements) {
-      setNestedBlockCollapsed(!nestedBlockCollapsed);
-      onNestedBlockCollapseToggle();
+      setNestedBlockCollapsed(!nestedBlockCollapsed)
+      onNestedBlockCollapseToggle()
 
-      event.preventDefault();
+      event.preventDefault()
 
-      return;
+      return
     }
 
-    onItemClick();
+    onItemClick()
   }
 
   function handleMouseEnter() {
-    setIsHovered(true);
+    setIsHovered(true)
   }
 
   function handleMouseLeave() {
-    setIsHovered(false);
+    setIsHovered(false)
   }
 
   function getProperTagName() {
-    let resultTagName = tagName;
+    let resultTagName = tagName
 
     if (path) {
-      resultTagName = Link;
+      resultTagName = Link
     }
 
     if (isWindowRedirectNecessary) {
-      resultTagName = 'a';
+      resultTagName = `a`
     }
 
     if (hasNestedElements) {
-      resultTagName = 'div';
+      resultTagName = `div`
     }
 
-    return resultTagName;
+    return resultTagName
   }
 }
-
-export default SidebarItem;

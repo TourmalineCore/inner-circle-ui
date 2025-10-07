@@ -1,15 +1,18 @@
-import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 export const CopyToClipboardButton = observer(({
   text,
   notificationPosition,
 }: {
-  text: string;
-  notificationPosition: string;
+  text: string,
+  notificationPosition: string,
 }) => {
-  const [copied, setCopied] = useState(false);
+  const [
+    copied,
+    setCopied,
+  ] = useState(false)
 
   return (
     <div
@@ -39,13 +42,13 @@ export const CopyToClipboardButton = observer(({
         </span>
       )}
     </div>
-  );
+  )
 
   function handleCopy() {
-    setCopied(true);
+    setCopied(true)
 
     setTimeout(() => {
-      setCopied(false);
-    }, 2500);
+      setCopied(false)
+    }, 2500)
   }
-});
+})

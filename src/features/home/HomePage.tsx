@@ -1,15 +1,13 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function HomePage() {
-  const navigation = useNavigate();
+export function HomePage() {
+  const navigation = useNavigate()
 
   useEffect(() => {
-    navigation('/analytics');
-  }, []);
+    navigation(`/analytics`)
+  }, [])
   return (
     <div />
-  );
+  )
 }
-
-export default HomePage;

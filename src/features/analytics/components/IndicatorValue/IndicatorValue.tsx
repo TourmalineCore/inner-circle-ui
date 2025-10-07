@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
-import './IndicatorValue.scss';
+import './IndicatorValue.scss'
 
-function IndicatorValue({
+export function IndicatorValue({
   label, value, isColumn,
-}:{ label:ReactNode, value: string, isColumn?: boolean }) {
+}:{ label:ReactNode, value: string, isColumn?: boolean, }) {
   return (
-    <div className={`indicator-value${isColumn ? ' direction-column' : ''}`}>
+    <div className={`indicator-value${isColumn ? ` direction-column` : ``}`}>
       <div className="indicator-value__label">
         {label}
       </div>
@@ -14,7 +14,5 @@ function IndicatorValue({
         {value}
       </div>
     </div>
-  );
+  )
 }
-
-export default IndicatorValue;
