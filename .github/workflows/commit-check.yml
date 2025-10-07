@@ -1,4 +1,4 @@
-name: Check lint and cypress components test 
+name: Check lint and Run Tests in PR
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js 18.20.3
+      - name: Set up Node.js 22.18.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.20.3
+          node-version: 22.18.0
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: check-lint
     container:
-      image: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+      image: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,16 +47,16 @@ jobs:
           runTests: false
           build: npm run build
 
-      - name: Save build folder
+      - name: Save dist folder
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: dist
           if-no-files-found: error
-          path: build
+          path: dist
   
   component-test:
     runs-on: ubuntu-22.04 
-    container: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+    container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
     strategy:
       fail-fast: false
       matrix:
@@ -67,21 +67,20 @@ jobs:
       - name: Checkout ui
         uses: actions/checkout@v4
 
-      - name: Download the build folders
+      - name: Download the dist folders
         uses: actions/download-artifact@v4
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
 
       - name: Cypress run component tests
         uses: cypress-io/github-action@v6
         with:
           component: true
           start: npm start
-          browser: chrome
           record: true
           parallel: true
-          group: "Chrome component"
+          browser: electron
         env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
