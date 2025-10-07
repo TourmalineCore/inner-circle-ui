@@ -1,8 +1,6 @@
 import { MemoryRouter } from 'react-router-dom'
 import { Employee } from '../../../types'
 import { EmployeeItem } from './EmployeeItem'
-import { AccessBasedOnPemissionsStateContext } from '../../../../../routes/state/AccessBasedOnPemissionsStateContext'
-import { AccessBasedOnPemissionsState, Permission } from '../../../../../routes/state/AccessBasedOnPemissionsState'
 
 const initialData = {
   employees: [
@@ -77,17 +75,10 @@ function mountComponent({
 }: {
   employee: Employee[],
 }) {
-  const accessState = new AccessBasedOnPemissionsState()
-
-  accessState.checkPermissionFromToken([
-    Permission.ViewContacts,
-  ])
 
   cy.mount(
     <MemoryRouter>
-      <AccessBasedOnPemissionsStateContext.Provider value={accessState}>
-        <EmployeeItem employee={employee[0]} />
-      </AccessBasedOnPemissionsStateContext.Provider>
+      <EmployeeItem employee={employee[0]} />
     </MemoryRouter>,
   )
 }

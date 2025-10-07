@@ -1,3 +1,5 @@
+import './InfoComponent.scss'
+
 import { ReactNode } from 'react'
 import clsx from 'clsx'
 import { InfoTip } from '../../../../components/InfoTip/InfoTip'

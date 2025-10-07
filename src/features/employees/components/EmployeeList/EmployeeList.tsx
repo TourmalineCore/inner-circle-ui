@@ -1,10 +1,11 @@
+import './EmployeeList.scss'
+
 import { observer } from 'mobx-react-lite'
 import Skeleton from 'react-loading-skeleton'
-import clsx from 'clsx'
-import { useContext } from 'react'
+// import clsx from 'clsx'
+// import { useContext } from 'react'
 import { Employee } from '../../types'
 import { EmployeeItem } from './components/EmployeeItem'
-import { AccessBasedOnPemissionsStateContext } from '../../../../routes/state/AccessBasedOnPemissionsStateContext'
 
 export const EmployeeList = observer(({
   isLoading,
@@ -13,12 +14,13 @@ export const EmployeeList = observer(({
   isLoading: boolean,
   employees: Employee[],
 }) => {
-  const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext)
+  // const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext)
 
   return (
-    <ul className={clsx(`employee-list`, {
-      'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`),
-    })}
+    <ul 
+    // className={clsx(`employee-list`, {
+      // 'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`),
+    // })}
     >
       {isLoading && (<Skeleton className="employee-list__skeleton"
         count={4} />)}

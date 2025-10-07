@@ -1,4 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
+import './EmployeeEdit.scss'
+
 import { useEffect, useState, ChangeEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 

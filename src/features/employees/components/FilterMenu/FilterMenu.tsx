@@ -1,3 +1,5 @@
+import './FilterMenu.scss'
+
 import {MouseEvent, useContext, useEffect} from 'react'
 import { useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'

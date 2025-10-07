@@ -1,3 +1,5 @@
+import './AnalyticsPageTable.scss'
+
 import { useEffect } from "react"
 // import { ClientTable } from '@tourmalinecore/react-table-responsive';
 // import { Button, CheckField } from '@tourmalinecore/react-tc-ui-kit';

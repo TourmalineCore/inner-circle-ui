@@ -1,3 +1,5 @@
+import './SearchBar.scss'
+
 import { observer } from 'mobx-react-lite'
 import { ChangeEvent, useContext } from 'react'
 import { EmployeesStateContext } from '../../context/EmployeesStateContext'

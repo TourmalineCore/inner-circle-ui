@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { defineConfig } from 'vite'
 // correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
+import federation from '@originjs/vite-plugin-federation'
+// correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import react from '@vitejs/plugin-react'  
 import svgr from 'vite-plugin-svgr' 
 
@@ -41,6 +43,20 @@ export default defineConfig({
     react(),
     // Enable SVG imports as React components
     svgr(),
+    federation({
+      // Unique name for the application
+      name: "inner_circle_ui",
+      // The path where the remote application file can be found and its name
+      remotes: {
+        // `http://localhost:4455/assets/inner_circle_layout_ui.js` for local docker
+        // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
+        inner_circle_layout_ui: `${process.env.VITE_BASE_URL}/layout/assets/inner_circle_layout_ui.js`,
+      },
+      // Shared dependencies to avoid duplication
+      shared: [
+        "react",
+      ],
+    }),
   ],
   define: {
     // Set a global variable to handle different base paths in various environments
@@ -57,5 +73,6 @@ export default defineConfig({
     // https://stackoverflow.com/questions/76616620/vite-refuses-to-use-the-correct-build-target-in-my-svelte-ts-project 
     // https://github.com/Lenni009/vite-build-target-issue
     target: `esnext`,
+    sourcemap: true,
   },
 })

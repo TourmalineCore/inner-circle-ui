@@ -1,3 +1,5 @@
+import './IndicatorComponent.scss'
+
 import { ReactNode } from 'react'
 
 import './IndicatorComponent.scss'

@@ -1,3 +1,5 @@
+import './CopyToClipboardButton.scss'
+
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'

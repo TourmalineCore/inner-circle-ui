@@ -1,5 +1,6 @@
-import {ChangeEvent, useEffect, useState} from 'react'
+import './ProfilePage.scss'
 
+import {ChangeEvent, useEffect, useState} from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format'
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config'

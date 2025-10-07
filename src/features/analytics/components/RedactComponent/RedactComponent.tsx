@@ -1,3 +1,5 @@
+import './RedactComponent.scss'
+
 import clsx from 'clsx'
 
 import { KeyboardEvent, useRef, useState } from 'react'
