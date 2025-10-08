@@ -8,7 +8,7 @@ image:
   debug: true
 
 containerPorts:
-  http: 80
+  http: 8080
   https: ""
 
 replicaCount: 1
@@ -34,7 +34,7 @@ readinessProbe:
 service:
   type: ClusterIP
   ports:
-    http: 80
+    http: 8080
     https: ""
 
 ingress:
