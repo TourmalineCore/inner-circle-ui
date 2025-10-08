@@ -31,12 +31,14 @@ export const EmployeesPage = observer(() => {
 
         {employeesState.isBlankEmployees
           // && accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`)
-          && <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
+          && 
+          <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
 
         <div className="employees-page__box">
           <div><SearchBar /></div>
           {/* {accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`)  */}
-          && <FilterMenu />
+          {/* &&  */}
+          <FilterMenu />
           {/* } */}
           <SortMenu />
         </div>
