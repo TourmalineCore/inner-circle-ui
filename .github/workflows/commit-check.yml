@@ -1,4 +1,4 @@
-name: Check lint and cypress components test 
+name: Check lint and Run Tests in PR
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js 18.20.3
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.20.3
+          node-version: 20.18.0
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: check-lint
     container:
-      image: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+      image: cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
   
   component-test:
     runs-on: ubuntu-22.04 
-    container: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+    container: cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1
     strategy:
       fail-fast: false
       matrix:
@@ -78,10 +78,11 @@ jobs:
         with:
           component: true
           start: npm start
-          browser: chrome
+          browser: electron
           record: true
           parallel: true
-          group: "Chrome component"
+          group: "Electron component"
+          headed: true
         env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
