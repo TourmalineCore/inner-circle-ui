@@ -1,4 +1,4 @@
-name: Deploy to Prod and e2e test to prod
+name: Deploy to Prod
 
 on:
   push:
