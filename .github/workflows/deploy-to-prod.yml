@@ -1,0 +1,45 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # this is needed to wait for the new docker image to be build and published to the registry
+  # so that we can use the image to run ui of the needed commit related version as part of local-env
+  # the idea is taken from here https://stackoverflow.com/a/71489231
+  push_to_registry:
+    uses: ./.github/workflows/docker-build-and-push.yml
+    # without this it cannot login to the registry
+    secrets: inherit
+
+  deploy-to-prod:
+    name: Deploy service to k8s for prod environment  
+    needs: [push_to_registry]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Create default global .kube/config file
+        run: |
+          cd $HOME
+          mkdir .kube
+          echo "${{ secrets.DEV_KUBECONFIG }}" > .kube/config
+
+      - name: Deploy
+        uses: helmfile/helmfile-action@v1.9.0
+        with:
+          helmfile-version: 'v0.164.0'
+          helm-version: 'v3.18.0'
+          helmfile-args: >
+            apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
+            --state-values-set image.tag=sha-${{ github.sha }} 
+            --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
+            --state-values-set extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ secrets.DEV_LINK_TO_SALARY_SERVICE }}
+            --state-values-set extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}
+            --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
+            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
+            --state-values-set extraConfigMapEnvVars.ENV_KEY=${{ secrets.DEV_ENV }}
+          helmfile-auto-init: "false"     
