@@ -9,19 +9,16 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:stable-alpine
+FROM nginx:1.26.0-alpine3.19-slim
 COPY /ci/nginx.conf /data/conf/nginx.conf
 COPY --from=build /dist /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 
 WORKDIR /usr/share/nginx/html
 COPY ./ci/env.sh .
 COPY .env-vars .
-
-USER root
 RUN apk add --no-cache bash
 RUN chmod +x /usr/share/nginx/html/env.sh
-USER nginx
 
 CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g 'daemon off;' -c /data/conf/nginx.conf"]
