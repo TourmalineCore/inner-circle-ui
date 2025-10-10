@@ -2,8 +2,6 @@ import './EmployeeList.scss'
 
 import { observer } from 'mobx-react-lite'
 import Skeleton from 'react-loading-skeleton'
-// import clsx from 'clsx'
-// import { useContext } from 'react'
 import { Employee } from '../../types'
 import { EmployeeItem } from './components/EmployeeItem'
 import clsx from 'clsx'
