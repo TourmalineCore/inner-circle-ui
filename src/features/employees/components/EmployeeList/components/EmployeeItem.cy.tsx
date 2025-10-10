@@ -1,6 +1,7 @@
 import { MemoryRouter } from 'react-router-dom'
 import { Employee } from '../../../types'
 import { EmployeeItem } from './EmployeeItem'
+import { authService } from '../../../../../common/authService'
 
 const initialData = {
   employees: [
@@ -76,9 +77,16 @@ function mountComponent({
   employee: Employee[],
 }) {
 
+  const mockAuthContext = [
+    `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lSWRlbnRpZmllciI6Im1haWxAbWFpbC5ydSIsImNvcnBvcmF0ZUVtYWlsIjoibWFpbEBtYWlsLnJ1IiwidGVuYW50SWQiOiIxIiwiYWNjb3VudElkIjoiMyIsImVtcGxveWVlSWQiOiIyIiwicGVybWlzc2lvbnMiOlsiVmlld0NvbnRhY3RzIiwiVmlld1NhbGFyeUFuZERvY3VtZW50c0RhdGEiXX0.1e0lCH5Omfo2W23gUtkuw3PZeXptn55bFC886Q0rwJk`,
+  ]
+
   cy.mount(
     <MemoryRouter>
-      <EmployeeItem employee={employee[0]} />
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <EmployeeItem employee={employee[0]} />
+      </authService.AuthContext.Provider>,
     </MemoryRouter>,
+
   )
 }
