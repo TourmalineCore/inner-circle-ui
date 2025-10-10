@@ -2,7 +2,7 @@
 import './EmployeeEdit.scss'
 
 import { useEffect, useState, ChangeEvent } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { NumberFormatValues } from 'react-number-format'
 
@@ -35,7 +35,6 @@ const employedData = {
 }
 
 export function EmployeeEdit() {
-  const navigate = useNavigate()
 
   const [
     triedToSubmit,
@@ -321,7 +320,7 @@ export function EmployeeEdit() {
       <div className="employee-edit__box-buttons">
         <button
           type="button"
-          onClick={() => navigate(`/employees`)}
+          onClick={() => window.location.href = `/employees`}
           className="employee-edit__button"
         >
           Cancel
@@ -376,7 +375,7 @@ export function EmployeeEdit() {
         await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
 
         setTriedToSubmit(false)
-        navigate(`/employees`)
+        window.location.href =`/employees`
       }
       catch (e:any) {
         toast.error(e.message)

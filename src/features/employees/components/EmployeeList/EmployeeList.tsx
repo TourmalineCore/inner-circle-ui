@@ -6,6 +6,8 @@ import Skeleton from 'react-loading-skeleton'
 // import { useContext } from 'react'
 import { Employee } from '../../types'
 import { EmployeeItem } from './components/EmployeeItem'
+import clsx from 'clsx'
+import { hasAccessPermission } from '../../../../common/utils/tokenUtils'
 
 export const EmployeeList = observer(({
   isLoading,
@@ -14,13 +16,14 @@ export const EmployeeList = observer(({
   isLoading: boolean,
   employees: Employee[],
 }) => {
-  // const accessBasedOnPemissionsState = useContext(AccessBasedOnPemissionsStateContext)
 
   return (
     <ul 
-    // className={clsx(`employee-list`, {
-      // 'employee-list--two-column': !accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`),
-    // })}
+      className={clsx(`employee-list`, {
+        'employee-list--two-column': !hasAccessPermission({
+          permission: `ViewSalaryAndDocumentsData`,
+        }),
+      })}
     >
       {isLoading && (<Skeleton className="employee-list__skeleton"
         count={4} />)}

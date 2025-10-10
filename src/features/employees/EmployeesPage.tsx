@@ -11,6 +11,8 @@ import { EmployeesState } from './context/EmployeesState'
 import { LINK_TO_SALARY_SERVICE } from '../../common/config/config'
 import { api } from '../../common/api'
 import { FilterMenu } from './components/FilterMenu/FilterMenu'
+import { hasAccessPermission } from '../../common/utils/tokenUtils'
+import { authService } from '../../common/authService'
 
 export const EmployeesPage = observer(() => {
   const employeesState = useMemo(() => new EmployeesState(), [])
@@ -20,45 +22,56 @@ export const EmployeesPage = observer(() => {
     setIsLoading,
   ] = useState(false)
 
+  if (hasAccessPermission({
+    permission: `ViewContacts`,
+  }) && !hasAccessPermission({
+    permission: `ViewSalaryAndDocumentsData`,
+  })) {
+    employeesState.updateFilterTerm(`all`)
+  }
+
   useEffect(() => {
     loadEmployeesAsync()
   }, [])
 
   return (
     <EmployeesStateContext.Provider value={employeesState}>
+      <authService.AuthContext.Provider value={[
+        authService.getAuthToken(),
+      ]}>
+        <section className="employees-page">
+          {
+            employeesState.isBlankEmployees
+          && hasAccessPermission({
+            permission: `ViewSalaryAndDocumentsData`,
+          })
+          && <div className="employees-page__notification">
+            You have blank employees. Please fill in their profiles.
+          </div>
+          }
 
-      <section className="employees-page">
+          <div className="employees-page__box">
+            <div><SearchBar /></div>
+            {
+              hasAccessPermission({
+                permission: `ViewSalaryAndDocumentsData`,
+              }) && <FilterMenu />
+            }
+            <SortMenu />
+          </div>
 
-        {employeesState.isBlankEmployees
-          // && accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`)
-          && 
-          <div className="employees-page__notification">You have blank employees. Please fill in their profiles.</div>}
-
-        <div className="employees-page__box">
-          <div><SearchBar /></div>
-          {/* {accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`)  */}
-          {/* &&  */}
-          <FilterMenu />
-          {/* } */}
-          <SortMenu />
-        </div>
-
-        <div>
-          <EmployeeList
-            isLoading={isLoading}
-            employees={employeesState.allEmployees}
-          />
-        </div>
-      </section>
+          <div>
+            <EmployeeList
+              isLoading={isLoading}
+              employees={employeesState.allEmployees}
+            />
+          </div>
+        </section>
+      </authService.AuthContext.Provider>
     </EmployeesStateContext.Provider>
   )
 
   async function loadEmployeesAsync() {
-    // if (accessBasedOnPemissionsState.accessPermissions.get(`ViewContacts`) && !accessBasedOnPemissionsState.accessPermissions.get(`ViewSalaryAndDocumentsData`)) 
-    {
-      employeesState.updateFilterTerm(`all`)
-    }
-
     setIsLoading(true)
 
     try {
