@@ -14,7 +14,7 @@ import IconBoxPercent from '../../assets/icons/icon-box-percent.svg?react'
 import IconGithub from '../../assets/icons/icon-github.svg?react'
 import IconGitlab from '../../assets/icons/icon-gitlab.svg?react'
 import IconMessage from '../../assets/icons/icon-message.svg?react'
-import IconMoney from '../../assets/icons/icon-money.svg'
+import IconMoney from '../../assets/icons/icon-money.svg?react'
 import IconOutlineEmail from '../../assets/icons/icon-outline-email.svg?react'
 import IconPercent from '../../assets/icons/icon-percent.svg?react'
 import IconPhone from '../../assets/icons/icon-phone.svg?react'
@@ -314,6 +314,7 @@ export function ProfilePage() {
                               color: `#DA2228`,
                             }}
                             prefix="- "
+                            allowNegative={false}
                             thousandSeparator=","
                             suffix=" ₽"
                           />
