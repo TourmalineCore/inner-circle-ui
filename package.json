@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "homepage": "",
+  "type": "module",
   "scripts": {
     "start": "npm run create-config:dev && vite --host",
     "start:local": "npm run create-config:local && vite --host",
