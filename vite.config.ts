@@ -2,7 +2,6 @@
 import { defineConfig } from 'vite'
 // correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import federation from '@originjs/vite-plugin-federation'
-// correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import react from '@vitejs/plugin-react'  
 import svgr from 'vite-plugin-svgr' 
 
