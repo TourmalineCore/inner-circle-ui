@@ -73,6 +73,5 @@ export default defineConfig({
     // https://stackoverflow.com/questions/76616620/vite-refuses-to-use-the-correct-build-target-in-my-svelte-ts-project 
     // https://github.com/Lenni009/vite-build-target-issue
     target: `esnext`,
-    sourcemap: true,
   },
 })
