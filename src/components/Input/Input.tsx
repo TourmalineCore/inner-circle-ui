@@ -1,3 +1,5 @@
+import './Input.scss'
+
 export function Input({
   inputRef,
   style,

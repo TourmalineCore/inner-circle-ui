@@ -1,3 +1,5 @@
+import './InfoTip.scss'
+
 import { useState, ReactNode } from 'react'
 import clsx from 'clsx'
 

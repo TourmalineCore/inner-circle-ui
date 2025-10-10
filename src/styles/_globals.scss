@@ -1,16 +1,13 @@
 :root {
-  --color-white: #fff;
   --color-text: #172f3d;
   --color-accent-first: #0c8bb4;
   --color-accent-last: #f53893;
   --color-link: var(--color-accent-first);
-  --color-copyright-link: var(--color-accent-last);
-  --accent-gradient-color-1: #fff0fc;
-  --accent-gradient-color-2: #eceaff;
   --accent-gradient-color-3: #e1f1ff;
   --auth-bg-accent-color-first: #81b4ff;
   --auth-bg-accent-color-last: #ffc1ee;
-  --comp-color-gray: #e4ecf0;
+  --filter-color-light-gray: #f1f5f7;
+  --filter-color-gray: #e4ecf0;
 }
 
 *,

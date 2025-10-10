@@ -1,3 +1,5 @@
+import './CheckField.scss'
+
 export function CheckField({
   style = {},
   className = ``,

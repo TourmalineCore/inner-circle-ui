@@ -1,3 +1,5 @@
+import './themeVariables.scss'
+
 import {createContext, useState, useMemo, ReactNode, Dispatch, SetStateAction} from 'react'
 
 import { themeColors } from './themeColors'
