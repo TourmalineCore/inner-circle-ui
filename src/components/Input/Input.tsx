@@ -1,7 +1,9 @@
-export default function Input({
+import './Input.scss'
+
+export function Input({
   inputRef,
   style,
-  className = '',
+  className = ``,
   id,
   label,
   value,
@@ -28,18 +30,25 @@ export default function Input({
   isMessagesAbsolute?: boolean,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
-  const validClassname = isValid ? 'input--valid' : '';
-  const invalidClassname = isInvalid ? 'input--invalid' : '';
-  const errorsAbsoluteClassname = isMessagesAbsolute ? 'input__errors--absolute' : '';
+  const validClassname = isValid ? `input--valid` : ``
+  const invalidClassname = isInvalid ? `input--invalid` : ``
+  const errorsAbsoluteClassname = isMessagesAbsolute ? `input__errors--absolute` : ``
 
   return (
     <div
       style={style}
       className={`input ${className} ${invalidClassname} ${validClassname}`}
     >
-      {label && (
-        <label className="input__label" htmlFor={id}>{label}</label>
-      )}
+      {
+        label && (
+          <label 
+            className="input__label"
+            htmlFor={id}
+          >
+            {label}
+          </label>
+        )
+      }
 
       <div className="input__box">
         <input
@@ -56,13 +65,20 @@ export default function Input({
         />
       </div>
 
-      {isInvalid && validationMessages.length > 0 && (
-        <ul className={`input__errors ${errorsAbsoluteClassname}`}>
-          {validationMessages.map((validationMessage: any) => (
-            <li key={validationMessage}>{validationMessage}</li>
-          ))}
-        </ul>
-      )}
+      {
+        isInvalid 
+        && validationMessages.length > 0 
+        && (
+          <ul className={`input__errors ${errorsAbsoluteClassname}`}>
+            {
+              validationMessages.map((validationMessage: any) => (
+                <li key={validationMessage}>
+                  {validationMessage}
+                </li>
+              ))
+            }
+          </ul>
+        )}
     </div>
-  );
+  )
 }

@@ -33,6 +33,7 @@ $fontSizeMobile: 16px;
 .direction-column {
   flex-direction: column;
 
+  /* stylelint-disable-next-line scss/selector-no-redundant-nesting-selector */
   & div.indicator-value__label:first-child {
     margin-bottom: 16px;
   }

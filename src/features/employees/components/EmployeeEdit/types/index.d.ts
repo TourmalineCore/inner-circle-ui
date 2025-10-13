@@ -1,5 +1,5 @@
 export type InputPropPackage = {
-  isInvalid?: boolean;
-  validationMessages?: string[];
-  isMessagesAbsolute?: boolean;
+  isInvalid?: boolean,
+  validationMessages?: string[],
+  isMessagesAbsolute?: boolean,
 };

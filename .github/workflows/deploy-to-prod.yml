@@ -41,5 +41,5 @@ jobs:
             --state-values-set extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
-            --state-values-set extraConfigMapEnvVars.ENV_KEY=${{ secrets.DEV_ENV }}
+            --state-values-set extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}
           helmfile-auto-init: "false"     

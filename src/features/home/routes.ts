@@ -1,9 +1,9 @@
-import HomePage from './HomePage';
+import { HomePage } from './HomePage'
 
 export const homeRoutes = [
   {
-    path: '/',
-    breadcrumb: 'Homepage',
+    path: `/`,
+    breadcrumb: `Homepage`,
     Component: HomePage,
   },
-];
+]

@@ -1,60 +1,75 @@
-/* eslint-disable no-unneeded-ternary */
-import {
-  ChangeEvent, useEffect, useState,
-} from 'react';
+import './ProfilePage.scss'
 
-import Skeleton from 'react-loading-skeleton';
-import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format';
-import { LINK_TO_SALARY_SERVICE } from '../../common/config/config';
-import { Employee } from './types/Profile';
-import { api } from '../../common/api';
-import InfoComponent from './components/InfoComponent/InfoComponent';
-import Input from '../../components/Input/Input';
+import IconProfile from '../../assets/icons/icon-profile.svg?react'
+import IconBoxPercent from '../../assets/icons/icon-box-percent.svg?react'
+import IconGithub from '../../assets/icons/icon-github.svg?react'
+import IconGitlab from '../../assets/icons/icon-gitlab.svg?react'
+import IconMessage from '../../assets/icons/icon-message.svg?react'
+import IconMoney from '../../assets/icons/icon-money.svg?react'
+import IconOutlineEmail from '../../assets/icons/icon-outline-email.svg?react'
+import IconPercent from '../../assets/icons/icon-percent.svg?react'
+import IconPhone from '../../assets/icons/icon-phone.svg?react'
+import IconVirginmoney from '../../assets/icons/icon-virginmoney.svg?react'
 
-import { ReactComponent as IconProfile } from '../../assets/icons/icon-profile.svg';
-import { ReactComponent as IconBoxPercent } from '../../assets/icons/icon-box-percent.svg';
-import { ReactComponent as IconGithub } from '../../assets/icons/icon-github.svg';
-import { ReactComponent as IconGitlab } from '../../assets/icons/icon-gitlab.svg';
-import { ReactComponent as IconMessage } from '../../assets/icons/icon-message.svg';
-import { ReactComponent as IconMoney } from '../../assets/icons/icon-money.svg';
-import { ReactComponent as IconOutlineEmail } from '../../assets/icons/icon-outline-email.svg';
-import { ReactComponent as IconPercent } from '../../assets/icons/icon-percent.svg';
-import { ReactComponent as IconPhone } from '../../assets/icons/icon-phone.svg';
-import { ReactComponent as IconVirginmoney } from '../../assets/icons/icon-virginmoney.svg';
+import {ChangeEvent, useEffect, useState} from 'react'
+import Skeleton from 'react-loading-skeleton'
+import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format'
+import { LINK_TO_SALARY_SERVICE } from '../../common/config/config'
+import { Employee } from './types/Profile'
+import { api } from '../../common/api'
+import { InfoComponent } from './components/InfoComponent/InfoComponent'
+import { Input } from '../../components/Input/Input'
 
 const initialValues = {
   id: 0,
-  fullName: '',
-  corporateEmail: '',
-  personalEmail: '',
-  phone: '',
-  gitHub: '',
-  gitLab: '',
+  fullName: ``,
+  corporateEmail: ``,
+  personalEmail: ``,
+  phone: ``,
+  gitHub: ``,
+  gitLab: ``,
   fullSalary: 0,
   districtCoefficient: 0,
   incomeTax: 0,
   netSalary: 0,
   isSalaryInfoFilled: false,
   isEmployedOfficially: false,
-};
+}
 
-function ProfilePage() {
-  const [employee, setEmployee] = useState<Employee>(initialValues);
-  const [initEmployee, initSetEmployee] = useState<Employee>(initialValues);
+export function ProfilePage() {
+  const [
+    employee,
+    setEmployee,
+  ] = useState<Employee>(initialValues)
+  const [
+    initEmployee,
+    initSetEmployee,
+  ] = useState<Employee>(initialValues)
 
-  const [triedToSubmit, setTriedToSubmit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [
+    triedToSubmit,
+    setTriedToSubmit,
+  ] = useState(false)
+  const [
+    isLoading,
+    setIsLoading,
+  ] = useState(false)
+  const [
+    isEdit,
+    setIsEdit,
+  ] = useState(false)
 
   useEffect(() => {
-    loadEmployeeAsync();
-  }, []);
+    loadEmployeeAsync()
+  }, [])
 
   return (
     <div className="profile">
       <div className="profile__inner">
         <div className="profile__box">
-          <h2 className="profile__head">General information</h2>
+          <h2 className="profile__head">
+            General information
+          </h2>
           {
             isLoading && (
               <Skeleton
@@ -86,47 +101,49 @@ function ProfilePage() {
 
         <div className="profile__box">
           <div className="profile__edit-box">
-            <h2 className="profile__head">Contacts</h2>
+            <h2 className="profile__head">
+              Contacts
+            </h2>
             {
               !isLoading && (
                 <div className="profile__buttons">
                   {
-                    !isEdit ? (
-                      <button
-                        type="button"
-                        className="profile__button"
-                        onClick={() => setIsEdit(true)}
-                      >
-                        Edit
-                      </button>
-                    ) : (
-                      <>
+                    !isEdit 
+                      ? (
                         <button
                           type="button"
                           className="profile__button"
-                          onClick={() => {
-                            editEmployeeAsync();
-                          }}
+                          onClick={() => setIsEdit(true)}
                         >
-                          Save
+                          Edit
                         </button>
-                        <button
-                          type="button"
-                          className="profile__button"
-                          onClick={() => {
-                            setIsEdit(false);
-                            setEmployee(initEmployee);
-                            setTriedToSubmit(false);
-                          }}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    )
-                  }
+                      ) 
+                      : (
+                        <>
+                          <button
+                            type="button"
+                            className="profile__button"
+                            onClick={() => {
+                              editEmployeeAsync()
+                            }}
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            className="profile__button"
+                            onClick={() => {
+                              setIsEdit(false)
+                              setEmployee(initEmployee)
+                              setTriedToSubmit(false)
+                            }}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      )}
                 </div>
-              )
-            }
+              )}
 
           </div>
           {
@@ -142,16 +159,21 @@ function ProfilePage() {
             !isLoading && (
               <div>
                 <InfoComponent
-                  isHaveValue={isEdit ? isEdit : !!(employee.phone && employee.phone.length > 9)}
+                  isHaveValue={isEdit 
+                    ? isEdit 
+                    : !!(employee.phone && employee.phone.length > 9)}
                   value={(
                     <PatternFormat
                       className="profile__contacts-info"
                       type="tel"
                       format="+7 (###) ### ## ##"
                       customInput={Input}
-                      displayType={!isEdit ? 'text' : 'input'}
+                      displayType={!isEdit ? `text` : `input`}
                       value={employee.phone}
-                      onValueChange={(event: NumberFormatValues) => setEmployee({ ...employee, phone: event.value })}
+                      onValueChange={(event: NumberFormatValues) => setEmployee({
+                        ...employee,
+                        phone: event.value, 
+                      })}
                       mask="_"
                       allowEmptyFormatting
                       valueIsNumericString
@@ -162,34 +184,44 @@ function ProfilePage() {
                   icon={<IconPhone />}
                 />
                 <InfoComponent
-                  isHaveValue={isEdit ? isEdit : !!employee.personalEmail}
+                  isHaveValue={isEdit 
+                    ? isEdit 
+                    : !!employee.personalEmail}
                   value={!isEdit
                     ? employee.personalEmail
                     : (
                       <Input
                         className="profile__contacts-info"
-                        value={employee.personalEmail || ''}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, personalEmail: event.target.value })}
+                        value={employee.personalEmail || ``}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
+                          ...employee,
+                          personalEmail: event.target.value, 
+                        })}
                       />
                     )}
                   label="Personal Email"
                   icon={<IconMessage />}
                 />
                 <InfoComponent
-                  isHaveValue={isEdit ? isEdit : !!employee.gitHub}
+                  isHaveValue={isEdit
+                    ? isEdit
+                    : !!employee.gitHub}
                   value={!isEdit
                     ? employee.gitHub
                     : (
                       <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: `flex`,
+                        alignItems: `center`,
                       }}
                       >
                         @
                         <Input
                           className="profile__contacts-info"
-                          value={employee.gitHub || ''}
-                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitHub: event.target.value })}
+                          value={employee.gitHub || ``}
+                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
+                            ...employee,
+                            gitHub: event.target.value, 
+                          })}
                         />
                       </div>
                     )}
@@ -197,20 +229,25 @@ function ProfilePage() {
                   icon={<IconGithub />}
                 />
                 <InfoComponent
-                  isHaveValue={isEdit ? isEdit : !!employee.gitLab}
+                  isHaveValue={isEdit
+                    ? isEdit
+                    : !!employee.gitLab}
                   value={!isEdit
                     ? employee.gitLab
                     : (
                       <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: `flex`,
+                        alignItems: `center`,
                       }}
                       >
                         @
                         <Input
                           className="profile__contacts-info"
-                          value={employee.gitLab || ''}
-                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({ ...employee, gitLab: event.target.value })}
+                          value={employee.gitLab || ``}
+                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
+                            ...employee,
+                            gitLab: event.target.value, 
+                          })}
                         />
                       </div>
                     )}
@@ -236,136 +273,148 @@ function ProfilePage() {
           {
             !isLoading && (
               <div>
-                {employee.isSalaryInfoFilled ? (
-                  <>
-                    <InfoComponent
-                      isHaveValue={employee.fullSalary > 0}
-                      value={(
-                        <NumericFormat
-                          type="text"
-                          displayType="text"
-                          value={employee.fullSalary}
-                          valueIsNumericString
-                          allowLeadingZeros
-                          thousandSeparator=","
-                          suffix=" ₽"
-                        />
-                      )}
-                      label="Full Salary"
-                      icon={<IconMoney />}
-                    />
-                    {employee.isEmployedOfficially && (
+                {employee.isSalaryInfoFilled
+                  ? (
+                    <>
                       <InfoComponent
-                        isHaveValue={employee.districtCoefficient > 0}
+                        isHaveValue={employee.fullSalary > 0}
                         value={(
                           <NumericFormat
                             type="text"
                             displayType="text"
-                            value={employee.districtCoefficient}
+                            value={employee.fullSalary}
                             valueIsNumericString
                             allowLeadingZeros
-                            style={{
-                              color: '#1ED400',
-                            }}
-                            prefix="+ "
                             thousandSeparator=","
                             suffix=" ₽"
                           />
                         )}
-                        label="Distr. Coef. (15 %)"
-                        icon={<IconPercent />}
+                        label="Full Salary"
+                        icon={<IconMoney />}
                       />
-                    )}
-                    {employee.isEmployedOfficially && (
-                      <InfoComponent
-                        isHaveValue={employee.incomeTax > 0}
-                        value={(
-                          <NumericFormat
-                            displayType="text"
-                            value={employee.incomeTax}
-                            valueIsNumericString
-                            allowLeadingZeros
-                            style={{
-                              color: '#DA2228',
-                            }}
-                            prefix="- "
-                            thousandSeparator=","
-                            suffix=" ₽"
-                          />
-                        )}
-                        label="Inc. Tax (13 %)"
-                        icon={<IconBoxPercent />}
-                      />
-                    )}
-                    {employee.isEmployedOfficially && (
-                      <InfoComponent
-                        isHaveValue={employee.netSalary > 0}
-                        value={(
-                          <NumericFormat
-                            displayType="text"
-                            value={employee.netSalary}
-                            valueIsNumericString
-                            thousandSeparator=","
-                            suffix=" ₽"
-                          />
-                        )}
-                        label="Net Salary"
-                        icon={<IconVirginmoney />}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <span style={{ opacity: 0.5 }}>
-                    Your salary will be filled soon...
-                  </span>
-                )}
+                      {employee.isEmployedOfficially && (
+                        <InfoComponent
+                          isHaveValue={employee.districtCoefficient > 0}
+                          value={(
+                            <NumericFormat
+                              type="text"
+                              displayType="text"
+                              value={employee.districtCoefficient}
+                              valueIsNumericString
+                              allowLeadingZeros
+                              style={{
+                                color: `#1ED400`,
+                              }}
+                              prefix="+ "
+                              thousandSeparator=","
+                              suffix=" ₽"
+                            />
+                          )}
+                          label="Distr. Coef. (15 %)"
+                          icon={<IconPercent />}
+                        />
+                      )}
+                      {employee.isEmployedOfficially && (
+                        <InfoComponent
+                          isHaveValue={employee.incomeTax > 0}
+                          value={(
+                            <NumericFormat
+                              displayType="text"
+                              value={employee.incomeTax}
+                              valueIsNumericString
+                              allowLeadingZeros
+                              style={{
+                                color: `#DA2228`,
+                              }}
+                              prefix="- "
+                              allowNegative={false}
+                              thousandSeparator=","
+                              suffix=" ₽"
+                            />
+                          )}
+                          label="Inc. Tax (13 %)"
+                          icon={<IconBoxPercent />}
+                        />
+                      )}
+                      {employee.isEmployedOfficially && (
+                        <InfoComponent
+                          isHaveValue={employee.netSalary > 0}
+                          value={(
+                            <NumericFormat
+                              displayType="text"
+                              value={employee.netSalary}
+                              valueIsNumericString
+                              thousandSeparator=","
+                              suffix=" ₽"
+                            />
+                          )}
+                          label="Net Salary"
+                          icon={<IconVirginmoney />}
+                        />
+                      )}
+                    </>
+                  )
+                  : (
+                    <span style={{
+                      opacity: 0.5, 
+                    }}>
+                      Your salary will be filled soon...
+                    </span>
+                  )}
               </div>
             )
           }
         </div>
       </div>
     </div>
-  );
+  )
 
   async function loadEmployeeAsync() {
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      const { data } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`);
+      const {
+        data, 
+      } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`)
 
       const initialData = {
         ...data,
-        phone: typeof data.phone === 'string' ? data.phone.split('').slice(2).join('') : data.phone,
-      };
+        phone: typeof data.phone === `string`
+          ? data.phone
+            .split(``)
+            .slice(2)
+            .join(``)
+          : data.phone,
+      }
 
-      setEmployee(initialData);
-      initSetEmployee(initialData);
-    } finally {
-      setIsLoading(false);
+      setEmployee(initialData)
+      initSetEmployee(initialData)
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 
   async function editEmployeeAsync() {
-    setTriedToSubmit(true);
+    setTriedToSubmit(true)
 
     const updateEmployee = {
       personalEmail: employee.personalEmail,
       gitHub: employee.gitHub,
       gitLab: employee.gitLab,
       phone: `+7${employee.phone}`,
-    };
+    }
 
     if (employee.phone.length > 9) {
       try {
-        await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee);
+        await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
 
-        loadEmployeeAsync();
-        setIsEdit(false);
-      } finally {
-        setTriedToSubmit(false);
+        loadEmployeeAsync()
+        setIsEdit(false)
+      }
+      finally {
+        setTriedToSubmit(false)
       }
     }
   }
 }
-
-export default ProfilePage;

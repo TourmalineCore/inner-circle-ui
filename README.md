@@ -1,24 +1,36 @@
 # Inner-Circle-UI
-[![Generate Cypress Report](https://github.com/TourmalineCore/Inner-Circle-UI/actions/workflows/cypress.yaml/badge.svg)](https://github.com/TourmalineCore/Inner-Circle-UI/actions/workflows/cypress.yaml)
-
-## Complete Cypress Report generated
-
-https://tourmalinecore.github.io/Inner-Circle-UI/
 
 ## Getting Started
+
 ```
 npm ci
 
 npm start
 ```
 
-## Run cypress tests
-```
-npm run cy:run
-```
-
-## Run UI and unit tests by Jest
+## Create local docker container to connect it with local-env
 
 ```
-npm test
+npm run docker:build:local-env
+```
+
+## Create local docker container to work in it (local docker container for layout-ui service must run too)
+```
+npm run docker:build
+
+npm run docker:run
+```
+
+## Component tests
+
+To run component tests in console you need enter the command
+
+```
+npm run cypress:run:component
+```
+
+To open cypress to run component tests you need enter the command
+
+```
+npm run cypress:open:component
 ```

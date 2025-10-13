@@ -17,8 +17,9 @@ releases:
       - ingress:
           hostname: "{{ .StateValues.ingress.hostname }}"
       - extraConfigMapEnvVars:
-          LINK_TO_SALARY_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE }}"
-          LINK_TO_ACCOUNT_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE }}"
           API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"
           API_ROOT_AUTH: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_AUTH }}"
-          ENV_KEY: "{{ .StateValues.extraConfigMapEnvVars.ENV_KEY }}"
+          LINK_TO_SALARY_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE }}"
+          LINK_TO_ACCOUNT_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE }}"
+          LINK_TO_DASHBOARD: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_DASHBOARD }}"
+          VITE_BASE_URL: "{{ .StateValues.extraConfigMapEnvVars.VITE_BASE_URL }}"

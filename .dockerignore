@@ -1,0 +1,30 @@
+# root level folders
+.git
+dist
+node_modules
+.devcontainer
+.vscode
+.github
+api-types
+cypress
+ci/values.yaml
+
+# also ignore all component cypress tests
+src/**/*.cy.ts
+src/**/*.cy.tsx
+
+# all env vars related files except for the .env-vars one
+.env*
+!.env-vars
+
+# root level files
+.dockerignore
+.eslintrc
+.gitattributes
+.gitignore
+cypress.config.ts
+Dockerfile
+global-types.d.ts
+LICENSE
+README.md
+.commitlintrc.*

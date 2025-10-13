@@ -1,21 +1,21 @@
 export type Row<TypeProps> = {
-  original: TypeProps
-  values: TypeProps;
+  original: TypeProps,
+  values: TypeProps,
 };
 
 export type CellTable<TypeProps> = {
-  row: Row<TypeProps>
+  row: Row<TypeProps>,
 };
 
 export type FooterTable<TypeProps> = {
   page: Array<{
-    values: TypeProps;
-    original: TypeProps;
-  }>;
+    values: TypeProps,
+    original: TypeProps,
+  }>,
   filteredRows: Array<{
-    values: TypeProps;
-    original: TypeProps;
-  }>;
+    values: TypeProps,
+    original: TypeProps,
+  }>,
 };
 
 export type ColumnType = {
@@ -25,7 +25,9 @@ export type ColumnType = {
   disableFilters?: boolean,
   minWidth?: number,
   Footer?: ((row: FooterTable<GetPreviewType>) => JSX.Element) | (() => string),
-  Cell?: ({ row }: CellTable<GetPreviewType>) => JSX.Element
+  Cell?: ({
+    row, 
+  }: CellTable<GetPreviewType>) => JSX.Element,
 };
 
 export type Metrics = {
@@ -56,7 +58,7 @@ export type Metrics = {
 export type GetTableType = {
   employeeId: number | string | null,
   employeeCopyId?: string,
-  isCopy?: boolean
+  isCopy?: boolean,
   employeeFullName: string,
   metrics: Metrics,
   metricsDiff: Omit<Metrics, 'employmentType', 'isEmployedOfficially'> | null,
@@ -92,7 +94,7 @@ type TotalTableType = {
     profitAbility: number,
     prepayment: number,
     netSalary: number,
-  }
+  },
 };
 
 export type AnalyticsType = {

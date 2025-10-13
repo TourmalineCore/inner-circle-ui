@@ -1,9 +1,11 @@
-import clsx from 'clsx';
+import './RedactComponent.scss'
 
-import { KeyboardEvent, useRef, useState } from 'react';
-import { NumericFormat } from 'react-number-format';
+import clsx from 'clsx'
 
-function RedactComponent({
+import { KeyboardEvent, useRef, useState } from 'react'
+import { NumericFormat } from 'react-number-format'
+
+export function RedactComponent({
   value,
   valueDelta,
   isEditable = false,
@@ -20,44 +22,57 @@ function RedactComponent({
   className?: string,
   onChange?: (number: number) => void,
 }) {
-  const [editableValue, setRedValue] = useState(value.toString());
-  const [isFocus, setIsFocus] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [
+    editableValue,
+    setRedValue,
+  ] = useState(value.toString())
+  const [
+    isFocus,
+    setIsFocus,
+  ] = useState(false)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   function onAccept() {
     if (isEditable && (Number(value) !== Number(editableValue))) {
-      onChange(Number(editableValue));
+      onChange(Number(editableValue))
     }
   }
 
   function onCancel() {
-    setRedValue(value.toString());
-    setIsFocus(false);
+    setRedValue(value.toString())
+    setIsFocus(false)
   }
 
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      inputRef.current?.blur();
-      onAccept();
+    if (event.key === `Enter`) {
+      event.preventDefault()
+      inputRef.current?.blur()
+      onAccept()
     }
 
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      inputRef.current?.blur();
+    if (event.key === `Escape`) {
+      event.preventDefault()
+      inputRef.current?.blur()
 
-      onCancel();
+      onCancel()
     }
   }
 
-  const sumbol = isPercent ? ' %' : ' ₽';
+  const sumbol = isPercent 
+    ? ` %` 
+    : ` ₽`
 
-  let colorDelta;
+  let colorDelta
 
   if (!isPositiveDeltaGoodForClient) {
-    colorDelta = valueDelta! > 0 ? 'green' : 'red';
-  } else {
-    colorDelta = valueDelta! > 0 ? 'red' : 'green';
+    colorDelta = valueDelta! > 0 
+      ? `green` 
+      : `red`
+  }
+  else {
+    colorDelta = valueDelta! > 0 
+      ? `red` 
+      : `green`
   }
 
   return (
@@ -66,8 +81,8 @@ function RedactComponent({
         title="Click for update"
         getInputRef={inputRef}
         type="text"
-        displayType={isEditable ? 'input' : 'text'}
-        className={clsx('component-input', className, {
+        displayType={isEditable ? `input` : `text`}
+        className={clsx(`component-input`, className, {
           'component-input--is-editable': isEditable,
         })}
         value={editableValue}
@@ -76,7 +91,7 @@ function RedactComponent({
         thousandsGroupStyle="thousand"
         thousandSeparator=","
         onValueChange={(values) => {
-          setRedValue(values.value);
+          setRedValue(values.value)
         }}
         suffix={isFocus ? undefined : sumbol}
         onFocus={() => setIsFocus(true)}
@@ -86,19 +101,21 @@ function RedactComponent({
 
       {valueDelta
         ? (
-          <div style={{ color: colorDelta }}>
+          <div style={{
+            color: colorDelta, 
+          }}>
             <NumericFormat
               displayType="text"
               value={valueDelta}
               allowLeadingZeros
-              prefix={valueDelta >= 1 ? '+' : ''}
+              prefix={valueDelta >= 1 
+                ? `+` 
+                : ``}
               thousandSeparator=","
               suffix={sumbol}
             />
           </div>
         ) : null}
     </div>
-  );
+  )
 }
-
-export default RedactComponent;

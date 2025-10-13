@@ -1,30 +1,30 @@
-import { CopyToClipboardButton } from './CopyToClipboardButton';
-import EmployeesState from '../../../../context/EmployeesState';
-import EmployeesStateContext from '../../../../context/EmployeesStateContext';
+import { CopyToClipboardButton } from './CopyToClipboardButton'
+import { EmployeesState } from '../../../../context/EmployeesState'
+import { EmployeesStateContext } from '../../../../context/EmployeesStateContext'
 
-describe('CopyToClipboardButton', () => {
+describe(`CopyToClipboardButton`, () => {
   it(`
   GIVEN any page 
   WHEN must be text to be copied
   THEN render text to be copied
   `, () => {
-    mountComponent();
+    mountComponent()
 
-    cy.getByData('copy-item')
-      .should('exist');
-  });
-});
+    cy.getByData(`copy-item`)
+      .should(`exist`)
+  })
+})
 
 function mountComponent() {
-  /* eslint-disable react/jsx-no-constructed-context-values */
-  const employeesState = new EmployeesState();
+  const employeesState = new EmployeesState()
 
-  cy.mount(
-    <EmployeesStateContext.Provider value={employeesState}>
-      <CopyToClipboardButton
-        text="test"
-        notificationPosition="right"
-      />
-    </EmployeesStateContext.Provider>,
-  );
+  cy
+    .mount(
+      <EmployeesStateContext.Provider value={employeesState}>
+        <CopyToClipboardButton
+          text="test"
+          notificationPosition="right"
+        />
+      </EmployeesStateContext.Provider>,
+    )
 }

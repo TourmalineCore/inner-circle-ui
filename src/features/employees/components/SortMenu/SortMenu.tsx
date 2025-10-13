@@ -1,42 +1,47 @@
-import {
-  useState, useEffect, useContext,
-} from 'react';
-import clsx from 'clsx';
-import EmployeesStateContext from '../../context/EmployeesStateContext';
+import './SortMenu.scss'
+
+import {useState, useEffect, useContext} from 'react'
+import clsx from 'clsx'
+import { EmployeesStateContext } from '../../context/EmployeesStateContext'
 
 export function SortMenu() {
-  const [count, setCount] = useState<number>(0);
+  const [
+    count,
+    setCount,
+  ] = useState<number>(0)
 
-  const employeesState = useContext(EmployeesStateContext);
+  const employeesState = useContext(EmployeesStateContext)
 
   const sortHandler = () => {
     if (count > 2) {
-      setCount(0);
+      setCount(0)
     }
 
-    setCount((prev) => prev += 1);
-  };
+    setCount((prev) => prev += 1)
+  }
 
   useEffect(() => {
-    getSortElement();
-  }, [count]);
+    getSortElement()
+  }, [
+    count,
+  ])
 
   function getSortElement() {
     switch (count) {
       case 1: {
-        employeesState.updateSortTerm('asc');
+        employeesState.updateSortTerm(`asc`)
 
-        break;
+        break
       }
       case 2: {
-        employeesState.updateSortTerm('desc');
+        employeesState.updateSortTerm(`desc`)
 
-        break;
+        break
       }
       default: {
-        employeesState.updateSortTerm('default');
+        employeesState.updateSortTerm(`default`)
 
-        break;
+        break
       }
     }
   }
@@ -52,15 +57,19 @@ export function SortMenu() {
         <span className="sort-menu__inner">
           Sort by Name
           <div className="sort-menu__box">
-            <span className={clsx({ 'sort-menu__unselected': employeesState.sortTerm === 'desc' })}>
+            <span className={clsx({
+              'sort-menu__unselected': employeesState.sortTerm === `desc`, 
+            })}>
               ▲
             </span>
-            <span className={clsx({ 'sort-menu__unselected': employeesState.sortTerm === 'asc' })}>
+            <span className={clsx({
+              'sort-menu__unselected': employeesState.sortTerm === `asc`, 
+            })}>
               ▼
             </span>
           </div>
         </span>
       </button>
     </div>
-  );
+  )
 }

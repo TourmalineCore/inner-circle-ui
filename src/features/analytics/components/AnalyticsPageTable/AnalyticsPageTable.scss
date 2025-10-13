@@ -1,3 +1,5 @@
+@use "../../../../styles/mixins" as m;
+
 .analytics-page-table {
   &__buttons {
     display: flex;
@@ -21,7 +23,7 @@
   }
 
   &__button {
-    @include tc-button-reset;
+    @include m.tc-button-reset;
   }
 
   &__checkbox {

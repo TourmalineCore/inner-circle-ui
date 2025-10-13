@@ -1,7 +1,5 @@
-import { createContext } from 'react';
-import EmployeesState from './EmployeesState';
+import { createContext } from 'react'
+import { EmployeesState } from './EmployeesState'
 
 // @ts-ignore
-const EmployeesStateContext = createContext<EmployeesState>();
-
-export default EmployeesStateContext;
+export const EmployeesStateContext = createContext<EmployeesState>()
