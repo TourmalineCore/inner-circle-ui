@@ -71,7 +71,7 @@
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.1.0",
     "typescript": "^5.9.3",
-    "vite": "^6.2.1"
+    "vite": "^7.1.9"
   },
   "browserslist": {
     "production": [
