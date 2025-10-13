@@ -2,8 +2,8 @@ import { defineConfig } from 'cypress'
 
 // eslint-disable-next-line import/no-default-export  
 export default defineConfig({
-  e2e: {  
-    viewportWidth: 1200,  
+  e2e: {
+    viewportWidth: 1200,
     viewportHeight: 660,
     specPattern: `cypress/e2e/**/*.cy.js`,
     baseUrl: `https://tourmalinecore.github.io/React-Admin-Template`,
@@ -11,7 +11,7 @@ export default defineConfig({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {},
   },
-  component: {  
+  component: {
     video: false,
     devServer: {
       framework: `react`,

@@ -30,7 +30,9 @@ export function EmployeeItem({
     >
       <div className="employee-item__inner">
         <div>
-          <div className="employee-item__name">{employee.fullName}</div>
+          <div className="employee-item__name">
+            {employee.fullName}
+          </div>
           <CopyToClipboardButton
             text={employee.corporateEmail}
             notificationPosition="bottom"
@@ -42,7 +44,9 @@ export function EmployeeItem({
             permission: `ViewContacts`,
           })
           && (<div>
-            <div>Contacts</div>
+            <div>
+              Contacts
+            </div>
             <ul className="employee-item__contacts-list">
               <li className="employee-item__contacts-item">
                 <span className="employee-item__circle">
@@ -151,7 +155,9 @@ export function EmployeeItem({
 
               <ul className="employee-item__salary-list">
                 <li className="employee-item__salary-item">
-                  <span className="employee-item__salary-label">Rate Per Hour</span>
+                  <span className="employee-item__salary-label">
+                    Rate Per Hour
+                  </span>
                   <NumericFormat
                     displayType="text"
                     thousandSeparator=","
@@ -163,7 +169,9 @@ export function EmployeeItem({
                 </li>
 
                 <li className="employee-item__salary-item">
-                  <span className="employee-item__salary-label">Full Salary</span>
+                  <span className="employee-item__salary-label">
+                    Full Salary
+                  </span>
                   <NumericFormat
                     displayType="text"
                     thousandSeparator=","
@@ -175,12 +183,16 @@ export function EmployeeItem({
                 </li>
 
                 <li className="employee-item__salary-item">
-                  <span className="employee-item__salary-label">Employment Type</span>
+                  <span className="employee-item__salary-label">
+                    Employment Type
+                  </span>
                   <span>{getEmploymentType(employee.employmentType) || `--`}</span>
                 </li>
 
                 <li className="employee-item__salary-item">
-                  <span className="employee-item__salary-label">Parking</span>
+                  <span className="employee-item__salary-label">
+                    Parking
+                  </span>
                   <NumericFormat
                     displayType="text"
                     thousandSeparator=","
@@ -194,12 +206,16 @@ export function EmployeeItem({
             </div>
             <ul className="employee-item__official-documents-list">
               <li className="employee-item__official-documents-item">
-                <span>Personnel Number</span>
+                <span>
+                  Personnel Number
+                </span>
                 <span>{employee.personnelNumber || `--`}</span>
               </li>
 
               <li className="employee-item__official-documents-item">
-                <span>Hire date</span>
+                <span>
+                  Hire date
+                </span>
                 <span>
                   {
                     employee.hireDate

@@ -22,9 +22,13 @@ export function getEmploymentType(employmentType: EmploymentType | null) {
 
 export function getSorted(firstEmployee: Employee, secondEmployee: Employee, sortTerm: string) {
   if (sortTerm === `desc`) {
-    return firstEmployee.fullName.toLowerCase() < secondEmployee.fullName.toLowerCase() ? 1 : -1
+    return firstEmployee.fullName.toLowerCase() < secondEmployee.fullName.toLowerCase()
+      ? 1
+      : -1
   } if (sortTerm === `asc`) {
-    return firstEmployee.fullName.toLowerCase() > secondEmployee.fullName.toLowerCase() ? 1 : -1
+    return firstEmployee.fullName.toLowerCase() > secondEmployee.fullName.toLowerCase()
+      ? 1
+      : -1
   }
 
   return 1
@@ -43,7 +47,9 @@ export function getFiltering(employee: Employee, filterTerm: string) {
 }
 
 export function getSearch(searchElement: string, searchTerm: string) {
-  return searchElement.toLowerCase()
-    .includes(searchTerm.toLowerCase()
+  return searchElement
+    .toLowerCase()
+    .includes(searchTerm.
+      toLowerCase()
       .trim())
 }

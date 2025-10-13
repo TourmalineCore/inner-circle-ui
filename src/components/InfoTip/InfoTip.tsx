@@ -37,7 +37,9 @@ export function InfoTip({
         {icon}
       </button>
 
-      <div className={clsx(`info-tip__content`, classNameContent)}>{content}</div>
+      <div className={clsx(`info-tip__content`, classNameContent)}>
+        {content}
+      </div>
     </div>
   )
 }

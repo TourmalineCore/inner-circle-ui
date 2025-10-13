@@ -39,10 +39,16 @@ export function Input({
       style={style}
       className={`input ${className} ${invalidClassname} ${validClassname}`}
     >
-      {label && (
-        <label className="input__label"
-          htmlFor={id}>{label}</label>
-      )}
+      {
+        label && (
+          <label 
+            className="input__label"
+            htmlFor={id}
+          >
+            {label}
+          </label>
+        )
+      }
 
       <div className="input__box">
         <input
@@ -59,13 +65,20 @@ export function Input({
         />
       </div>
 
-      {isInvalid && validationMessages.length > 0 && (
-        <ul className={`input__errors ${errorsAbsoluteClassname}`}>
-          {validationMessages.map((validationMessage: any) => (
-            <li key={validationMessage}>{validationMessage}</li>
-          ))}
-        </ul>
-      )}
+      {
+        isInvalid 
+        && validationMessages.length > 0 
+        && (
+          <ul className={`input__errors ${errorsAbsoluteClassname}`}>
+            {
+              validationMessages.map((validationMessage: any) => (
+                <li key={validationMessage}>
+                  {validationMessage}
+                </li>
+              ))
+            }
+          </ul>
+        )}
     </div>
   )
 }

@@ -58,15 +58,21 @@ export function RedactComponent({
     }
   }
 
-  const sumbol = isPercent ? ` %` : ` ₽`
+  const sumbol = isPercent 
+    ? ` %` 
+    : ` ₽`
 
   let colorDelta
 
   if (!isPositiveDeltaGoodForClient) {
-    colorDelta = valueDelta! > 0 ? `green` : `red`
+    colorDelta = valueDelta! > 0 
+      ? `green` 
+      : `red`
   }
   else {
-    colorDelta = valueDelta! > 0 ? `red` : `green`
+    colorDelta = valueDelta! > 0 
+      ? `red` 
+      : `green`
   }
 
   return (
@@ -102,7 +108,9 @@ export function RedactComponent({
               displayType="text"
               value={valueDelta}
               allowLeadingZeros
-              prefix={valueDelta >= 1 ? `+` : ``}
+              prefix={valueDelta >= 1 
+                ? `+` 
+                : ``}
               thousandSeparator=","
               suffix={sumbol}
             />

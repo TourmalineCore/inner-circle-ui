@@ -18,12 +18,13 @@ describe(`CopyToClipboardButton`, () => {
 function mountComponent() {
   const employeesState = new EmployeesState()
 
-  cy.mount(
-    <EmployeesStateContext.Provider value={employeesState}>
-      <CopyToClipboardButton
-        text="test"
-        notificationPosition="right"
-      />
-    </EmployeesStateContext.Provider>,
-  )
+  cy
+    .mount(
+      <EmployeesStateContext.Provider value={employeesState}>
+        <CopyToClipboardButton
+          text="test"
+          notificationPosition="right"
+        />
+      </EmployeesStateContext.Provider>,
+    )
 }

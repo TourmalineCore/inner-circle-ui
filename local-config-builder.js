@@ -7,7 +7,7 @@ const env = process.argv[2]
 // eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
 const fs = require("fs")
 
-const filepath = "./public/env-config.js";  
+const filepath = "./public/env-config.js";
 const filepathCypress = "./cypress/env-config.js";
 const data = fs.readFileSync(`./.config-${env}`);
 

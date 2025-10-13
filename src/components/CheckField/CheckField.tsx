@@ -18,11 +18,15 @@ export function CheckField({
   checked?: boolean,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) {
-  const viewTypeClassName = viewType === `radio` ? `checkfield__box--radio` : ``
+  const viewTypeClassName = viewType === `radio` 
+    ? `checkfield__box--radio` 
+    : ``
 
   return (
-    <label style={style}
-      className={`checkfield ${className}`}>
+    <label 
+      style={style}
+      className={`checkfield ${className}`}
+    >
       <input
         type="checkbox"
         className="checkfield__input"
@@ -32,10 +36,14 @@ export function CheckField({
         {...props}
       />
       <span className={`checkfield__box ${viewTypeClassName}`} />
-
-      {label && (
-        <span className="checkfield__label">{label}</span>
-      )}
+      {
+        label 
+        && (
+          <span className="checkfield__label">
+            {label}
+          </span>
+        )
+      }
     </label>
   )
 }

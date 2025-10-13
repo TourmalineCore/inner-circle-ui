@@ -3,16 +3,13 @@ import './EmployeeEdit.scss'
 
 import { useEffect, useState, ChangeEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
-
 import { NumberFormatValues } from 'react-number-format'
-
 import { toast } from 'react-toastify'
 import IconProfile from '../../../../assets/icons/icon-profile.svg?react'
 import IconMail from '../../../../assets/icons/icon-message.svg?react'
 import { api } from '../../../../common/api'
 import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config'
 import { EditedEmployee } from '../../types'
-
 import { CustomDatePicker } from './components/CustomDatePicker/CustomDatePicker'
 import { CustomNumberFormat } from './components/CustomNumberFormat/CustomNumberFormat'
 import { CustomPatternFormat } from './components/CustomPatternFormat/CustomPatternFormat'
@@ -85,7 +82,9 @@ export function EmployeeEdit() {
 
   return (
     <section className="employee-edit">
-      <h1 className="heading employee-edit__title">Employee Profile</h1>
+      <h1 className="heading employee-edit__title">
+        Employee Profile
+      </h1>
       <div className="employee-edit__info">
         <span className="employee-edit__icon">
           <IconProfile />
@@ -99,10 +98,14 @@ export function EmployeeEdit() {
         {employee.corporateEmail}
       </div>
 
-      <h2>Contacts</h2>
+      <h2>
+        Contacts
+      </h2>
       <ul>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Phone Number*</span>
+          <span className="employee-edit__label">
+            Phone Number*
+          </span>
           <CustomPatternFormat
             className="employee-edit__control"
             type="tel"
@@ -116,7 +119,9 @@ export function EmployeeEdit() {
           />
         </li>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Personal Email</span>
+          <span className="employee-edit__label">
+            Personal Email
+          </span>
           <Input
             name="personalEmail"
             placeholder="email@mail.ru"
@@ -126,7 +131,9 @@ export function EmployeeEdit() {
           />
         </li>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Personal GitHub</span>
+          <span className="employee-edit__label">
+            Personal GitHub
+          </span>
           <div className="employee-edit__git employee-edit__control">
             <span className="employee-edit__symbol">@</span>
             <Input
@@ -139,7 +146,9 @@ export function EmployeeEdit() {
           </div>
         </li>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Personal GitLab</span>
+          <span className="employee-edit__label">
+            Personal GitLab
+          </span>
           <div className="employee-edit__git employee-edit__control">
             <span className="employee-edit__symbol">@</span>
             <Input
@@ -153,10 +162,14 @@ export function EmployeeEdit() {
         </li>
       </ul>
 
-      <h2>Salary</h2>
+      <h2>
+        Salary
+      </h2>
       <ul>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Rate Per Hour *</span>
+          <span className="employee-edit__label">
+            Rate Per Hour *
+          </span>
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.ratePerHour || 0}
@@ -169,7 +182,9 @@ export function EmployeeEdit() {
           </div>
         </li>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Full Salary *</span>
+          <span className="employee-edit__label">
+            Full Salary *
+          </span>
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.fullSalary || ``}
@@ -182,14 +197,18 @@ export function EmployeeEdit() {
           </div>
         </li>
         <li className="employee-edit__item employee-edit__item--radio-list">
-          <span className="employee-edit__label">Employment Type *</span>
+          <span className="employee-edit__label">
+            Employment Type *
+          </span>
           <div className="employee-edit__control">
             {Object.entries(employeeTypeData)
               .map(([
                 value,
                 label,
               ]) => {
-                const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 ? `1` : `0.5`
+                const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 
+                  ? `1` 
+                  : `0.5`
 
                 return (
                   <CheckField
@@ -210,7 +229,9 @@ export function EmployeeEdit() {
           </div>
         </li>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Parking *</span>
+          <span className="employee-edit__label">
+            Parking *
+          </span>
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.parking || 0}
@@ -224,10 +245,14 @@ export function EmployeeEdit() {
         </li>
       </ul>
 
-      <h2>Documents</h2>
+      <h2>
+        Documents
+      </h2>
       <ul>
         <li className="employee-edit__item">
-          <span className="employee-edit__label">Hire Date *</span>
+          <span className="employee-edit__label">
+            Hire Date *
+          </span>
           <div className="employee-edit__control">
             <CustomDatePicker
               date={employee.hireDate}
@@ -273,14 +298,18 @@ export function EmployeeEdit() {
           </li>
         )} */}
         <li className="employee-edit__item employee-edit__item--radio-list">
-          <span className="employee-edit__label">Employed *</span>
+          <span className="employee-edit__label">
+            Employed *
+          </span>
           <div>
             {Object.entries(employedData)
               .map(([
                 value,
                 label,
               ]) => {
-                const valueEmployedOfficially = employee.isEmployedOfficially ? `officially` : `freelance`
+                const valueEmployedOfficially = employee.isEmployedOfficially 
+                  ? `officially` 
+                  : `freelance`
 
                 return (
                   <CheckField
@@ -302,7 +331,9 @@ export function EmployeeEdit() {
         </li>
         {employee.isEmployedOfficially && (
           <li className="employee-edit__item">
-            <span className="employee-edit__label">Personnel Number *</span>
+            <span className="employee-edit__label">
+              Personnel Number *
+            </span>
             <CustomPatternFormat
               className="employee-edit__control"
               format="##/##"
@@ -343,12 +374,21 @@ export function EmployeeEdit() {
 
     const initialData = {
       ...data,
-      phone: data.phone ? data.phone.split(``)
-        .slice(2)
-        .join(``) : null,
-      hireDate: data.hireDate ? new Date(data.hireDate) : new Date(),
-      dismissalDate: data.dismissalDate ? new Date(data.dismissalDate) : new Date(),
-      personnelNumber: data.personnelNumber ? data.personnelNumber.replace(`/`, ``) : data.personnelNumber,
+      phone: data.phone
+        ? data.phone
+          .split(``)
+          .slice(2)
+          .join(``)
+        : null,
+      hireDate: data.hireDate
+        ? new Date(data.hireDate)
+        : new Date(),
+      dismissalDate: data.dismissalDate
+        ? new Date(data.dismissalDate)
+        : new Date(),
+      personnelNumber: data.personnelNumber
+        ? data.personnelNumber.replace(`/`, ``)
+        : data.personnelNumber,
     }
 
     setEmployee(initialData)
@@ -357,18 +397,24 @@ export function EmployeeEdit() {
   async function updateEmployeesAsync() {
     const updateEmployee = {
       ...employee,
-      employmentType: employee.employmentType === null ? 1 : employee.employmentType,
+      employmentType: employee.employmentType === null
+        ? 1
+        : employee.employmentType,
       phone: `+7${employee.phone}`,
       ratePerHour: employee.ratePerHour || 0,
       parking: employee.parking || 0,
-      personnelNumber: employee.isEmployedOfficially ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}` : null,
+      personnelNumber: employee.isEmployedOfficially
+        ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`
+        : null,
     }
 
     delete updateEmployee.dismissalDate
 
     setTriedToSubmit(true)
 
-    const isValidPersonnelNumber = employee.isEmployedOfficially ? employee.personnelNumber!.length >= 4 : true
+    const isValidPersonnelNumber = employee.isEmployedOfficially
+      ? employee.personnelNumber!.length >= 4
+      : true
 
     if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
       try {

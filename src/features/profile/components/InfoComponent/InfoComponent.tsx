@@ -23,8 +23,12 @@ export function InfoComponent({
 
       <div className="info-component__card">
         <div className="info-component__header">
-          <span className="info-component__name">{label}</span>
-          <span className="info-component__icon">{icon}</span>
+          <span className="info-component__name">
+            {label}
+          </span>
+          <span className="info-component__icon">
+            {icon}
+          </span>
         </div>
 
         <span className={clsx(`info-component__value`, {
