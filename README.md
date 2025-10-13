@@ -18,7 +18,7 @@ npm run docker:build:local-env
 ```
 npm run docker:build
 
-npm run docker:run 
+npm run docker:run
 ```
 
 ## Component tests
