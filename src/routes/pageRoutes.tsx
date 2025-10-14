@@ -1,6 +1,7 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
-import { employeesManageRoutes, employeesViewRoutes } from '../features/employees/routes'
-import { profileRoutes } from '../features/profile/routes'
+import { employeesManageRoutes, employeesViewRoutes } from '../pages/employees/routes'
+import { profileRoutes } from '../pages/profile/routes'
+import { homeRoutes } from '../pages/home/routes'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   const routes: {
@@ -20,6 +21,8 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   if (accessPermissions.get(`EditFullEmployeesData`)) {
     routes.push(...employeesManageRoutes)
   }
+
+  routes.push(...homeRoutes)
 
   return routes
 }
