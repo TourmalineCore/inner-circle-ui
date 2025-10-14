@@ -35,16 +35,16 @@ export const EmployeeProfileContent= observer(({
   } = employeeProfileState
 
   return (
-    <div className="profile">
-      <div className="profile__inner">
-        <div className="profile__box">
-          <h2 className="profile__head">
+    <div className="employee-profile">
+      <div className="employee-profile__inner">
+        <div className="employee-profile__box">
+          <h2 className="employee-profile__head">
             General information
           </h2>
           {
             isLoading && (
               <Skeleton
-                className="profile__skeleton"
+                className="employee-profile__skeleton"
                 count={2}
                 containerTestId="loading-general-information"
               />
@@ -70,20 +70,20 @@ export const EmployeeProfileContent= observer(({
           }
         </div>
 
-        <div className="profile__box">
-          <div className="profile__edit-box">
-            <h2 className="profile__head">
+        <div className="employee-profile__box">
+          <div className="employee-profile__edit-box">
+            <h2 className="employee-profile__head">
               Contacts
             </h2>
             {
               !isLoading && (
-                <div className="profile__buttons">
+                <div className="employee-profile__buttons">
                   {
                     !isEdit 
                       ? (
                         <button
                           type="button"
-                          className="profile__button"
+                          className="employee-profile__button"
                           onClick={() => employeeProfileState.setIsEdit()}
                         >
                           Edit
@@ -93,7 +93,7 @@ export const EmployeeProfileContent= observer(({
                         <>
                           <button
                             type="button"
-                            className="profile__button"
+                            className="employee-profile__button"
                             onClick={() => {
                               editEmployeeAsync()
                             }}
@@ -102,7 +102,7 @@ export const EmployeeProfileContent= observer(({
                           </button>
                           <button
                             type="button"
-                            className="profile__button"
+                            className="employee-profile__button"
                             onClick={() => {
                               employeeProfileState.resetIsEdit()
                               employeeProfileState.setEmployeeProfile({
@@ -122,7 +122,7 @@ export const EmployeeProfileContent= observer(({
           {
             isLoading && (
               <Skeleton
-                className="profile__skeleton"
+                className="employee-profile__skeleton"
                 count={4}
                 containerTestId="loading-contacts"
               />
@@ -137,7 +137,7 @@ export const EmployeeProfileContent= observer(({
                     : !!(employeeProfile.phone && employeeProfile.phone.length > 9)}
                   value={(
                     <PatternFormat
-                      className="profile__contacts-info"
+                      className="employee-profile__contacts-info"
                       type="tel"
                       format="+7 (###) ### ## ##"
                       customInput={Input}
@@ -166,7 +166,7 @@ export const EmployeeProfileContent= observer(({
                     ? employeeProfile.personalEmail
                     : (
                       <Input
-                        className="profile__contacts-info"
+                        className="employee-profile__contacts-info"
                         value={employeeProfile.personalEmail || ``}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
                           employeeProfile: {
@@ -193,7 +193,7 @@ export const EmployeeProfileContent= observer(({
                       >
                         @
                         <Input
-                          className="profile__contacts-info"
+                          className="employee-profile__contacts-info"
                           value={employeeProfile.gitHub || ``}
                           onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
                             employeeProfile: {
@@ -221,7 +221,7 @@ export const EmployeeProfileContent= observer(({
                       >
                         @
                         <Input
-                          className="profile__contacts-info"
+                          className="employee-profile__contacts-info"
                           value={employeeProfile.gitLab || ``}
                           onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
                             employeeProfile: {
@@ -240,12 +240,12 @@ export const EmployeeProfileContent= observer(({
           }
         </div>
 
-        <div className="profile__box">
-          <h2 className="profile__head">Salary</h2>
+        <div className="employee-profile__box">
+          <h2 className="employee-profile__head">Salary</h2>
           {
             isLoading && (
               <Skeleton
-                className="profile__skeleton"
+                className="employee-profile__skeleton"
                 count={4}
                 containerTestId="loading-salary"
               />
