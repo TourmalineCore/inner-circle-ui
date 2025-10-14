@@ -12,8 +12,6 @@ const LOCAL_ENV_PORT = 30090
 // Set the port for the layout based on the environment
 const EMPLOYEES_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4001
 
-const BASE_PATH = '/employees'
-
 // if (VITE_BASE_URL === undefined) set default local docker url
 // const LAYOUT_URL = process.env.VITE_BASE_URL ?? `http://localhost:4455`
 
@@ -36,7 +34,7 @@ export default defineConfig({
   // Documentation: https://vitejs.dev/config/shared-options.html#base
   // `/` for local docker
   // `/` for local-env and prod
-  base: BASE_PATH,
+  base: `./`,
   plugins: [
     // Enable React support
     react(),
@@ -63,7 +61,7 @@ export default defineConfig({
     // In production, it will be `/books`, while in development it will be an empty string.
     // Example usage in HTML: <script src="%VITE_BASE_PATH%/env-config.js"></script>
     'import.meta.env.VITE_BASE_PATH': JSON.stringify(
-      process.env.NODE_ENV === `production` ? BASE_PATH : ``,
+      process.env.NODE_ENV === `production` ? `./` : ``,
     ),
   },
   // Build configuration
