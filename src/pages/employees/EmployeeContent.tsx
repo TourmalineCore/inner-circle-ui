@@ -20,32 +20,34 @@ export const EmployeeContent = observer(() => {
     employeesState.updateFilterTerm(`all`)
   }
   
-  return <section className="employees">
-    {
-      employeesState.isBlankEmployees
+  return (
+    <section className="employees">
+      {
+        employeesState.isBlankEmployees
           && hasAccessPermission({
             permission: `ViewSalaryAndDocumentsData`,
           })
           && <div className="employees__notification">
             You have blank employees. Please fill in their profiles.
           </div>
-    }
-
-    <div className="employees__box">
-      <div><SearchBar /></div>
-      {
-        hasAccessPermission({
-          permission: `ViewSalaryAndDocumentsData`,
-        }) && <FilterMenu />
       }
-      <SortMenu />
-    </div>
 
-    <div>
-      <EmployeeList
-        isLoading={employeesState.isLoading}
-        employees={employeesState.allEmployees}
-      />
-    </div>
-  </section>
+      <div className="employees__box">
+        <div><SearchBar /></div>
+        {
+          hasAccessPermission({
+            permission: `ViewSalaryAndDocumentsData`,
+          }) && <FilterMenu />
+        }
+        <SortMenu />
+      </div>
+
+      <div>
+        <EmployeeList
+          isLoading={employeesState.isLoading}
+          employees={employeesState.allEmployees}
+        />
+      </div>
+    </section>
+  )
 })
