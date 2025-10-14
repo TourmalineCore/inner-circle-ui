@@ -1,5 +1,7 @@
-import './ProfilePage.scss'
+import './EmployeeProfileContent.scss'
 
+import { observer } from "mobx-react-lite"
+import { ChangeEvent, useContext } from "react"
 import IconProfile from '../../assets/icons/icon-profile.svg?react'
 import IconBoxPercent from '../../assets/icons/icon-box-percent.svg?react'
 import IconGithub from '../../assets/icons/icon-github.svg?react'
@@ -10,58 +12,27 @@ import IconOutlineEmail from '../../assets/icons/icon-outline-email.svg?react'
 import IconPercent from '../../assets/icons/icon-percent.svg?react'
 import IconPhone from '../../assets/icons/icon-phone.svg?react'
 import IconVirginmoney from '../../assets/icons/icon-virginmoney.svg?react'
-
-import {ChangeEvent, useEffect, useState} from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { NumberFormatValues, NumericFormat, PatternFormat } from 'react-number-format'
-import { LINK_TO_SALARY_SERVICE } from '../../common/config/config'
-import { Employee } from './types/Profile'
-import { api } from '../../common/api'
-import { InfoComponent } from './components/InfoComponent/InfoComponent'
+import { PatternFormat, NumberFormatValues, NumericFormat } from 'react-number-format'
 import { Input } from '../../components/Input/Input'
+import { InfoComponent } from './components/InfoComponent/InfoComponent'
+import { EmployeeProfileStateContext } from './state/EmployeeProfileStateContext'
+import { EmployeeProfile } from './types'
 
-const initialValues = {
-  id: 0,
-  fullName: ``,
-  corporateEmail: ``,
-  personalEmail: ``,
-  phone: ``,
-  gitHub: ``,
-  gitLab: ``,
-  fullSalary: 0,
-  districtCoefficient: 0,
-  incomeTax: 0,
-  netSalary: 0,
-  isSalaryInfoFilled: false,
-  isEmployedOfficially: false,
-}
+export const EmployeeProfileContent= observer(({
+  editEmployeeAsync,
+}: {
+  editEmployeeAsync: () => unknown,
+}) => {
+  const employeeProfileState = useContext(EmployeeProfileStateContext)
 
-export function ProfilePage() {
-  const [
-    employee,
-    setEmployee,
-  ] = useState<Employee>(initialValues)
-  const [
-    initEmployee,
-    initSetEmployee,
-  ] = useState<Employee>(initialValues)
-
-  const [
-    triedToSubmit,
-    setTriedToSubmit,
-  ] = useState(false)
-  const [
+  const {
     isLoading,
-    setIsLoading,
-  ] = useState(false)
-  const [
+    isTriedToSubmit,
     isEdit,
-    setIsEdit,
-  ] = useState(false)
-
-  useEffect(() => {
-    loadEmployeeAsync()
-  }, [])
+    employeeProfile,
+    initEmployeeProfile,
+  } = employeeProfileState
 
   return (
     <div className="profile">
@@ -83,14 +54,14 @@ export function ProfilePage() {
             !isLoading && (
               <div>
                 <InfoComponent
-                  isHaveValue={!!employee.fullName}
-                  value={employee.fullName}
+                  isHaveValue={!!employeeProfile.fullName}
+                  value={employeeProfile.fullName}
                   label="Name"
                   icon={<IconProfile />}
                 />
                 <InfoComponent
-                  isHaveValue={!!employee.corporateEmail}
-                  value={employee.corporateEmail}
+                  isHaveValue={!!employeeProfile.corporateEmail}
+                  value={employeeProfile.corporateEmail}
                   label="Corporate Email"
                   icon={<IconOutlineEmail />}
                 />
@@ -113,7 +84,7 @@ export function ProfilePage() {
                         <button
                           type="button"
                           className="profile__button"
-                          onClick={() => setIsEdit(true)}
+                          onClick={() => employeeProfileState.setIsEdit()}
                         >
                           Edit
                         </button>
@@ -133,9 +104,11 @@ export function ProfilePage() {
                             type="button"
                             className="profile__button"
                             onClick={() => {
-                              setIsEdit(false)
-                              setEmployee(initEmployee)
-                              setTriedToSubmit(false)
+                              employeeProfileState.resetIsEdit()
+                              employeeProfileState.setEmployeeProfile({
+                                employeeProfile: initEmployeeProfile as EmployeeProfile,
+                              })
+                              employeeProfileState.resetIsTriedToSubmit()
                             }}
                           >
                             Cancel
@@ -161,7 +134,7 @@ export function ProfilePage() {
                 <InfoComponent
                   isHaveValue={isEdit 
                     ? isEdit 
-                    : !!(employee.phone && employee.phone.length > 9)}
+                    : !!(employeeProfile.phone && employeeProfile.phone.length > 9)}
                   value={(
                     <PatternFormat
                       className="profile__contacts-info"
@@ -169,33 +142,37 @@ export function ProfilePage() {
                       format="+7 (###) ### ## ##"
                       customInput={Input}
                       displayType={!isEdit ? `text` : `input`}
-                      value={employee.phone}
-                      onValueChange={(event: NumberFormatValues) => setEmployee({
-                        ...employee,
-                        phone: event.value, 
+                      value={employeeProfile.phone}
+                      onValueChange={(event: NumberFormatValues) => employeeProfileState.setEmployeeProfile({
+                        employeeProfile: {
+                          ...employeeProfile,
+                          phone: event.value, 
+                        },
                       })}
                       mask="_"
                       allowEmptyFormatting
                       valueIsNumericString
                     />
                   )}
-                  isError={!(employee.phone && employee.phone.length > 9) && triedToSubmit}
+                  isError={!(employeeProfile.phone && employeeProfile.phone.length > 9) && isTriedToSubmit}
                   label="Phone Number"
                   icon={<IconPhone />}
                 />
                 <InfoComponent
                   isHaveValue={isEdit 
                     ? isEdit 
-                    : !!employee.personalEmail}
+                    : !!employeeProfile.personalEmail}
                   value={!isEdit
-                    ? employee.personalEmail
+                    ? employeeProfile.personalEmail
                     : (
                       <Input
                         className="profile__contacts-info"
-                        value={employee.personalEmail || ``}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
-                          ...employee,
-                          personalEmail: event.target.value, 
+                        value={employeeProfile.personalEmail || ``}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
+                          employeeProfile: {
+                            ...employeeProfile,
+                            personalEmail: event.target.value, 
+                          },
                         })}
                       />
                     )}
@@ -205,9 +182,9 @@ export function ProfilePage() {
                 <InfoComponent
                   isHaveValue={isEdit
                     ? isEdit
-                    : !!employee.gitHub}
+                    : !!employeeProfile.gitHub}
                   value={!isEdit
-                    ? employee.gitHub
+                    ? employeeProfile.gitHub
                     : (
                       <div style={{
                         display: `flex`,
@@ -217,10 +194,12 @@ export function ProfilePage() {
                         @
                         <Input
                           className="profile__contacts-info"
-                          value={employee.gitHub || ``}
-                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
-                            ...employee,
-                            gitHub: event.target.value, 
+                          value={employeeProfile.gitHub || ``}
+                          onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
+                            employeeProfile: {
+                              ...employeeProfile,
+                              gitHub: event.target.value, 
+                            },
                           })}
                         />
                       </div>
@@ -231,9 +210,9 @@ export function ProfilePage() {
                 <InfoComponent
                   isHaveValue={isEdit
                     ? isEdit
-                    : !!employee.gitLab}
+                    : !!employeeProfile.gitLab}
                   value={!isEdit
-                    ? employee.gitLab
+                    ? employeeProfile.gitLab
                     : (
                       <div style={{
                         display: `flex`,
@@ -243,10 +222,12 @@ export function ProfilePage() {
                         @
                         <Input
                           className="profile__contacts-info"
-                          value={employee.gitLab || ``}
-                          onChange={(event: ChangeEvent<HTMLInputElement>) => setEmployee({
-                            ...employee,
-                            gitLab: event.target.value, 
+                          value={employeeProfile.gitLab || ``}
+                          onChange={(event: ChangeEvent<HTMLInputElement>) => employeeProfileState.setEmployeeProfile({
+                            employeeProfile: {
+                              ...employeeProfile,
+                              gitLab: event.target.value, 
+                            },
                           })}
                         />
                       </div>
@@ -273,16 +254,16 @@ export function ProfilePage() {
           {
             !isLoading && (
               <div>
-                {employee.isSalaryInfoFilled
+                {employeeProfile.isSalaryInfoFilled
                   ? (
                     <>
                       <InfoComponent
-                        isHaveValue={employee.fullSalary > 0}
+                        isHaveValue={employeeProfile.fullSalary > 0}
                         value={(
                           <NumericFormat
                             type="text"
                             displayType="text"
-                            value={employee.fullSalary}
+                            value={employeeProfile.fullSalary}
                             valueIsNumericString
                             allowLeadingZeros
                             thousandSeparator=","
@@ -292,14 +273,14 @@ export function ProfilePage() {
                         label="Full Salary"
                         icon={<IconMoney />}
                       />
-                      {employee.isEmployedOfficially && (
+                      {employeeProfile.isEmployedOfficially && (
                         <InfoComponent
-                          isHaveValue={employee.districtCoefficient > 0}
+                          isHaveValue={employeeProfile.districtCoefficient > 0}
                           value={(
                             <NumericFormat
                               type="text"
                               displayType="text"
-                              value={employee.districtCoefficient}
+                              value={employeeProfile.districtCoefficient}
                               valueIsNumericString
                               allowLeadingZeros
                               style={{
@@ -314,13 +295,13 @@ export function ProfilePage() {
                           icon={<IconPercent />}
                         />
                       )}
-                      {employee.isEmployedOfficially && (
+                      {employeeProfile.isEmployedOfficially && (
                         <InfoComponent
-                          isHaveValue={employee.incomeTax > 0}
+                          isHaveValue={employeeProfile.incomeTax > 0}
                           value={(
                             <NumericFormat
                               displayType="text"
-                              value={employee.incomeTax}
+                              value={employeeProfile.incomeTax}
                               valueIsNumericString
                               allowLeadingZeros
                               style={{
@@ -336,13 +317,13 @@ export function ProfilePage() {
                           icon={<IconBoxPercent />}
                         />
                       )}
-                      {employee.isEmployedOfficially && (
+                      {employeeProfile.isEmployedOfficially && (
                         <InfoComponent
-                          isHaveValue={employee.netSalary > 0}
+                          isHaveValue={employeeProfile.netSalary > 0}
                           value={(
                             <NumericFormat
                               displayType="text"
-                              value={employee.netSalary}
+                              value={employeeProfile.netSalary}
                               valueIsNumericString
                               thousandSeparator=","
                               suffix=" ₽"
@@ -368,53 +349,4 @@ export function ProfilePage() {
       </div>
     </div>
   )
-
-  async function loadEmployeeAsync() {
-    setIsLoading(true)
-
-    try {
-      const {
-        data, 
-      } = await api.get<Employee>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`)
-
-      const initialData = {
-        ...data,
-        phone: typeof data.phone === `string`
-          ? data.phone
-            .split(``)
-            .slice(2)
-            .join(``)
-          : data.phone,
-      }
-
-      setEmployee(initialData)
-      initSetEmployee(initialData)
-    }
-    finally {
-      setIsLoading(false)
-    }
-  }
-
-  async function editEmployeeAsync() {
-    setTriedToSubmit(true)
-
-    const updateEmployee = {
-      personalEmail: employee.personalEmail,
-      gitHub: employee.gitHub,
-      gitLab: employee.gitLab,
-      phone: `+7${employee.phone}`,
-    }
-
-    if (employee.phone.length > 9) {
-      try {
-        await api.put<Employee>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
-
-        loadEmployeeAsync()
-        setIsEdit(false)
-      }
-      finally {
-        setTriedToSubmit(false)
-      }
-    }
-  }
-}
+})

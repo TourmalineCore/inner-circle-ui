@@ -1,38 +1,23 @@
 import { EmployeeEdit } from "./employees/components/EmployeeEdit/EmployeeEdit"
 import { EmployeesPage } from "./employees/EmployeesPage"
-import { HomePage } from "./home/HomePage"
-import { ProfilePage } from "./profile/ProfilePage"
+import { EmployeeProfilePage } from "./employee-profile/EmployeeProfilePage"
 
-export const homeRoutes = [
-  {
-    path: `/`,
-    breadcrumb: `Homepage`,
-    Component: HomePage,
-  },
-]
+const DEFAULT_PATH = `/employees`
 
-const PROFILE_PATH = `/profile`
-
-export const profileRoutes = [
-  {
-    path: PROFILE_PATH,
-    breadcrumb: `Profile`,
-    Component: ProfilePage,
-  },
-]
-
-const EMPLOYEE_PATH = `/employees`
+export const employeeProfileRoutes = {
+  path: `${DEFAULT_PATH}/profile`,
+  breadcrumb: `Profile`,
+  Component: EmployeeProfilePage,
+}
 
 export const employeesViewRoutes = {
-  path: EMPLOYEE_PATH,
+  path: DEFAULT_PATH,
   breadcrumb: `Employees`,
   Component: EmployeesPage,
 }
 
-export const employeesManageRoutes = [
-  {
-    path: `${EMPLOYEE_PATH}/edit`,
-    breadcrumb: `Edit`,
-    Component: EmployeeEdit,
-  },
-]
+export const employeesManageRoutes = {
+  path: `${DEFAULT_PATH}/edit`,
+  breadcrumb: `Edit`,
+  Component: EmployeeEdit,
+}

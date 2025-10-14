@@ -23,7 +23,9 @@ export const EmployeeContainer = observer(() => {
         data, 
       } = await api.get(`${LINK_TO_SALARY_SERVICE}employees/all `)
 
-      employeesState.changeEmployees(data)
+      employeesState.initialize({
+        employees: data,
+      })
     }
     catch (e: any) {
       toast.error(e.message)

@@ -1,4 +1,4 @@
-export type Employee = {
+export type EmployeeProfile = {
   id: number,
   fullName: string,
   corporateEmail: string,

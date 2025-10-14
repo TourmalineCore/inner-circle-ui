@@ -53,8 +53,12 @@ export class EmployeesState {
     this._sortTerm = newSortTerm
   }
 
-  changeEmployees(newEmployees: Employee[]) {
-    this._allEmployees = newEmployees
+  initialize({
+    employees,
+  }: {
+    employees: Employee[],
+  }) {
+    this._allEmployees = employees
   }
 
   setIsLoading() {
