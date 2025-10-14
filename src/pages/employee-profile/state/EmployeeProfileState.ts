@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { EmployeeProfile } from '../types'
 
-const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
+export const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
   id: 0,
   fullName: ``,
   corporateEmail: ``,
@@ -55,14 +55,14 @@ export class EmployeeProfileState {
   }
 
   initialize({
-    employeeProfile,
+    loadedEmployeeProfile,
   }: {
-    employeeProfile: EmployeeProfile,
+    loadedEmployeeProfile: EmployeeProfile,
   }) {
-    this._employeeProfile = employeeProfile
+    this._employeeProfile = loadedEmployeeProfile
 
     this.setInitEmployeeProfile({
-      employeeProfile,
+      loadedEmployeeProfile,
     })
   }
 
@@ -75,11 +75,11 @@ export class EmployeeProfileState {
   }
 
   setInitEmployeeProfile ({
-    employeeProfile,
+    loadedEmployeeProfile,
   }: {
-    employeeProfile: EmployeeProfile,
+    loadedEmployeeProfile: EmployeeProfile,
   }) {
-    this._initEmployeeProfile = employeeProfile
+    this._initEmployeeProfile = loadedEmployeeProfile
   }
 
   setIsLoading() {

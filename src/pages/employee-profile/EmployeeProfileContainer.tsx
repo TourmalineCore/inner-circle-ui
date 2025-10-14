@@ -37,7 +37,7 @@ export const EmployeeProfileContainer = observer(() => {
       }
       
       employeeProfileState.initialize({
-        employeeProfile: initialData,
+        loadedEmployeeProfile: initialData,
       })
     }
     finally {
