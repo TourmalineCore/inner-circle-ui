@@ -34,7 +34,7 @@ export default defineConfig({
   // Documentation: https://vitejs.dev/config/shared-options.html#base
   // `/` for local docker
   // `/` for local-env and prod
-  base: `./`,
+  base: `/`,
   plugins: [
     // Enable React support
     react(),

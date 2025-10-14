@@ -2,7 +2,7 @@ import { ProfilePage } from './ProfilePage'
 
 export const profileRoutes = [
   {
-    path: `/profile`,
+    path: `/employees/profile`,
     breadcrumb: `Profile`,
     Component: ProfilePage,
   },
