@@ -2,7 +2,7 @@
   "name": "inner-circle-ui",
   "version": "0.0.1",
   "private": true,
-  "homepage": "",
+  "homepage": "/employees",
   "scripts": {
     "start": "npm run create-config:dev && vite --host",
     "start:local": "npm run create-config:local && vite --host",
