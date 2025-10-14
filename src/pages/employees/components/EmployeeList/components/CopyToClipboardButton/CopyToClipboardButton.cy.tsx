@@ -1,6 +1,6 @@
 import { CopyToClipboardButton } from './CopyToClipboardButton'
-import { EmployeesState } from '../../../../context/EmployeesState'
-import { EmployeesStateContext } from '../../../../context/EmployeesStateContext'
+import { EmployeesState } from '../../../../state/EmployeesState'
+import { EmployeesStateContext } from '../../../../state/EmployeesStateContext'
 
 describe(`CopyToClipboardButton`, () => {
   it(`

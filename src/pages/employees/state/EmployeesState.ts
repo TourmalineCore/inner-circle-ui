@@ -11,6 +11,8 @@ export class EmployeesState {
 
   private _sortTerm = `default`
 
+  private _isLoading = false
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -35,6 +37,10 @@ export class EmployeesState {
     return this._allEmployees.some((employee) => employee.isBlankEmployee)
   }
 
+  get isLoading() {
+    return this._isLoading
+  }
+
   updateSearchTerm(newSearchTerm: string) {
     this._searchTerm = newSearchTerm
   }
@@ -49,5 +55,13 @@ export class EmployeesState {
 
   changeEmployees(newEmployees: Employee[]) {
     this._allEmployees = newEmployees
+  }
+
+  setIsLoading() {
+    this._isLoading = true
+  }
+
+  resetIsLoading() {
+    this._isLoading = false
   }
 }

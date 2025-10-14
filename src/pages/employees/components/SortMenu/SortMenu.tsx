@@ -2,7 +2,7 @@ import './SortMenu.scss'
 
 import {useState, useEffect, useContext} from 'react'
 import clsx from 'clsx'
-import { EmployeesStateContext } from '../../context/EmployeesStateContext'
+import { EmployeesStateContext } from '../../state/EmployeesStateContext'
 
 export function SortMenu() {
   const [

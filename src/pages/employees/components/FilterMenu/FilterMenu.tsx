@@ -4,7 +4,7 @@ import {MouseEvent, useContext, useEffect} from 'react'
 import { useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'
 import { observer } from 'mobx-react-lite'
-import { EmployeesStateContext } from '../../context/EmployeesStateContext'
+import { EmployeesStateContext } from '../../state/EmployeesStateContext'
 
 const filterElements = [
   {
