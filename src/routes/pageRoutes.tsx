@@ -1,7 +1,5 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
-import { employeesManageRoutes, employeesViewRoutes } from '../pages/employees/routes'
-import { profileRoutes } from '../pages/profile/routes'
-import { homeRoutes } from '../pages/home/routes'
+import { profileRoutes, employeesViewRoutes, employeesManageRoutes, homeRoutes } from '../pages/routes'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   const routes: {
