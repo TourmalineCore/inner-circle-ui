@@ -13,11 +13,3 @@ export type EmployeeProfile = {
   isSalaryInfoFilled: boolean,
   isEmployedOfficially: boolean,
 };
-
-export type EmployeeUpdateType = {
-  employeeId: number,
-  personalEmail: string,
-  phone: string | null,
-  gitHub: string | null,
-  gitLab: string | null,
-};
