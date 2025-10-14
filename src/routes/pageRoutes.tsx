@@ -1,7 +1,6 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
 import { employeesManageRoutes, employeesViewRoutes } from '../features/employees/routes'
 import { profileRoutes } from '../features/profile/routes'
-import { analyticsRoutes } from '../features/analytics/routes'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   const routes: {
@@ -12,10 +11,6 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
 
   if (accessPermissions.get(`ViewPersonalProfile`)) {
     routes.push(...profileRoutes)
-  }
-
-  if (accessPermissions.get(`AccessAnalyticalForecastsPage`)) {
-    routes.push(...analyticsRoutes)
   }
 
   if (accessPermissions.get(`ViewContacts`) || accessPermissions.get(`ViewSalaryAndDocumentsData`)) {
