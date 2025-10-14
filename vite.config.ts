@@ -61,7 +61,7 @@ export default defineConfig({
     // In production, it will be `/books`, while in development it will be an empty string.
     // Example usage in HTML: <script src="%VITE_BASE_PATH%/env-config.js"></script>
     'import.meta.env.VITE_BASE_PATH': JSON.stringify(
-      process.env.NODE_ENV === `production` ? `./` : ``,
+      process.env.NODE_ENV === `production` ? '/employees' : ``,
     ),
   },
   // Build configuration
