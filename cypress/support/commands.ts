@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+import { createAuthService } from '@tourmalinecore/react-tc-auth'
+import compareSnapshotCommand from 'cypress-image-diff-js'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -15,16 +17,47 @@ Cypress.on(`uncaught:exception`, (err) => {
 })
 
 Cypress.Commands.add(`getByData`, (selector) => cy.get(`[data-cy=${selector}]`))
+Cypress.Screenshot.defaults({
+  capture: `viewport`,
+  scale: false,
+})
 
-export {}
+export { }  
 
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+Cypress.Commands.add(`authByApi`, () => {
+  let accessToken: any
+  const authService = createAuthService({
+    authApiRoot: Cypress.env(`API_ROOT_AUTH`),
+    authType: `ls`,
+    tokenAccessor: `accessToken`,
+    refreshTokenAccessor: `refreshToken`,
+    tokenValueAccessor: `value`,
+    tokenExpireAccessor: `expiresInUtc`,
+  })
+
+  cy
+    .request({
+      method: `POST`,
+      url: `${Cypress.env(`API_ROOT_AUTH`)}/login`,
+      body: {
+        login: Cypress.env(`USER_LOGIN`),
+        password: Cypress.env(`USER_PASSWORD`),
+      },
+    })
+    .then(({
+      body: loginResponseBody,
+    }) => {
+      authService.setLoggedIn(loginResponseBody)
+
+      accessToken = loginResponseBody.accessToken
+      cy
+        .window()
+        .then((window) => {
+          window.localStorage.setItem(`accessToken`, JSON.stringify(accessToken))
+        })
+
+      Cypress.env(`accessToken`, accessToken.value)
+    })
+})
+
+compareSnapshotCommand()
