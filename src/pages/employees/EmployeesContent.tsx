@@ -9,7 +9,7 @@ import { SearchBar } from "./components/SearchBar/SearchBar"
 import { SortMenu } from "./components/SortMenu/SortMenu"
 import { EmployeesStateContext } from "./state/EmployeesStateContext"
 
-export const EmployeeContent = observer(() => {
+export const EmployeesContent = observer(() => {
   const employeesState = useContext(EmployeesStateContext)
 
   if (hasAccessPermission({

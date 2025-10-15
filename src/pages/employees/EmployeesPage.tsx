@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { EmployeesStateContext } from './state/EmployeesStateContext'
 import { EmployeesState } from './state/EmployeesState'
 import { authService } from '../../common/authService'
-import { EmployeeContainer } from './EmployeeContainer'
+import { EmployeesContainer } from './EmployeesContainer'
 
 export function EmployeesPage() {
   const employeesState = useMemo(
@@ -17,7 +17,7 @@ export function EmployeesPage() {
           authService.getAuthToken(),
         ]}
       >
-        <EmployeeContainer />
+        <EmployeesContainer />
       </authService.AuthContext.Provider>
     </EmployeesStateContext.Provider>
   )
