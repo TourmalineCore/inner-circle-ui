@@ -1,0 +1,27 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Existing Dockerfile", 
+	// image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
+	"image": "cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1",
+	"features": {
+		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.6.0": {}
+	},
+	"forwardPorts": [
+		6080,
+		5901
+	],
+	"runArgs": [
+		"--network=host"
+	],
+	"containerEnv": {
+		// https://stackoverflow.com/questions/76555858/how-to-run-cypress-in-interactive-mode-in-a-devcontainer-on-windows-with-docker
+		"CHOKIDAR_USEPOLLING": "true"
+	},
+	"remoteEnv": {
+		// https://stackoverflow.com/q/65343518
+		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	}
+}
