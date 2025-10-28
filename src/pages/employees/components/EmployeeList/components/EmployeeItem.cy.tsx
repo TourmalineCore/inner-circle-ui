@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom'
-import { Employee } from '../../../types'
 import { EmployeeItem } from './EmployeeItem'
 import { authService } from '../../../../../common/authService'
+import { Employee } from '../../../../../types/employee'
 
 const initialData = {
   employees: [
