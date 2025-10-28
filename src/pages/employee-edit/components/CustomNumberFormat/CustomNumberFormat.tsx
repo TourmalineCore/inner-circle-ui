@@ -1,6 +1,6 @@
 import { NumberFormatValues, NumericFormat } from 'react-number-format'
-import { InputPropPackage } from '../../types'
-import { Input } from '../../../../../../components/Input/Input'
+import { Input } from '../../../../components/Input/Input'
+import { InputPropPackage } from '../../../../types/inputPropPackage'
 
 export function CustomNumberFormat({
   value,

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
-import { Employee } from '../types'
 import { getFiltering, getSearch, getSorted } from '../utils/utils'
+import { Employee } from '../../../types/employee'
 
 export class EmployeesState {
   private _allEmployees: Employee[] = []

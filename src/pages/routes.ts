@@ -1,6 +1,6 @@
-import { EmployeeEdit } from "./employees/components/EmployeeEdit/EmployeeEdit"
 import { EmployeesPage } from "./employees/EmployeesPage"
 import { EmployeeProfilePage } from "./employee-profile/EmployeeProfilePage"
+import { EmployeeEditPage } from "./employee-edit/EmployeeEditPage"
 
 const DEFAULT_PATH = `/employees`
 
@@ -19,5 +19,5 @@ export const employeesViewRoutes = {
 export const employeesManageRoutes = {
   path: `${DEFAULT_PATH}/edit`,
   breadcrumb: `Edit`,
-  Component: EmployeeEdit,
+  Component: EmployeeEditPage,
 }

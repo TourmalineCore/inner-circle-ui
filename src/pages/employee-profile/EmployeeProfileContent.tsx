@@ -17,7 +17,7 @@ import { PatternFormat, NumberFormatValues, NumericFormat } from 'react-number-f
 import { Input } from '../../components/Input/Input'
 import { InfoComponent } from './components/InfoComponent/InfoComponent'
 import { EmployeeProfileStateContext } from './state/EmployeeProfileStateContext'
-import { EmployeeProfile } from './types'
+import { EmployeeProfile } from '../../types/employee'
 
 export const EmployeeProfileContent= observer(({
   editEmployeeAsync,
