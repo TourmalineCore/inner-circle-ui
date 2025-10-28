@@ -100,13 +100,22 @@ function isTriedToSubmitTest() {
   WHEN resetIsTriedToSubmit()
   SHOULD change value to false
   `, () => {
-    expect(employeeProfileState.isTriedToSubmit).to.be.false
+    expect(employeeProfileState.isTriedToSubmit)
+      .to
+      .be
+      .false
 
     employeeProfileState.setIsTriedToSubmit()
-    expect(employeeProfileState.isTriedToSubmit).to.be.true
+    expect(employeeProfileState.isTriedToSubmit)
+      .to
+      .be
+      .true
 
     employeeProfileState.resetIsTriedToSubmit()
-    expect(employeeProfileState.isTriedToSubmit).to.be.false
+    expect(employeeProfileState.isTriedToSubmit)
+      .to
+      .be
+      .false
   })
 }
 
@@ -120,13 +129,22 @@ function isLoadingTest() {
   WHEN resetIsLoading()
   SHOULD change value to false
   `, () => {
-    expect(employeeProfileState.isLoading).to.be.false
+    expect(employeeProfileState.isLoading)
+      .to
+      .be
+      .false
 
     employeeProfileState.setIsLoading()
-    expect(employeeProfileState.isLoading).to.be.true
+    expect(employeeProfileState.isLoading)
+      .to
+      .be
+      .true
 
     employeeProfileState.resetIsLoading()
-    expect(employeeProfileState.isLoading).to.be.false
+    expect(employeeProfileState.isLoading)
+      .to
+      .be
+      .false
   })
 }
 
@@ -140,12 +158,21 @@ function isEditTest() {
   WHEN resetIsEdit()
   SHOULD change value to false
   `, () => {
-    expect(employeeProfileState.isEdit).to.be.false
+    expect(employeeProfileState.isEdit)
+      .to
+      .be
+      .false
 
     employeeProfileState.setIsEdit()
-    expect(employeeProfileState.isEdit).to.be.true
+    expect(employeeProfileState.isEdit)
+      .to
+      .be
+      .true
 
     employeeProfileState.resetIsEdit()
-    expect(employeeProfileState.isEdit).to.be.false
+    expect(employeeProfileState.isEdit)
+      .to
+      .be
+      .false
   })
 }

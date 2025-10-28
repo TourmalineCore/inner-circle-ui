@@ -113,12 +113,21 @@ function isTriedToSubmitTest() {
   WHEN resetIsTriedToSubmit()
   SHOULD change value to false
   `, () => {
-    expect(employeeEditState.isTriedToSubmit).to.be.false
+    expect(employeeEditState.isTriedToSubmit)
+      .to
+      .be
+      .false
 
     employeeEditState.setIsTriedToSubmit()
-    expect(employeeEditState.isTriedToSubmit).to.be.true
+    expect(employeeEditState.isTriedToSubmit)
+      .to
+      .be
+      .true
 
     employeeEditState.resetIsTriedToSubmit()
-    expect(employeeEditState.isTriedToSubmit).to.be.false
+    expect(employeeEditState.isTriedToSubmit)
+      .to
+      .be
+      .false
   })
 }
