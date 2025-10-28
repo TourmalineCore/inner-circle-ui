@@ -38,7 +38,7 @@ export const EmployeesEditContainer = observer(() => {
     const {
       employee,
     } = employeeEditState
-    
+
     const updateEmployee = {
       ...employee,
       employmentType: employee.employmentType === null
@@ -63,12 +63,14 @@ export const EmployeesEditContainer = observer(() => {
     if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
       try {
         await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
-
-        employeeEditState.resetIsTriedToSubmit()
+        
         window.location.href =`/employees`
       }
       catch (e:any) {
         toast.error(e.message)
+      }
+      finally {
+        employeeEditState.resetIsTriedToSubmit()
       }
     }
   }
