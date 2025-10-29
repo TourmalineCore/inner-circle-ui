@@ -1,20 +1,18 @@
 /* eslint-disable no-extra-boolean-cast */
 import './EmployeeEdit.scss'
 
-import { useEffect, useState, ChangeEvent } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { ChangeEvent, useContext } from 'react'
 import { NumberFormatValues } from 'react-number-format'
-import { toast } from 'react-toastify'
-import IconProfile from '../../../../assets/icons/icon-profile.svg?react'
-import IconMail from '../../../../assets/icons/icon-message.svg?react'
-import { api } from '../../../../common/api'
-import { LINK_TO_SALARY_SERVICE } from '../../../../common/config/config'
-import { EditedEmployee } from '../../types'
+import IconProfile from '../../assets/icons/icon-profile.svg?react'
+import IconMail from '../../assets/icons/icon-message.svg?react'
 import { CustomDatePicker } from './components/CustomDatePicker/CustomDatePicker'
 import { CustomNumberFormat } from './components/CustomNumberFormat/CustomNumberFormat'
 import { CustomPatternFormat } from './components/CustomPatternFormat/CustomPatternFormat'
-import { Input } from '../../../../components/Input/Input'
-import { CheckField } from '../../../../components/CheckField/CheckField'
+import { observer } from 'mobx-react-lite'
+import { EmployeeEditStateContext } from './state/EmployeeEditStateContext'
+import { EditedEmployee } from '../../types/employee'
+import { Input } from '../../components/Input/Input'
+import { CheckField } from '../../components/CheckField/CheckField'
 
 // const employeeStatusData = {
 //   current: 'Current/Active',
@@ -31,53 +29,31 @@ const employedData = {
   freelance: `Freelance`,
 }
 
-export function EmployeeEdit() {
+export const EmployeeEditContent = observer(({
+  updateEmployeesAsync,
+}: {
+  updateEmployeesAsync: () => unknown,
+}) => {
+  const employeeEditState = useContext(EmployeeEditStateContext)
 
-  const [
-    triedToSubmit,
-    setTriedToSubmit,
-  ] = useState(false)
-  const [
+  const {
     employee,
-    setEmployee,
-  ] = useState<EditedEmployee>({
-    fullName: ``,
-    corporateEmail: ``,
-    personalEmail: null,
-    phone: null,
-    gitHub: null,
-    gitLab: null,
-    ratePerHour: 0,
-    fullSalary: null,
-    employmentType: null,
-    parking: 0,
-    hireDate: null,
-    dismissalDate: new Date(),
-    isEmployedOfficially: true,
-    isCurrentEmployee: true,
-    personnelNumber: ``,
-  })
-
-  const [
-    param,
-  ] = useSearchParams()
-  const id = param.get(`id`)
-
-  useEffect(() => {
-    loadEmployeeAsync()
-  }, [])
+    isTriedToSubmit,
+  } = employeeEditState
 
   const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       name, value, 
     } = event.target
 
-    const updatedForm: EditedEmployee = {
+    const updatedEmployee: EditedEmployee = {
       ...employee,
       [name]: value,
     }
 
-    setEmployee(updatedForm)
+    employeeEditState.setEmployee({
+      employee: updatedEmployee,
+    })
   }
 
   return (
@@ -111,10 +87,12 @@ export function EmployeeEdit() {
             type="tel"
             format="+7 (###) ### ## ##"
             value={employee.phone}
-            isInvalid={!(employee.phone && employee.phone.length > 9) && triedToSubmit}
-            onChange={(event: NumberFormatValues) => setEmployee({
-              ...employee,
-              phone: event.value, 
+            isInvalid={!(employee.phone && employee.phone.length > 9) && isTriedToSubmit}
+            onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
+              employee: {
+                ...employee,
+                phone: event.value, 
+              },
             })}
           />
         </li>
@@ -173,10 +151,12 @@ export function EmployeeEdit() {
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.ratePerHour || 0}
-              isInvalid={!(employee.ratePerHour! >= 0) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({
-                ...employee,
-                ratePerHour: Number(event.value), 
+              isInvalid={!(employee.ratePerHour! >= 0) && isTriedToSubmit}
+              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
+                employee: {
+                  ...employee,
+                  ratePerHour: Number(event.value), 
+                },
               })}
             />
           </div>
@@ -188,10 +168,12 @@ export function EmployeeEdit() {
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.fullSalary || ``}
-              isInvalid={!Boolean(employee.fullSalary) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({
-                ...employee,
-                fullSalary: Number(event.value), 
+              isInvalid={!Boolean(employee.fullSalary) && isTriedToSubmit}
+              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
+                employee: {
+                  ...employee,
+                  fullSalary: Number(event.value), 
+                },
               })}
             />
           </div>
@@ -219,9 +201,11 @@ export function EmployeeEdit() {
                     viewType="radio"
                     label={label}
                     checked={value === employmentTypeValue}
-                    onChange={() => setEmployee({
-                      ...employee,
-                      employmentType: Number(value), 
+                    onChange={() => employeeEditState.setEmployee({
+                      employee: {
+                        ...employee,
+                        employmentType: Number(value), 
+                      },
                     })}
                   />
                 )
@@ -235,10 +219,12 @@ export function EmployeeEdit() {
           <div className="employee-edit__control">
             <CustomNumberFormat
               value={employee.parking || 0}
-              isInvalid={!(employee.parking! >= 0) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({
-                ...employee,
-                parking: Number(event.value), 
+              isInvalid={!(employee.parking! >= 0) && isTriedToSubmit}
+              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
+                employee: {
+                  ...employee,
+                  parking: Number(event.value), 
+                },
               })}
             />
           </div>
@@ -256,10 +242,12 @@ export function EmployeeEdit() {
           <div className="employee-edit__control">
             <CustomDatePicker
               date={employee.hireDate}
-              isInvalid={!Boolean(employee.hireDate) && triedToSubmit}
-              onChange={(date: Date) => setEmployee({
-                ...employee,
-                hireDate: date, 
+              isInvalid={!Boolean(employee.hireDate) && isTriedToSubmit}
+              onChange={(date: Date) => employeeEditState.setEmployee({
+                employee: {
+                  ...employee,
+                  hireDate: date, 
+                },
               })}
             />
           </div>
@@ -320,9 +308,11 @@ export function EmployeeEdit() {
                     viewType="radio"
                     label={label}
                     checked={value === valueEmployedOfficially}
-                    onChange={() => setEmployee({
-                      ...employee,
-                      isEmployedOfficially: value === `officially`, 
+                    onChange={() => employeeEditState.setEmployee({
+                      employee: {
+                        ...employee,
+                        isEmployedOfficially: value === `officially`, 
+                      },
                     })}
                   />
                 )
@@ -338,10 +328,12 @@ export function EmployeeEdit() {
               className="employee-edit__control"
               format="##/##"
               value={employee.personnelNumber}
-              isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && triedToSubmit}
-              onChange={(event: NumberFormatValues) => setEmployee({
-                ...employee,
-                personnelNumber: event.value, 
+              isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && isTriedToSubmit}
+              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
+                employee: {
+                  ...employee,
+                  personnelNumber: event.value,
+                },
               })}
             />
           </li>
@@ -366,66 +358,4 @@ export function EmployeeEdit() {
       </div>
     </section>
   )
-
-  async function loadEmployeeAsync() {
-    const {
-      data, 
-    } = await api.get<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/${id}`)
-
-    const initialData = {
-      ...data,
-      phone: data.phone
-        ? data.phone
-          .split(``)
-          .slice(2)
-          .join(``)
-        : null,
-      hireDate: data.hireDate
-        ? new Date(data.hireDate)
-        : new Date(),
-      dismissalDate: data.dismissalDate
-        ? new Date(data.dismissalDate)
-        : new Date(),
-      personnelNumber: data.personnelNumber
-        ? data.personnelNumber.replace(`/`, ``)
-        : data.personnelNumber,
-    }
-
-    setEmployee(initialData)
-  }
-
-  async function updateEmployeesAsync() {
-    const updateEmployee = {
-      ...employee,
-      employmentType: employee.employmentType === null
-        ? 1
-        : employee.employmentType,
-      phone: `+7${employee.phone}`,
-      ratePerHour: employee.ratePerHour || 0,
-      parking: employee.parking || 0,
-      personnelNumber: employee.isEmployedOfficially
-        ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`
-        : null,
-    }
-
-    delete updateEmployee.dismissalDate
-
-    setTriedToSubmit(true)
-
-    const isValidPersonnelNumber = employee.isEmployedOfficially
-      ? employee.personnelNumber!.length >= 4
-      : true
-
-    if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
-      try {
-        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
-
-        setTriedToSubmit(false)
-        window.location.href =`/employees`
-      }
-      catch (e:any) {
-        toast.error(e.message)
-      }
-    }
-  }
-}
+})

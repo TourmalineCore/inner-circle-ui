@@ -2,10 +2,10 @@ import './EmployeeList.scss'
 
 import { observer } from 'mobx-react-lite'
 import Skeleton from 'react-loading-skeleton'
-import { Employee } from '../../types'
 import { EmployeeItem } from './components/EmployeeItem'
 import clsx from 'clsx'
 import { hasAccessPermission } from '../../../../common/utils/tokenUtils'
+import { Employee } from '../../../../types/employee'
 
 export const EmployeeList = observer(({
   isLoading,

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { EmployeeProfile } from '../types'
+import { EmployeeProfile } from '../../../types/employee'
 
 export const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
   id: 0,

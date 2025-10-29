@@ -1,4 +1,4 @@
-import { Employee } from '../types'
+import { Employee } from "../../../types/employee"
 
 // ToDo ask backend to change contract
 export enum EmploymentType {

@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react"
 import { EmployeeProfileStateContext } from "./state/EmployeeProfileStateContext"
 
 import { EmployeeProfileContent } from "./EmployeeProfileContent"
-import { EmployeeProfile } from "./types"
+import { EmployeeProfile } from "../../types/employee"
 
 export const EmployeeProfileContainer = observer(() => {
   const employeeProfileState = useContext(EmployeeProfileStateContext)

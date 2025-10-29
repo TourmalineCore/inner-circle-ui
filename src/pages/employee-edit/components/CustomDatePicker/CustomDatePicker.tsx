@@ -3,8 +3,7 @@ import DatePicker from 'react-datepicker'
 import { ru } from 'date-fns/locale'
 import 'react-datepicker/dist/react-datepicker.css'
 import { PatternFormat } from 'react-number-format'
-import { InputPropPackage } from '../../types'
-import { Input } from '../../../../../../components/Input/Input'
+import { Input } from '../../../../components/Input/Input'
 
 export function CustomDatePicker({
   date = null,

@@ -4,13 +4,13 @@ import clsx from 'clsx'
 import { NumericFormat } from 'react-number-format'
 import moment from 'moment'
 import { CopyToClipboardButton } from './CopyToClipboardButton/CopyToClipboardButton'
-import { Employee } from '../../../types'
 import { getEmploymentType } from '../../../utils/utils'
 import IconPhone from '../../../../../assets/icons/icon-phone.svg?react'
 import IconGithub from '../../../../../assets/icons/icon-github.svg?react'
 import IconGitlab from '../../../../../assets/icons/icon-gitlab.svg?react'
 import IconMessage from '../../../../../assets/icons/icon-outline-email.svg?react'
 import { hasAccessPermission } from '../../../../../common/utils/tokenUtils'
+import { Employee } from '../../../../../types/employee'
 
 export function EmployeeItem({
   employee,
