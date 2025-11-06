@@ -2,6 +2,8 @@
 @use "../../styles/fonts-mixin" as *;
 
 .textarea {
+  color: $color-text-primary;
+
   &__field {
     outline: none;
     border: 1px solid $color-component-border;
@@ -14,6 +16,10 @@
     font-size: inherit;
     color: inherit;
     resize: none;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
 
     &::-webkit-scrollbar-thumb {
       border-radius: 12px;
