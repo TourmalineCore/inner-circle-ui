@@ -5,7 +5,6 @@
   color: $color-text-primary;
 
   &__field {
-    outline: none;
     border: 1px solid $color-component-border;
     border-radius: 10px;
     padding: 8px 12px;
@@ -30,8 +29,21 @@
       width: 8px;
     }
 
+    &:disabled {
+      border-color: $color-component-border-disable;
+    }
+
+    &:focus:not(:disabled) {
+      outline: none;
+      border-color: $color-component-border-active;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-component-border-hover;
+    }
+
     &--error {
-      border-color: $color-border-error !important;
+      border-color: $color-border-error;
     }
   }
 
