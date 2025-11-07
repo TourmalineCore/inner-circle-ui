@@ -2,14 +2,14 @@
 @use "../../styles/variables" as *;
 
 .input {
+  @include text;
+
   position: relative;
   width: 100%;
   box-sizing: border-box;
   color: $color-text-primary;
 
   &__label {
-    @include text;
-
     display: block;
     margin-bottom: 8px;
   }
@@ -23,8 +23,8 @@
     display: block;
     outline: none;
     border: 1px solid $color-component-border;
-    border-radius: 10px;
-    padding: 0 16px;
+    border-radius: 8px;
+    padding: 12px;
     width: 100%;
     height: 44px;
     font-family: inherit;
@@ -42,7 +42,7 @@
       border-color: $color-component-border-disable;
     }
 
-    &:focus:not(:disabled) {
+    &:focus-visible:not(:disabled) {
       outline: none;
       border-color: $color-component-border-active;
     }
