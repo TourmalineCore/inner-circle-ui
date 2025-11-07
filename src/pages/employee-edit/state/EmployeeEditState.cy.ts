@@ -29,18 +29,12 @@ function employeeEditDataTests() {
     fullName: `Ceo Ceo Ceo`,
     corporateEmail: `ceo@tourmalinecore.com`,
     personalEmail: `ceo@gmail.com`,
+    specialization: [],
+    birthDate: ``,
+    workedTime: ``,
     phone: `70066636367`,
     gitHub: `ceo.github`,
     gitLab: `ceo.gitlab`,
-    fullSalary: 0,
-    isEmployedOfficially: false,
-    ratePerHour: 0,
-    employmentType: null,
-    parking: 0,
-    hireDate: null,
-    dismissalDate: new Date(),
-    isCurrentEmployee: true,
-    personnelNumber: ``,
   }
   
   beforeEach(() => {
@@ -75,14 +69,19 @@ function employeeEditDataTests() {
     expect(employeeEditState.employee.gitLab)
       .to
       .eq(employeeForInitialization.gitLab)
-      
-    expect(employeeEditState.employee.fullSalary)
+
+    expect(employeeEditState.employee.birthDate)
       .to
-      .eq(employeeForInitialization.fullSalary)  
-      
-    expect(employeeEditState.employee.personnelNumber)
+      .eq(employeeForInitialization.birthDate)
+
+    expect(employeeEditState.employee.workedTime)
       .to
-      .eq(employeeForInitialization.personnelNumber)
+      .eq(employeeForInitialization.workedTime)
+
+    expect(employeeEditState.employee.specialization)
+      .to
+      .deep
+      .eq(employeeForInitialization.specialization)
   })
 
   it(`

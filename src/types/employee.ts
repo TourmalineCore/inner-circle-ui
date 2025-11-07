@@ -1,3 +1,15 @@
+export type EditedEmployee = {
+  fullName: string,
+  corporateEmail: string,
+  specialization: string[],
+  birthDate: string | null,
+  workedTime: string | null,
+  phone: string | null,
+  personalEmail: string | null,
+  gitHub: string | null,
+  gitLab: string | null,
+};
+
 type BaseEmployee = {
   fullName: string,
   corporateEmail: string,
@@ -5,19 +17,6 @@ type BaseEmployee = {
   gitHub: string | null,
   gitLab: string | null,
 }
-
-export type EditedEmployee = BaseEmployee & {
-  phone: string | null,
-  ratePerHour: number | null,
-  fullSalary: number | null,
-  employmentType: number | null,
-  parking: number | null,
-  hireDate: Date | null,
-  dismissalDate?: Date | null,
-  isEmployedOfficially: boolean,
-  isCurrentEmployee?: boolean,
-  personnelNumber: string | null,
-};
 
 export type Employee = BaseEmployee & {
   employeeId: number,
