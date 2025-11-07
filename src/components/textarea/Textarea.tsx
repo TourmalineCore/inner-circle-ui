@@ -1,5 +1,7 @@
 import './Textarea.scss'
 
+import clsx from 'clsx'
+
 export function Textarea({
   className = ``,
   id,
@@ -26,10 +28,9 @@ export function Textarea({
       }
       <textarea
         id={id}
-        className={`
-          textarea__field
-          ${isError ? `textarea__field--error` : ``}
-        `}
+        className={clsx(`textarea__control`, {
+          'textarea__field--error': isError,
+        })}
         {...props}
       />
     </div>
