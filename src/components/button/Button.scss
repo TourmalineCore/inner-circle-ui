@@ -1,0 +1,97 @@
+@use "../../styles/variables" as *;
+@use "../../styles/fonts-mixin" as *;
+
+.button {
+  @include text;
+
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  height: 44px;
+  cursor: pointer;
+  gap: 12px;
+
+  &__mobile {
+    border-radius: 12px;
+    padding: 12px;
+    width: 44px;
+  }
+
+  &__loader {
+    display: inline-block;
+    margin-right: 12px;
+    border-top: 1.5px solid $color-text-contrast;
+    border-right: 1.5px solid transparent;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: rotation 1s linear infinite;
+  }
+
+  &__accent {
+    color: $color-text-contrast;
+    background-color: $color-background-component-accent;
+
+    svg path {
+      stroke: $color-text-contrast;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $color-background-component-accent-hover;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $color-background-component-accent-active;
+    }
+  }
+
+  &__secondary {
+    background-color: $color-background-component-secondary;
+
+    &:hover:not(:disabled) {
+      background-color: $color-background-component-secondary-hover;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $color-background-component-secondary-active;
+    }
+  }
+
+  &__disable {
+    color: $color-text-contrast;
+    background-color: $color-background-component-accent-active;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $color-background-component-accent-active;
+    }
+  }
+
+  &__outline {
+    border: 1px solid $color-border-primary;
+    background-color: $color-background-primary;
+
+    &:hover {
+      background-color: $color-background-component-tertiary-hover;
+    }
+
+    &:active {
+      background-color: $color-background-component-tertiary-active;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

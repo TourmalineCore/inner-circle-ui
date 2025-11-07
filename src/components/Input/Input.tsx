@@ -1,5 +1,8 @@
 import './Input.scss'
 
+import clsx from 'clsx'
+import InputMask, { Props } from 'react-input-mask'
+
 export function Input({
   inputRef,
   style,
@@ -9,14 +12,16 @@ export function Input({
   value,
   name,
   placeholder,
+  mask,
   isValid,
   isInvalid = false,
+  isError = false,
   validationMessages = [],
   isMessagesAbsolute = false,
   onChange = () => { },
   ...props
 } : {
-  inputRef?: React.LegacyRef<HTMLInputElement>,
+  inputRef?: React.Ref<HTMLInputElement>,
   style?: React.CSSProperties,
   className?: string,
   id?: string,
@@ -24,12 +29,14 @@ export function Input({
   value?: string | number | readonly string[],
   name?: string,
   placeholder?: string,
+  mask?: string,
   isValid?: boolean,
   isInvalid?: boolean,
+  isError?: boolean,
   validationMessages?: string[],
   isMessagesAbsolute?: boolean,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-}) {
+} & Omit<Props, 'mask'>) {
   const validClassname = isValid ? `input--valid` : ``
   const invalidClassname = isInvalid ? `input--invalid` : ``
   const errorsAbsoluteClassname = isMessagesAbsolute ? `input__errors--absolute` : ``
@@ -51,16 +58,18 @@ export function Input({
       }
 
       <div className="input__box">
-        <input
+        <InputMask
           name={name}
-          ref={inputRef}
+          inputRef={inputRef}
           id={id}
           placeholder={placeholder}
-          className="input__control"
+          className={clsx(`input__control`, {
+            'input__control--error': isError,
+          })}
           type="text"
-          maxLength={40}
           value={value}
           onChange={onChange}
+          mask={mask || ``}
           {...props}
         />
       </div>
