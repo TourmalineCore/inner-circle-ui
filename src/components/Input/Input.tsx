@@ -1,4 +1,6 @@
 import './Input.scss'
+
+import clsx from 'clsx'
 import InputMask, { Props } from 'react-input-mask'
 
 export function Input({
@@ -61,10 +63,9 @@ export function Input({
           inputRef={inputRef}
           id={id}
           placeholder={placeholder}
-          className={`
-            input__control
-            ${isError ? `input__control--error`: ``}
-          `}
+          className={clsx(`input__control`, {
+            'input__control--error': isError,
+          })}
           type="text"
           value={value}
           onChange={onChange}

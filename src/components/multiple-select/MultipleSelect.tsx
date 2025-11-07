@@ -1,9 +1,11 @@
 import './MultipleSelect.scss'
+
 import IconArrow from '../../assets/icons/icon-arrow.svg?react'
 import IconCross from '../../assets/icons/icon-cross.svg?react'
 import IconCheckMarkPurple from '../../assets/icons/icon-check-mark-purple.svg?react'
 import { useEffect, useRef, useState } from 'react'
 import { useHorizontalDragScroll } from './hooks/useHorizontalDragScroll'
+import clsx from 'clsx'
 
 type Option = {
   value: string,
@@ -77,10 +79,9 @@ export function MultipleSelect({
       )}
 
       <div 
-        className={`
-          multiple-select__control
-          ${isError ? `multiple-select__control--error` : ``}`
-        }
+        className={clsx(`multiple-select__control`, {
+          'multiple-select__control--error': isError,
+        })}
         tabIndex={0}
         onClick={handleOpenDropdown}
         onKeyDown={(e) => {
@@ -100,10 +101,9 @@ export function MultipleSelect({
           {getSelectedLabels()}
         </div>
         <IconArrow
-          className={`
-            multiple-select__arrow
-            ${isOpen ? `multiple-select__arrow--open` : ``}
-          `}
+          className={clsx(`multiple-select__arrow`, {
+            'multiple-select__arrow--open': isOpen,
+          })}
         />
       </div>
 
@@ -138,7 +138,8 @@ export function MultipleSelect({
       }) => (
         <span
           key={value}
-          className='multiple-select__value'>
+          className='multiple-select__value'
+        >
           {label}
           <IconCross
             tabIndex={0}
@@ -157,7 +158,11 @@ export function MultipleSelect({
           />
         </span>
       ))
-      : <span className='multiple-select__placeholder'>{placeholder}</span>
+      : <span 
+        className='multiple-select__placeholder'
+      >
+        {placeholder}
+      </span>
   }
 
   function handleOpenDropdown() {
