@@ -6,13 +6,13 @@ export function Textarea({
   className = ``,
   id,
   label,
-  isError,
+  isInvalid,
   ...props
 }: {
  className?: string,
  id?: string,
  label?: string,
- isError?: boolean,
+ isInvalid?: boolean,
 }& React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>) {
   return (
     <div className={`textarea ${className}`}>
@@ -29,7 +29,7 @@ export function Textarea({
       <textarea
         id={id}
         className={clsx(`textarea__control`, {
-          'textarea__field--error': isError,
+          'textarea__field--error': isInvalid,
         })}
         {...props}
       />

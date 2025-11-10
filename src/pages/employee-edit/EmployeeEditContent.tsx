@@ -20,7 +20,7 @@ export const EmployeeEditContent = observer(({
 
   const {
     employee,
-    isTriedToSubmit,
+    errors,
   } = employeeEditState
 
   const handleFormChange = ({
@@ -71,6 +71,7 @@ export const EmployeeEditContent = observer(({
                   placeholder="DD/MM/YYYY"
                   mask='99/99/9999'
                   value={employee.birthDate || ``}
+                  isInvalid={errors.isBirthDateError}
                   onChange={(e) => handleFormChange({
                     field: `birthDate`,
                     value: e.target.value,
@@ -84,6 +85,7 @@ export const EmployeeEditContent = observer(({
                   placeholder="Choose the specialization"
                   value={employee.specialization}
                   options={SPECIALIZATIONS}
+                  isInvalid={errors.isSpecializationError}
                   onChange={(selectedOptions) => 
                     handleFormChange({
                       field: `specialization`,
@@ -120,10 +122,9 @@ export const EmployeeEditContent = observer(({
                   mask="+7 (999) 999-99-99"
                   placeholder="+7 (___) ___-__-__"
                   value={employee.phone || ``}
-                  isInvalid={!(employee.phone && employee.phone.length > 9) && isTriedToSubmit}
-                  onChange={(e) => handleFormChange({
-                    field: `phone`,
-                    value: e.target.value,
+                  isInvalid={errors.isPhoneError}
+                  onChange={(e) => employeeEditState.setPhone({
+                    phone: e.target.value,
                   })}
                 />
               </div>
@@ -180,7 +181,7 @@ export const EmployeeEditContent = observer(({
           <Button
             type="button"
             isAccent
-            onClick={() => updateEmployeesAsync()}
+            onClick={updateEmployeesAsync}
             className="employee-edit__button"
             label={`Save Changes`}
           />

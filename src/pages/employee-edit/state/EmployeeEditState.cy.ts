@@ -5,6 +5,7 @@ describe(`EmployeeEditState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Employee Edit Data`, employeeEditDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
+  describe(`Validation`, validationTests)
 })
 
 function initializationTests() {
@@ -100,6 +101,20 @@ function employeeEditDataTests() {
       .to
       .eq(`Test Test Test`)
   })
+  
+  it(`
+  GIVEN the EmployeeEditState
+  WHEN setPhone
+  SHOULD set formatted phone number
+  `, () => {
+    employeeEditState.setPhone({
+      phone: `+7 (231) 231-23-12`,
+    })
+
+    expect(employeeEditState.employee.phone)
+      .to
+      .eq(`+72312312312`)
+  })
 }
 
 function isTriedToSubmitTest() {
@@ -125,6 +140,242 @@ function isTriedToSubmitTest() {
 
     employeeEditState.resetIsTriedToSubmit()
     expect(employeeEditState.isTriedToSubmit)
+      .to
+      .be
+      .false
+  })
+}
+
+function validationTests() {
+  let employeeEditState: EmployeeEditState
+
+  beforeEach(() => {
+    employeeEditState = new EmployeeEditState()
+  })
+  
+  it(`
+  GIVEN an empty birth date
+  WHEN isValid is accessed
+  SHOULD return false and set birth date error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        specialization: [
+          `Frontend`,
+        ],
+      },
+    })
+
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isSpecializationValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: true,
+        isPhoneError: false,
+        isSpecializationError: false,
+      })
+  })
+
+  it(`
+  GIVEN an empty phone
+  WHEN isValid is accessed
+  SHOULD return false and set phone error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+        specialization: [
+          `Frontend`,
+        ],
+      },
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.isSpecializationValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: true,
+        isSpecializationError: false,
+      })
+  })
+
+  it(`
+  GIVEN an empty specialization
+  WHEN isValid is accessed
+  SHOULD return false and set specialization error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+      },
+    })
+    
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+            
+    expect(employeeEditState.isSpecializationValid)
+      .to
+      .be
+      .false
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: false,
+        isSpecializationError: true,
+      })
+  })
+
+  it(`
+  GIVEN valid birth date, phone, and specialization
+  WHEN isValid is accessed
+  SHOULD return true and all errors should be false
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+        specialization: [
+          `Frontend`,
+        ],
+      },
+    })
+    
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .true
+            
+    expect(employeeEditState.isSpecializationValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: false,
+        isSpecializationError: false,
+      })
+  })
+
+  it(`
+  GIVEN an inValid birth date
+  WHEN get isBirthDateValid
+  SHOULD return false
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/200`,
+      },
+    })
+    
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN an inValid phone
+  WHEN get isPhoneValid
+  SHOULD return false
+  `, () => {
+    employeeEditState.setPhone({
+      phone: `+799999`,
+    })
+    
+    expect(employeeEditState.isPhoneValid)
       .to
       .be
       .false

@@ -35,6 +35,12 @@ export const EmployeesEditContainer = observer(() => {
   }
 
   async function updateEmployeesAsync() {
+    employeeEditState.setIsTriedToSubmit()
+
+    if (!employeeEditState.isValid) {
+      return
+    }
+        
     const {
       employee,
     } = employeeEditState
@@ -50,23 +56,18 @@ export const EmployeesEditContainer = observer(() => {
     const updateEmployee = {
       ...employee,
       birthDate: formattedBirthDate,
-      phone: employee.phone!.replace(/[^\d+]/g, ``),
     }
 
-    employeeEditState.setIsTriedToSubmit()
-
-    if (updateEmployee.phone.length > 9) {
-      try {
-        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
+    try {
+      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
         
-        window.location.href =`/employees`
-      }
-      catch (e:any) {
-        toast.error(e.message)
-      }
-      finally {
-        employeeEditState.resetIsTriedToSubmit()
-      }
+      window.location.href =`/employees`
+    }
+    catch (e:any) {
+      toast.error(e.message)
+    }
+    finally {
+      employeeEditState.resetIsTriedToSubmit()
     }
   }
 })

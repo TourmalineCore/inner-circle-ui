@@ -19,7 +19,7 @@ export function MultipleSelect({
   id,
   value = [],
   options = [],
-  isError,
+  isInvalid,
   onChange,
 }: {
   value: string[],
@@ -28,7 +28,7 @@ export function MultipleSelect({
   label?: string,
   id?: string,
   className?: string,
-  isError?: boolean,
+  isInvalid?: boolean,
   onChange?: (
     selectedOptions: Option[]
   ) => unknown,
@@ -80,7 +80,7 @@ export function MultipleSelect({
 
       <div 
         className={clsx(`multiple-select__control`, {
-          'multiple-select__control--error': isError,
+          'multiple-select__control--error': isInvalid,
         })}
         tabIndex={0}
         onClick={handleOpenDropdown}
