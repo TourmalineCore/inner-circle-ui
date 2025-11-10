@@ -1,4 +1,3 @@
-/* eslint-disable no-extra-boolean-cast */
 import './EmployeeEdit.scss'
 
 import { useContext } from 'react'
