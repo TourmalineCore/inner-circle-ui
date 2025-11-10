@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom"
 import { EditedEmployee } from "../../types/employee"
 import { toast } from "react-toastify"
 
-export const EmployeesEditContainer = observer(() => {
+export const EmployeeEditContainer = observer(() => {
   const employeeEditState = useContext(EmployeeEditStateContext)
 
   const [

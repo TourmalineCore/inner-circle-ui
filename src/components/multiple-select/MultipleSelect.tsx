@@ -21,6 +21,7 @@ export function MultipleSelect({
   options = [],
   isInvalid,
   onChange,
+  ...props
 }: {
   value: string[],
   options: Option[],
@@ -97,6 +98,7 @@ export function MultipleSelect({
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
+          {...props}
         >
           {getSelectedLabels()}
         </div>

@@ -5,12 +5,12 @@ export const EMPTY_EMPLOYEE: EditedEmployee = {
   fullName: ``,
   corporateEmail: ``,
   specialization: [],
-  birthDate: ``,
-  workedTime: ``,
-  personalEmail: ``,
-  phone: ``,
-  gitHub: ``,
-  gitLab: ``,
+  birthDate: null,
+  workedTime: null,
+  personalEmail: null,
+  phone: null,
+  gitHub: null,
+  gitLab: null,
 }
 
 export class EmployeeEditState {
@@ -46,7 +46,7 @@ export class EmployeeEditState {
 
   get isPhoneValid() {
     // more than 9 numbers without counting +7
-    return this._employee.phone !== `` && this._employee.phone!.slice(2).length > 9
+    return this._employee.phone !== null && this._employee.phone!.slice(2).length > 9
   }
 
   get isSpecializationValid() {

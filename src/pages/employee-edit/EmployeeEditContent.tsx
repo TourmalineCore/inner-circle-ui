@@ -76,6 +76,7 @@ export const EmployeeEditContent = observer(({
                     field: `birthDate`,
                     value: e.target.value,
                   })}
+                  data-cy='birth-date-input'
                 />
               </div>
 
@@ -96,6 +97,7 @@ export const EmployeeEditContent = observer(({
                     },
                     )
                   }
+                  data-cy='specialization-multiple-select'
                 />
               </div>
             </li>
@@ -111,6 +113,7 @@ export const EmployeeEditContent = observer(({
                     field: `workedTime`,
                     value: e.target.value,
                   })}
+                  data-cy='worked-time-input'
                 />
               </div>
             </li>
@@ -126,6 +129,7 @@ export const EmployeeEditContent = observer(({
                   onChange={(e) => employeeEditState.setPhone({
                     phone: e.target.value,
                   })}
+                  data-cy='phone-input'
                 />
               </div>
 
@@ -139,6 +143,7 @@ export const EmployeeEditContent = observer(({
                     field: `personalEmail`,
                     value: e.target.value,
                   })}
+                  data-cy='personal-email-input'
                 />
               </div>
             </li>
@@ -153,6 +158,7 @@ export const EmployeeEditContent = observer(({
                     field: `gitHub`,
                     value: e.target.value,
                   })}
+                  data-cy='github-input'
                 />
               </div>
 
@@ -165,6 +171,7 @@ export const EmployeeEditContent = observer(({
                     field: `gitLab`,
                     value: e.target.value,
                   })}
+                  data-cy='gitlab-input'
                 />
               </div>
             </li>
@@ -184,6 +191,7 @@ export const EmployeeEditContent = observer(({
             onClick={updateEmployeesAsync}
             className="employee-edit__button"
             label={`Save Changes`}
+            data-cy='save-button'
           />
         </div>
       </div>
