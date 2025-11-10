@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import { EditedEmployee } from "../../../types/employee"
+import isEqual from "lodash.isequal"
 
 export const EMPTY_EMPLOYEE: EditedEmployee = {
   fullName: ``,
@@ -80,7 +81,7 @@ export class EmployeeEditState {
   setEmployee({
     employee,
   }: {
-    employee: Partial<Omit<EditedEmployee, 'phone'>>,
+    employee: Partial<Omit<EditedEmployee, 'fullName' | 'phone' | 'corporateEmail'>>,
   }) {
     this._employee = {
       ...this._employee,
@@ -94,6 +95,10 @@ export class EmployeeEditState {
     phone: string,
   }) {
     this._employee.phone = phone.replace(/[^\d+]/g, ``)
+  }
+
+  isSomethingFilledWithinTheForm() { 
+    return !isEqual(this._employee, EMPTY_EMPLOYEE)
   }
 
   setIsTriedToSubmit() {

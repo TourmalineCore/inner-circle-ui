@@ -6,6 +6,7 @@ describe(`EmployeeEditState`, () => {
   describe(`Employee Edit Data`, employeeEditDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
   describe(`Validation`, validationTests)
+  describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
 })
 
 function initializationTests() {
@@ -93,13 +94,13 @@ function employeeEditDataTests() {
     employeeEditState.setEmployee({
       employee: {
         ...employeeForInitialization,
-        fullName: `Test Test Test`,
+        workedTime: `Sometimes`,
       },
     })
 
-    expect(employeeEditState.employee.fullName)
+    expect(employeeEditState.employee.workedTime)
       .to
-      .eq(`Test Test Test`)
+      .eq(`Sometimes`)
   })
   
   it(`
@@ -379,5 +380,41 @@ function validationTests() {
       .to
       .be
       .false
+  })
+}
+
+function somethingFilledWithinTheFormTests() {
+  let employeeEditState: EmployeeEditState
+
+  beforeEach(() => {
+    employeeEditState = new EmployeeEditState()
+  })
+  
+  it(`
+  GIVEN a new instance
+  WHEN no fields are modified
+  SHOULD return false for isSomethingFilledWithinTheForm
+  `, () => {
+    expect(employeeEditState.isSomethingFilledWithinTheForm())
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN worked time was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        workedTime: `Sometimes`,
+      },
+    })
+
+    expect(employeeEditState.isSomethingFilledWithinTheForm())
+      .to
+      .be
+      .true
   })
 }
