@@ -1,33 +1,16 @@
 /* eslint-disable no-extra-boolean-cast */
 import './EmployeeEdit.scss'
 
-import { ChangeEvent, useContext } from 'react'
-import { NumberFormatValues } from 'react-number-format'
-import IconProfile from '../../assets/icons/icon-profile.svg?react'
-import IconMail from '../../assets/icons/icon-message.svg?react'
-import { CustomDatePicker } from './components/CustomDatePicker/CustomDatePicker'
-import { CustomNumberFormat } from './components/CustomNumberFormat/CustomNumberFormat'
-import { CustomPatternFormat } from './components/CustomPatternFormat/CustomPatternFormat'
+import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { EmployeeEditStateContext } from './state/EmployeeEditStateContext'
 import { EditedEmployee } from '../../types/employee'
 import { Input } from '../../components/Input/Input'
-import { CheckField } from '../../components/CheckField/CheckField'
-
-// const employeeStatusData = {
-//   current: 'Current/Active',
-//   fired: 'Fired',
-// };
-
-const employeeTypeData = {
-  1: `Full time`,
-  0.5: `Half time`,
-}
-
-const employedData = {
-  officially: `Officially`,
-  freelance: `Freelance`,
-}
+import { Button } from '../../components/button/Button'
+import { Textarea } from '../../components/textarea/Textarea'
+import { MultipleSelect } from '../../components/multiple-select/MultipleSelect'
+import IconRabbit from '../../assets/icons/icon-rabbit.svg'
+import { SPECIALIZATIONS } from '../../common/constant'
 
 export const EmployeeEditContent = observer(({
   updateEmployeesAsync,
@@ -41,320 +24,168 @@ export const EmployeeEditContent = observer(({
     isTriedToSubmit,
   } = employeeEditState
 
-  const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      name, value, 
-    } = event.target
-
-    const updatedEmployee: EditedEmployee = {
-      ...employee,
-      [name]: value,
-    }
-
+  const handleFormChange = ({
+    field,
+    value,
+  }: {
+    field: keyof EditedEmployee,
+    value: string | string[],
+  }) => {
     employeeEditState.setEmployee({
-      employee: updatedEmployee,
+      employee: {
+        [field]: value, 
+      },
     })
   }
 
   return (
-    <section className="employee-edit">
-      <h1 className="heading employee-edit__title">
-        Employee Profile
-      </h1>
-      <div className="employee-edit__info">
-        <span className="employee-edit__icon">
-          <IconProfile />
-        </span>
-        {employee.fullName}
-      </div>
-      <div className="employee-edit__info">
-        <span className="employee-edit__icon">
-          <IconMail />
-        </span>
-        {employee.corporateEmail}
-      </div>
-
-      <h2>
-        Contacts
-      </h2>
-      <ul>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Phone Number*
-          </span>
-          <CustomPatternFormat
-            className="employee-edit__control"
-            type="tel"
-            format="+7 (###) ### ## ##"
-            value={employee.phone}
-            isInvalid={!(employee.phone && employee.phone.length > 9) && isTriedToSubmit}
-            onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
-              employee: {
-                ...employee,
-                phone: event.value, 
-              },
-            })}
-          />
-        </li>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Personal Email
-          </span>
-          <Input
-            name="personalEmail"
-            placeholder="email@mail.ru"
-            className="employee-edit__control"
-            value={employee.personalEmail || ``}
-            onChange={handleFormChange}
-          />
-        </li>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Personal GitHub
-          </span>
-          <div className="employee-edit__git employee-edit__control">
-            <span className="employee-edit__symbol">@</span>
-            <Input
-              className="employee-edit__control"
-              name="gitHub"
-              placeholder="gitHub"
-              value={employee.gitHub || ``}
-              onChange={handleFormChange}
-            />
-          </div>
-        </li>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Personal GitLab
-          </span>
-          <div className="employee-edit__git employee-edit__control">
-            <span className="employee-edit__symbol">@</span>
-            <Input
-              className="employee-edit__control"
-              name="gitLab"
-              placeholder="gitLab"
-              value={employee.gitLab || ``}
-              onChange={handleFormChange}
-            />
-          </div>
-        </li>
-      </ul>
-
-      <h2>
-        Salary
-      </h2>
-      <ul>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Rate Per Hour *
-          </span>
-          <div className="employee-edit__control">
-            <CustomNumberFormat
-              value={employee.ratePerHour || 0}
-              isInvalid={!(employee.ratePerHour! >= 0) && isTriedToSubmit}
-              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
-                employee: {
-                  ...employee,
-                  ratePerHour: Number(event.value), 
-                },
-              })}
-            />
-          </div>
-        </li>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Full Salary *
-          </span>
-          <div className="employee-edit__control">
-            <CustomNumberFormat
-              value={employee.fullSalary || ``}
-              isInvalid={!Boolean(employee.fullSalary) && isTriedToSubmit}
-              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
-                employee: {
-                  ...employee,
-                  fullSalary: Number(event.value), 
-                },
-              })}
-            />
-          </div>
-        </li>
-        <li className="employee-edit__item employee-edit__item--radio-list">
-          <span className="employee-edit__label">
-            Employment Type *
-          </span>
-          <div className="employee-edit__control">
-            {Object.entries(employeeTypeData)
-              .map(([
-                value,
-                label,
-              ]) => {
-                const employmentTypeValue = employee.employmentType === null || employee.employmentType === 1 
-                  ? `1` 
-                  : `0.5`
-
-                return (
-                  <CheckField
-                    key={value}
-                    style={{
-                      marginBottom: 16,
-                    }}
-                    viewType="radio"
-                    label={label}
-                    checked={value === employmentTypeValue}
-                    onChange={() => employeeEditState.setEmployee({
-                      employee: {
-                        ...employee,
-                        employmentType: Number(value), 
-                      },
-                    })}
-                  />
-                )
-              })}
-          </div>
-        </li>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Parking *
-          </span>
-          <div className="employee-edit__control">
-            <CustomNumberFormat
-              value={employee.parking || 0}
-              isInvalid={!(employee.parking! >= 0) && isTriedToSubmit}
-              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
-                employee: {
-                  ...employee,
-                  parking: Number(event.value), 
-                },
-              })}
-            />
-          </div>
-        </li>
-      </ul>
-
-      <h2>
-        Documents
-      </h2>
-      <ul>
-        <li className="employee-edit__item">
-          <span className="employee-edit__label">
-            Hire Date *
-          </span>
-          <div className="employee-edit__control">
-            <CustomDatePicker
-              date={employee.hireDate}
-              isInvalid={!Boolean(employee.hireDate) && isTriedToSubmit}
-              onChange={(date: Date) => employeeEditState.setEmployee({
-                employee: {
-                  ...employee,
-                  hireDate: date, 
-                },
-              })}
-            />
-          </div>
-        </li>
-        {/* <li className="employee-edit__item employee-edit__item--radio-list">
-          <span className="employee-edit__label">Employee Status *</span>
-          <div>
-            {Object.entries(employeeStatusData).map(([value, label]) => {
-              const valueEmployedFired = employee.isCurrentEmployee ? 'current' : 'fired';
-
-              return (
-                <CheckField
-                  key={value}
-                  style={{
-                    marginBottom: 16,
-                  }}
-                  viewType="radio"
-                  label={label}
-                  checked={value === valueEmployedFired}
-                  onChange={() => setEmployee({ ...employee, isCurrentEmployee: value === 'current' })}
+    <section  
+      className="employee-edit"
+      data-cy="employee-edit"
+    >
+      <div className='employee-edit__wrapper'>
+        <h1 className="employee-edit__title">
+          Edit Employee Profile
+        </h1>
+        <div className='employee-edit__info'>
+          <div className='employee-edit__profile-header'>
+            <div className='employee-edit__avatar-container'>
+              <div className='employee-edit__default-avatar'>
+                <img
+                  src={IconRabbit}
+                  alt=""
                 />
-              );
-            })}
-          </div>
-        </li>
-        {!employee.isCurrentEmployee && (
-          <li className="employee-edit__item">
-            <span className="employee-edit__label">Date of Dismissal *</span>
-            <div className="employee-edit__control">
-              <CustomDatePicker
-                date={employee.dismissalDate}
-                isInvalid={!Boolean(employee.dismissalDate) && triedToSubmit}
-                onChange={(date: Date) => setEmployee({ ...employee, dismissalDate: date })}
-              />
+              </div>
             </div>
-          </li>
-        )} */}
-        <li className="employee-edit__item employee-edit__item--radio-list">
-          <span className="employee-edit__label">
-            Employed *
-          </span>
-          <div>
-            {Object.entries(employedData)
-              .map(([
-                value,
-                label,
-              ]) => {
-                const valueEmployedOfficially = employee.isEmployedOfficially 
-                  ? `officially` 
-                  : `freelance`
-
-                return (
-                  <CheckField
-                    key={value}
-                    style={{
-                      marginBottom: 16,
-                    }}
-                    viewType="radio"
-                    label={label}
-                    checked={value === valueEmployedOfficially}
-                    onChange={() => employeeEditState.setEmployee({
-                      employee: {
-                        ...employee,
-                        isEmployedOfficially: value === `officially`, 
-                      },
-                    })}
-                  />
-                )
-              })}
+           
+            <div className='employee-edit__personal-info'>
+              <h2 className='employee-edit__fullname'>{employee.fullName}</h2>
+              <p className='employee-edit__corporate-email'>{employee.corporateEmail}</p>
+            </div>
           </div>
-        </li>
-        {employee.isEmployedOfficially && (
-          <li className="employee-edit__item">
-            <span className="employee-edit__label">
-              Personnel Number *
-            </span>
-            <CustomPatternFormat
-              className="employee-edit__control"
-              format="##/##"
-              value={employee.personnelNumber}
-              isInvalid={!(employee.personnelNumber && employee.personnelNumber.length >= 4) && isTriedToSubmit}
-              onChange={(event: NumberFormatValues) => employeeEditState.setEmployee({
-                employee: {
-                  ...employee,
-                  personnelNumber: event.value,
-                },
-              })}
-            />
-          </li>
-        )}
-      </ul>
 
-      <div className="employee-edit__box-buttons">
-        <button
-          type="button"
-          onClick={() => window.location.href = `/employees`}
-          className="employee-edit__button"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          onClick={() => updateEmployeesAsync()}
-          className="employee-edit__button"
-        >
-          Save Changes
-        </button>
+          <ul>
+            <li className="employee-edit__group">
+              <div className="employee-edit__field employee-edit__field--birth-date">
+                <Input
+                  label='Birth Date*'
+                  placeholder="DD/MM/YYYY"
+                  mask='99/99/9999'
+                  value={employee.birthDate || ``}
+                  onChange={(e) => handleFormChange({
+                    field: `birthDate`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+
+              <div className="employee-edit__field">
+                <MultipleSelect
+                  label='Specialization*'
+                  placeholder="Choose the specialization"
+                  value={employee.specialization}
+                  options={SPECIALIZATIONS}
+                  onChange={(selectedOptions) => 
+                    handleFormChange({
+                      field: `specialization`,
+                      value: selectedOptions.map(({
+                        value,
+                      }) => value,
+                      ),
+                    },
+                    )
+                  }
+                />
+              </div>
+            </li>
+
+            <li className="employee-edit__group">
+              <div className="employee-edit__field employee-edit__field--high">
+                <Textarea
+                  className='employee-edit__text'
+                  placeholder="Enter the worker time"
+                  label='Worker Time'
+                  value={employee.workedTime || ``}
+                  onChange={(e) => handleFormChange({
+                    field: `workedTime`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+            </li>
+
+            <li className="employee-edit__group">
+              <div className="employee-edit__field">
+                <Input
+                  label='Phone Number*'
+                  mask="+7 (999) 999-99-99"
+                  placeholder="+7 (___) ___-__-__"
+                  value={employee.phone || ``}
+                  isInvalid={!(employee.phone && employee.phone.length > 9) && isTriedToSubmit}
+                  onChange={(e) => handleFormChange({
+                    field: `phone`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+
+              <div className="employee-edit__field">
+                <Input
+                  type='email'
+                  label='Personal Email*'
+                  placeholder='Enter the personal email'
+                  value={employee.personalEmail || ``}
+                  onChange={(e) => handleFormChange({
+                    field: `personalEmail`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+            </li>
+              
+            <li className="employee-edit__group">
+              <div className="employee-edit__field">
+                <Input
+                  label='Personal GitHub'
+                  placeholder='Enter the username'
+                  value={employee.gitHub || ``}
+                  onChange={(e) => handleFormChange({
+                    field: `gitHub`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+
+              <div className="employee-edit__field">
+                <Input
+                  label='Personal GitLab'
+                  placeholder='Enter the username'
+                  value={employee.gitLab || ``}
+                  onChange={(e) => handleFormChange({
+                    field: `gitLab`,
+                    value: e.target.value,
+                  })}
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div className="employee-edit__action-buttons">
+          <Button
+            type="button"
+            onClick={() => window.location.href = `/employees`}
+            className="employee-edit__button"
+            label={`Cancel`}
+          />
+
+          <Button
+            type="button"
+            isAccent
+            onClick={() => updateEmployeesAsync()}
+            className="employee-edit__button"
+            label={`Save Changes`}
+          />
+        </div>
       </div>
     </section>
   )

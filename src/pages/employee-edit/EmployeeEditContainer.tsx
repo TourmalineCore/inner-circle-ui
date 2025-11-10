@@ -39,28 +39,23 @@ export const EmployeesEditContainer = observer(() => {
       employee,
     } = employeeEditState
 
+    const [
+      day,
+      month,
+      year,
+    ] = employee.birthDate!.split(`/`)
+
+    const formattedBirthDate = `${year}-${month}-${day}`
+
     const updateEmployee = {
       ...employee,
-      employmentType: employee.employmentType === null
-        ? 1
-        : employee.employmentType,
-      phone: `+7${employee.phone}`,
-      ratePerHour: employee.ratePerHour || 0,
-      parking: employee.parking || 0,
-      personnelNumber: employee.isEmployedOfficially
-        ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`
-        : null,
+      birthDate: formattedBirthDate,
+      phone: employee.phone!.replace(/[^\d+]/g, ``),
     }
-
-    delete updateEmployee.dismissalDate
 
     employeeEditState.setIsTriedToSubmit()
 
-    const isValidPersonnelNumber = employee.isEmployedOfficially
-      ? employee.personnelNumber!.length >= 4
-      : true
-
-    if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
+    if (updateEmployee.phone.length > 9) {
       try {
         await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
         

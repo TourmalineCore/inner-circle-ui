@@ -17,7 +17,7 @@ export function MultipleSelect({
   placeholder = ``,
   label,
   id,
-  value,
+  value = [],
   options = [],
   isError,
   onChange,
