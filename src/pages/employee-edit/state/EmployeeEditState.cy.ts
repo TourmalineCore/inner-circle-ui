@@ -9,6 +9,18 @@ describe(`EmployeeEditState`, () => {
   describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
 })
 
+const EMPLOYEE_FOR_INITIALIZATION: EditedEmployee = {
+  fullName: `Ceo Ceo Ceo`,
+  corporateEmail: `ceo@tourmalinecore.com`,
+  personalEmail: `ceo@gmail.com`,
+  specialization: [],
+  birthDate: ``,
+  workerTime: ``,
+  phone: `+70066636367`,
+  gitHub: `ceo.github`,
+  gitLab: `ceo.gitlab`,
+}
+
 function initializationTests() {
   const employeeEditState = new EmployeeEditState()
   
@@ -27,23 +39,11 @@ function initializationTests() {
 function employeeEditDataTests() {
   let employeeEditState: EmployeeEditState
 
-  const employeeForInitialization: EditedEmployee = {
-    fullName: `Ceo Ceo Ceo`,
-    corporateEmail: `ceo@tourmalinecore.com`,
-    personalEmail: `ceo@gmail.com`,
-    specialization: [],
-    birthDate: ``,
-    workerTime: ``,
-    phone: `70066636367`,
-    gitHub: `ceo.github`,
-    gitLab: `ceo.gitlab`,
-  }
-  
   beforeEach(() => {
     employeeEditState = new EmployeeEditState()
 
     employeeEditState.initialize({
-      loadedEmployee: employeeForInitialization,
+      loadedEmployee: EMPLOYEE_FOR_INITIALIZATION,
     })
   })
 
@@ -52,38 +52,10 @@ function employeeEditDataTests() {
   WHEN set employee data
   SHOULD display new values in the employee object
   `, () => {
-    expect(employeeEditState.employee.fullName)
-      .to
-      .eq(employeeForInitialization.fullName)
-
-    expect(employeeEditState.employee.corporateEmail)
-      .to
-      .eq(employeeForInitialization.corporateEmail)
-
-    expect(employeeEditState.employee.personalEmail)
-      .to
-      .eq(employeeForInitialization.personalEmail)
-
-    expect(employeeEditState.employee.gitHub)
-      .to
-      .eq(employeeForInitialization.gitHub)
-
-    expect(employeeEditState.employee.gitLab)
-      .to
-      .eq(employeeForInitialization.gitLab)
-
-    expect(employeeEditState.employee.birthDate)
-      .to
-      .eq(employeeForInitialization.birthDate)
-
-    expect(employeeEditState.employee.workerTime)
-      .to
-      .eq(employeeForInitialization.workerTime)
-
-    expect(employeeEditState.employee.specialization)
+    expect(employeeEditState.employee)
       .to
       .deep
-      .eq(employeeForInitialization.specialization)
+      .eq(EMPLOYEE_FOR_INITIALIZATION)
   })
 
   it(`
@@ -93,7 +65,7 @@ function employeeEditDataTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        ...employeeForInitialization,
+        ...EMPLOYEE_FOR_INITIALIZATION,
         workerTime: `Sometimes`,
       },
     })
@@ -388,6 +360,10 @@ function somethingFilledWithinTheFormTests() {
 
   beforeEach(() => {
     employeeEditState = new EmployeeEditState()
+
+    employeeEditState.initialize({
+      loadedEmployee: EMPLOYEE_FOR_INITIALIZATION,
+    })
   })
   
   it(`

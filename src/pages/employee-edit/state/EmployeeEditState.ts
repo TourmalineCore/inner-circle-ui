@@ -26,6 +26,8 @@ export class EmployeeEditState {
 
   private _isTriedToSubmit = false
 
+  private _initEmployee: EditedEmployee | null = null
+
   get employee() {
     return this._employee
   }
@@ -76,11 +78,17 @@ export class EmployeeEditState {
   }: {
     loadedEmployee: EditedEmployee,
   }) {
-    this._employee = {
+    const updatedEmployee = {
       ...loadedEmployee,
-      birthDate: moment(loadedEmployee.birthDate)
-        .format(`DD/MM/YYYY`),
+      birthDate: loadedEmployee.birthDate
+        ? moment(loadedEmployee.birthDate)
+          .format(`DD/MM/YYYY`)
+        : ``,
     }
+
+    this._employee = updatedEmployee
+
+    this._initEmployee = updatedEmployee
   }
 
   setEmployee({
@@ -103,7 +111,7 @@ export class EmployeeEditState {
   }
 
   isSomethingFilledWithinTheForm() { 
-    return !isEqual(this._employee, EMPTY_EMPLOYEE)
+    return !isEqual(this._employee, this._initEmployee)
   }
 
   setIsTriedToSubmit() {
