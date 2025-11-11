@@ -8,10 +8,10 @@ export const EMPLOYEE: EditedEmployee = {
   fullName: `Test test test`,
   corporateEmail: `test@tourmalinecore.com`,
   specialization: [
-    `Frontend`,
+    1,
   ],
   birthDate: `20/09/2005`,
-  workedTime: `Sometimes`,
+  workerTime: `Sometimes`,
   personalEmail: `personalTest@test.ru`,
   phone: `9999999999`,
   gitHub: `@test`,
@@ -32,7 +32,7 @@ describe(`EmployeeEditContainer`, () => {
             corporateEmail: `test@tourmalinecore.com`,
             specialization: [],
             birthDate: null,
-            workedTime: null,
+            workerTime: null,
             personalEmail: null,
             phone: null,
             gitHub: null,
@@ -84,8 +84,8 @@ function EditEmployeeTests() {
       .click()
 
     cy
-      .getByData(`worked-time-input`)
-      .type(EMPLOYEE.workedTime!)
+      .getByData(`worker-time-input`)
+      .type(EMPLOYEE.workerTime!)
 
     cy
       .getByData(`phone-input`)

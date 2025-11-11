@@ -70,7 +70,7 @@ function mountComponent() {
       corporateEmail: `test@tourmalinecore.com`,
       specialization: [],
       birthDate: null,
-      workedTime: null,
+      workerTime: null,
       phone: null,
       personalEmail: null,
       gitHub: null,

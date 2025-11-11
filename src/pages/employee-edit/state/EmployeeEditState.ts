@@ -1,13 +1,14 @@
 import { makeAutoObservable } from "mobx"
 import { EditedEmployee } from "../../../types/employee"
 import isEqual from "lodash.isequal"
+import moment from "moment"
 
 export const EMPTY_EMPLOYEE: EditedEmployee = {
   fullName: ``,
   corporateEmail: ``,
   specialization: [],
   birthDate: null,
-  workedTime: null,
+  workerTime: null,
   personalEmail: null,
   phone: null,
   gitHub: null,
@@ -51,7 +52,7 @@ export class EmployeeEditState {
   }
 
   get isSpecializationValid() {
-    return this._employee.specialization?.length > 0
+    return this._employee.specialization.length > 0
   }
 
   get isValid() {
@@ -75,7 +76,11 @@ export class EmployeeEditState {
   }: {
     loadedEmployee: EditedEmployee,
   }) {
-    this._employee = loadedEmployee
+    this._employee = {
+      ...loadedEmployee,
+      birthDate: moment(loadedEmployee.birthDate)
+        .format(`DD/MM/YYYY`),
+    }
   }
 
   setEmployee({

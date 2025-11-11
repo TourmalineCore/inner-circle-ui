@@ -1,9 +1,11 @@
+import { Specialization } from "../common/constant"
+
 export type EditedEmployee = {
   fullName: string,
   corporateEmail: string,
-  specialization: string[],
+  specialization: Specialization[],
   birthDate: string | null,
-  workedTime: string | null,
+  workerTime: string | null,
   phone: string | null,
   personalEmail: string | null,
   gitHub: string | null,

@@ -34,7 +34,7 @@ export const EmployeeEditContent = observer(({
     value,
   }: {
     field: keyof EditedEmployee,
-    value: string | string[],
+    value: string | number[],
   }) => {
     employeeEditState.setEmployee({
       employee: {
@@ -53,7 +53,6 @@ export const EmployeeEditContent = observer(({
   }
 
   const handleConfirmQuit = () => {
-    // addBookState.reset()
     setShowModal(false)
 
     window.location.href = `/employees`
@@ -134,8 +133,8 @@ export const EmployeeEditContent = observer(({
                         field: `specialization`,
                         value: selectedOptions.map(({
                           value,
-                        }) => value,
-                        ),
+                        }) => value ,
+                        ) as number[],
                       },
                       )
                     }
@@ -150,12 +149,12 @@ export const EmployeeEditContent = observer(({
                     className='employee-edit__text'
                     placeholder="Enter the worker time"
                     label='Worker Time'
-                    value={employee.workedTime || ``}
+                    value={employee.workerTime || ``}
                     onChange={(e) => handleFormChange({
-                      field: `workedTime`,
+                      field: `workerTime`,
                       value: e.target.value,
                     })}
-                    data-cy='worked-time-input'
+                    data-cy='worker-time-input'
                   />
                 </div>
               </li>

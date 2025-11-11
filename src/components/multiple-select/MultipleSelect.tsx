@@ -8,7 +8,7 @@ import { useHorizontalDragScroll } from './hooks/useHorizontalDragScroll'
 import clsx from 'clsx'
 
 type Option = {
-  value: string,
+  value: string | number,
   label: string,
 }
 
@@ -23,7 +23,7 @@ export function MultipleSelect({
   onChange,
   ...props
 }: {
-  value: string[],
+  value: string[] | number[],
   options: Option[],
   placeholder?: string,
   label?: string,
@@ -121,7 +121,7 @@ export function MultipleSelect({
               onClick={() => handleOptionChange(optionValue)}
             >
               <span>{optionLabel}</span>
-              {value.includes(optionValue) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
+              {value.includes(optionValue as never) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
             </button>
           ))}
         </div>
@@ -131,7 +131,7 @@ export function MultipleSelect({
 
   function getSelectedLabels() {
     const selected = options
-      .filter((option) => value.includes(option.value))
+      .filter((option) => value.includes(option.value as never))
     
     return selected.length > 0
       ? selected.map(({
@@ -172,7 +172,7 @@ export function MultipleSelect({
   }
 
   function handleOptionChange(optionValue: Option['value']) {
-    const newValue = value.includes(optionValue)
+    const newValue = value.includes(optionValue as never)
       ? value.filter((value) => value !== optionValue)
       : [
         ...value,

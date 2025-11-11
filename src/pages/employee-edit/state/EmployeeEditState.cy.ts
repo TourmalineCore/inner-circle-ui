@@ -33,7 +33,7 @@ function employeeEditDataTests() {
     personalEmail: `ceo@gmail.com`,
     specialization: [],
     birthDate: ``,
-    workedTime: ``,
+    workerTime: ``,
     phone: `70066636367`,
     gitHub: `ceo.github`,
     gitLab: `ceo.gitlab`,
@@ -76,9 +76,9 @@ function employeeEditDataTests() {
       .to
       .eq(employeeForInitialization.birthDate)
 
-    expect(employeeEditState.employee.workedTime)
+    expect(employeeEditState.employee.workerTime)
       .to
-      .eq(employeeForInitialization.workedTime)
+      .eq(employeeForInitialization.workerTime)
 
     expect(employeeEditState.employee.specialization)
       .to
@@ -94,11 +94,11 @@ function employeeEditDataTests() {
     employeeEditState.setEmployee({
       employee: {
         ...employeeForInitialization,
-        workedTime: `Sometimes`,
+        workerTime: `Sometimes`,
       },
     })
 
-    expect(employeeEditState.employee.workedTime)
+    expect(employeeEditState.employee.workerTime)
       .to
       .eq(`Sometimes`)
   })
@@ -162,7 +162,7 @@ function validationTests() {
     employeeEditState.setEmployee({
       employee: {
         specialization: [
-          `Frontend`,
+          1,
         ],
       },
     })
@@ -213,7 +213,7 @@ function validationTests() {
       employee: {
         birthDate: `26/09/2000`,
         specialization: [
-          `Frontend`,
+          1,
         ],
       },
     })
@@ -308,7 +308,7 @@ function validationTests() {
       employee: {
         birthDate: `26/09/2000`,
         specialization: [
-          `Frontend`,
+          1,
         ],
       },
     })
@@ -408,7 +408,7 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        workedTime: `Sometimes`,
+        workerTime: `Sometimes`,
       },
     })
 
