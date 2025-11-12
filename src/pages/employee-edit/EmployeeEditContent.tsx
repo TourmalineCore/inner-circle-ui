@@ -9,7 +9,7 @@ import { Button } from '../../components/button/Button'
 import { Textarea } from '../../components/textarea/Textarea'
 import { MultipleSelect } from '../../components/multiple-select/MultipleSelect'
 import IconRabbit from '../../assets/icons/icon-rabbit.svg'
-import { SPECIALIZATIONS } from '../../common/constant'
+import { SPECIALIZATIONS } from '../../common/constants/specializations'
 import { Overlay } from '../../components/overlay/Overlay'
 
 export const EmployeeEditContent = observer(({

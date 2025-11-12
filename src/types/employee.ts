@@ -1,4 +1,4 @@
-import { Specialization } from "../common/constant"
+import { Specialization } from "../common/constants/specializations"
 
 export type EditedEmployee = {
   fullName: string,
