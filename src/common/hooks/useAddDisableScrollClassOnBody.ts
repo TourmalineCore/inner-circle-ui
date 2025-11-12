@@ -13,6 +13,5 @@ export function useAddDisableScrollClassOnBody() {
         .classList
         .remove(`disable-scroll`)
     }
-  }, [])
-    
+  }, []) 
 }

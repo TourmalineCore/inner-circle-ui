@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom"
+import { MemoryRouter } from "react-router-dom"
 import { EditedEmployee } from "../../types/employee"
 import { EmployeeEditContainer } from "./EmployeeEditContainer"
 import { EmployeeEditState } from "./state/EmployeeEditState"
@@ -124,10 +124,10 @@ function mountComponent() {
 
   cy
     .mount(
-      <BrowserRouter>
+      <MemoryRouter>
         <EmployeeEditStateContext.Provider value={employeeEditState}>
           <EmployeeEditContainer />
         </EmployeeEditStateContext.Provider>,
-      </BrowserRouter>,
+      </MemoryRouter>,
     )
 }
