@@ -68,7 +68,7 @@ function mountComponent() {
     loadedEmployee: {
       fullName: `Test Test Test`,
       corporateEmail: `test@tourmalinecore.com`,
-      specialization: [],
+      specializations: [],
       birthDate: null,
       workerTime: null,
       phone: null,

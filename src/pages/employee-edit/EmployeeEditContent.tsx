@@ -125,12 +125,12 @@ export const EmployeeEditContent = observer(({
                   <MultipleSelect
                     label='Specialization*'
                     placeholder="Choose the specialization"
-                    value={employee.specialization}
+                    value={employee.specializations}
                     options={SPECIALIZATIONS}
-                    isInvalid={errors.isSpecializationError}
+                    isInvalid={errors.isSpecializationsError}
                     onChange={(selectedOptions) => 
                       handleFormChange({
-                        field: `specialization`,
+                        field: `specializations`,
                         value: selectedOptions.map(({
                           value,
                         }) => value ,
@@ -138,7 +138,7 @@ export const EmployeeEditContent = observer(({
                       },
                       )
                     }
-                    data-cy='specialization-multiple-select'
+                    data-cy='specializations-multiple-select'
                   />
                 </div>
               </li>

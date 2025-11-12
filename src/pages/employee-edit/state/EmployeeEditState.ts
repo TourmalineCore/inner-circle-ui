@@ -6,7 +6,7 @@ import moment from "moment"
 export const EMPTY_EMPLOYEE: EditedEmployee = {
   fullName: ``,
   corporateEmail: ``,
-  specialization: [],
+  specializations: [],
   birthDate: null,
   workerTime: null,
   personalEmail: null,
@@ -53,22 +53,22 @@ export class EmployeeEditState {
     return this._employee.phone !== null && this._employee.phone!.slice(2).length > 9
   }
 
-  get isSpecializationValid() {
-    return this._employee.specialization.length > 0
+  get isSpecializationsValid() {
+    return this._employee.specializations.length > 0
   }
 
   get isValid() {
     return (
       this.isBirthDateValid &&
       this.isPhoneValid &&
-      this.isSpecializationValid
+      this.isSpecializationsValid
     )
   }
 
   get errors() {
     return {
       isBirthDateError: !this.isBirthDateValid && this._isTriedToSubmit,
-      isSpecializationError: !this.isSpecializationValid && this._isTriedToSubmit,
+      isSpecializationsError: !this.isSpecializationsValid && this._isTriedToSubmit,
       isPhoneError: !this.isPhoneValid && this._isTriedToSubmit,
     }
   }

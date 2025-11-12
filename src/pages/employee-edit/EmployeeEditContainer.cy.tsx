@@ -7,7 +7,7 @@ import { EmployeeEditStateContext } from "./state/EmployeeEditStateContext"
 export const EMPLOYEE: EditedEmployee = {
   fullName: `Test test test`,
   corporateEmail: `test@tourmalinecore.com`,
-  specialization: [
+  specializations: [
     1,
   ],
   birthDate: `20/09/2005`,
@@ -30,7 +30,7 @@ describe(`EmployeeEditContainer`, () => {
           body: {
             fullName: `Test test test`,
             corporateEmail: `test@tourmalinecore.com`,
-            specialization: [],
+            specializations: [],
             birthDate: null,
             workerTime: null,
             personalEmail: null,
@@ -72,15 +72,15 @@ function EditEmployeeTests() {
       .type(EMPLOYEE.birthDate!)
 
     cy
-      .getByData(`specialization-multiple-select`)
+      .getByData(`specializations-multiple-select`)
       .click()
 
     cy
-      .contains(EMPLOYEE.specialization[0])
+      .contains(EMPLOYEE.specializations[0])
       .click()
 
     cy
-      .getByData(`specialization-multiple-select`)
+      .getByData(`specializations-multiple-select`)
       .click()
 
     cy

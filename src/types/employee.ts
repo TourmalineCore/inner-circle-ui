@@ -3,7 +3,7 @@ import { Specialization } from "../common/constant"
 export type EditedEmployee = {
   fullName: string,
   corporateEmail: string,
-  specialization: Specialization[],
+  specializations: Specialization[],
   birthDate: string | null,
   workerTime: string | null,
   phone: string | null,

@@ -13,7 +13,7 @@ const EMPLOYEE_FOR_INITIALIZATION: EditedEmployee = {
   fullName: `Ceo Ceo Ceo`,
   corporateEmail: `ceo@tourmalinecore.com`,
   personalEmail: `ceo@gmail.com`,
-  specialization: [],
+  specializations: [],
   birthDate: ``,
   workerTime: ``,
   phone: `+70066636367`,
@@ -133,7 +133,7 @@ function validationTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        specialization: [
+        specializations: [
           1,
         ],
       },
@@ -160,7 +160,7 @@ function validationTests() {
       .be
       .true
 
-    expect(employeeEditState.isSpecializationValid)
+    expect(employeeEditState.isSpecializationsValid)
       .to
       .be
       .true
@@ -172,7 +172,7 @@ function validationTests() {
       .eq({
         isBirthDateError: true,
         isPhoneError: false,
-        isSpecializationError: false,
+        isSpecializationsError: false,
       })
   })
 
@@ -184,7 +184,7 @@ function validationTests() {
     employeeEditState.setEmployee({
       employee: {
         birthDate: `26/09/2000`,
-        specialization: [
+        specializations: [
           1,
         ],
       },
@@ -207,7 +207,7 @@ function validationTests() {
       .be
       .true
       
-    expect(employeeEditState.isSpecializationValid)
+    expect(employeeEditState.isSpecializationsValid)
       .to
       .be
       .true
@@ -219,14 +219,14 @@ function validationTests() {
       .eq({
         isBirthDateError: false,
         isPhoneError: true,
-        isSpecializationError: false,
+        isSpecializationsError: false,
       })
   })
 
   it(`
-  GIVEN an empty specialization
+  GIVEN an empty specializations
   WHEN isValid is accessed
-  SHOULD return false and set specialization error to true
+  SHOULD return false and set specializations error to true
   `, () => {
     employeeEditState.setEmployee({
       employee: {
@@ -245,7 +245,7 @@ function validationTests() {
       .be
       .false
             
-    expect(employeeEditState.isSpecializationValid)
+    expect(employeeEditState.isSpecializationsValid)
       .to
       .be
       .false
@@ -267,19 +267,19 @@ function validationTests() {
       .eq({
         isBirthDateError: false,
         isPhoneError: false,
-        isSpecializationError: true,
+        isSpecializationsError: true,
       })
   })
 
   it(`
-  GIVEN valid birth date, phone, and specialization
+  GIVEN valid birth date, phone, and specializations
   WHEN isValid is accessed
   SHOULD return true and all errors should be false
   `, () => {
     employeeEditState.setEmployee({
       employee: {
         birthDate: `26/09/2000`,
-        specialization: [
+        specializations: [
           1,
         ],
       },
@@ -296,7 +296,7 @@ function validationTests() {
       .be
       .true
             
-    expect(employeeEditState.isSpecializationValid)
+    expect(employeeEditState.isSpecializationsValid)
       .to
       .be
       .true
@@ -318,7 +318,7 @@ function validationTests() {
       .eq({
         isBirthDateError: false,
         isPhoneError: false,
-        isSpecializationError: false,
+        isSpecializationsError: false,
       })
   })
 
