@@ -3,6 +3,7 @@ import { EditedEmployee } from "../../types/employee"
 import { EmployeeEditContainer } from "./EmployeeEditContainer"
 import { EmployeeEditState } from "./state/EmployeeEditState"
 import { EmployeeEditStateContext } from "./state/EmployeeEditStateContext"
+import { SPECIALIZATION_LABELS } from "../../common/constants/specializations"
 
 export const EMPLOYEE: EditedEmployee = {
   fullName: `Test test test`,
@@ -76,7 +77,7 @@ function EditEmployeeTests() {
       .click()
 
     cy
-      .contains(EMPLOYEE.specializations[0])
+      .contains(SPECIALIZATION_LABELS[EMPLOYEE.specializations[0]])
       .click()
 
     cy
