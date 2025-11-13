@@ -8,6 +8,7 @@ describe(`EmployeeEditState`, () => {
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
   describe(`Validation`, validationTests)
   describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
+  describe(`Saving flag`, savingTest)
 })
 
 const EMPLOYEE_FOR_INITIALIZATION: EditedEmployee = {
@@ -394,5 +395,36 @@ function somethingFilledWithinTheFormTests() {
       .to
       .be
       .true
+  })
+}
+
+function savingTest() {
+  let employeeEditState: EmployeeEditState
+
+  beforeEach(() => {
+    employeeEditState = new EmployeeEditState()
+  })
+  
+  it(`
+  GIVEN initial isSaving = false
+  WHEN setIsSaving and resetIsSaving are triggered
+  SHOULD toggle isSaving to true and then back to false
+  `, () => {
+    expect(employeeEditState.isSaving)
+      .to
+      .be
+      .false
+
+    employeeEditState.setIsSaving()
+    expect(employeeEditState.isSaving)
+      .to
+      .be
+      .true
+    
+    employeeEditState.resetIsSaving()
+    expect(employeeEditState.isSaving)
+      .to
+      .be
+      .false
   })
 }
