@@ -30,6 +30,7 @@ describe(`EmployeeEditContainer`, () => {
         req.reply({
           statusCode: 200,
           body: {
+            employeeId: 1,
             fullName: `Test test test`,
             corporateEmail: `test@tourmalinecore.com`,
             specializations: [],
