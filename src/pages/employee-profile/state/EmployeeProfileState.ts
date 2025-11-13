@@ -1,20 +1,18 @@
-import { makeAutoObservable } from 'mobx'
-import { EmployeeProfile } from '../../../types/employee'
+import { makeAutoObservable } from "mobx"
+import { EmployeeProfile } from "../../../types/employee"
+import moment from "moment"
 
 export const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
   id: 0,
   fullName: ``,
   corporateEmail: ``,
-  personalEmail: ``,
-  phone: ``,
-  gitHub: ``,
-  gitLab: ``,
-  fullSalary: 0,
-  districtCoefficient: 0,
-  incomeTax: 0,
-  netSalary: 0,
-  isSalaryInfoFilled: false,
-  isEmployedOfficially: false,
+  specializations: [],
+  birthDate: ``,
+  workerTime: null,
+  personalEmail: null,
+  phone: null,
+  gitHub: null,
+  gitLab: null,
 }
 
 export class EmployeeProfileState {
@@ -22,36 +20,41 @@ export class EmployeeProfileState {
     ...EMPTY_EMPLOYEE_PROFILE,
   }
 
-  private _initEmployeeProfile: EmployeeProfile | null = null
-
-  private _isLoading = false
-
-  private _isTriedToSubmit = false
-
-  private _isEdit = false
-
   constructor() {
     makeAutoObservable(this)
   }
 
+  private _isTriedToSubmit = false
+
   get employeeProfile() {
     return this._employeeProfile
-  }
-
-  get isLoading() {
-    return this._isLoading
   }
 
   get isTriedToSubmit() {
     return this._isTriedToSubmit
   }
 
-  get isEdit() {
-    return this._isEdit
+  get isPhoneValid() {
+    // more than 9 numbers without counting +7
+    return this._employeeProfile.phone !== null && this._employeeProfile.phone!.slice(2).length > 9
   }
 
-  get initEmployeeProfile() {
-    return this._initEmployeeProfile
+  get isSpecializationsValid() {
+    return this._employeeProfile.specializations.length > 0
+  }
+
+  get isValid() {
+    return (
+      this.isPhoneValid &&
+      this.isSpecializationsValid
+    )
+  }
+
+  get errors() {
+    return {
+      isSpecializationsError: !this.isSpecializationsValid && this._isTriedToSubmit,
+      isPhoneError: !this.isPhoneValid && this._isTriedToSubmit,
+    }
   }
 
   initialize({
@@ -59,35 +62,32 @@ export class EmployeeProfileState {
   }: {
     loadedEmployeeProfile: EmployeeProfile,
   }) {
-    this._employeeProfile = loadedEmployeeProfile
-
-    this.setInitEmployeeProfile({
-      loadedEmployeeProfile,
-    })
+    this._employeeProfile = {
+      ...loadedEmployeeProfile,
+      birthDate: loadedEmployeeProfile.birthDate
+        ? moment(loadedEmployeeProfile.birthDate)
+          .format(`DD/MM/YYYY`)
+        : ``,
+    }
   }
 
   setEmployeeProfile({
-    employeeProfile,
+    employee,
   }: {
-    employeeProfile: EmployeeProfile,
+    employee: Partial<Omit<EmployeeProfile, 'fullName' | 'phone' | 'corporateEmail' | 'birthDate'>>,
   }) {
-    this._employeeProfile = employeeProfile
+    this._employeeProfile = {
+      ...this._employeeProfile,
+      ...employee, 
+    }
   }
 
-  setInitEmployeeProfile ({
-    loadedEmployeeProfile,
+  setPhone({
+    phone,
   }: {
-    loadedEmployeeProfile: EmployeeProfile,
+    phone: string,
   }) {
-    this._initEmployeeProfile = loadedEmployeeProfile
-  }
-
-  setIsLoading() {
-    this._isLoading = true
-  }
-
-  resetIsLoading() {
-    this._isLoading = false
+    this._employeeProfile.phone = phone.replace(/[^\d+]/g, ``)
   }
 
   setIsTriedToSubmit() {
@@ -96,13 +96,5 @@ export class EmployeeProfileState {
 
   resetIsTriedToSubmit() {
     this._isTriedToSubmit = false
-  }
-
-  setIsEdit() {
-    this._isEdit = true
-  }
-
-  resetIsEdit() {
-    this._isEdit = false
   }
 }

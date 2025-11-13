@@ -31,11 +31,8 @@ export type Employee = BaseEmployee & {
 
 export type EmployeeProfile = BaseEmployee & {
   id: number,
-  phone: string,
-  fullSalary: number,
-  districtCoefficient: number,
-  incomeTax: number,
-  netSalary: number,
-  isSalaryInfoFilled: boolean,
-  isEmployedOfficially: boolean,
+  specializations: Specialization[],
+  birthDate: string,
+  workerTime: string | null,
+  phone: string | null,
 };
