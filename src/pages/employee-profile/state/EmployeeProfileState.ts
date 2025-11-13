@@ -9,7 +9,7 @@ export const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
   specializations: [],
   birthDate: ``,
   workerTime: null,
-  personalEmail: null,
+  personalEmail: null,  
   phone: null,
   gitHub: null,
   gitLab: null,
@@ -95,7 +95,7 @@ export class EmployeeProfileState {
     this._employeeProfile.phone = phone.replace(/[^\d+]/g, ``)
   }
 
-    setIsSaving() {
+  setIsSaving() {
     this._isSaving = true
   }
 

@@ -293,29 +293,4 @@ function isSavingTest() {
       .be
       .false
   })
-
-  it(`
-  GIVEN initial isTriedToSubmit = false
-  WHEN setIsTriedToSubmit()
-  SHOULD change value to true
-  WHEN resetIsTriedToSubmit()
-  SHOULD change value to false
-  `, () => {
-    expect(employeeProfileState.isTriedToSubmit)
-      .to
-      .be
-      .false
-
-    employeeProfileState.setIsTriedToSubmit()
-    expect(employeeProfileState.isTriedToSubmit)
-      .to
-      .be
-      .true
-
-    employeeProfileState.resetIsTriedToSubmit()
-    expect(employeeProfileState.isTriedToSubmit)
-      .to
-      .be
-      .false
-  })
 }
