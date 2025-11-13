@@ -15,7 +15,6 @@ export default defineConfig({
       API_ROOT: process.env.API_ROOT,
       API_ROOT_AUTH: process.env.API_ROOT_AUTH,
       LINK_TO_SALARY_SERVICE: process.env.LINK_TO_SALARY_SERVICE,
-      LINK_TO_ACCOUNT_SERVICE: process.env.LINK_TO_ACCOUNT_SERVICE,
       USER_LOGIN: process.env.USER_LOGIN,
       USER_PASSWORD: process.env.USER_PASSWORD,
     },

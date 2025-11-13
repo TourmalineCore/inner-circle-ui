@@ -88,4 +88,25 @@ Cypress.Commands.add(`setDefaultEmployeeData`, () => {
     })
 })
 
+Cypress.Commands.add(`setDefaultEmployeeProfile`, () => {
+  cy
+    .request({
+      method: `PUT`,
+      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_SALARY_SERVICE`)}/employees/update-profile`,
+      headers: {
+        Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+      },
+      body: {
+        phone: `+79999999999`,
+        specializations: [
+          Specialization.FRONTEND,
+        ],
+        personalEmail: ``,
+        workerTime: ``,
+        gitHub: ``,
+        gitLab: ``,
+      },
+    })
+})
+
 compareSnapshotCommand()

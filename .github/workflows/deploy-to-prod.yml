@@ -38,7 +38,6 @@ jobs:
             --state-values-set image.tag=sha-${{ github.sha }} 
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
             --state-values-set extraConfigMapEnvVars.LINK_TO_SALARY_SERVICE=${{ secrets.DEV_LINK_TO_SALARY_SERVICE }}
-            --state-values-set extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
           helmfile-auto-init: "false"    
@@ -62,10 +61,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          CYPRESS_BASE_URL: ${{ secrets.BASE_URL }}
+          CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
           API_ROOT: '/api'
           API_ROOT_AUTH: '/api/auth'
-          LINK_TO_SALARY_SERVICE: '/employees'
+          LINK_TO_SALARY_SERVICE: '/employees/'
           USER_LOGIN: ${{ secrets.DEV_USER_LOGIN }}
           USER_PASSWORD: ${{ secrets.DEV_USER_PASSWORD }}
 
