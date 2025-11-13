@@ -35,10 +35,11 @@ export const EmployeeEditContainer = observer(() => {
   }
 
   async function updateEmployeesAsync() {
+    employeeEditState.setIsSaving()
     employeeEditState.setIsTriedToSubmit()
 
     if (!employeeEditState.isValid) {
-      employeeEditState.resetIsTriedToSubmit()
+      employeeEditState.resetIsSaving()
       return
     }
         
@@ -69,6 +70,7 @@ export const EmployeeEditContainer = observer(() => {
     }
     finally {
       employeeEditState.resetIsTriedToSubmit()
+      employeeEditState.resetIsSaving()
     }
   }
 })
