@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
+import { jwtDecode } from 'jwt-decode'
+import { Specialization } from '../../src/common/constants/specializations'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -57,6 +59,32 @@ Cypress.Commands.add(`authByApi`, () => {
         })
 
       Cypress.env(`accessToken`, accessToken.value)
+    })
+})
+
+Cypress.Commands.add(`setDefaultEmployeeData`, () => {
+  const token = Cypress.env(`accessToken`)
+  const employeeId = Number(jwtDecode<{employeeId: string, }>(token).employeeId)
+
+  cy
+    .request({
+      method: `PUT`,
+      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_SALARY_SERVICE`)}/employees/update`,
+      headers: {
+        Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+      },
+      body: {
+        employeeId: employeeId,
+        birthDate: `2025-11-11`,
+        phone: `+79999999999`,
+        specializations: [
+          Specialization.FRONTEND,
+        ],
+        personalEmail: ``,
+        workerTime: ``,
+        gitHub: ``,
+        gitLab: ``,
+      },
     })
 })
 

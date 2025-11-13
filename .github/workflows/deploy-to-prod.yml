@@ -42,4 +42,41 @@ jobs:
             --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
             --state-values-set extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}
-          helmfile-auto-init: "false"     
+          helmfile-auto-init: "false"    
+
+  e2e-test-prod:
+    runs-on: ubuntu-22.04
+    container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
+    needs: [deploy-to-prod]
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: E2E test on prod
+        uses: cypress-io/github-action@v5
+        with:
+          browser: electron
+          record: true
+          parallel: true
+          group: "Electron e2e prod"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_BASE_URL: ${{ secrets.BASE_URL }}
+          API_ROOT: '/api'
+          API_ROOT_AUTH: '/api/auth'
+          LINK_TO_SALARY_SERVICE: '/employees'
+          VITE_BASE_URL: ${{ secrets.BASE_URL }}
+          USER_LOGIN: ${{ secrets.DEV_USER_LOGIN }}
+          USER_PASSWORD: ${{ secrets.DEV_USER_PASSWORD }}
+
+      - name: Upload videos of tests failed 
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: |
+            cypress/videos/*.mp4
+            cypress/screenshots/**/*.png 
+            

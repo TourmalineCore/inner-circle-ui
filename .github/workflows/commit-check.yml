@@ -78,3 +78,67 @@ jobs:
           browser: electron
         env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  # this is needed to wait for the new docker image to be build and published to the registry
+  # so that we can use the image to run ui of the needed commit related version as part of local-env
+  # the idea is taken from here https://stackoverflow.com/a/71489231
+  push_to_registry:
+    uses: ./.github/workflows/docker-build-and-push.yml
+    # without this it cannot login to the registry
+    secrets: inherit
+
+  e2e-test:
+    runs-on: ubuntu-22.04
+    needs:
+      - install
+      - push_to_registry
+    steps:
+      - name: Checkout local-env
+        uses: actions/checkout@v4
+        with:
+          repository: TourmalineCore/inner-circle-local-env
+
+      - name: Deploy Local Env to Kind k8s
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            # we need to override "latest" image tag of ui inside local-env to run e2e against the current commit ui version and not against latest from master
+            # We tried to use yq to change the image tag, but in the values files for helmfile we have non-yaml code that yq can`t parse or ignore
+            # so for that reason we use Stream EDitor which can find needed string using regular expressions and change it to a new value
+            # The -i flag is needed to write new image tag directly to values file
+            sed -i "0,/tag:.*/s//tag: \"sha-${{ github.sha }}\"/" deploy/values-ui.yaml.gotmpl
+            
+            # we need to override "latest" ref of service chart inside local-env to run tests against the current commit service chart version and not against latest from master
+            sed -i "0,/git+https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git?ref=.*/s//git+https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git?ref=${{ github.sha }}/" deploy/helmfile.yaml
+            
+            sed -i "0,/git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values-local-env.yaml?ref=.*/s//git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values-local-env.yaml?ref=${{ github.sha }}/" deploy/helmfile.yaml
+
+            kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
+            # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
+            export KUBECONFIG=$(pwd)/.inner-circle-cluster-kubeconfig
+
+            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+          push: never
+
+      - name: Checkout ui
+        uses: actions/checkout@v4
+
+      - name: Cypress run e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: "http://localhost:30090"
+          browser: electron
+          config-file: cypress.config.local-env.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+
+      - name: Upload videos of tests failed
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: |
+            cypress/videos/*.mp4
+            cypress/screenshots/**/*.png

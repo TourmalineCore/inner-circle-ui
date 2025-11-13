@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom"
 import { EditedEmployee } from "../../types/employee"
 import { toast } from "react-toastify"
 
-export const EmployeesEditContainer = observer(() => {
+export const EmployeeEditContainer = observer(() => {
   const employeeEditState = useContext(EmployeeEditStateContext)
 
   const [
@@ -35,43 +35,40 @@ export const EmployeesEditContainer = observer(() => {
   }
 
   async function updateEmployeesAsync() {
+    employeeEditState.setIsTriedToSubmit()
+
+    if (!employeeEditState.isValid) {
+      employeeEditState.resetIsTriedToSubmit()
+      return
+    }
+        
     const {
       employee,
     } = employeeEditState
 
+    const [
+      day,
+      month,
+      year,
+    ] = employee.birthDate!.split(`/`)
+
+    const formattedBirthDate = `${year}-${month}-${day}`
+
     const updateEmployee = {
       ...employee,
-      employmentType: employee.employmentType === null
-        ? 1
-        : employee.employmentType,
-      phone: `+7${employee.phone}`,
-      ratePerHour: employee.ratePerHour || 0,
-      parking: employee.parking || 0,
-      personnelNumber: employee.isEmployedOfficially
-        ? `${employee.personnelNumber?.substring(0, 2)}/${employee.personnelNumber?.substring(2, 4)}`
-        : null,
+      birthDate: formattedBirthDate,
     }
 
-    delete updateEmployee.dismissalDate
-
-    employeeEditState.setIsTriedToSubmit()
-
-    const isValidPersonnelNumber = employee.isEmployedOfficially
-      ? employee.personnelNumber!.length >= 4
-      : true
-
-    if (updateEmployee.phone.length > 9 && isValidPersonnelNumber) {
-      try {
-        await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
+    try {
+      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
         
-        window.location.href =`/employees`
-      }
-      catch (e:any) {
-        toast.error(e.message)
-      }
-      finally {
-        employeeEditState.resetIsTriedToSubmit()
-      }
+      window.location.href =`/employees`
+    }
+    catch (e:any) {
+      toast.error(e.message)
+    }
+    finally {
+      employeeEditState.resetIsTriedToSubmit()
     }
   }
 })

@@ -8,7 +8,7 @@ import { useHorizontalDragScroll } from './hooks/useHorizontalDragScroll'
 import clsx from 'clsx'
 
 type Option = {
-  value: string,
+  value: string | number,
   label: string,
 }
 
@@ -17,18 +17,19 @@ export function MultipleSelect({
   placeholder = ``,
   label,
   id,
-  value,
+  value = [],
   options = [],
-  isError,
+  isInvalid,
   onChange,
+  ...props
 }: {
-  value: string[],
+  value: string[] | number[],
   options: Option[],
   placeholder?: string,
   label?: string,
   id?: string,
   className?: string,
-  isError?: boolean,
+  isInvalid?: boolean,
   onChange?: (
     selectedOptions: Option[]
   ) => unknown,
@@ -80,7 +81,7 @@ export function MultipleSelect({
 
       <div 
         className={clsx(`multiple-select__control`, {
-          'multiple-select__control--error': isError,
+          'multiple-select__control--error': isInvalid,
         })}
         tabIndex={0}
         onClick={handleOpenDropdown}
@@ -97,6 +98,7 @@ export function MultipleSelect({
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
+          {...props}
         >
           {getSelectedLabels()}
         </div>
@@ -119,7 +121,7 @@ export function MultipleSelect({
               onClick={() => handleOptionChange(optionValue)}
             >
               <span>{optionLabel}</span>
-              {value.includes(optionValue) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
+              {value.includes(optionValue as never) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
             </button>
           ))}
         </div>
@@ -129,7 +131,7 @@ export function MultipleSelect({
 
   function getSelectedLabels() {
     const selected = options
-      .filter((option) => value.includes(option.value))
+      .filter((option) => value.includes(option.value as never))
     
     return selected.length > 0
       ? selected.map(({
@@ -170,7 +172,7 @@ export function MultipleSelect({
   }
 
   function handleOptionChange(optionValue: Option['value']) {
-    const newValue = value.includes(optionValue)
+    const newValue = value.includes(optionValue as never)
       ? value.filter((value) => value !== optionValue)
       : [
         ...value,

@@ -1,3 +1,5 @@
+import { Specialization } from "../common/constants/specializations"
+
 type BaseEmployee = {
   fullName: string,
   corporateEmail: string,
@@ -7,16 +9,11 @@ type BaseEmployee = {
 }
 
 export type EditedEmployee = BaseEmployee & {
+  employeeId: number,
+  specializations: Specialization[],
+  birthDate: string | null,
+  workerTime: string | null,
   phone: string | null,
-  ratePerHour: number | null,
-  fullSalary: number | null,
-  employmentType: number | null,
-  parking: number | null,
-  hireDate: Date | null,
-  dismissalDate?: Date | null,
-  isEmployedOfficially: boolean,
-  isCurrentEmployee?: boolean,
-  personnelNumber: string | null,
 };
 
 export type Employee = BaseEmployee & {

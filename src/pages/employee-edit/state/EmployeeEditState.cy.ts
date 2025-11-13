@@ -1,3 +1,4 @@
+import { Specialization } from "../../../common/constants/specializations"
 import { EditedEmployee } from "../../../types/employee"
 import { EmployeeEditState, EMPTY_EMPLOYEE } from "./EmployeeEditState"
 
@@ -5,7 +6,22 @@ describe(`EmployeeEditState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Employee Edit Data`, employeeEditDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
+  describe(`Validation`, validationTests)
+  describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
 })
+
+const EMPLOYEE_FOR_INITIALIZATION: EditedEmployee = {
+  employeeId: 1,
+  fullName: `Ceo Ceo Ceo`,
+  corporateEmail: `ceo@tourmalinecore.com`,
+  personalEmail: `ceo@gmail.com`,
+  specializations: [],
+  birthDate: ``,
+  workerTime: ``,
+  phone: `+70066636367`,
+  gitHub: `ceo.github`,
+  gitLab: `ceo.gitlab`,
+}
 
 function initializationTests() {
   const employeeEditState = new EmployeeEditState()
@@ -25,29 +41,11 @@ function initializationTests() {
 function employeeEditDataTests() {
   let employeeEditState: EmployeeEditState
 
-  const employeeForInitialization: EditedEmployee = {
-    fullName: `Ceo Ceo Ceo`,
-    corporateEmail: `ceo@tourmalinecore.com`,
-    personalEmail: `ceo@gmail.com`,
-    phone: `70066636367`,
-    gitHub: `ceo.github`,
-    gitLab: `ceo.gitlab`,
-    fullSalary: 0,
-    isEmployedOfficially: false,
-    ratePerHour: 0,
-    employmentType: null,
-    parking: 0,
-    hireDate: null,
-    dismissalDate: new Date(),
-    isCurrentEmployee: true,
-    personnelNumber: ``,
-  }
-  
   beforeEach(() => {
     employeeEditState = new EmployeeEditState()
 
     employeeEditState.initialize({
-      loadedEmployee: employeeForInitialization,
+      loadedEmployee: EMPLOYEE_FOR_INITIALIZATION,
     })
   })
 
@@ -56,33 +54,10 @@ function employeeEditDataTests() {
   WHEN set employee data
   SHOULD display new values in the employee object
   `, () => {
-    expect(employeeEditState.employee.fullName)
+    expect(employeeEditState.employee)
       .to
-      .eq(employeeForInitialization.fullName)
-
-    expect(employeeEditState.employee.corporateEmail)
-      .to
-      .eq(employeeForInitialization.corporateEmail)
-
-    expect(employeeEditState.employee.personalEmail)
-      .to
-      .eq(employeeForInitialization.personalEmail)
-
-    expect(employeeEditState.employee.gitHub)
-      .to
-      .eq(employeeForInitialization.gitHub)
-
-    expect(employeeEditState.employee.gitLab)
-      .to
-      .eq(employeeForInitialization.gitLab)
-      
-    expect(employeeEditState.employee.fullSalary)
-      .to
-      .eq(employeeForInitialization.fullSalary)  
-      
-    expect(employeeEditState.employee.personnelNumber)
-      .to
-      .eq(employeeForInitialization.personnelNumber)
+      .deep
+      .eq(EMPLOYEE_FOR_INITIALIZATION)
   })
 
   it(`
@@ -92,14 +67,28 @@ function employeeEditDataTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        ...employeeForInitialization,
-        fullName: `Test Test Test`,
+        ...EMPLOYEE_FOR_INITIALIZATION,
+        workerTime: `Sometimes`,
       },
     })
 
-    expect(employeeEditState.employee.fullName)
+    expect(employeeEditState.employee.workerTime)
       .to
-      .eq(`Test Test Test`)
+      .eq(`Sometimes`)
+  })
+  
+  it(`
+  GIVEN the EmployeeEditState
+  WHEN setPhone
+  SHOULD set formatted phone number
+  `, () => {
+    employeeEditState.setPhone({
+      phone: `+7 (231) 231-23-12`,
+    })
+
+    expect(employeeEditState.employee.phone)
+      .to
+      .eq(`+72312312312`)
   })
 }
 
@@ -129,5 +118,281 @@ function isTriedToSubmitTest() {
       .to
       .be
       .false
+  })
+}
+
+function validationTests() {
+  let employeeEditState: EmployeeEditState
+
+  beforeEach(() => {
+    employeeEditState = new EmployeeEditState()
+  })
+  
+  it(`
+  GIVEN an empty birth date
+  WHEN isValid is accessed
+  SHOULD return false and set birth date error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        specializations: [
+          Specialization.FRONTEND,
+        ],
+      },
+    })
+
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isSpecializationsValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: true,
+        isPhoneError: false,
+        isSpecializationsError: false,
+      })
+  })
+
+  it(`
+  GIVEN an empty phone
+  WHEN isValid is accessed
+  SHOULD return false and set phone error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+        specializations: [
+          Specialization.FRONTEND,
+        ],
+      },
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .false
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.isSpecializationsValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: true,
+        isSpecializationsError: false,
+      })
+  })
+
+  it(`
+  GIVEN an empty specializations
+  WHEN isValid is accessed
+  SHOULD return false and set specializations error to true
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+      },
+    })
+    
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .false
+            
+    expect(employeeEditState.isSpecializationsValid)
+      .to
+      .be
+      .false
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: false,
+        isSpecializationsError: true,
+      })
+  })
+
+  it(`
+  GIVEN valid birth date, phone, and specializations
+  WHEN isValid is accessed
+  SHOULD return true and all errors should be false
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/2000`,
+        specializations: [
+          Specialization.FRONTEND,
+        ],
+      },
+    })
+    
+    employeeEditState.setPhone({
+      phone: `+79999999999`,
+    })
+
+    employeeEditState.setIsTriedToSubmit()
+
+    expect(employeeEditState.isValid)
+      .to
+      .be
+      .true
+            
+    expect(employeeEditState.isSpecializationsValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .true
+
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .true
+      
+    expect(employeeEditState.errors)
+      .to
+      .be
+      .deep
+      .eq({
+        isBirthDateError: false,
+        isPhoneError: false,
+        isSpecializationsError: false,
+      })
+  })
+
+  it(`
+  GIVEN an inValid birth date
+  WHEN get isBirthDateValid
+  SHOULD return false
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        birthDate: `26/09/200`,
+      },
+    })
+    
+    expect(employeeEditState.isBirthDateValid)
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN an inValid phone
+  WHEN get isPhoneValid
+  SHOULD return false
+  `, () => {
+    employeeEditState.setPhone({
+      phone: `+799999`,
+    })
+    
+    expect(employeeEditState.isPhoneValid)
+      .to
+      .be
+      .false
+  })
+}
+
+function somethingFilledWithinTheFormTests() {
+  let employeeEditState: EmployeeEditState
+
+  beforeEach(() => {
+    employeeEditState = new EmployeeEditState()
+
+    employeeEditState.initialize({
+      loadedEmployee: EMPLOYEE_FOR_INITIALIZATION,
+    })
+  })
+  
+  it(`
+  GIVEN a new instance
+  WHEN no fields are modified
+  SHOULD return false for isSomethingFilledWithinTheForm
+  `, () => {
+    expect(employeeEditState.isSomethingFilledWithinTheForm())
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN worked time was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    employeeEditState.setEmployee({
+      employee: {
+        workerTime: `Sometimes`,
+      },
+    })
+
+    expect(employeeEditState.isSomethingFilledWithinTheForm())
+      .to
+      .be
+      .true
   })
 }

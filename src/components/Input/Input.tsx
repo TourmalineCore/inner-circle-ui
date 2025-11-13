@@ -13,11 +13,7 @@ export function Input({
   name,
   placeholder,
   mask,
-  isValid,
-  isInvalid = false,
-  isError = false,
-  validationMessages = [],
-  isMessagesAbsolute = false,
+  isInvalid,
   onChange = () => { },
   ...props
 } : {
@@ -30,21 +26,13 @@ export function Input({
   name?: string,
   placeholder?: string,
   mask?: string,
-  isValid?: boolean,
   isInvalid?: boolean,
-  isError?: boolean,
-  validationMessages?: string[],
-  isMessagesAbsolute?: boolean,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 } & Omit<Props, 'mask'>) {
-  const validClassname = isValid ? `input--valid` : ``
-  const invalidClassname = isInvalid ? `input--invalid` : ``
-  const errorsAbsoluteClassname = isMessagesAbsolute ? `input__errors--absolute` : ``
-
   return (
     <div
       style={style}
-      className={`input ${className} ${invalidClassname} ${validClassname}`}
+      className={`input ${className}`}
     >
       {
         label && (
@@ -64,7 +52,7 @@ export function Input({
           id={id}
           placeholder={placeholder}
           className={clsx(`input__control`, {
-            'input__control--error': isError,
+            'input__control--error': isInvalid,
           })}
           type="text"
           value={value}
@@ -73,21 +61,6 @@ export function Input({
           {...props}
         />
       </div>
-
-      {
-        isInvalid 
-        && validationMessages.length > 0 
-        && (
-          <ul className={`input__errors ${errorsAbsoluteClassname}`}>
-            {
-              validationMessages.map((validationMessage: any) => (
-                <li key={validationMessage}>
-                  {validationMessage}
-                </li>
-              ))
-            }
-          </ul>
-        )}
     </div>
   )
 }

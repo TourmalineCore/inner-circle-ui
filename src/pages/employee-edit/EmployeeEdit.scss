@@ -1,78 +1,109 @@
+@use "../../styles/fonts-mixin" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/media" as *;
+
 .employee-edit {
   margin: 0 auto;
-  max-width: 600px;
+  padding: 24px 16px;
 
   &__title {
-    text-align: center;
+    @include h4;
+
+    margin-bottom: 32px;
   }
 
-  &__info {
+  &__profile-header {
     display: flex;
     align-items: center;
-    font-weight: 500;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  &__avatar-container {
+    border-radius: 100px;
+    width: 84px;
+    height: 84px;
+  }
+
+  &__default-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background-color: #d4fffe;
+
+    img {
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  &__fullname {
+    @include h5;
+
+    color: $color-text-primary;
+  }
+
+  &__corporate-email {
+    @include text;
+
+    background: $color-text-gradient;
+    background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
     & + & {
       margin-top: 24px;
     }
-  }
 
-  &__icon {
-    display: inline-block;
-    margin-right: 20px;
-    width: 40px;
-    height: 40px;
-  }
-
-  &__item {
-    display: flex;
-    align-items: center;
-
-    &--radio-list {
-      align-items: start;
-    }
-
-    & + & {
-      margin-top: 44px;
+    @include tablet {
+      flex-direction: row;
     }
   }
 
-  &__label {
-    display: block;
-    width: 40%;
+  &__field {
+    width: 100%;
+    min-width: 0;
+
+    &--birth-date {
+      @include tablet {
+        min-width: 130px;
+        max-width: 130px;
+      }
+    }
   }
 
-  &__control {
-    width: auto;
-  }
-
-  &__git {
-    display: flex;
-    align-items: center;
-  }
-
-  &__symbol {
-    margin-right: 4px;
-  }
-
-  &__box-buttons {
-    margin-top: 40px;
+  &__info {
     margin-bottom: 32px;
-    text-align: center;
+  }
 
-    button + button {
-      margin-left: 24px;
+  &__personal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__action-buttons {
+    display: flex;
+    margin: 0 auto;
+    gap: 8px;
+
+    @include tablet {
+      max-width: 328px;
     }
   }
 
-  &__button {
-    border: 1px solid var(--filter-color-gray);
-    border-radius: 12px;
-    padding: 8px 32px;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.15;
-    background-color: var(--color-white);
-    cursor: pointer;
+  @include tablet {
+    padding: 0;
+    padding-top: 24px;
+    max-width: 578px;
   }
 }
