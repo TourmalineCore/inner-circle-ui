@@ -66,6 +66,7 @@ function mountComponent() {
   const employeeEditState = new EmployeeEditState()
   employeeEditState.initialize({
     loadedEmployee: {
+      employeeId: 1,
       fullName: `Test Test Test`,
       corporateEmail: `test@tourmalinecore.com`,
       specializations: [],

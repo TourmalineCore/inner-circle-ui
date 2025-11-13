@@ -6,6 +6,7 @@ import { EmployeeEditStateContext } from "./state/EmployeeEditStateContext"
 import { SPECIALIZATION_LABELS } from "../../common/constants/specializations"
 
 export const EMPLOYEE: EditedEmployee = {
+  employeeId: 1,
   fullName: `Test test test`,
   corporateEmail: `test@tourmalinecore.com`,
   specializations: [

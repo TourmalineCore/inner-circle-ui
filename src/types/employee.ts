@@ -9,6 +9,7 @@ type BaseEmployee = {
 }
 
 export type EditedEmployee = BaseEmployee & {
+  employeeId: number,
   specializations: Specialization[],
   birthDate: string | null,
   workerTime: string | null,

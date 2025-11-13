@@ -10,6 +10,7 @@ describe(`EmployeeEditState`, () => {
 })
 
 const EMPLOYEE_FOR_INITIALIZATION: EditedEmployee = {
+  employeeId: 1,
   fullName: `Ceo Ceo Ceo`,
   corporateEmail: `ceo@tourmalinecore.com`,
   personalEmail: `ceo@gmail.com`,

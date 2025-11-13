@@ -4,6 +4,7 @@ import isEqual from "lodash.isequal"
 import moment from "moment"
 
 export const EMPTY_EMPLOYEE: EditedEmployee = {
+  employeeId: 0,
   fullName: ``,
   corporateEmail: ``,
   specializations: [],
