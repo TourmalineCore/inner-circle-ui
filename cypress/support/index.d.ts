@@ -5,5 +5,6 @@ declare namespace Cypress {
     getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>,
     authByApi(): Chainable<any>,
     setDefaultEmployeeData(): Chainable<any>,
+    setDefaultEmployeeProfile(): Chainable<any>,
   }
 }
