@@ -3,5 +3,4 @@ export const {
   API_ROOT_AUTH,
   LINK_TO_SALARY_SERVICE,
   LINK_TO_ACCOUNT_SERVICE,
-  VITE_BASE_URL,
 } = window.__ENV__

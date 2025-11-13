@@ -41,7 +41,6 @@ jobs:
             --state-values-set extraConfigMapEnvVars.LINK_TO_ACCOUNT_SERVICE=${{ secrets.DEV_LINK_TO_ACCOUNT_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
-            --state-values-set extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}
           helmfile-auto-init: "false"    
 
   e2e-test-prod:
@@ -67,7 +66,6 @@ jobs:
           API_ROOT: '/api'
           API_ROOT_AUTH: '/api/auth'
           LINK_TO_SALARY_SERVICE: '/employees'
-          VITE_BASE_URL: ${{ secrets.BASE_URL }}
           USER_LOGIN: ${{ secrets.DEV_USER_LOGIN }}
           USER_PASSWORD: ${{ secrets.DEV_USER_PASSWORD }}
 

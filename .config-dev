@@ -2,4 +2,3 @@ API_ROOT:https://innercircle.tourmalinecore.com/api
 API_ROOT_AUTH:https://innercircle.tourmalinecore.com/api/auth
 LINK_TO_SALARY_SERVICE:/salary/
 LINK_TO_ACCOUNT_SERVICE:/account-management/
-VITE_BASE_URL:https://innercircle.tourmalinecore.com
