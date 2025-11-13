@@ -1,3 +1,4 @@
+import { Specialization } from "../../../common/constants/specializations"
 import { EditedEmployee } from "../../../types/employee"
 import { EmployeeEditState, EMPTY_EMPLOYEE } from "./EmployeeEditState"
 
@@ -135,7 +136,7 @@ function validationTests() {
     employeeEditState.setEmployee({
       employee: {
         specializations: [
-          1,
+          Specialization.FRONTEND,
         ],
       },
     })
@@ -186,7 +187,7 @@ function validationTests() {
       employee: {
         birthDate: `26/09/2000`,
         specializations: [
-          1,
+          Specialization.FRONTEND,
         ],
       },
     })
@@ -281,7 +282,7 @@ function validationTests() {
       employee: {
         birthDate: `26/09/2000`,
         specializations: [
-          1,
+          Specialization.FRONTEND,
         ],
       },
     })
