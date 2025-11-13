@@ -27,7 +27,7 @@ export const EmployeeEditContent = observer(({
   const {
     employee,
     errors,
-    isTriedToSubmit,
+    isSaving,
   } = employeeEditState
 
   const handleFormChange = ({
@@ -232,11 +232,11 @@ export const EmployeeEditContent = observer(({
               isAccent
               onClick={updateEmployeesAsync}
               className="employee-edit__button"
-              label={isTriedToSubmit 
+              label={isSaving 
                 ? `Saving` 
                 : `Save Changes`}
-              isDisable={isTriedToSubmit}
-              isLoader={isTriedToSubmit}
+              isDisable={isSaving}
+              isLoader={isSaving}
               data-cy='save-button'
             />
           </div>
