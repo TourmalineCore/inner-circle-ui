@@ -3,13 +3,14 @@ import { EditedEmployee } from "../../types/employee"
 import { EmployeeEditContainer } from "./EmployeeEditContainer"
 import { EmployeeEditState } from "./state/EmployeeEditState"
 import { EmployeeEditStateContext } from "./state/EmployeeEditStateContext"
-import { SPECIALIZATION_LABELS } from "../../common/constants/specializations"
+import { Specialization, SPECIALIZATION_LABELS } from "../../common/constants/specializations"
 
 export const EMPLOYEE: EditedEmployee = {
+  employeeId: 1,
   fullName: `Test test test`,
   corporateEmail: `test@tourmalinecore.com`,
   specializations: [
-    1,
+    Specialization.FRONTEND,
   ],
   birthDate: `20/09/2005`,
   workerTime: `Sometimes`,
@@ -29,6 +30,7 @@ describe(`EmployeeEditContainer`, () => {
         req.reply({
           statusCode: 200,
           body: {
+            employeeId: 1,
             fullName: `Test test test`,
             corporateEmail: `test@tourmalinecore.com`,
             specializations: [],

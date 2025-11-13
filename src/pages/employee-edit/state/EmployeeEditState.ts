@@ -4,6 +4,7 @@ import isEqual from "lodash.isequal"
 import moment from "moment"
 
 export const EMPTY_EMPLOYEE: EditedEmployee = {
+  employeeId: 0,
   fullName: ``,
   corporateEmail: ``,
   specializations: [],
@@ -25,6 +26,7 @@ export class EmployeeEditState {
   }
 
   private _isTriedToSubmit = false
+  private _isSaving = false 
 
   private _initEmployee: EditedEmployee | null = null
 
@@ -34,6 +36,10 @@ export class EmployeeEditState {
 
   get isTriedToSubmit() {
     return this._isTriedToSubmit
+  }
+
+  get isSaving() {
+    return this._isSaving
   }
 
   get isBirthDateValid() {
@@ -112,6 +118,14 @@ export class EmployeeEditState {
 
   isSomethingFilledWithinTheForm() { 
     return !isEqual(this._employee, this._initEmployee)
+  }
+
+  setIsSaving() {
+    this._isSaving = true
+  }
+
+  resetIsSaving() {
+    this._isSaving = false
   }
 
   setIsTriedToSubmit() {
