@@ -26,7 +26,7 @@ const EMPLOYEE_PROFILE_FOR_INITIALIZATION: EmployeeProfile = {
 function initializationTests() {
   const employeeProfileState = new EmployeeProfileState()
   
-  it(`  
+  it(`
   GIVEN a EmployeeProfileState
   WHEN initialize
   SHOULD have default values
@@ -285,7 +285,7 @@ function isSavingTest() {
     expect(employeeProfileState.isSaving)
       .to
       .be
-      .true 
+      .true
     
     employeeProfileState.resetIsSaving()
     expect(employeeProfileState.isSaving)

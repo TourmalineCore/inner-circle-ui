@@ -25,6 +25,23 @@ export const EmployeeProfileContent= observer(({
     isSaving,
   } = employeeProfileState
 
+  const {
+    fullName,
+    corporateEmail,
+    birthDate,
+    specializations,
+    workerTime,
+    phone,
+    personalEmail,
+    gitHub,
+    gitLab,
+  } = employeeProfile
+
+  const {
+    isPhoneError,
+    isSpecializationsError,
+  } = errors
+
   const handleFormChange = ({
     field,
     value,
@@ -57,11 +74,11 @@ export const EmployeeProfileContent= observer(({
         <div className='employee-profile__info-container'>
           <div className='employee-profile__info'>
             <div className='employee-profile__personal-info'>
-              <h2 className='employee-profile__fullname'>{employeeProfile.fullName}</h2>
-              <p className='employee-profile__corporate-email'>{employeeProfile.corporateEmail}</p>
+              <h2 className='employee-profile__fullname'>{fullName}</h2>
+              <p className='employee-profile__corporate-email'>{corporateEmail}</p>
               <p className='employee-profile__birth-date'>
                 <IconBirthday />
-                {employeeProfile.birthDate || `-`}
+                {birthDate || `-`}
               </p>
             </div>
 
@@ -71,9 +88,9 @@ export const EmployeeProfileContent= observer(({
                   <MultipleSelect
                     label='Specialization*'
                     placeholder="Choose the specialization"
-                    value={employeeProfile.specializations}
+                    value={specializations}
                     options={SPECIALIZATIONS}
-                    isInvalid={errors.isSpecializationsError}
+                    isInvalid={isSpecializationsError}
                     onChange={(selectedOptions) => 
                       handleFormChange({
                         field: `specializations`,
@@ -95,7 +112,7 @@ export const EmployeeProfileContent= observer(({
                     className='employee-profile__text'
                     placeholder="Enter the worker time"
                     label='Worker Time'
-                    value={employeeProfile.workerTime || ``}
+                    value={workerTime || ``}
                     onChange={(e) => handleFormChange({
                       field: `workerTime`,
                       value: e.target.value,
@@ -111,8 +128,8 @@ export const EmployeeProfileContent= observer(({
                     label='Phone Number*'
                     mask="+7 (999) 999-99-99"
                     placeholder="+7 (___) ___-__-__"
-                    value={employeeProfile.phone || ``}
-                    isInvalid={errors.isPhoneError}
+                    value={phone || ``}
+                    isInvalid={isPhoneError}
                     onChange={(e) => employeeProfileState.setPhone({
                       phone: e.target.value,
                     })}
@@ -125,7 +142,7 @@ export const EmployeeProfileContent= observer(({
                     type='email'
                     label='Personal Email*'
                     placeholder='Enter the personal email'
-                    value={employeeProfile.personalEmail || ``}
+                    value={personalEmail || ``}
                     onChange={(e) => handleFormChange({
                       field: `personalEmail`,
                       value: e.target.value,
@@ -140,7 +157,7 @@ export const EmployeeProfileContent= observer(({
                   <Input
                     label='Personal GitHub'
                     placeholder='Enter the username'
-                    value={employeeProfile.gitHub || ``}
+                    value={gitHub || ``}
                     onChange={(e) => handleFormChange({
                       field: `gitHub`,
                       value: e.target.value,
@@ -153,7 +170,7 @@ export const EmployeeProfileContent= observer(({
                   <Input
                     label='Personal GitLab'
                     placeholder='Enter the username'
-                    value={employeeProfile.gitLab || ``}
+                    value={gitLab || ``}
                     onChange={(e) => handleFormChange({
                       field: `gitLab`,
                       value: e.target.value,

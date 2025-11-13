@@ -42,13 +42,22 @@ export const EmployeeProfileContainer = observer(() => {
       employeeProfile,
     } = employeeProfileState
 
+    const {
+      phone,
+      specializations,
+      personalEmail,
+      gitHub,
+      gitLab,
+      workerTime,
+    } = employeeProfile
+
     const updateEmployee = {
-      phone: employeeProfile.phone,
-      specializations: employeeProfile.specializations,
-      personalEmail: employeeProfile.personalEmail,
-      gitHub: employeeProfile.gitHub,
-      gitLab: employeeProfile.gitLab,
-      workerTime: employeeProfile.workerTime,
+      phone: phone,
+      specializations: specializations,
+      personalEmail: personalEmail,
+      gitHub: gitHub,
+      gitLab: gitLab,
+      workerTime: workerTime,
     }
 
     try {
