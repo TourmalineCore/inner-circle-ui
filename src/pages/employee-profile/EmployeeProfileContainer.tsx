@@ -19,53 +19,46 @@ export const EmployeeProfileContainer = observer(() => {
   />
 
   async function loadEmployeeProfileAsync() {
-    employeeProfileState.setIsLoading()
-
-    try {
-      const {
-        data, 
-      } = await api.get<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`)
-
-      const initialData = {
-        ...data,
-        phone: typeof data.phone === `string`
-          ? data.phone
-            .split(``)
-            .slice(2)
-            .join(``)
-          : data.phone,
-      }
+    const {
+      data, 
+    } = await api.get<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`)
       
-      employeeProfileState.initialize({
-        loadedEmployeeProfile: initialData,
-      })
-    }
-    finally {
-      employeeProfileState.resetIsLoading()
-    }
+    employeeProfileState.initialize({
+      loadedEmployeeProfile: data,
+    })
+
   }
 
   async function editEmployeeAsync() {
+    employeeProfileState.setIsSaving()
     employeeProfileState.setIsTriedToSubmit()
 
-    const updateEmployee = {
-      personalEmail: employeeProfileState.employeeProfile.personalEmail,
-      gitHub: employeeProfileState.employeeProfile.gitHub,
-      gitLab: employeeProfileState.employeeProfile.gitLab,
-      phone: `+7${employeeProfileState.employeeProfile.phone}`,
+    if (!employeeProfileState.isValid) {
+      employeeProfileState.resetIsSaving()
+      return
     }
 
-    if (employeeProfileState.employeeProfile.phone.length > 9) {
-      try {
-        await api.put<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
+    const {
+      employeeProfile,
+    } = employeeProfileState
 
-        loadEmployeeProfileAsync()
+    const updateEmployee = {
+      phone: employeeProfile.phone,
+      specializations: employeeProfile.specializations,
+      personalEmail: employeeProfile.personalEmail,
+      gitHub: employeeProfile.gitHub,
+      gitLab: employeeProfile.gitLab,
+      workerTime: employeeProfile.workerTime,
+    }
 
-        employeeProfileState.resetIsEdit()
-      }
-      finally {
-        employeeProfileState.resetIsTriedToSubmit()
-      }
+    try {
+      await api.put<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
+      
+      loadEmployeeProfileAsync()
+    }
+    finally {
+      employeeProfileState.resetIsTriedToSubmit()
+      employeeProfileState.resetIsSaving()
     }
   }
 })

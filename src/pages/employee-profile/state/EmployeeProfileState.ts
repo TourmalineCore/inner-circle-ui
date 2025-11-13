@@ -25,6 +25,7 @@ export class EmployeeProfileState {
   }
 
   private _isTriedToSubmit = false
+  private _isSaving = false    
 
   get employeeProfile() {
     return this._employeeProfile
@@ -32,6 +33,10 @@ export class EmployeeProfileState {
 
   get isTriedToSubmit() {
     return this._isTriedToSubmit
+  }
+
+  get isSaving() {
+    return this._isSaving
   }
 
   get isPhoneValid() {
@@ -72,13 +77,13 @@ export class EmployeeProfileState {
   }
 
   setEmployeeProfile({
-    employee,
+    employeeProfile,
   }: {
-    employee: Partial<Omit<EmployeeProfile, 'fullName' | 'phone' | 'corporateEmail' | 'birthDate'>>,
+    employeeProfile: Partial<Omit<EmployeeProfile, 'fullName' | 'phone' | 'corporateEmail' | 'birthDate'>>,
   }) {
     this._employeeProfile = {
       ...this._employeeProfile,
-      ...employee, 
+      ...employeeProfile, 
     }
   }
 
@@ -88,6 +93,14 @@ export class EmployeeProfileState {
     phone: string,
   }) {
     this._employeeProfile.phone = phone.replace(/[^\d+]/g, ``)
+  }
+
+    setIsSaving() {
+    this._isSaving = true
+  }
+
+  resetIsSaving() {
+    this._isSaving = false
   }
 
   setIsTriedToSubmit() {

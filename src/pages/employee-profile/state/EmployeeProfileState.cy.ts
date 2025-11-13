@@ -7,6 +7,7 @@ describe(`EmployeeProfileState`, () => {
   describe(`Employee Profile Data`, employeeProfileDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
   describe(`Validation`, validationTests)
+  describe(`Is Saving`, isSavingTest)
 })
 
 const EMPLOYEE_PROFILE_FOR_INITIALIZATION: EmployeeProfile = {
@@ -65,7 +66,7 @@ function employeeProfileDataTests() {
   SHOULD set employee profile
   `, () => {
     employeeProfileState.setEmployeeProfile({
-      employee: {
+      employeeProfile: {
         ...EMPLOYEE_PROFILE_FOR_INITIALIZATION,
         workerTime: `Sometimes`,
       },
@@ -133,7 +134,7 @@ function validationTests() {
   SHOULD return false and set phone error to true
   `, () => {
     employeeProfileState.setEmployeeProfile({
-      employee: {
+      employeeProfile: {
         specializations: [
           Specialization.FRONTEND,
         ],
@@ -209,7 +210,7 @@ function validationTests() {
   SHOULD return true and all errors should be false
   `, () => {
     employeeProfileState.setEmployeeProfile({
-      employee: {
+      employeeProfile: {
         specializations: [
           Specialization.FRONTEND,
         ],
@@ -257,6 +258,62 @@ function validationTests() {
     })
     
     expect(employeeProfileState.isPhoneValid)
+      .to
+      .be
+      .false
+  })
+}
+
+function isSavingTest() {
+  let employeeProfileState: EmployeeProfileState
+
+  beforeEach(() => {
+    employeeProfileState = new EmployeeProfileState()
+  })
+  
+  it(`
+  GIVEN initial isSaving = false
+  WHEN setIsSaving and resetIsSaving are triggered
+  SHOULD toggle isSaving to true and then back to false
+  `, () => {
+    expect(employeeProfileState.isSaving)
+      .to
+      .be
+      .false
+
+    employeeProfileState.setIsSaving()
+    expect(employeeProfileState.isSaving)
+      .to
+      .be
+      .true 
+    
+    employeeProfileState.resetIsSaving()
+    expect(employeeProfileState.isSaving)
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN setIsTriedToSubmit()
+  SHOULD change value to true
+  WHEN resetIsTriedToSubmit()
+  SHOULD change value to false
+  `, () => {
+    expect(employeeProfileState.isTriedToSubmit)
+      .to
+      .be
+      .false
+
+    employeeProfileState.setIsTriedToSubmit()
+    expect(employeeProfileState.isTriedToSubmit)
+      .to
+      .be
+      .true
+
+    employeeProfileState.resetIsTriedToSubmit()
+    expect(employeeProfileState.isTriedToSubmit)
       .to
       .be
       .false
