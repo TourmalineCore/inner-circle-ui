@@ -20,7 +20,7 @@ describe(`EmployeeProfileContainer`, () => {
   beforeEach(() => {
     cy.intercept(
       `GET`,
-      `**/employees/employees/get-profile`,
+      `**/get-profile`,
       (req) => {
         req.alias = `getEmployeeProfile`
         req.reply({
@@ -43,7 +43,7 @@ describe(`EmployeeProfileContainer`, () => {
 
     cy.intercept(
       `PUT`,
-      `**/employees/employees/update-profile`,
+      `**/update-profile`,
       (req) => {
         req.alias = `updateEmployeeProfile`,
         req.reply({
