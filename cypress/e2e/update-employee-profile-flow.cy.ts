@@ -12,10 +12,10 @@ describe(`Update Employee Profile Flow `, () => {
   })
 
   it(`
-    GIVEN employee
-    WHEN update the employee's profile
-    AND save the changes
-    THEN the employee's profile should be updated
+  GIVEN employee
+  WHEN update the employee's profile
+  AND save the changes
+  THEN the employee's profile should be updated
   `, () => {    
     EmployeeProfilePage.visit()
 
