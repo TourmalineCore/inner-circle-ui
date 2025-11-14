@@ -12,15 +12,6 @@ const LOCAL_ENV_PORT = 30090
 // Set the port for the layout based on the environment
 const EMPLOYEES_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4001
 
-// if (VITE_BASE_URL === undefined) set default local docker url
-// const LAYOUT_URL = process.env.VITE_BASE_URL ?? `http://localhost:4455`
-
-// for run in local docker use `/`, and for others use `/books` path
-// const BOOKS_PATH = LAYOUT_URL === `http://localhost:4455` ? `/` : `/books`
-
-// for run in local docker use `http://localhost:4455/assets..`, and for others use `../layout/assets..` path
-// const LAYOUT_PATH = LAYOUT_URL === `http://localhost:4455` ? `` : `/layout`
-
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   // Set the port on which the development server runs
@@ -47,7 +38,7 @@ export default defineConfig({
       remotes: {
         // `http://localhost:4455/assets/inner_circle_layout_ui.js` for local docker
         // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
-        inner_circle_layout_ui: `${process.env.VITE_BASE_URL}/layout/assets/inner_circle_layout_ui.js`,
+        inner_circle_layout_ui: `/layout/assets/inner_circle_layout_ui.js`,
       },
       // Shared dependencies to avoid duplication
       shared: [
