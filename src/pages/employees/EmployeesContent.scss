@@ -1,22 +1,72 @@
+@use "../../styles/media" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/fonts-mixin" as *;
+
 .employees {
-  &__box {
+  &__actions {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--filter-color-gray);
-    padding-bottom: 16px;
+    flex-direction: column;
+    padding-bottom: 20px;
+    gap: 20px;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   &__notification {
-    margin: 0 auto;
-    margin-bottom: 8px;
-    border: 1px solid var(--filter-color-gray);
-    border-radius: 12px;
-    padding: 8px 40px;
-    max-width: fit-content;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 1.4;
-    background: var(--color-white);
+    @include text;
+
+    position: absolute;
+    right: 32px;
+    top: 64px;
+    z-index: 1;
+    border-radius: 8px;
+    padding: 16px 12px 16px 16px;
+    max-width: 318px;
+    max-height: 72px;
+    box-shadow: 0 0 32px $color-shadow-modal;
+    color: $color-text-primary;
+    background: $color-background-modal;
+  }
+
+  &__empty {
+    @include h5;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 56px;
+    text-align: center;
+    color: $color-text-primary;
+    gap: 24px;
+
+    img {
+      width: 120px;
+      height: 120px;
+    }
+
+    @include tablet {
+      @include h4;
+
+      padding-top: 110px;
+
+      img {
+        width: 180px;
+        height: 180px;
+      }
+    }
+
+    @include desktop-xl {
+      @include h3;
+
+      padding-top: 164px;
+
+      img {
+        width: 240px;
+        height: 240px;
+      }
+    }
   }
 }

@@ -1,0 +1,39 @@
+@use "../../styles/media" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/fonts-mixin" as *;
+
+.filter-menu {
+  margin-bottom: 20px;
+  border-bottom: 1.5px solid $color-component-border;
+  white-space: nowrap;
+  background-color: $color-background-primary;
+
+  &__button {
+    @include text;
+
+    position: relative;
+    border: none;
+    padding: 8px 16px;
+    width: 86px;
+    height: 40px;
+    color: $color-text-primary;
+    background-color: $color-background-primary;
+    cursor: pointer;
+
+    &--active {
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1.5px;
+        height: 1.5px;
+        background: $color-component-border-active;
+      }
+    }
+  }
+
+  @include tablet {
+    margin-bottom: 24px;
+  }
+}

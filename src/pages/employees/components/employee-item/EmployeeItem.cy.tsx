@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom'
 import { EmployeeItem } from './EmployeeItem'
-import { authService } from '../../../../../common/authService'
-import { Employee } from '../../../../../types/employee'
+import { Employee } from '../../../../types/employee'
+import { authService } from '../../../../common/authService'
 
 const initialData = {
   employees: [
@@ -10,19 +10,14 @@ const initialData = {
       fullName: `Ceo Ceo Ceo`,
       corporateEmail: `ceo@tourmalinecore.com`,
       personalEmail: `ceo@gmail.com`,
-      phone: `89999999999`,
+      phone: `+79999999999`,
       gitHub: `@ceo.github`,
       gitLab: `@ceo.gitlab`,
       isBlankEmployee: true,
       isCurrentEmployee: true,
-      isEmployedOfficially: true,
-      netSalary: null,
-      ratePerHour: null,
-      fullSalary: null,
-      employmentType: null,
-      parking: null,
-      personnelNumber: null,
-      hireDate: `2020-01-01T00:00:00Z`,
+      birthDate: null,
+      specializations: [],
+      workerTime: null,
     },
   ],
 }
@@ -81,12 +76,12 @@ function mountComponent({
     `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lSWRlbnRpZmllciI6Im1haWxAbWFpbC5ydSIsImNvcnBvcmF0ZUVtYWlsIjoibWFpbEBtYWlsLnJ1IiwidGVuYW50SWQiOiIxIiwiYWNjb3VudElkIjoiMyIsImVtcGxveWVlSWQiOiIyIiwicGVybWlzc2lvbnMiOlsiVmlld0NvbnRhY3RzIiwiVmlld1NhbGFyeUFuZERvY3VtZW50c0RhdGEiXX0.1e0lCH5Omfo2W23gUtkuw3PZeXptn55bFC886Q0rwJk`,
   ]
 
-  cy.mount(
-    <MemoryRouter>
-      <authService.AuthContext.Provider value={mockAuthContext}>
-        <EmployeeItem employee={employee[0]} />
-      </authService.AuthContext.Provider>,
-    </MemoryRouter>,
-
-  )
+  cy
+    .mount(
+      <MemoryRouter>
+        <authService.AuthContext.Provider value={mockAuthContext}>
+          <EmployeeItem employee={employee[0]} />
+        </authService.AuthContext.Provider>,
+      </MemoryRouter>,
+    )
 }

@@ -1,8 +1,8 @@
-import { CopyToClipboardButton } from './CopyToClipboardButton'
-import { EmployeesState } from '../../../../state/EmployeesState'
-import { EmployeesStateContext } from '../../../../state/EmployeesStateContext'
+import { EmployeesState } from '../../pages/employees/state/EmployeesState'
+import { EmployeesStateContext } from '../../pages/employees/state/EmployeesStateContext'
+import { CopyToClipboard } from './CopyToClipboard'
 
-describe(`CopyToClipboardButton`, () => {
+describe(`CopyToClipboard`, () => {
   it(`
   GIVEN any page 
   WHEN must be text to be copied
@@ -21,10 +21,7 @@ function mountComponent() {
   cy
     .mount(
       <EmployeesStateContext.Provider value={employeesState}>
-        <CopyToClipboardButton
-          text="test"
-          notificationPosition="right"
-        />
+        <CopyToClipboard text="test" />
       </EmployeesStateContext.Provider>,
     )
 }

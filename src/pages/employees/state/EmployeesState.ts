@@ -9,12 +9,20 @@ export class EmployeesState {
 
   private _filterTerm = `current`
 
-  private _sortTerm = `default`
+  private _sortTerm = `asc`
 
   private _isLoading = false
 
   constructor() {
     makeAutoObservable(this)
+  }
+
+  initialize({
+    employees,
+  }: {
+    employees: Employee[],
+  }) {
+    this._allEmployees = employees
   }
 
   get allEmployees() {
@@ -41,24 +49,28 @@ export class EmployeesState {
     return this._isLoading
   }
 
-  updateSearchTerm(newSearchTerm: string) {
+  updateSearchTerm({
+    newSearchTerm,
+  }: {
+    newSearchTerm: string,
+  }) {
     this._searchTerm = newSearchTerm
   }
 
-  updateFilterTerm(newFilterTerm: string) {
+  updateFilterTerm({
+    newFilterTerm,
+  }: {
+    newFilterTerm: string,
+  }) {
     this._filterTerm = newFilterTerm
   }
 
-  updateSortTerm(newSortTerm: string) {
-    this._sortTerm = newSortTerm
-  }
-
-  initialize({
-    employees,
+  updateSortTerm({
+    newSortTerm,
   }: {
-    employees: Employee[],
+    newSortTerm: string,
   }) {
-    this._allEmployees = employees
+    this._sortTerm = newSortTerm
   }
 
   setIsLoading() {
