@@ -1,0 +1,13 @@
+@use "../../../../styles/media" as *;
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/fonts-mixin" as *;
+
+.employee-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+
+  @include tablet-xl {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,176 @@
+@use "../../../../styles/media" as *;
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/fonts-mixin" as *;
+
+.employee-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $color-component-border;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  background: $color-background-primary;
+
+  &__button {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    padding: 0;
+    width: 94px !important;
+  }
+
+  &__header {
+    padding-bottom: 24px;
+
+    @include tablet {
+      display: flex;
+      gap: 24px;
+    }
+
+    @include tablet-xl {
+      display: block;
+    }
+
+    @include desktop {
+      display: flex;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  &__avatar-container {
+    padding-bottom: 24px;
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &__fullname {
+    @include h5;
+
+    padding-bottom: 4px;
+    color: $color-text-primary;
+  }
+
+  &__specializations {
+    @include text;
+
+    padding-bottom: 16px;
+    color: $color-text-secondary;
+  }
+
+  &__corporate-email {
+    @include text;
+
+    display: inline;
+    width: max-content;
+    color: transparent;
+    background: $color-text-gradient;
+    background-clip: text;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    gap: 12px;
+  }
+
+  &__detail-item {
+    @include text;
+
+    display: flex;
+    max-width: 244px;
+    color: $color-text-primary;
+    gap: 8px;
+
+    svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    @include tablet {
+      max-width: 430px;
+    }
+
+    @include tablet-xl {
+      max-width: 312px;
+    }
+
+    @include desktop {
+      max-width: 321px;
+    }
+
+    @include desktop-xl {
+      max-width: 590px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    gap: 16px;
+
+    @include tablet {
+      flex-flow: row wrap;
+      width: 100%;
+    }
+  }
+
+  &__footer-item {
+    &:nth-child(1) {
+      @include tablet {
+        flex: 1.25;
+        min-width: 264px;
+      }
+
+      @include tablet-xl {
+        min-width: 300px;
+      }
+    }
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      @include tablet {
+        flex: 1;
+        min-width: 188px;
+      }
+
+      @include tablet-xl {
+        min-width: 208px;
+      }
+    }
+  }
+
+  &__link {
+    text-decoration: underline;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $color-text-link-hover;
+    }
+  }
+
+  &__footer-label {
+    @include text;
+
+    padding-bottom: 4px;
+    white-space: nowrap;
+    color: $color-text-secondary;
+  }
+
+  &__footer-value {
+    @include text;
+
+    color: $color-text-primary;
+  }
+}

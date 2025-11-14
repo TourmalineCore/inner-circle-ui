@@ -16,16 +16,7 @@ export type EditedEmployee = BaseEmployee & {
   phone: string | null,
 };
 
-export type Employee = BaseEmployee & {
-  employeeId: number,
-  phone: string | null,
-  netSalary: number | null,
-  ratePerHour: number | null,
-  fullSalary: number | null,
-  employmentType: number | null,
-  parking: number | null,
-  personnelNumber: string | null,
-  hireDate: string | null,
+export type Employee = EditedEmployee & {
   isCurrentEmployee: boolean,
   isBlankEmployee: boolean,
 };

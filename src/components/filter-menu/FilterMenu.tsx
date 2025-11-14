@@ -1,27 +1,27 @@
 import './FilterMenu.scss'
 
-import {MouseEvent, useContext, useEffect} from 'react'
+import { MouseEvent, useContext, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'
 import { observer } from 'mobx-react-lite'
-import { EmployeesStateContext } from '../../state/EmployeesStateContext'
+import { EmployeesStateContext } from '../../pages/employees/state/EmployeesStateContext'
 
 const filterElements = [
   {
-    id: `all`,
-    name: `View All`,
-  },
-  {
     id: `current`,
-    name: `Current Employees`,
+    name: `Current`,
   },
   {
     id: `fired`,
-    name: `Fired Employees`,
+    name: `Fired`,
+  },
+  {
+    id: `all`,
+    name: `All`,
   },
   {
     id: `blank`,
-    name: `Blank Employees`,
+    name: `Blank`,
   },
 ]
 
@@ -34,19 +34,9 @@ export const FilterMenu = observer(() => {
   ] = useSearchParams()
 
   useEffect(() => {
-    if (employeesState.filterTerm === `blank` && !employeesState.isBlankEmployees) {
-      params.delete(`filter`)
-      setParams(params, {
-        replace: true,
-      })
-    }
-  }, [
-    employeesState.isBlankEmployees,
-    employeesState.filterTerm,
-  ])
-
-  useEffect(() => {
-    employeesState.updateFilterTerm(params.get(`filter`) || `current`)
+    employeesState.updateFilterTerm({
+      newFilterTerm: params.get(`filter`) || `current`,
+    })
   }, [
     employeesState.filterTerm,
   ])
@@ -58,7 +48,6 @@ export const FilterMenu = observer(() => {
           type="button"
           className={clsx(`filter-menu__button`, {
             'filter-menu__button--active': item.id === employeesState.filterTerm,
-            'is-hidden': !employeesState.isBlankEmployees && item.id === `blank`,
           })}
           key={item.id}
           id={item.id}
@@ -87,6 +76,8 @@ export const FilterMenu = observer(() => {
       })
     }
 
-    employeesState.updateFilterTerm(event.currentTarget.id)
+    employeesState.updateFilterTerm({
+      newFilterTerm: event.currentTarget.id,
+    })
   }
 })

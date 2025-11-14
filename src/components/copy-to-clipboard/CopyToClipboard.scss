@@ -1,0 +1,42 @@
+@use "../../styles/variables" as *;
+@use "../../styles/fonts-mixin" as *;
+
+.copy-to-clipboard {
+  position: relative;
+  display: inline-block;
+
+  &__text {
+    color: inherit;
+    cursor: pointer;
+  }
+
+  &__tooltip {
+    @include caption;
+
+    position: absolute;
+    left: 50%;
+    top: 28px;
+    border: 1px solid $color-border-primary;
+    border-radius: 8px;
+    padding: 4px 8px;
+    width: max-content;
+    height: 30px;
+    white-space: nowrap;
+    text-align: center;
+    color: $color-text-contrast;
+    background-color: $color-border-primary;
+    transform: translateX(-50%);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: calc(50% - 8px);
+      top: -8px;
+      width: 16px;
+      height: 16px;
+      background-color: $color-border-primary;
+      transform: rotate(-45deg);
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
+    }
+  }
+}
