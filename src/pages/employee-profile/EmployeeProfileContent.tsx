@@ -140,7 +140,7 @@ export const EmployeeProfileContent= observer(({
                 <div className="employee-profile__field">
                   <Input
                     type='email'
-                    label='Personal Email*'
+                    label='Personal Email'
                     placeholder='Enter the personal email'
                     value={personalEmail || ``}
                     onChange={(e) => handleFormChange({

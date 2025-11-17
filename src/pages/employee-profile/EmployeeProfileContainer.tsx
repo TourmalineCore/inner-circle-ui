@@ -6,6 +6,7 @@ import { EmployeeProfileStateContext } from "./state/EmployeeProfileStateContext
 
 import { EmployeeProfileContent } from "./EmployeeProfileContent"
 import { EmployeeProfile } from "../../types/employee"
+import { toast } from "react-toastify"
 
 export const EmployeeProfileContainer = observer(() => {
   const employeeProfileState = useContext(EmployeeProfileStateContext)
@@ -63,7 +64,14 @@ export const EmployeeProfileContainer = observer(() => {
     try {
       await api.put<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
       
-      loadEmployeeProfileAsync()
+      toast.success(`Profile has been successfully updated.`, {
+        toastId: `employee-profile`,
+        position: `top-right`,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
     }
     finally {
       employeeProfileState.resetIsTriedToSubmit()

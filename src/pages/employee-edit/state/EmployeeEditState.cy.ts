@@ -186,7 +186,7 @@ function validationTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        birthDate: `26/09/2000`,
+        birthDate: `2000-09-26`,
         specializations: [
           Specialization.FRONTEND,
         ],
@@ -233,7 +233,7 @@ function validationTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        birthDate: `26/09/2000`,
+        birthDate: `2000-09-26`,
       },
     })
     
@@ -281,7 +281,7 @@ function validationTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        birthDate: `26/09/2000`,
+        birthDate: `2000-09-26`,
         specializations: [
           Specialization.FRONTEND,
         ],
@@ -332,7 +332,7 @@ function validationTests() {
   `, () => {
     employeeEditState.setEmployee({
       employee: {
-        birthDate: `26/09/200`,
+        birthDate: `200-09-26`,
       },
     })
     

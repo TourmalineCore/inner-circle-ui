@@ -12,7 +12,7 @@ export const EMPLOYEE: EditedEmployee = {
   specializations: [
     Specialization.FRONTEND,
   ],
-  birthDate: `20/09/2005`,
+  birthDate: `2005-09-26`,
   workerTime: `Sometimes`,
   personalEmail: `personalTest@test.ru`,
   phone: `9999999999`,
@@ -116,7 +116,6 @@ function EditEmployeeTests() {
       .should(`deep.equal`, {
         ...EMPLOYEE,
         phone: `+7${EMPLOYEE.phone}`,
-        birthDate: `2005-09-20`,
       })
   })
 }
