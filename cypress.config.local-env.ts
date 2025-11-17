@@ -8,7 +8,6 @@ export default defineConfig({
       API_ROOT: `/api`,
       API_ROOT_AUTH: `/api/auth`,
       LINK_TO_SALARY_SERVICE: `/employees`,
-      VITE_BASE_URL: `http://localhost:30090`,
       USER_LOGIN: `ceo@tourmalinecore.com`,
       USER_PASSWORD: `cEoPa$$wo1d`,
     },
