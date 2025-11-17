@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { LINK_TO_SALARY_SERVICE } from "../../common/config/config"
+import { LINK_TO_EMPLOYEES_SERVICE } from "../../common/config/config"
 import { api } from "../../common/api"
 import { useContext, useEffect } from "react"
 import { EmployeeProfileStateContext } from "./state/EmployeeProfileStateContext"
@@ -22,7 +22,7 @@ export const EmployeeProfileContainer = observer(() => {
   async function loadEmployeeProfileAsync() {
     const {
       data, 
-    } = await api.get<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/get-profile`)
+    } = await api.get<EmployeeProfile>(`${LINK_TO_EMPLOYEES_SERVICE}employees/get-profile`)
       
     employeeProfileState.initialize({
       loadedEmployeeProfile: data,
@@ -62,7 +62,7 @@ export const EmployeeProfileContainer = observer(() => {
     }
 
     try {
-      await api.put<EmployeeProfile>(`${LINK_TO_SALARY_SERVICE}employees/update-profile`, updateEmployee)
+      await api.put<EmployeeProfile>(`${LINK_TO_EMPLOYEES_SERVICE}employees/update-profile`, updateEmployee)
       
       toast.success(`Profile has been successfully updated.`, {
         toastId: `employee-profile`,
