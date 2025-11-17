@@ -43,7 +43,11 @@ export const EmployeesContent = observer(() => {
       }
         
       <div className="employees__actions">
-        <SearchBar />
+        <SearchBar 
+          onChange={(value) => employeesState.updateSearchTerm({
+            newSearchTerm: value,
+          })}
+        />
 
         <RadioSelect
           value={employeesState.sortTerm} 

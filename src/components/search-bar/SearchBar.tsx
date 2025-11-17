@@ -2,13 +2,11 @@ import './SearchBar.scss'
 
 import SearchIcon from '../../assets/icons/icon-search.svg?react'
 
-import { observer } from 'mobx-react-lite'
-import { ChangeEvent, useContext } from 'react'
-import { EmployeesStateContext } from '../../pages/employees/state/EmployeesStateContext'
-
-export const SearchBar = observer(() => {
-  const employeesState = useContext(EmployeesStateContext)
-
+export const SearchBar = ({
+  onChange,
+}: {
+  onChange: (value: string) => unknown,
+}) => {
   return (
     <div className="search-bar">
       <SearchIcon />
@@ -17,14 +15,8 @@ export const SearchBar = observer(() => {
         className="search-bar__input"
         type="text"
         data-listener-added_4a42d730="true"
-        onChange={searchHandler}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   )
-
-  function searchHandler(event: ChangeEvent<HTMLInputElement>) {
-    employeesState.updateSearchTerm({
-      newSearchTerm: event.target.value,
-    })
-  }
-})
+}
