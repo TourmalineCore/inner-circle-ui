@@ -57,6 +57,10 @@
 
     padding-bottom: 4px;
     color: $color-text-primary;
+
+    @include tablet {
+      padding-right: 100px
+    }
   }
 
   &__specializations {
