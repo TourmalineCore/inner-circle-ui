@@ -26,42 +26,29 @@ describe(`EmployeeItem`, () => {
   it(`
   GIVEN employees page 
   WHEN user click to the phone
-  THEN render massage "Copied!"
+  THEN render message "Copied"
   `, () => {
+    // Mock the navigator.clipboard.writeText method
+    cy.window()
+      .then((win) => {
+        cy.stub(win.navigator.clipboard, `writeText`)
+          .resolves()
+      })
+
     mountComponent({
       employee: initialData.employees,
     })
-
-    // disable prompt that blocks the test
-    cy
-      .window()
-      .then((win) => {
-        cy
-          .stub(win, `prompt`)
-          .returns(``)
-      })
-
-    // spy on the execCommand method, which controls text editing operations,
-    // and wait for the 'copy' command of this method to be called during the test
-    cy
-      .document()
-      .then((doc) => {
-        cy
-          .spy(doc, `execCommand`)
-          .as(`execCommand`)
-      })
 
     cy
       .getByData(`employee-phone-number`)
       .click()
 
-    // check call of copy command
-    cy
-      .get(`@execCommand`)
-      .should(`have.been.calledWith`, `copy`)
+    // Check that navigator.clipboard.writeText was called with the correct text
+    cy.window()
+      .its(`navigator.clipboard.writeText`)
+      .should(`have.been.calledWith`, `+79999999999`)
 
-    cy
-      .getByData(`copy-notification`)
+    cy.contains(`.copy-to-clipboard__tooltip`, `Copied`)
       .should(`exist`)
   })
 })

@@ -1,6 +1,4 @@
 import { MemoryRouter } from "react-router-dom"
-import { MOCK_TOKEN } from "../../common/constant"
-import { authService } from "../../common/authService"
 import { EmployeesStateContext } from "./state/EmployeesStateContext"
 import { EmployeesContent } from "./EmployeesContent"
 import { EmployeesState } from "./state/EmployeesState"
@@ -115,21 +113,15 @@ function mountComponent() {
     ],
   })
 
-  const mockAuthContext = [
-    MOCK_TOKEN,
-  ]
-
   cy
     .mount(
       <MemoryRouter 
         initialEntries={[
           `/employees`,
         ]}>
-        <authService.AuthContext.Provider value={mockAuthContext}>
-          <EmployeesStateContext.Provider value={employeesState}>
-            <EmployeesContent />
-          </EmployeesStateContext.Provider>
-        </authService.AuthContext.Provider>,
+        <EmployeesStateContext.Provider value={employeesState}>
+          <EmployeesContent />
+        </EmployeesStateContext.Provider>
       </MemoryRouter>,
     )
 }

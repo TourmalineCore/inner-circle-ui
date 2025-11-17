@@ -99,7 +99,10 @@ export const EmployeeItem = observer(({
               {workerTime || EMPTY_VALUE}
             </div>
 
-            <div className="employee-item__detail-item">
+            <div
+              className="employee-item__detail-item"
+              data-cy={`employee-phone-number`}
+            >
               <IconPhone />
               {
                 phone
