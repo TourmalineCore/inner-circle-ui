@@ -17,8 +17,12 @@ export const EmployeesContent = observer(() => {
   
   const employees = employeesState.allEmployees
 
+  const isHasViewSalaryAndDocumentsDataPermission = hasAccessPermission({
+    permission: `ViewSalaryAndDocumentsData`, 
+  })
+
   useEffect(() => {
-    if (employeesState.isBlankEmployees) {
+    if (employeesState.isBlankEmployees && isHasViewSalaryAndDocumentsDataPermission) {
       toast.warning(`You have blank employees. Please fill in their profiles.`, {
         toastId: `blank-employees`,
         position: `top-right`,
@@ -37,9 +41,7 @@ export const EmployeesContent = observer(() => {
       data-cy="employees"
     >
       {
-        hasAccessPermission({
-          permission: `ViewSalaryAndDocumentsData`, 
-        }) && <FilterMenu />
+        isHasViewSalaryAndDocumentsDataPermission && <FilterMenu />
       }
         
       <div className="employees__actions">
