@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import { EditedEmployee } from "../../../types/employee"
 import isEqual from "lodash.isequal"
-import moment from "moment"
 
 export const EMPTY_EMPLOYEE: EditedEmployee = {
   employeeId: 0,
@@ -45,9 +44,9 @@ export class EmployeeEditState {
   get isBirthDateValid() {
     const date = this._employee.birthDate
      
-    // validates that the date format is 99/99/9999
+    // validates that the date format is 9999-99-99
     // and that the day is no more than the 31st, and the month is the 12th
-    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
+    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
 
     if (!dateRegex.test(date!)) return false
   
@@ -86,10 +85,6 @@ export class EmployeeEditState {
   }) {
     const updatedEmployee = {
       ...loadedEmployee,
-      birthDate: loadedEmployee.birthDate
-        ? moment(loadedEmployee.birthDate)
-          .format(`DD/MM/YYYY`)
-        : ``,
     }
 
     this._employee = updatedEmployee

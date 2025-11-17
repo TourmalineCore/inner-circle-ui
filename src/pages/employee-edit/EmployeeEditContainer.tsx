@@ -43,25 +43,8 @@ export const EmployeeEditContainer = observer(() => {
       return
     }
         
-    const {
-      employee,
-    } = employeeEditState
-
-    const [
-      day,
-      month,
-      year,
-    ] = employee.birthDate!.split(`/`)
-
-    const formattedBirthDate = `${year}-${month}-${day}`
-
-    const updateEmployee = {
-      ...employee,
-      birthDate: formattedBirthDate,
-    }
-
     try {
-      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, updateEmployee)
+      await api.put<EditedEmployee>(`${LINK_TO_SALARY_SERVICE}employees/update`, employeeEditState.employee)
         
       window.location.href =`/employees`
     }

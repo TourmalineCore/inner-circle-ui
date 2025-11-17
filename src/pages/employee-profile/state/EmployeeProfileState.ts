@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx"
 import { EmployeeProfile } from "../../../types/employee"
-import moment from "moment"
 
 export const EMPTY_EMPLOYEE_PROFILE: EmployeeProfile = {
   id: 0,
@@ -69,10 +68,6 @@ export class EmployeeProfileState {
   }) {
     this._employeeProfile = {
       ...loadedEmployeeProfile,
-      birthDate: loadedEmployeeProfile.birthDate
-        ? moment(loadedEmployeeProfile.birthDate)
-          .format(`DD/MM/YYYY`)
-        : ``,
     }
   }
 

@@ -128,8 +128,8 @@ export const EmployeeEditContent = observer(({
                 <div className="employee-edit__field employee-edit__field--birth-date">
                   <Input
                     label='Birth Date*'
-                    placeholder="DD/MM/YYYY"
-                    mask='99/99/9999'
+                    placeholder="YYYY-MM-DD"
+                    mask='9999-99-99'
                     value={birthDate || ``}
                     isInvalid={isBirthDateError}
                     onChange={(e) => handleFormChange({
@@ -196,7 +196,7 @@ export const EmployeeEditContent = observer(({
                 <div className="employee-edit__field">
                   <Input
                     type='email'
-                    label='Personal Email*'
+                    label='Personal Email'
                     placeholder='Enter the personal email'
                     value={personalEmail || ``}
                     onChange={(e) => handleFormChange({
