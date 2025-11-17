@@ -1,27 +1,36 @@
-import { EmployeesState } from '../../pages/employees/state/EmployeesState'
-import { EmployeesStateContext } from '../../pages/employees/state/EmployeesStateContext'
 import { CopyToClipboard } from './CopyToClipboard'
 
 describe(`CopyToClipboard`, () => {
   it(`
-  GIVEN any page 
-  WHEN must be text to be copied
-  THEN render text to be copied
+  GIVEN CopyToClipboard component
+  WHEN user click to the CopyToClipboard
+  THEN render message "Copied"
   `, () => {
     mountComponent()
 
-    cy.getByData(`copy-item`)
+    // Mock the navigator.clipboard.writeText method
+    cy.window()
+      .then((win) => {
+        cy.stub(win.navigator.clipboard, `writeText`)
+          .resolves()
+      })
+
+    cy.getByData(`copy-to-clipboard`)
+      .click()
+
+    // Check that navigator.clipboard.writeText was called with the correct text
+    cy.window()
+      .its(`navigator.clipboard.writeText`)
+      .should(`have.been.calledWith`, `test`)
+
+    cy.contains(`.copy-to-clipboard__tooltip`, `Copied`)
       .should(`exist`)
   })
 })
 
 function mountComponent() {
-  const employeesState = new EmployeesState()
-
   cy
     .mount(
-      <EmployeesStateContext.Provider value={employeesState}>
-        <CopyToClipboard text="test" />
-      </EmployeesStateContext.Provider>,
+      <CopyToClipboard text="test" />,
     )
 }

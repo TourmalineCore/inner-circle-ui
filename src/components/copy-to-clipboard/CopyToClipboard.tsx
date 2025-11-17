@@ -37,6 +37,7 @@ export const CopyToClipboard = observer(({
       className="copy-to-clipboard"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      data-cy={`copy-to-clipboard`}
     >
       <div
         className={`copy-to-clipboard__text ${className}`}
