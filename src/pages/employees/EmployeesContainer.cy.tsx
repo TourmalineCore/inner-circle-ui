@@ -5,6 +5,7 @@ import { EmployeesContainer } from "./EmployeesContainer"
 import { EmployeesStateContext } from "./state/EmployeesStateContext"
 import { EmployeesState } from "./state/EmployeesState"
 import { authService } from "../../common/authService"
+import { MOCK_TOKEN } from "../../common/constants/mockToken"
 
 const EMPLOYEES: Employee[] = [
   {
@@ -86,7 +87,7 @@ function mountComponent() {
   const employeesState = new EmployeesState()
 
   const mockAuthContext = [
-    `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lSWRlbnRpZmllciI6Im1haWxAbWFpbC5ydSIsImNvcnBvcmF0ZUVtYWlsIjoibWFpbEBtYWlsLnJ1IiwidGVuYW50SWQiOiIxIiwiYWNjb3VudElkIjoiMyIsImVtcGxveWVlSWQiOiIyIiwicGVybWlzc2lvbnMiOlsiVmlld0NvbnRhY3RzIiwiVmlld1NhbGFyeUFuZERvY3VtZW50c0RhdGEiXX0.1e0lCH5Omfo2W23gUtkuw3PZeXptn55bFC886Q0rwJk`,
+    MOCK_TOKEN,
   ]
 
   cy
