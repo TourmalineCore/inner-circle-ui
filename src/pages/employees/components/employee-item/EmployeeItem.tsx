@@ -101,7 +101,6 @@ export const EmployeeItem = observer(({
 
             <div
               className="employee-item__detail-item"
-              data-cy={`employee-phone-number`}
             >
               <IconPhone />
               {
