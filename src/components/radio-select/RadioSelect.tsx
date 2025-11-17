@@ -2,23 +2,25 @@ import './RadioSelect.scss'
 
 import IconArrow from '../../assets/icons/icon-arrow.svg?react'
 
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
-import { EmployeesStateContext } from '../../pages/employees/state/EmployeesStateContext'
-import { observer } from 'mobx-react-lite'
 
 type Option = {
   value: string,
   label: string,
 }
 
-export const RadioSelect = observer(({
+export const RadioSelect = ({
+  value,
   options,
+  onChange,
 }: {
+  value: Option['value'],
   options: Option[],
-}) => {
-  const employeesState = useContext(EmployeesStateContext)
-  
+  onChange: (
+    optionValue: Option['value']
+  ) => unknown,
+}) => {  
   const [
     isOpen,
     setIsOpen,
@@ -42,7 +44,7 @@ export const RadioSelect = observer(({
     }
   }, [])
 
-  const selectedOption = options.find((option) => option.value === employeesState.sortTerm)
+  const selectedOption = options.find((option) => option.value === value)
 
   return (
     <div
@@ -83,12 +85,7 @@ export const RadioSelect = observer(({
                 type="radio"
                 value={optionValue}
                 checked={selectedOption?.value === optionValue}
-                onChange={() => {
-                  employeesState.updateSortTerm({
-                    newSortTerm: optionValue,
-                  })
-                  setIsOpen(false)
-                }}
+                onChange={() => handleOptionChange(optionValue)}
               />
               {optionLabel}
             </label>
@@ -98,7 +95,12 @@ export const RadioSelect = observer(({
     </div>
   )
 
+  function handleOptionChange(optionValue: string) {
+    onChange(optionValue)
+    handleOpenDropdown()
+  }
+
   function handleOpenDropdown() {
     setIsOpen(!isOpen)
   }
-})
+}
