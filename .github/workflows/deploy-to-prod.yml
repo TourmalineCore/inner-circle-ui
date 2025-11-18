@@ -37,7 +37,7 @@ jobs:
             apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }} 
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
-            --state-values-set extraConfigMapEnvVars.LINK_TO_EMPLOYEES_SERVICE=${{ secrets.LINK_TO_EMPLOYEES_SERVICE }}
+            --state-values-set extraConfigMapEnvVars.LINK_TO_EMPLOYEES_SERVICE=${{ secrets.DEV_LINK_TO_EMPLOYEES_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT=${{ secrets.DEV_LINK_TO_API_SERVICE }}
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH=${{ secrets.DEV_LINK_TO_API_ROOT_AUTH }}
           helmfile-auto-init: "false"    
