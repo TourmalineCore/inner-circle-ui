@@ -7,7 +7,7 @@ export default defineConfig({
     env: {
       API_ROOT: `/api`,
       API_ROOT_AUTH: `/api/auth`,
-      LINK_TO_SALARY_SERVICE: `/employees`,
+      LINK_TO_EMPLOYEES_SERVICE: `/employees`,
       USER_LOGIN: `ceo@tourmalinecore.com`,
       USER_PASSWORD: `cEoPa$$wo1d`,
     },

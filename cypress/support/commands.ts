@@ -69,7 +69,7 @@ Cypress.Commands.add(`setDefaultEmployeeData`, () => {
   cy
     .request({
       method: `PUT`,
-      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_SALARY_SERVICE`)}/employees/update`,
+      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_EMPLOYEES_SERVICE`)}/employees/update`,
       headers: {
         Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
       },
@@ -92,7 +92,7 @@ Cypress.Commands.add(`setDefaultEmployeeProfile`, () => {
   cy
     .request({
       method: `PUT`,
-      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_SALARY_SERVICE`)}/employees/update-profile`,
+      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_EMPLOYEES_SERVICE`)}/employees/update-profile`,
       headers: {
         Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
       },
