@@ -111,7 +111,7 @@ jobs:
             # we need to override "latest" ref of service chart inside local-env to run tests against the current commit service chart version and not against latest from master
             sed -i "0,/git+https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git?ref=.*/s//git+https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git?ref=${{ github.sha }}/" deploy/helmfile.yaml
             
-            sed -i "0,/git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values-local-env.yaml?ref=.*/s//git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values-local-env.yaml?ref=${{ github.sha }}/" deploy/helmfile.yaml
+            sed -i "0,/git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values.yaml?ref=.*/s//git::https:\/\/github.com\/TourmalineCore\/${{ github.event.repository.name }}.git@\/ci\/values.yaml?ref=${{ github.sha }}/" deploy/helmfile.yaml
 
             kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
             # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
