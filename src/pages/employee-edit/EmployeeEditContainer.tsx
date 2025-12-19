@@ -3,7 +3,6 @@ import { useContext, useEffect } from "react"
 import { EmployeeEditStateContext } from "./state/EmployeeEditStateContext"
 import { EmployeeEditContent } from "./EmployeeEditContent"
 import { api } from "../../common/api"
-import { LINK_TO_EMPLOYEES_SERVICE } from "../../common/config/config"
 import { useSearchParams } from "react-router-dom"
 import { EditedEmployee } from "../../types/employee"
 import { toast } from "react-toastify"
@@ -27,7 +26,7 @@ export const EmployeeEditContainer = observer(() => {
   async function loadEmployeeAsync() {
     const {
       data, 
-    } = await api.get<EditedEmployee>(`${LINK_TO_EMPLOYEES_SERVICE}employees/${id}`)
+    } = await api.get<EditedEmployee>(`/employees/${id}`)
     
     employeeEditState.initialize({
       loadedEmployee: data,
@@ -44,7 +43,7 @@ export const EmployeeEditContainer = observer(() => {
     }
         
     try {
-      await api.put<EditedEmployee>(`${LINK_TO_EMPLOYEES_SERVICE}employees/update`, employeeEditState.employee)
+      await api.put<EditedEmployee>(`/employees/update`, employeeEditState.employee)
         
       window.location.href =`/employees`
     }

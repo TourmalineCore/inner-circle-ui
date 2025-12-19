@@ -17,6 +17,5 @@ releases:
       - ingress:
           hostname: "{{ .StateValues.ingress.hostname }}"
       - extraConfigMapEnvVars:
-          API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"
-          API_ROOT_AUTH: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_AUTH }}"
-          LINK_TO_EMPLOYEES_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_EMPLOYEES_SERVICE }}"
+          API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_URL }}"
+          AUTH_API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.AUTH_API_ROOT_URL }}"

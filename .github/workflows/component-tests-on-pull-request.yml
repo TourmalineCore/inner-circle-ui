@@ -1,0 +1,32 @@
+name: Component Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  install-cypress:
+    uses: ./.github/workflows/.reusable-install-cypress.yml
+  
+  component_test:
+    runs-on: ubuntu-24.04 
+    container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
+    strategy:
+      fail-fast: false
+    needs: install-cypress
+    steps:
+      - name: Checkout ui
+        uses: actions/checkout@v4
+
+      - name: Download the dist folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Cypress run component tests
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          start: npm start
+          browser: electron

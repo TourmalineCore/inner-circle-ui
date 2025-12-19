@@ -1,3 +1,2 @@
-API_ROOT:http://localhost:5030/api
-API_ROOT_AUTH:http://localhost:5002/api/auth
-LINK_TO_EMPLOYEES_SERVICE:/
+API_ROOT_URL:http://localhost:5030/api/employees
+AUTH_API_ROOT_URL:http://localhost:5002/api/auth

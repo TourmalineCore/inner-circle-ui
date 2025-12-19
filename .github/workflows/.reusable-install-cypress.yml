@@ -1,0 +1,28 @@
+name: Install cypress
+
+on:
+  # to allow to wait for a docker image to be published to proceed in another workflow
+  workflow_call:
+
+jobs:
+  install-cypress:
+    runs-on: ubuntu-24.04
+    container:
+      image: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+          build: npm run build
+
+      - name: Save dist folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          if-no-files-found: error
+          path: dist
+ 

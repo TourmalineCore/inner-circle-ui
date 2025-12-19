@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite"
 import { EmployeesContent } from "./EmployeesContent"
-import { LINK_TO_EMPLOYEES_SERVICE } from "../../common/config/config"
 import { api } from "../../common/api"
 import { useContext, useEffect } from "react"
 import { EmployeesStateContext } from "./state/EmployeesStateContext"
@@ -21,7 +20,7 @@ export const EmployeesContainer = observer(() => {
     try {
       const {
         data, 
-      } = await api.get(`${LINK_TO_EMPLOYEES_SERVICE}employees/all `)
+      } = await api.get(`/employees/all `)
 
       employeesState.initialize({
         employees: data,
