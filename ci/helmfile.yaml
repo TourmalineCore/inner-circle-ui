@@ -3,9 +3,9 @@ repositories:
     url: https://charts.bitnami.com/bitnami
 
 releases:
-  - name: employees-ui
+  - name: ui
     labels:
-      app: employees-ui
+      app: ui
     wait: true
     chart: bitnami/nginx
     # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
