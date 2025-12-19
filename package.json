@@ -4,8 +4,7 @@
   "private": true,
   "homepage": "/employees",
   "scripts": {
-    "start": "npm run create-config:dev && vite --host",
-    "start:local": "npm run create-config:local && vite --host",
+    "start": "npm run create-config:local && vite --host",
     "start-local-env": "vite --host --mode local-env",
     "build": "tsc && vite build",
     "docker:build": "docker build -t inner-circle-ui .",
