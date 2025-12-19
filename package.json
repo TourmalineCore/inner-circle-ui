@@ -14,7 +14,6 @@
     "lint-eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint-ts": "tsc --noEmit",
     "preview": "vite preview",
-    "create-config:dev": "node local-config-builder dev",
     "create-config:local": "node local-config-builder local",
     "test": "run-s cypress:run:component",
     "cypress:open": "cypress open",
