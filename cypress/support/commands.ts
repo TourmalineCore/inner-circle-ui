@@ -29,7 +29,7 @@ export { }
 Cypress.Commands.add(`authByApi`, () => {
   let accessToken: any
   const authService = createAuthService({
-    authApiRoot: Cypress.env(`API_ROOT_AUTH`),
+    authApiRoot: Cypress.env(`AUTH_API_ROOT_URL`),
     authType: `ls`,
     tokenAccessor: `accessToken`,
     refreshTokenAccessor: `refreshToken`,
@@ -40,7 +40,7 @@ Cypress.Commands.add(`authByApi`, () => {
   cy
     .request({
       method: `POST`,
-      url: `${Cypress.env(`API_ROOT_AUTH`)}/login`,
+      url: `${Cypress.env(`AUTH_API_ROOT_URL`)}/login`,
       body: {
         login: Cypress.env(`USER_LOGIN`),
         password: Cypress.env(`USER_PASSWORD`),
@@ -69,7 +69,7 @@ Cypress.Commands.add(`setDefaultEmployeeData`, () => {
   cy
     .request({
       method: `PUT`,
-      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_EMPLOYEES_SERVICE`)}/employees/update`,
+      url: `${Cypress.env(`API_ROOT_URL`)}/employees/update`,
       headers: {
         Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
       },
@@ -92,7 +92,7 @@ Cypress.Commands.add(`setDefaultEmployeeProfile`, () => {
   cy
     .request({
       method: `PUT`,
-      url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_EMPLOYEES_SERVICE`)}/employees/update-profile`,
+      url: `${Cypress.env(`API_ROOT_URL`)}/employees/update-profile`,
       headers: {
         Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
       },

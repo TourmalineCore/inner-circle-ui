@@ -18,7 +18,7 @@ do
   value=$(printf '%s\n' "${!line}")
   
   # Append configuration property to JS file
-  echo "  $varname: $value," >> ./env-config.js
+  echo "  $varname: \"$value\"," >> ./env-config.js
 done < .env-vars
 
 echo "}" >> ./env-config.js

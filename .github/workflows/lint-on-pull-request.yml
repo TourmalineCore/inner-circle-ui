@@ -1,0 +1,32 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22.18.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.18.0
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Check linting
+        run: npm run lint
+        continue-on-error: false

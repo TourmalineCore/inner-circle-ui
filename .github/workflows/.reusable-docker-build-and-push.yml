@@ -1,0 +1,11 @@
+name: Publish Docker image
+
+on:
+  # to allow to wait for a docker image to be published to proceed in another workflow
+  workflow_call:
+
+jobs:
+  push-to-registry:
+    uses: TourmalineCore/inner-circle-github-workflows/.github/workflows/.reusable-docker-build-and-push.yml@master
+    # without this it cannot login to the registry
+    secrets: inherit

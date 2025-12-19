@@ -1,8 +1,8 @@
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
-import { API_ROOT_AUTH } from './config/config'
+import { AUTH_API_ROOT_URL } from './config/config'
 
 export const authService = createAuthService({
-  authApiRoot: API_ROOT_AUTH,
+  authApiRoot: AUTH_API_ROOT_URL,
   authType: `ls`,
   tokenAccessor: `accessToken`,
   refreshTokenAccessor: `refreshToken`,
