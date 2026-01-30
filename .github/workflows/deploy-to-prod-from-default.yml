@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/**
 
 jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
