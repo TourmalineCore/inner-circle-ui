@@ -32,13 +32,10 @@ jobs:
             --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }} > /dev/null 2>&1
 
   e2e-test-prod:
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
+    container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
     needs: [deploy-to-prod]
     steps:
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '22.18.0'
-
       - name: Check out the repo
         uses: actions/checkout@v4
 
@@ -53,7 +50,7 @@ jobs:
         run: |
           npx cypress run \
           --e2e \
-          --browser electron > ~/latest-employees-ui-e2e.log 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
+          --browser electron > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
         env:
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
           API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_EMPLOYEES_API_ROOT_URL }}
