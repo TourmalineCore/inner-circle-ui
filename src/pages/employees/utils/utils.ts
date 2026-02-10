@@ -38,7 +38,7 @@ export function getFiltering(employee: Employee, filterTerm: string) {
   if (filterTerm === `current`) {
     return employee.isCurrentEmployee
   } if (filterTerm === `fired`) {
-    return !employee.isCurrentEmployee
+    return !employee.isCurrentEmployee && !employee.isBlankEmployee
   } if (filterTerm === `blank`) {
     return employee.isBlankEmployee
   }
