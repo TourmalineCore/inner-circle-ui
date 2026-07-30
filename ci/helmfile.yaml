@@ -19,3 +19,4 @@ releases:
       - extraConfigMapEnvVars:
           API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_URL }}"
           AUTH_API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.AUTH_API_ROOT_URL }}"
+          DISABLE_ACCESS_TOKEN_REFRESH: "false"
