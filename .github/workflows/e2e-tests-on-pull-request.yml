@@ -23,7 +23,7 @@ jobs:
       - push-to-registry
     steps:
       - name: Checkout local-env
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: TourmalineCore/inner-circle-local-env
 
@@ -51,17 +51,17 @@ jobs:
           push: never
 
       - name: Checkout ui
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Cypress run e2e tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           wait-on: "http://localhost:30090"
           browser: electron
           config-file: cypress.config.local-env.ts
 
       - name: Upload videos of tests failed
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: cypress-videos

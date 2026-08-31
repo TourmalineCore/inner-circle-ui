@@ -1,4 +1,4 @@
-FROM node:22.18-alpine3.21 AS build
+FROM node:24.20.0-alpine3.23 AS build
 
 COPY package.json .
 COPY package-lock.json .
