@@ -20,7 +20,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Deploy
         env:
@@ -37,17 +37,17 @@ jobs:
 
   e2e-test-prod:
     runs-on: ubuntu-24.04
-    container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
+    container: cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-154.0.1-edge-151.0.4129.107-1
     needs: [deploy-to-prod]
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run Cypress E2E Tests
-        # We run the tests through the command, and not using cypress-io/github-action@v6, because this is the only way to hide the logs that might contain secrets.
+        # We run the tests through the command, and not using cypress-io/github-action@v7, because this is the only way to hide the logs that might contain secrets.
 
         # Learn more about '> /dev/null 2>&1': https://stackoverflow.com/a/42919998
         # In essence it merges output and error streams and doesn't show errors in the terminal to avoid leakage of secrets in the pipeline
