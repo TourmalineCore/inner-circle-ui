@@ -29,15 +29,19 @@ jobs:
           INNER_CIRCLE_PROD_EMPLOYEES_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_EMPLOYEES_API_ROOT_URL }}
           INNER_CIRCLE_PROD_AUTH_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
         run: |
-            helmfile cache cleanup && helmfile apply --suppress-diff --namespace "$INNER_CIRCLE_PROD_NAMESPACE"  -f ci/helmfile.yaml \
+            helmfile cache cleanup && helmfile apply --namespace "$INNER_CIRCLE_PROD_NAMESPACE"  -f ci/helmfile.yaml \
             --state-values-set image.tag="sha-${{ github.sha }}" \
             --state-values-set ingress.hostname="$INNER_CIRCLE_PROD_HOSTNAME" \
             --state-values-set extraConfigMapEnvVars.API_ROOT_URL="$INNER_CIRCLE_PROD_EMPLOYEES_API_ROOT_URL" \
-            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="$INNER_CIRCLE_PROD_AUTH_API_ROOT_URL" > /dev/null 2>&1
+            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="$INNER_CIRCLE_PROD_AUTH_API_ROOT_URL" > "/var/log/inner-circle/deploy/$(date +%F)-${{ github.event.repository.name }}-run-${{ github.run_id }}-job-${{ job.check_run_id }}.log" 2>&1
+            # on the last line where we redirect output we don't add a line break for convenience because it is easy to make it wrong having an extra space after \ symbol which leads to exposure of logs to the public pipeline logs instead of the needed private file on a runner
 
   e2e-test-prod:
-    runs-on: ubuntu-24.04
-    container: cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-154.0.1-edge-151.0.4129.107-1
+    runs-on: self-hosted
+    container:
+      image: cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-154.0.1-edge-151.0.4129.107-1
+      volumes: 
+        - /var/log/inner-circle:/var/log/inner-circle
     needs: [deploy-to-prod]
     steps:
       - name: Check out the repo
@@ -54,7 +58,7 @@ jobs:
         run: |
           npx cypress run \
           --e2e \
-          --browser electron > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
+          --browser electron > "/var/log/inner-circle/e2e/$(date +%F)-${{ github.event.repository.name }}-run-${{ github.run_id }}-job-${{ job.check_run_id }}.log" 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
         env:
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
           API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_EMPLOYEES_API_ROOT_URL }}
