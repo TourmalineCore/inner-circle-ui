@@ -5,8 +5,12 @@
 	// image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
 	"image": "cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-154.0.1-edge-151.0.4129.107-1",
 	"features": {
-		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {},
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.6.0": {}
+		"ghcr.io/devcontainers/features/desktop-lite:1.2.10": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.10.1": {
+			// by default this feature installs Moby, the open-source build of the Docker CLI, and Moby has no packages for Debian 13 (trixie),
+			// which this image is built on. So we install the Docker CE client instead
+			"moby": false
+		}
 	},
 	"forwardPorts": [
 		6080,
