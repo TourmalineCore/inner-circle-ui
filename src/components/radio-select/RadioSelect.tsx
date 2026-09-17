@@ -50,6 +50,7 @@ export const RadioSelect = ({
     <div
       className='radio-select'
       ref={radioSelectRef}
+      data-cy={`radio-select`}
     >
       <div 
         className={clsx(`radio-select__control`, {
