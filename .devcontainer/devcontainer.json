@@ -7,7 +7,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/desktop-lite:1.2.10": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.10.1": {
-			// https://github.com/devcontainers/features/issues/1466#1
+			// by default this feature installs Moby, the open-source build of the Docker CLI, and Moby has no packages for Debian 13 (trixie),
+			// which this image is built on. So we install the Docker CE client instead
 			"moby": false
 		}
 	},
