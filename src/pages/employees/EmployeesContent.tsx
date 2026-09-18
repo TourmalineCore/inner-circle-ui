@@ -56,11 +56,11 @@ export const EmployeesContent = observer(() => {
           options={[
             {
               value: `asc`,
-              label: `Sort by Surname (А to Я)`, 
+              label: `Sort by Surname (A–Z)`, 
             },
             {
               value: `desc`,
-              label: `Sort by Surname (Я to А)`, 
+              label: `Sort by Surname (Z–A)`, 
             },
           ]}
           onChange={(optionValue) => {
