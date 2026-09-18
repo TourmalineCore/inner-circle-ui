@@ -23,12 +23,12 @@ function sortBySurnameTests() {
     cy.getByData(`radio-select`)
       .find(`input[type="radio"][value="asc"]`)
       .closest(`label`)
-      .should(`contain.text`, `Sort by Surname A–Z`)
+      .should(`contain.text`, `Sort by Surname (A–Z)`)
 
     cy.getByData(`radio-select`)
       .find(`input[type="radio"][value="desc"]`)
       .closest(`label`)
-      .should(`contain.text`, `Sort by Surname Z–A`)
+      .should(`contain.text`, `Sort by Surname (Z–A)`)
   },
   )
 }
